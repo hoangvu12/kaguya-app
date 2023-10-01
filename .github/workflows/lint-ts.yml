@@ -1,0 +1,33 @@
+name: Lint TS (eslint, prettier)
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint:
+    name: Lint TS (eslint, prettier)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name : 📦 Checkout project repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name : 📦 Setup Node + PNPM + install deps
+        uses: ./.github/actions/setup-node-pnpm-install
+
+      - name: 🏃‍♂️ Run ESLint PR
+        if: github.event_name == 'pull_request'
+        uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          eslint_flags: '. --ext .js,.jsx,.ts,.tsx'
+
+      - name: 🏃‍♂️ Run ESLint PR
+        if: github.event_name != 'pull_request'
+        run: pnpm run lint

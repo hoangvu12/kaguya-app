@@ -1,0 +1,1335 @@
+{
+  "id": 124410,
+  "idMal": 42963,
+  "title": {
+    "romaji": "Kanojo, Okarishimasu 2nd Season",
+    "english": "Rent-a-Girlfriend Season 2",
+    "native": "彼女、お借りします 第2期",
+    "userPreferred": "Kanojo, Okarishimasu 2nd Season"
+  },
+  "type": "ANIME",
+  "format": "TV",
+  "status": "FINISHED",
+  "description": "The second season of <i>Kanojo, Okarishimasu.</i> <br><br>\nA hopeless college student, Kazuya Kinoshita, meets a graceful rental girlfriend, Chizuru Ichinose, and ends up introducing her as \nhis girlfriend to his family and friends. Time goes on with Kazuya unable to tell the truth, as he's surrounded by devilish ex-girlfriend Mami Nanami, who keeps coming back to tempt him for some reason, hyper-aggressive provisional girlfriend Ruka Sarashina, who doesn't know how to take no for an answer, and super shy but diligent and hardworking younger rental girlfriend, Sumi Sakurasawa… beautiful girlfriends of all types! The pub, the beach, hot springs, Christmas, and New Year’s… Having gone through these challenging events, Kazuya's feelings for Chizuru keep growing stronger. But she reveals a shocking truth that threatens to shake their \"relationship\" to the very core!\n<br><br>\n(Source: Crunchyroll, edited)",
+  "trailer": {
+    "id": "Q0KAQ7_YNEk",
+    "site": "youtube"
+  },
+  "startDate": {
+    "year": 2022,
+    "month": 7,
+    "day": 2
+  },
+  "source": "MANGA",
+  "endDate": {
+    "year": 2022,
+    "month": 9,
+    "day": 17
+  },
+  "season": "SUMMER",
+  "seasonYear": 2022,
+  "seasonInt": 223,
+  "episodes": 12,
+  "duration": 24,
+  "chapters": null,
+  "volumes": null,
+  "countryOfOrigin": "JP",
+  "updatedAt": 1696065998,
+  "meanScore": 67,
+  "coverImage": {
+    "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx124410-iScdHzzEqdmk.png",
+    "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx124410-iScdHzzEqdmk.png",
+    "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx124410-iScdHzzEqdmk.png",
+    "color": "#f1d650"
+  },
+  "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/124410-mo2jQSOaJIeL.jpg",
+  "genres": [
+    "Comedy",
+    "Drama",
+    "Romance"
+  ],
+  "synonyms": [
+    "KanoKari 2",
+    "สะดุดรักยัยแฟนเช่า ภาค 2",
+    "Pacar Sewaan 2"
+  ],
+  "averageScore": 67,
+  "popularity": 90864,
+  "trending": 4,
+  "favourites": 1603,
+  "tags": [
+    {
+      "id": 1045,
+      "name": "Heterosexual",
+      "description": "Prominently features a romance between a man and a woman, not inherently sexual.",
+      "category": "Theme-Romance",
+      "rank": 91,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": false,
+      "isAdult": false,
+      "userId": null
+    },
+    {
+      "id": 23,
+      "name": "Female Harem",
+      "description": "Main cast features the protagonist plus several female characters who are romantically interested in them.",
+      "category": "Theme-Romance",
+      "rank": 88,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": true,
+      "isAdult": false,
+      "userId": null
+    },
+    {
+      "id": 139,
+      "name": "Love Triangle",
+      "description": "Centered around romantic feelings between more than two people. Includes all love polygons.",
+      "category": "Theme-Romance",
+      "rank": 88,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": true,
+      "isAdult": false,
+      "userId": null
+    },
+    {
+      "id": 82,
+      "name": "Male Protagonist",
+      "description": "Main character is male.",
+      "category": "Cast-Main Cast",
+      "rank": 88,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": false,
+      "isAdult": false,
+      "userId": 661480
+    },
+    {
+      "id": 109,
+      "name": "Primarily Adult Cast",
+      "description": "Main cast is mostly composed of characters above a high school age.",
+      "category": "Cast-Main Cast",
+      "rank": 80,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": false,
+      "isAdult": false,
+      "userId": null
+    },
+    {
+      "id": 86,
+      "name": "Primarily Female Cast",
+      "description": "Main cast is mostly composed of female characters.",
+      "category": "Cast-Main Cast",
+      "rank": 80,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": false,
+      "isAdult": false,
+      "userId": 288165
+    },
+    {
+      "id": 98,
+      "name": "Female Protagonist",
+      "description": "Main character is female.",
+      "category": "Cast-Main Cast",
+      "rank": 75,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": false,
+      "isAdult": false,
+      "userId": 5750280
+    },
+    {
+      "id": 779,
+      "name": "Kuudere",
+      "description": "Prominently features a character who generally retains a cold, blunt and cynical exterior, but once one gets to know them, they have a very warm and loving interior.",
+      "category": "Cast-Traits",
+      "rank": 72,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": false,
+      "isAdult": false,
+      "userId": 5674057
+    },
+    {
+      "id": 164,
+      "name": "Tsundere",
+      "description": "Prominently features a character who acts cold and hostile in order to mask warmer emotions.",
+      "category": "Cast-Traits",
+      "rank": 71,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": false,
+      "isAdult": false,
+      "userId": null
+    },
+    {
+      "id": 281,
+      "name": "Surreal Comedy",
+      "description": "Prominently features comedic moments that defy casual reasoning, resulting in illogical events.",
+      "category": "Theme-Comedy",
+      "rank": 70,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": true,
+      "isAdult": false,
+      "userId": 5921268
+    },
+    {
+      "id": 145,
+      "name": "Work",
+      "description": "Centers around the activities of a certain occupation.",
+      "category": "Setting-Scene",
+      "rank": 69,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": false,
+      "isAdult": false,
+      "userId": null
+    },
+    {
+      "id": 131,
+      "name": "Masturbation",
+      "description": "Features erotic stimulation of one's own genitalia or other erogenous regions.",
+      "category": "Sexual Content",
+      "rank": 64,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": true,
+      "isAdult": true,
+      "userId": 5921268
+    },
+    {
+      "id": 83,
+      "name": "Slapstick",
+      "description": "Prominently features comedy based on deliberately clumsy actions or embarrassing events.",
+      "category": "Theme-Comedy",
+      "rank": 62,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": false,
+      "isAdult": false,
+      "userId": 189170
+    },
+    {
+      "id": 56,
+      "name": "Shounen",
+      "description": "Target demographic is teenage and young adult males.",
+      "category": "Demographic",
+      "rank": 59,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": false,
+      "isAdult": false,
+      "userId": null
+    },
+    {
+      "id": 404,
+      "name": "College",
+      "description": "Partly or completely set in a college or university.",
+      "category": "Setting-Scene",
+      "rank": 54,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": false,
+      "isAdult": false,
+      "userId": null
+    },
+    {
+      "id": 548,
+      "name": "Acting",
+      "description": "Centers around actors or the acting industry.",
+      "category": "Theme-Arts",
+      "rank": 53,
+      "isGeneralSpoiler": false,
+      "isMediaSpoiler": false,
+      "isAdult": false,
+      "userId": 189170
+    }
+  ],
+  "relations": {
+    "edges": [
+      {
+        "node": {
+          "id": 99943,
+          "type": "MANGA",
+          "title": {
+            "romaji": "Kanojo, Okarishimasu",
+            "userPreferred": "Kanojo, Okarishimasu",
+            "english": "Rent-A-Girlfriend"
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx99943-0tJ6oNhn3xet.png",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx99943-0tJ6oNhn3xet.png",
+            "color": "#f1bb35"
+          },
+          "startDate": {
+            "year": 2017,
+            "month": 7,
+            "day": 12
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "format": "MANGA"
+        },
+        "relationType": "SOURCE"
+      },
+      {
+        "node": {
+          "id": 113813,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Kanojo, Okarishimasu",
+            "userPreferred": "Kanojo, Okarishimasu",
+            "english": "Rent-a-Girlfriend"
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113813-UCgSIGyWvLgl.jpg",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx113813-UCgSIGyWvLgl.jpg",
+            "color": "#e45086"
+          },
+          "startDate": {
+            "year": 2020,
+            "month": 7,
+            "day": 11
+          },
+          "endDate": {
+            "year": 2020,
+            "month": 9,
+            "day": 26
+          },
+          "format": "TV"
+        },
+        "relationType": "PREQUEL"
+      },
+      {
+        "node": {
+          "id": 154176,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Kanojo, Okarishimasu 2nd Season: Date Movie",
+            "userPreferred": "Kanojo, Okarishimasu 2nd Season: Date Movie",
+            "english": null
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx154176-f98GtCnYEAbY.jpg",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx154176-f98GtCnYEAbY.jpg",
+            "color": null
+          },
+          "startDate": {
+            "year": 2022,
+            "month": 5,
+            "day": 25
+          },
+          "endDate": {
+            "year": 2022,
+            "month": 9,
+            "day": 25
+          },
+          "format": "ONA"
+        },
+        "relationType": "OTHER"
+      },
+      {
+        "node": {
+          "id": 154385,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Kanojo, Okarishimasu 2nd Season Petit",
+            "userPreferred": "Kanojo, Okarishimasu 2nd Season Petit",
+            "english": null
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx154385-cCM4Ow2qgOK7.png",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx154385-cCM4Ow2qgOK7.png",
+            "color": "#f1c9a1"
+          },
+          "startDate": {
+            "year": 2022,
+            "month": 7,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2022,
+            "month": 9,
+            "day": 17
+          },
+          "format": "ONA"
+        },
+        "relationType": "OTHER"
+      },
+      {
+        "node": {
+          "id": 154745,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Kanojo, Okarishimasu 3rd Season",
+            "userPreferred": "Kanojo, Okarishimasu 3rd Season",
+            "english": "Rent-a-Girlfriend Season 3"
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx154745-xBr65cJsL3uW.jpg",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx154745-xBr65cJsL3uW.jpg",
+            "color": "#e42843"
+          },
+          "startDate": {
+            "year": 2023,
+            "month": 7,
+            "day": 8
+          },
+          "endDate": {
+            "year": 2023,
+            "month": 9,
+            "day": 30
+          },
+          "format": "TV"
+        },
+        "relationType": "SEQUEL"
+      }
+    ],
+    "pageInfo": {
+      "total": null,
+      "perPage": null,
+      "currentPage": null,
+      "lastPage": null,
+      "hasNextPage": false
+    }
+  },
+  "characters": {
+    "edges": [
+      {
+        "role": "MAIN",
+        "node": {
+          "id": 128105,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/character/large/b128105-gad6JuGEXPWe.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/character/medium/b128105-gad6JuGEXPWe.png"
+          },
+          "name": {
+            "first": "Kazuya",
+            "middle": null,
+            "last": "Kinoshita",
+            "full": "Kazuya Kinoshita",
+            "native": "木ノ下和也",
+            "userPreferred": "Kazuya Kinoshita"
+          }
+        }
+      },
+      {
+        "role": "SUPPORTING",
+        "node": {
+          "id": 147005,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/character/large/b147005-5vLFz3lTsssh.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/character/medium/b147005-5vLFz3lTsssh.png"
+          },
+          "name": {
+            "first": "Ruka",
+            "middle": null,
+            "last": "Sarashina",
+            "full": "Ruka Sarashina",
+            "native": "更科瑠夏",
+            "userPreferred": "Ruka Sarashina"
+          }
+        }
+      },
+      {
+        "role": "SUPPORTING",
+        "node": {
+          "id": 144665,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/character/large/b144665-aPda7bPvOoYl.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/character/medium/b144665-aPda7bPvOoYl.png"
+          },
+          "name": {
+            "first": "Sumi",
+            "middle": null,
+            "last": "Sakurasawa",
+            "full": "Sumi Sakurasawa",
+            "native": "桜沢墨",
+            "userPreferred": "Sumi Sakurasawa"
+          }
+        }
+      },
+      {
+        "role": "SUPPORTING",
+        "node": {
+          "id": 154224,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/character/large/b154224-7dJ09BKEnG3v.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/character/medium/b154224-7dJ09BKEnG3v.png"
+          },
+          "name": {
+            "first": "Mami",
+            "middle": null,
+            "last": "Nanami",
+            "full": "Mami Nanami",
+            "native": "七海麻美",
+            "userPreferred": "Mami Nanami"
+          }
+        }
+      },
+      {
+        "role": "MAIN",
+        "node": {
+          "id": 128106,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/character/large/b128106-zSTsuULvz6PX.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/character/medium/b128106-zSTsuULvz6PX.png"
+          },
+          "name": {
+            "first": "Chizuru",
+            "middle": null,
+            "last": "Ichinose",
+            "full": "Chizuru Ichinose",
+            "native": "一ノ瀬ちづる",
+            "userPreferred": "Chizuru Ichinose"
+          }
+        }
+      },
+      {
+        "role": "SUPPORTING",
+        "node": {
+          "id": 172021,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/character/large/b172021-mTJYFfqwJnUH.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/character/medium/b172021-mTJYFfqwJnUH.png"
+          },
+          "name": {
+            "first": "Nagomi",
+            "middle": null,
+            "last": "Kinoshita",
+            "full": "Nagomi Kinoshita",
+            "native": "木ノ下和",
+            "userPreferred": "Nagomi Kinoshita"
+          }
+        }
+      },
+      {
+        "role": "SUPPORTING",
+        "node": {
+          "id": 172022,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/character/large/b172022-MGBDREu4JrGy.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/character/medium/b172022-MGBDREu4JrGy.png"
+          },
+          "name": {
+            "first": "Yoshiaki",
+            "middle": null,
+            "last": "Kibe",
+            "full": "Yoshiaki Kibe",
+            "native": "木部芳秋",
+            "userPreferred": "Yoshiaki Kibe"
+          }
+        }
+      },
+      {
+        "role": "SUPPORTING",
+        "node": {
+          "id": 172023,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/character/large/b172023-YiilpQjx1Nmv.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/character/medium/b172023-YiilpQjx1Nmv.png"
+          },
+          "name": {
+            "first": "Shun",
+            "middle": null,
+            "last": "Kuribayashi",
+            "full": "Shun Kuribayashi",
+            "native": "栗林駿",
+            "userPreferred": "Shun Kuribayashi"
+          }
+        }
+      },
+      {
+        "role": "SUPPORTING",
+        "node": {
+          "id": 283247,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/character/large/b283247-GJxhmUgL6yz0.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/character/medium/b283247-GJxhmUgL6yz0.jpg"
+          },
+          "name": {
+            "first": "Sayuri",
+            "middle": null,
+            "last": "Ichinose",
+            "full": "Sayuri Ichinose",
+            "native": "一ノ瀬小百合",
+            "userPreferred": "Sayuri Ichinose"
+          }
+        }
+      },
+      {
+        "role": "SUPPORTING",
+        "node": {
+          "id": 312182,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/character/large/b312182-WJ3Tv2wWhxXp.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/character/medium/b312182-WJ3Tv2wWhxXp.png"
+          },
+          "name": {
+            "first": "Katsuhito",
+            "middle": null,
+            "last": "Ichinose",
+            "full": "Katsuhito Ichinose",
+            "native": "一ノ瀬勝仁",
+            "userPreferred": "Katsuhito Ichinose"
+          }
+        }
+      }
+    ],
+    "pageInfo": {
+      "total": 10,
+      "perPage": 25,
+      "currentPage": 1,
+      "lastPage": 1,
+      "hasNextPage": false
+    }
+  },
+  "staff": {
+    "edges": [
+      {
+        "role": "Original Creator",
+        "node": {
+          "id": 108241,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n108241-UbiQdkbvcpNg.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n108241-UbiQdkbvcpNg.png"
+          },
+          "name": {
+            "first": "Reiji",
+            "middle": null,
+            "last": "Miyajima",
+            "full": "Reiji Miyajima",
+            "native": "宮島礼吏",
+            "userPreferred": "Reiji Miyajima"
+          }
+        }
+      },
+      {
+        "role": "Chief Animation Director (eps 1-12)",
+        "node": {
+          "id": 131185,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n131185-DZZmi9rbz3yg.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n131185-DZZmi9rbz3yg.jpg"
+          },
+          "name": {
+            "first": "Kanna",
+            "middle": null,
+            "last": "Hirayama",
+            "full": "Kanna Hirayama",
+            "native": "平山寛菜",
+            "userPreferred": "Kanna Hirayama"
+          }
+        }
+      },
+      {
+        "role": "Character Design",
+        "node": {
+          "id": 131185,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n131185-DZZmi9rbz3yg.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n131185-DZZmi9rbz3yg.jpg"
+          },
+          "name": {
+            "first": "Kanna",
+            "middle": null,
+            "last": "Hirayama",
+            "full": "Kanna Hirayama",
+            "native": "平山寛菜",
+            "userPreferred": "Kanna Hirayama"
+          }
+        }
+      },
+      {
+        "role": "Series Composition",
+        "node": {
+          "id": 110939,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n110939-X5Bkt9JyvJew.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n110939-X5Bkt9JyvJew.png"
+          },
+          "name": {
+            "first": "Mitsutaka",
+            "middle": null,
+            "last": "Hirota",
+            "full": "Mitsutaka Hirota",
+            "native": "広田光毅",
+            "userPreferred": "Mitsutaka Hirota"
+          }
+        }
+      },
+      {
+        "role": "Music",
+        "node": {
+          "id": 105862,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/10862.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/10862.jpg"
+          },
+          "name": {
+            "first": "Kenichi",
+            "middle": null,
+            "last": "Maeyamada",
+            "full": "Kenichi Maeyamada",
+            "native": "前山田健一",
+            "userPreferred": "Kenichi Maeyamada"
+          }
+        }
+      },
+      {
+        "role": "Director",
+        "node": {
+          "id": 143639,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n143639-eFrE0Hkoq7CW.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n143639-eFrE0Hkoq7CW.jpg"
+          },
+          "name": {
+            "first": "Kazuomi",
+            "middle": null,
+            "last": "Koga",
+            "full": "Kazuomi Koga",
+            "native": "古賀一臣",
+            "userPreferred": "Kazuomi Koga"
+          }
+        }
+      },
+      {
+        "role": "Director of Photography",
+        "node": {
+          "id": 175636,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/default.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/default.jpg"
+          },
+          "name": {
+            "first": "Shintarou",
+            "middle": null,
+            "last": "Sakai",
+            "full": "Shintarou Sakai",
+            "native": "坂井慎太郎",
+            "userPreferred": "Shintarou Sakai"
+          }
+        }
+      },
+      {
+        "role": "Color Design",
+        "node": {
+          "id": 175637,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/default.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/default.jpg"
+          },
+          "name": {
+            "first": "Fumiko",
+            "middle": null,
+            "last": "Ishiguro",
+            "full": "Fumiko Ishiguro",
+            "native": "石黒文子",
+            "userPreferred": "Fumiko Ishiguro"
+          }
+        }
+      },
+      {
+        "role": "Sound Director",
+        "node": {
+          "id": 114327,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/114327-trM6GXihBrlC.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/114327-trM6GXihBrlC.jpg"
+          },
+          "name": {
+            "first": "Hajime",
+            "middle": null,
+            "last": "Takakuwa",
+            "full": "Hajime Takakuwa",
+            "native": "高桑一",
+            "userPreferred": "Hajime Takakuwa"
+          }
+        }
+      },
+      {
+        "role": "Art Director",
+        "node": {
+          "id": 146092,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n146092-vrYVOKtiuK2D.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n146092-vrYVOKtiuK2D.jpg"
+          },
+          "name": {
+            "first": "Minoru",
+            "middle": null,
+            "last": "Akiba",
+            "full": "Minoru Akiba",
+            "native": "秋葉みのる",
+            "userPreferred": "Minoru Akiba"
+          }
+        }
+      },
+      {
+        "role": "Editing",
+        "node": {
+          "id": 129149,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/default.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/default.jpg"
+          },
+          "name": {
+            "first": "Yumiko",
+            "middle": null,
+            "last": "Nakaba",
+            "full": "Yumiko Nakaba",
+            "native": "中葉由美子",
+            "userPreferred": "Yumiko Nakaba"
+          }
+        }
+      },
+      {
+        "role": "Theme Song Performance (OP)",
+        "node": {
+          "id": 126807,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n126807-Sm9dpyenKd4O.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n126807-Sm9dpyenKd4O.png"
+          },
+          "name": {
+            "first": "",
+            "middle": null,
+            "last": "CHiCO",
+            "full": "CHiCO",
+            "native": "ちこ",
+            "userPreferred": "CHiCO"
+          }
+        }
+      },
+      {
+        "role": "Storyboard (OP, ED, eps 1, 8, 12)",
+        "node": {
+          "id": 143639,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n143639-eFrE0Hkoq7CW.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n143639-eFrE0Hkoq7CW.jpg"
+          },
+          "name": {
+            "first": "Kazuomi",
+            "middle": null,
+            "last": "Koga",
+            "full": "Kazuomi Koga",
+            "native": "古賀一臣",
+            "userPreferred": "Kazuomi Koga"
+          }
+        }
+      },
+      {
+        "role": "Script (eps 1, 2, 6, 12)",
+        "node": {
+          "id": 110939,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n110939-X5Bkt9JyvJew.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n110939-X5Bkt9JyvJew.png"
+          },
+          "name": {
+            "first": "Mitsutaka",
+            "middle": null,
+            "last": "Hirota",
+            "full": "Mitsutaka Hirota",
+            "native": "広田光毅",
+            "userPreferred": "Mitsutaka Hirota"
+          }
+        }
+      },
+      {
+        "role": "Episode Director (OP, ED, eps 1, 12)",
+        "node": {
+          "id": 143639,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n143639-eFrE0Hkoq7CW.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n143639-eFrE0Hkoq7CW.jpg"
+          },
+          "name": {
+            "first": "Kazuomi",
+            "middle": null,
+            "last": "Koga",
+            "full": "Kazuomi Koga",
+            "native": "古賀一臣",
+            "userPreferred": "Kazuomi Koga"
+          }
+        }
+      },
+      {
+        "role": "Planning",
+        "node": {
+          "id": 257757,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/default.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/default.jpg"
+          },
+          "name": {
+            "first": "Satoshi",
+            "middle": null,
+            "last": "Matsumoto",
+            "full": "Satoshi Matsumoto",
+            "native": "松本智",
+            "userPreferred": "Satoshi Matsumoto"
+          }
+        }
+      },
+      {
+        "role": "Music",
+        "node": {
+          "id": 267654,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/default.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/default.jpg"
+          },
+          "name": {
+            "first": "Tomoyuki",
+            "middle": null,
+            "last": "Ootake",
+            "full": "Tomoyuki Ootake",
+            "native": "大竹智之",
+            "userPreferred": "Tomoyuki Ootake"
+          }
+        }
+      },
+      {
+        "role": "Production",
+        "node": {
+          "id": 251587,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/default.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/default.jpg"
+          },
+          "name": {
+            "first": "Takayuki",
+            "middle": null,
+            "last": "Machi",
+            "full": "Takayuki Machi",
+            "native": "町隆幸",
+            "userPreferred": "Takayuki Machi"
+          }
+        }
+      },
+      {
+        "role": "Planning",
+        "node": {
+          "id": 208756,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/default.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/default.jpg"
+          },
+          "name": {
+            "first": "Shinji",
+            "middle": null,
+            "last": "Nakano",
+            "full": "Shinji Nakano",
+            "native": "中野伸二",
+            "userPreferred": "Shinji Nakano"
+          }
+        }
+      },
+      {
+        "role": "Production",
+        "node": {
+          "id": 211950,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n211950-Xj2EsPIuFamA.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n211950-Xj2EsPIuFamA.png"
+          },
+          "name": {
+            "first": "Youhei",
+            "middle": null,
+            "last": "Takami",
+            "full": "Youhei Takami",
+            "native": "高見洋平",
+            "userPreferred": "Youhei Takami"
+          }
+        }
+      },
+      {
+        "role": "Planning",
+        "node": {
+          "id": 149705,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n149705-yYsEcg464qzH.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n149705-yYsEcg464qzH.png"
+          },
+          "name": {
+            "first": "Naokazu",
+            "middle": null,
+            "last": "Tsuruta",
+            "full": "Naokazu Tsuruta",
+            "native": "鶴田直一",
+            "userPreferred": "Naokazu Tsuruta"
+          }
+        }
+      },
+      {
+        "role": "Chief Producer",
+        "node": {
+          "id": 149202,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n149202-Cf2QajbzUogz.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n149202-Cf2QajbzUogz.png"
+          },
+          "name": {
+            "first": "Hiroyuki",
+            "middle": null,
+            "last": "Aoi",
+            "full": "Hiroyuki Aoi",
+            "native": "青井宏之",
+            "userPreferred": "Hiroyuki Aoi"
+          }
+        }
+      },
+      {
+        "role": "Producer",
+        "node": {
+          "id": 234403,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/default.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/default.jpg"
+          },
+          "name": {
+            "first": "Kou",
+            "middle": null,
+            "last": "Tachibana",
+            "full": "Kou Tachibana",
+            "native": "立花耕",
+            "userPreferred": "Kou Tachibana"
+          }
+        }
+      },
+      {
+        "role": "Production",
+        "node": {
+          "id": 142338,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/n142338-bZ1RQiGnGn9y.png",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/n142338-bZ1RQiGnGn9y.png"
+          },
+          "name": {
+            "first": "Hiroo",
+            "middle": null,
+            "last": "Maruyama",
+            "full": "Hiroo Maruyama",
+            "native": "丸山博雄",
+            "userPreferred": "Hiroo Maruyama"
+          }
+        }
+      },
+      {
+        "role": "Chief Producer",
+        "node": {
+          "id": 148566,
+          "image": {
+            "large": "https://s4.anilist.co/file/anilistcdn/staff/large/default.jpg",
+            "medium": "https://s4.anilist.co/file/anilistcdn/staff/medium/default.jpg"
+          },
+          "name": {
+            "first": "Shin",
+            "middle": null,
+            "last": "Furukawa",
+            "full": "Shin Furukawa",
+            "native": "古川慎",
+            "userPreferred": "Shin Furukawa"
+          }
+        }
+      }
+    ]
+  },
+  "studios": {
+    "nodes": [
+      {
+        "id": 73,
+        "name": "TMS Entertainment"
+      }
+    ],
+    "pageInfo": {
+      "total": null,
+      "perPage": null,
+      "currentPage": null,
+      "lastPage": null,
+      "hasNextPage": false
+    }
+  },
+  "isAdult": false,
+  "recommendations": {
+    "nodes": [
+      {
+        "mediaRecommendation": {
+          "id": 116267,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Tonikaku Kawaii",
+            "userPreferred": "Tonikaku Kawaii",
+            "english": "TONIKAWA: Over The Moon For You"
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx116267-CSAkFXN2Zsai.jpg",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx116267-CSAkFXN2Zsai.jpg",
+            "color": "#43aee4"
+          },
+          "startDate": {
+            "year": 2020,
+            "month": 10,
+            "day": 3
+          },
+          "endDate": {
+            "year": 2020,
+            "month": 12,
+            "day": 19
+          },
+          "format": "TV"
+        }
+      },
+      {
+        "mediaRecommendation": {
+          "id": 103139,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Domestic na Kanojo",
+            "userPreferred": "Domestic na Kanojo",
+            "english": "Domestic Girlfriend"
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx103139-2TfvRyGTE1qp.jpg",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/nx103139-2TfvRyGTE1qp.jpg",
+            "color": "#e45d28"
+          },
+          "startDate": {
+            "year": 2019,
+            "month": 1,
+            "day": 12
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 3,
+            "day": 30
+          },
+          "format": "TV"
+        }
+      },
+      {
+        "mediaRecommendation": {
+          "id": 126192,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Kanojo mo Kanojo",
+            "userPreferred": "Kanojo mo Kanojo",
+            "english": "Girlfriend, Girlfriend"
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx126192-3fFbZJFSwrHH.jpg",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx126192-3fFbZJFSwrHH.jpg",
+            "color": "#e45d93"
+          },
+          "startDate": {
+            "year": 2021,
+            "month": 7,
+            "day": 3
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 9,
+            "day": 18
+          },
+          "format": "TV"
+        }
+      },
+      {
+        "mediaRecommendation": {
+          "id": 98320,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Koi to Uso",
+            "userPreferred": "Koi to Uso",
+            "english": "LOVE and LIES"
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx98320-VwCcTBeEs08J.jpg",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx98320-VwCcTBeEs08J.jpg",
+            "color": "#e40d5d"
+          },
+          "startDate": {
+            "year": 2017,
+            "month": 7,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2017,
+            "month": 9,
+            "day": 19
+          },
+          "format": "TV"
+        }
+      },
+      {
+        "mediaRecommendation": {
+          "id": 114232,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Hige wo Soru. Soshite Joshikousei wo Hirou.",
+            "userPreferred": "Hige wo Soru. Soshite Joshikousei wo Hirou.",
+            "english": "Higehiro: After Being Rejected, I Shaved and Took in a High School Runaway"
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx114232-2rm50ZD1cQgP.jpg",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx114232-2rm50ZD1cQgP.jpg",
+            "color": "#28866b"
+          },
+          "startDate": {
+            "year": 2021,
+            "month": 4,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 6,
+            "day": 28
+          },
+          "format": "TV"
+        }
+      },
+      {
+        "mediaRecommendation": {
+          "id": 20876,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Nisekoi:",
+            "userPreferred": "Nisekoi:",
+            "english": "Nisekoi:"
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20876-CCVVLTSsnKC8.jpg",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20876-CCVVLTSsnKC8.jpg",
+            "color": "#86e45d"
+          },
+          "startDate": {
+            "year": 2015,
+            "month": 4,
+            "day": 10
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 6,
+            "day": 26
+          },
+          "format": "TV"
+        }
+      },
+      {
+        "mediaRecommendation": {
+          "id": 132052,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Kakkou no Iinazuke",
+            "userPreferred": "Kakkou no Iinazuke",
+            "english": "A Couple of Cuckoos"
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx132052-3gDTi19HyW6E.png",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx132052-3gDTi19HyW6E.png",
+            "color": "#d6f135"
+          },
+          "startDate": {
+            "year": 2022,
+            "month": 4,
+            "day": 24
+          },
+          "endDate": {
+            "year": 2022,
+            "month": 10,
+            "day": 2
+          },
+          "format": "TV"
+        }
+      },
+      {
+        "mediaRecommendation": {
+          "id": 1087,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Kimagure Orange☆Road",
+            "userPreferred": "Kimagure Orange☆Road",
+            "english": null
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1087-zqIJ1FZjwilM.png",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1087-zqIJ1FZjwilM.png",
+            "color": "#e4bb50"
+          },
+          "startDate": {
+            "year": 1987,
+            "month": 4,
+            "day": 6
+          },
+          "endDate": {
+            "year": 1988,
+            "month": 3,
+            "day": 7
+          },
+          "format": "TV"
+        }
+      },
+      {
+        "mediaRecommendation": {
+          "id": 18897,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Nisekoi",
+            "userPreferred": "Nisekoi",
+            "english": "Nisekoi"
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx18897-G2Fx2ZACsXBU.jpg",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx18897-G2Fx2ZACsXBU.jpg",
+            "color": "#e4935d"
+          },
+          "startDate": {
+            "year": 2014,
+            "month": 1,
+            "day": 11
+          },
+          "endDate": {
+            "year": 2014,
+            "month": 5,
+            "day": 24
+          },
+          "format": "TV"
+        }
+      },
+      {
+        "mediaRecommendation": {
+          "id": 114065,
+          "type": "ANIME",
+          "title": {
+            "romaji": "Bokutachi no Remake",
+            "userPreferred": "Bokutachi no Remake",
+            "english": "Remake Our Life!"
+          },
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx114065-YPPyW7ZSxfYU.jpg",
+            "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx114065-YPPyW7ZSxfYU.jpg",
+            "color": "#50aee4"
+          },
+          "startDate": {
+            "year": 2021,
+            "month": 7,
+            "day": 3
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 9,
+            "day": 25
+          },
+          "format": "TV"
+        }
+      }
+    ],
+    "pageInfo": {
+      "total": 10,
+      "perPage": 25,
+      "currentPage": 1,
+      "lastPage": 1,
+      "hasNextPage": false
+    }
+  },
+  "airingSchedule": {
+    "nodes": []
+  },
+  "mediaListEntry": null
+}
