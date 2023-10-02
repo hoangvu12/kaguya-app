@@ -6,12 +6,14 @@ import * as React from 'react';
 import type { SvgProps } from 'react-native-svg';
 
 import { AnimeHomeScreen } from '@/screens/anime/screen';
+import ModuleScreen from '@/screens/module/screen';
 import {
   Anime as AnimeIcon,
   colors,
   Manga as MangaIcon,
   Settings as SettingsIcon,
 } from '@/ui';
+import { BoxIcon } from '@/ui/icons/box';
 
 import { AnimeNavigator } from './anime-navigator';
 
@@ -19,6 +21,7 @@ type TabParamList = {
   Anime: undefined;
   Settings: undefined;
   Manga: undefined;
+  Module: undefined;
 };
 
 type TabType = {
@@ -37,6 +40,7 @@ const tabsIcons: TabIconsType = {
   Anime: (props: SvgProps) => <AnimeIcon {...props} />,
   Manga: (props: SvgProps) => <MangaIcon {...props} />,
   Settings: (props: SvgProps) => <SettingsIcon {...props} />,
+  Module: (props: SvgProps) => <BoxIcon {...props} />,
 };
 
 export type TabList<T extends keyof TabParamList> = {
@@ -55,6 +59,11 @@ const tabs: TabType[] = [
     component: AnimeHomeScreen,
     label: 'Manga',
   },
+  {
+    name: 'Module',
+    component: ModuleScreen,
+    label: 'Module',
+  },
 ];
 
 type BarIconType = {
@@ -72,9 +81,9 @@ export const TabNavigator = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarInactiveTintColor: colors.thunder[400],
-        // eslint-disable-next-line react/no-unstable-nested-components
+
         tabBarIcon: ({ color }) => <BarIcon name={route.name} color={color} />,
-        tabBarActiveTintColor: colors.primary[500],
+        tabBarActiveTintColor: colors.primary[400],
         tabBarStyle: {
           backgroundColor: colors.thunder[900],
           borderTopWidth: 0,
@@ -84,6 +93,7 @@ export const TabNavigator = () => {
         },
         tabBarShowLabel: false,
       })}
+      initialRouteName="Module"
     >
       <Tab.Group
         screenOptions={{

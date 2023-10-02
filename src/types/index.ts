@@ -1,7 +1,5 @@
-export interface Module {
-  name: string;
-  id: string;
-  isNSFW: boolean;
-  languages: string[];
-  logo: string;
-}
+import type { z } from 'zod';
+
+import type { ModuleSchema } from '@/core/module';
+
+export type Module = z.infer<typeof ModuleSchema>;

@@ -2,6 +2,7 @@ import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import { Text } from './text';
+import { View } from './view';
 
 interface DotListProps {
   className?: string;
@@ -22,7 +23,7 @@ const DotList: React.FC<React.PropsWithChildren<DotListProps>> = ({
   return (
     <Text
       numberOfLines={1}
-      className={twMerge('flex flex-row items-center', className)}
+      className={twMerge('flex flex-row items-center gap-2', className)}
     >
       {React.Children.map(children, (child, index) => {
         if (!child) return null;
@@ -34,7 +35,7 @@ const DotList: React.FC<React.PropsWithChildren<DotListProps>> = ({
         return (
           <React.Fragment>
             {child}
-            <Dot key={index} className={twMerge('mx-2', dotClassName)} />
+            <Dot key={index} className={twMerge(dotClassName)} />
           </React.Fragment>
         );
       })}
@@ -44,15 +45,7 @@ const DotList: React.FC<React.PropsWithChildren<DotListProps>> = ({
 
 export const Dot: React.FC<DotProps> = (props) => {
   return (
-    <Text
-      className={twMerge(
-        'text-[8px] text-thunder-400 self-center',
-        props.className
-      )}
-    >
-      {' '}
-      {'\u2B24'}{' '}
-    </Text>
+    <View className={twMerge('bg-thunder-400 w-1.5 h-1.5', props.className)} />
   );
 };
 

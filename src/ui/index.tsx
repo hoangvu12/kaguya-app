@@ -1,3 +1,4 @@
+export * from '../utils';
 export * from './banner-card';
 export * from './core';
 export * from './error-handler';
@@ -6,4 +7,3 @@ export * from './icons';
 export * from './media-description';
 export * from './screen';
 export * from './theme';
-export * from './utils';

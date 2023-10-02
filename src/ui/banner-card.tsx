@@ -4,12 +4,12 @@ import React from 'react';
 
 import type { Media } from '@/types/anilist';
 
+import { addAlpha } from '../utils';
 import type { ImgProps } from './core';
 import { Button, Image, Text, View } from './core';
 import AutoImage from './core/auto-image';
 import { Play as PlayIcon } from './icons/play';
 import { colors } from './theme';
-import { addAlpha } from './utils';
 
 interface BannerCardProps extends ImgProps {
   media: Media;
@@ -64,8 +64,9 @@ export const BannerCard = ({ media, showInfo = true }: BannerCardProps) => {
               <Button
                 leftIcon={<SPlayIcon className="h-6 w-6 text-white" />}
                 variant="primary"
-                label="Watch now"
-              />
+              >
+                <Text>Watch now</Text>
+              </Button>
             </View>
           </View>
         )}
