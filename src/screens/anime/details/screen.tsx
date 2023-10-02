@@ -1,10 +1,8 @@
-/* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowLeft, PlusCircle } from 'lucide-react-native';
 import { styled } from 'nativewind';
 import * as React from 'react';
-import { MaterialTabBar, Tabs } from 'react-native-collapsible-tab-view';
 import { FlatList } from 'react-native-gesture-handler';
 
 import { formatNumberToAbbreviated } from '@/core';
@@ -18,6 +16,7 @@ import {
   View,
 } from '@/ui';
 import { Dot } from '@/ui/core/dot-list';
+import Tabs from '@/ui/core/tabs';
 import { Heart as HeartIcon, Smile as SmileIcon } from '@/ui/icons';
 import { PlainCard } from '@/ui/plain-card';
 import colors from '@/ui/theme/colors';
@@ -134,43 +133,7 @@ export const AnimeDetailsScreen = () => {
     <>
       <FocusAwareStatusBar />
 
-      <Tabs.Container
-        headerContainerStyle={{
-          backgroundColor: colors.thunder[950],
-        }}
-        snapThreshold={0.3}
-        renderTabBar={(props) => (
-          <MaterialTabBar
-            {...props}
-            keepActiveTabCentered
-            contentContainerStyle={{
-              backgroundColor: colors.thunder[950],
-              width: '100%',
-            }}
-            tabStyle={{
-              flex: 1,
-              zIndex: 10,
-            }}
-            labelStyle={{
-              textTransform: 'capitalize',
-              zIndex: 10,
-              fontSize: 16,
-              fontWeight: 600,
-            }}
-            indicatorStyle={{
-              backgroundColor: colors.thunder[900],
-              height: '100%',
-              borderRadius: 6,
-              zIndex: 0,
-            }}
-            scrollEnabled={true}
-            activeColor={colors.primary[300]}
-            inactiveColor={'white'}
-            style={{ paddingHorizontal: 16, marginTop: 16 }}
-          />
-        )}
-        renderHeader={Header}
-      >
+      <Tabs renderHeader={Header}>
         <Tabs.Tab name="Info">
           <Tabs.ScrollView
             style={{ paddingHorizontal: 16, paddingVertical: 16 }}
@@ -189,7 +152,7 @@ export const AnimeDetailsScreen = () => {
             <EpisodeScreen />
           </Tabs.ScrollView>
         </Tabs.Tab>
-      </Tabs.Container>
+      </Tabs>
     </>
   );
 };

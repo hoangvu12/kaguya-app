@@ -41,7 +41,7 @@ export const buttonVariants: BVariant = {
   },
 };
 
-interface Props extends TouchableOpacityProps {
+export interface ButtonProps extends TouchableOpacityProps {
   variant?: VariantName;
   loading?: boolean;
   indicatorClassName?: string;
@@ -58,7 +58,7 @@ export const Button = ({
   leftIcon,
   loadingProps,
   ...props
-}: Props) => {
+}: ButtonProps) => {
   return (
     <TouchableOpacity
       disabled={disabled || loading}
@@ -68,7 +68,6 @@ export const Button = ({
         disabled ? 'opacity-50' : '',
         className
       )}
-      // eslint-disable-next-line react-native/no-inline-styles
       style={{ gap: 4 }}
       {...props}
     >

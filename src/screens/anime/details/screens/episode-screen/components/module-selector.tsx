@@ -1,12 +1,14 @@
 import { PlusIcon } from 'lucide-react-native';
 import { styled } from 'nativewind';
-import React from 'react';
-import { twMerge } from 'tailwind-merge';
+import React, { useEffect } from 'react';
 
+import { useWebView } from '@/contexts/webview';
+import searchCode from '@/mock_data/module/search';
 import type { Module } from '@/types';
-import { Button, Image, Text, View } from '@/ui';
-import type { ItemProps, SelectOption, TriggerProps } from '@/ui/core/select';
+import { Button, Text, View } from '@/ui';
+import type { ItemProps, TriggerProps } from '@/ui/core/select';
 import Select from '@/ui/core/select';
+import ModuleItem from '@/ui/module-item';
 import colors from '@/ui/theme/colors';
 
 const modules: Module[] = [
@@ -33,6 +35,24 @@ const ModuleSelector = () => {
     Module | undefined
   >();
 
+  const { sendMessage, isLoaded } = useWebView();
+
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    (async () => {
+      const searchResults = await sendMessage(
+        'get-search-results',
+        searchCode,
+        {
+          query: 'One Piece',
+        }
+      );
+
+      console.log(searchResults);
+    })();
+  }, [sendMessage, isLoaded]);
+
   return (
     <Select
       trigger={Trigger}
@@ -53,45 +73,16 @@ const ModuleSelector = () => {
   );
 };
 
-interface ModuleItemProps {
-  option: SelectOption<Module>;
-  onPress: () => void;
-  className?: string;
-}
-
-const ModuleItem: React.FC<ModuleItemProps> = ({
-  onPress,
-  option,
-  className,
-}) => {
-  return (
-    <Button
-      className={twMerge(
-        'flex w-full items-center justify-start bg-thunder-700',
-        className
-      )}
-      key={option.value.id}
-      onPress={onPress}
-    >
-      <Image source={option.value.logo} className="mr-4 h-5 w-5" />
-
-      <View>
-        <Text variant="md" weight="semibold">
-          {option.label}
-        </Text>
-
-        <Text variant="sm" weight="normal">
-          {option.value.languages.join(', ')}
-        </Text>
-      </View>
-    </Button>
-  );
-};
-
 const ModuleOption: React.FC<
   Pick<ItemProps<Module>, 'option' | 'closeBottomSheet'>
 > = ({ option, closeBottomSheet }) => {
-  return <ModuleItem onPress={closeBottomSheet} option={option} />;
+  return (
+    <ModuleItem
+      onPress={closeBottomSheet}
+      module={option.value}
+      key={option.value.id}
+    />
+  );
 };
 
 const AddModuleOption: React.FC = () => (
@@ -116,7 +107,7 @@ const Trigger: React.FC<TriggerProps<Module>> = ({
       <ModuleItem
         onPress={openBottomSheet}
         className="bg-thunder-900"
-        option={selectedOption}
+        module={selectedOption.value}
       />
     );
   }

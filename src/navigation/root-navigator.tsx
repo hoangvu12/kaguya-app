@@ -1,26 +1,25 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
 
-import { useAuth } from '@/core';
+import WebViewProvider from '@/contexts/webview';
 
 import { NavigationContainer } from './navigation-container';
 import { TabNavigator } from './tab-navigator';
 const Stack = createNativeStackNavigator();
 
-export const Root = () => {
-  const status = useAuth.use.status();
+const queryClient = new QueryClient();
 
+export const Root = () => {
   const hideSplash = React.useCallback(async () => {
     await SplashScreen.hideAsync();
   }, []);
 
   useEffect(() => {
-    if (status !== 'idle') {
-      hideSplash();
-    }
-  }, [hideSplash, status]);
+    hideSplash();
+  }, [hideSplash]);
 
   return (
     <Stack.Navigator
@@ -39,10 +38,14 @@ export const Root = () => {
 
 export const RootNavigator = () => {
   return (
-    <BottomSheetModalProvider>
-      <NavigationContainer>
-        <Root />
-      </NavigationContainer>
-    </BottomSheetModalProvider>
+    <QueryClientProvider client={queryClient}>
+      <WebViewProvider>
+        <BottomSheetModalProvider>
+          <NavigationContainer>
+            <Root />
+          </NavigationContainer>
+        </BottomSheetModalProvider>
+      </WebViewProvider>
+    </QueryClientProvider>
   );
 };
