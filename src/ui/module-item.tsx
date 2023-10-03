@@ -3,6 +3,7 @@ import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import type { Module } from '@/types';
+import { getModuleFilePath } from '@/utils/module';
 
 import type { ButtonProps } from './core';
 import { Button, Image, Text, View } from './core';
@@ -11,12 +12,14 @@ export interface ModuleItemProps extends ButtonProps {
   module: Module;
   onPress?: () => void;
   className?: string;
+  logo?: string;
 }
 
 const ModuleItem: React.FC<ModuleItemProps> = ({
   onPress,
   module,
   className,
+  logo = getModuleFilePath(module.id, 'logo.png'),
   ...props
 }) => {
   return (
@@ -30,7 +33,7 @@ const ModuleItem: React.FC<ModuleItemProps> = ({
       {...props}
     >
       <View className="flex flex-row items-center justify-start">
-        <Image source={module.info.logo} className="h-5 w-5" />
+        <Image source={logo} className="h-5 w-5" />
 
         <View className="ml-4">
           <Text variant="md" weight="semibold">

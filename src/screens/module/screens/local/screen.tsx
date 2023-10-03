@@ -41,8 +41,6 @@ const LocalModuleScreen = () => {
 
     queryClient.invalidateQueries(useModules.getKey());
 
-    console.log(useModules.getKey());
-
     showMessage({
       message: `Successfully installed module ${module.name}`,
       type: 'success',
@@ -90,6 +88,7 @@ const LocalModuleScreen = () => {
               onCancel={() => handleRemove(module)}
               module={module}
               key={module.id + module.info.author}
+              logo={`${module.path}/logo.png`}
             />
           ))}
         </View>

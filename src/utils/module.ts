@@ -99,3 +99,11 @@ const moveFiles = async (sourceDir: string, destDir: string) => {
     });
   }
 };
+
+export const getModuleDir = (moduleId: string) => {
+  return FileSystem.documentDirectory + 'modules/' + moduleId;
+};
+
+export const getModuleFilePath = (moduleId: string, fileName: string) => {
+  return FileSystem.documentDirectory + 'modules/' + moduleId + '/' + fileName;
+};
