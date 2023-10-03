@@ -22,8 +22,12 @@ const InstallableModule: React.FC<InstallableModuleProps> = ({
   ...moduleItemProps
 }) => {
   return (
-    <View className={twMerge(className)} key={module.id + module.info.author}>
-      <ModuleItem module={module} className="mb-4" {...moduleItemProps} />
+    <View key={module.id + module.info.author}>
+      <ModuleItem
+        module={module}
+        className={twMerge('mb-4', className)}
+        {...moduleItemProps}
+      />
 
       <View className="flex flex-row items-center justify-end gap-2">
         <Button onPress={onInstall}>

@@ -89,6 +89,7 @@ const LocalModuleScreen = () => {
               module={module}
               key={module.id + module.info.author}
               logo={`${module.path}/logo.png`}
+              className="bg-thunder-800"
             />
           ))}
         </View>

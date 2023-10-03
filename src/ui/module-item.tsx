@@ -25,7 +25,7 @@ const ModuleItem: React.FC<ModuleItemProps> = ({
   return (
     <Button
       className={twMerge(
-        'flex flex-row items-start justify-between bg-thunder-700 rounded-md',
+        'flex flex-row items-start justify-between rounded-md',
         className
       )}
       key={module.id}
@@ -41,7 +41,7 @@ const ModuleItem: React.FC<ModuleItemProps> = ({
           </Text>
 
           <Text variant="sm" weight="normal">
-            {module.languages.slice(0, 4).join(', ')}
+            {module.languages.slice(0, 2).join(', ')}
           </Text>
 
           <Text variant="xs" weight="normal" className="text-gray-300">
