@@ -22,7 +22,7 @@ const InstalledModuleScreen = () => {
   return (
     <If condition={data?.length}>
       <Then>
-        <View>
+        <View className="space-y-2">
           {data?.map((module) => (
             <ModuleItemAction module={module} key={module.id} />
           ))}

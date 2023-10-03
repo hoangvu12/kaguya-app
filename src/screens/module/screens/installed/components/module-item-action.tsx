@@ -41,6 +41,7 @@ const ModuleItemAction: React.FC<ModuleItemActionProps> = ({
         onLongPress={() => {
           setModalVisible(true);
         }}
+        className="bg-thunder-800"
         {...props}
       />
 
