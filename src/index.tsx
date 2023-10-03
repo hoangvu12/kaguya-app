@@ -8,10 +8,8 @@ import FlashMessage from 'react-native-flash-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { APIProvider } from '@/api';
-import { loadSelectedTheme } from '@/core';
 import { RootNavigator } from '@/navigation';
 
-loadSelectedTheme();
 SplashScreen.preventAutoHideAsync();
 
 const App = () => {
