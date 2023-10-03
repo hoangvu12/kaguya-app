@@ -4,9 +4,10 @@ import { twMerge } from 'tailwind-merge';
 
 import type { Module } from '@/types';
 import { Button, View } from '@/ui';
+import type { ModuleItemProps } from '@/ui/module-item';
 import ModuleItem from '@/ui/module-item';
 
-interface InstallableModuleProps {
+interface InstallableModuleProps extends ModuleItemProps {
   onInstall?: () => Promise<void>;
   onCancel?: () => void;
   module: Module;
@@ -18,10 +19,11 @@ const InstallableModule: React.FC<InstallableModuleProps> = ({
   onInstall,
   module,
   className,
+  ...moduleItemProps
 }) => {
   return (
     <View className={twMerge(className)} key={module.id + module.info.author}>
-      <ModuleItem module={module} className="mb-4" />
+      <ModuleItem module={module} className="mb-4" {...moduleItemProps} />
 
       <View className="flex flex-row items-center justify-end gap-2">
         <Button onPress={onInstall}>
