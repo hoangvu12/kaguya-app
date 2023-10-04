@@ -1,8 +1,7 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import * as SplashScreen from 'expo-splash-screen';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import WebViewProvider from '@/contexts/webview';
 
@@ -13,14 +12,6 @@ const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
 
 export const Root = () => {
-  const hideSplash = React.useCallback(async () => {
-    await SplashScreen.hideAsync();
-  }, []);
-
-  useEffect(() => {
-    hideSplash();
-  }, [hideSplash]);
-
   return (
     <Stack.Navigator
       screenOptions={{

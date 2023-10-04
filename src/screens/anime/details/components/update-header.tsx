@@ -71,7 +71,6 @@ const UpdateHeader: React.FC<Props> = ({ title }) => {
     const parent = navigation.getParent('anime-navigator');
 
     parent?.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
       header: () => (
         <AnimatedView
           className="flex flex-row items-center overflow-hidden"

@@ -5,13 +5,12 @@ import { showMessage } from 'react-native-flash-message';
 import Modal from 'react-native-modal';
 
 import { MODULE_DIR } from '@/constants';
+import useModules from '@/hooks/use-modules';
 import type { Module } from '@/types';
 import { Button, Text, View } from '@/ui';
 import type { ModuleItemProps } from '@/ui/module-item';
 import ModuleItem from '@/ui/module-item';
 import Sticker from '@/ui/sticker';
-
-import useModules from '../hooks/use-modules';
 
 interface ModuleItemActionProps extends ModuleItemProps {}
 

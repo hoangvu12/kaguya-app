@@ -4,12 +4,12 @@ import { UploadCloudIcon } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { showMessage } from 'react-native-flash-message';
 
+import useModules from '@/hooks/use-modules';
 import type { Module } from '@/types';
 import { Button, Text, View } from '@/ui';
 import colors from '@/ui/theme/colors';
 import { parseKModule, processKModule } from '@/utils/module';
 
-import useModules from '../installed/hooks/use-modules';
 import InstallableModule from './components/installable-module';
 
 interface ModuleWithPath extends Module {
