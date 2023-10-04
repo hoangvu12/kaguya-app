@@ -1,7 +1,14 @@
-import type { BottomSheetProps as LBottomSheetProps } from '@gorhom/bottom-sheet';
-import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import type {
+  BottomSheetBackdropProps,
+  BottomSheetProps as LBottomSheetProps,
+} from '@gorhom/bottom-sheet';
+import {
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetScrollView,
+} from '@gorhom/bottom-sheet';
 import { styled } from 'nativewind';
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { ViewProps } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
@@ -16,6 +23,19 @@ const SBottomSheetScrollView = styled(BottomSheetScrollView);
 
 const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
   ({ containerViewProps, containerViewClassName, ...props }, ref) => {
+    const renderBackdrop = useCallback(
+      (backdropProps: BottomSheetBackdropProps) => (
+        <BottomSheetBackdrop
+          {...backdropProps}
+          enableTouchThrough={false}
+          pressBehavior={'close'}
+          opacity={0.6}
+          disappearsOnIndex={-1}
+        />
+      ),
+      []
+    );
+
     return (
       <BottomSheetModal
         handleStyle={{
@@ -30,6 +50,7 @@ const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
         }}
         ref={ref}
         {...props}
+        backdropComponent={renderBackdrop}
       >
         <SBottomSheetScrollView
           className={twMerge('p-4 rounded-xl', containerViewClassName)}

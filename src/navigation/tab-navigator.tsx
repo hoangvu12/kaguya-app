@@ -94,6 +94,7 @@ export const TabNavigator = () => {
         tabBarShowLabel: false,
       })}
       initialRouteName="Module"
+      id="tab-navigator"
     >
       <Tab.Group
         screenOptions={{

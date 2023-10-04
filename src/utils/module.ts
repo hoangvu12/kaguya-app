@@ -63,12 +63,6 @@ export const parseKModule = async (filePath: string) => {
 export const processKModule = async (moduleId: string, zipDir: string) => {
   const moduleDir = FileSystem.documentDirectory + 'modules/' + moduleId;
 
-  console.log(moduleDir, zipDir);
-
-  const files = await FileSystem.readDirectoryAsync(zipDir);
-
-  console.log('zipDir', files);
-
   await ensureFolderExists(moduleDir);
 
   await moveFiles(zipDir, moduleDir);
@@ -76,8 +70,6 @@ export const processKModule = async (moduleId: string, zipDir: string) => {
   await FileSystem.deleteAsync(zipDir);
 
   const newFiles = await FileSystem.readDirectoryAsync(moduleDir);
-
-  console.log('moduleDirs', newFiles);
 
   if (!newFiles?.length) {
     throw new Error('Moving module files failed');

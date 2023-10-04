@@ -23,7 +23,10 @@ const DotList: React.FC<React.PropsWithChildren<DotListProps>> = ({
   return (
     <Text
       numberOfLines={1}
-      className={twMerge('flex flex-row items-center gap-2', className)}
+      className={twMerge(
+        'flex flex-row items-center justify-center gap-2',
+        className
+      )}
     >
       {React.Children.map(children, (child, index) => {
         if (!child) return null;
@@ -45,7 +48,12 @@ const DotList: React.FC<React.PropsWithChildren<DotListProps>> = ({
 
 export const Dot: React.FC<DotProps> = (props) => {
   return (
-    <View className={twMerge('bg-thunder-400 w-1.5 h-1.5', props.className)} />
+    <View
+      className={twMerge(
+        'bg-thunder-400 w-1.5 h-1.5 rounded-full',
+        props.className
+      )}
+    />
   );
 };
 

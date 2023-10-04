@@ -1,73 +1,83 @@
+import { useNavigation } from '@react-navigation/native';
+import { useAtom } from 'jotai/react';
 import { PlusIcon } from 'lucide-react-native';
 import { styled } from 'nativewind';
-import React, { useEffect } from 'react';
+import React, { useRef } from 'react';
 
-import { useWebView } from '@/contexts/webview';
-import searchCode from '@/mock_data/module/search';
+import useModules from '@/hooks/use-modules';
+import { currentModuleIdAtom } from '@/store';
 import type { Module } from '@/types';
-import { Button, Text, View } from '@/ui';
-import type { ItemProps, TriggerProps } from '@/ui/core/select';
+import { ActivityIndicator, Button, Text, View } from '@/ui';
+import type { ItemProps, SelectRef, TriggerProps } from '@/ui/core/select';
 import Select from '@/ui/core/select';
 import ModuleItem from '@/ui/module-item';
 import colors from '@/ui/theme/colors';
 
-const modules: Module[] = [
-  {
-    name: 'AniWave',
-    id: 'aniwave',
-    languages: ['English'],
-    isNSFW: false,
-    logo: 'https://s2.bunnycdn.ru/assets/sites/aniwave/logo3.png',
-  },
-  {
-    name: 'Bilibili',
-    id: 'bilibili',
-    languages: ['Tiếng Việt', 'English'],
-    isNSFW: false,
-    logo: 'https://p.bstarstatic.com/fe-static/deps/bilibili_tv.ico',
-  },
-];
-
 const SPlusIcon = styled(PlusIcon);
 
 const ModuleSelector = () => {
-  const [selectedModule, setSelectedModule] = React.useState<
-    Module | undefined
-  >();
+  const [currentModuleId, setCurrentModuleId] = useAtom(currentModuleIdAtom);
 
-  const { sendMessage, isLoaded } = useWebView();
+  const selectRef = useRef<SelectRef>(null);
 
-  useEffect(() => {
-    if (!isLoaded) return;
+  const navigation = useNavigation();
 
-    (async () => {
-      const searchResults = await sendMessage(
-        'get-search-results',
-        searchCode,
-        {
-          query: 'One Piece',
-        }
-      );
+  const { data: modules, isLoading } = useModules({ variables: null });
 
-      console.log(searchResults);
-    })();
-  }, [sendMessage, isLoaded]);
+  const currentModule = modules?.find(
+    (module) => module.id === currentModuleId
+  );
+
+  if (isLoading || !modules?.length) {
+    return (
+      <View className="flex items-center justify-center">
+        <ActivityIndicator color={colors.primary[300]} size={48} />
+      </View>
+    );
+  }
+  // const { sendMessage, isLoaded } = useWebView();
+
+  // useEffect(() => {
+  //   if (!isLoaded) return;
+
+  // //   (async () => {
+  // //     const searchResults = await sendMessage(
+  // //       'get-search-results',
+  // //       searchCode,
+  // //       {
+  // //         query: 'One Piece',
+  // //       }
+  // //     );
+
+  // //     console.log(searchResults);
+  // //   })();
+  // // }, [sendMessage, isLoaded]);
 
   return (
     <Select
+      ref={selectRef}
       trigger={Trigger}
       onSelect={(option) => {
-        setSelectedModule(option.value);
+        setCurrentModuleId(option.value.id);
       }}
       placeholder="Select a module"
       options={modules.map((module) => ({ label: module.name, value: module }))}
       selectedOption={
-        !selectedModule?.name
+        !currentModule
           ? undefined
-          : { label: selectedModule.name, value: selectedModule }
+          : { label: currentModule.name, value: currentModule }
       }
       option={ModuleOption}
-      endOptionSlot={<AddModuleOption />}
+      endOptionSlot={
+        <AddModuleOption
+          onPress={() => {
+            // @ts-ignore
+            navigation.getParent('tab-navigator')?.navigate('Module');
+
+            selectRef.current?.closeMenu();
+          }}
+        />
+      }
       snapPoints={['80%']}
     />
   );
@@ -81,21 +91,31 @@ const ModuleOption: React.FC<
       onPress={closeBottomSheet}
       module={option.value}
       key={option.value.id}
+      className="bg-thunder-700"
     />
   );
 };
 
-const AddModuleOption: React.FC = () => (
-  <Button className="mt-2 flex items-center justify-start bg-thunder-700">
-    <SPlusIcon className="mr-4" size={20} color={colors.white} />
+interface AddModuleOptionProps {
+  onPress?: () => void;
+}
 
-    <View>
-      <Text variant="md" weight="semibold">
-        Add new modules
-      </Text>
-    </View>
-  </Button>
-);
+const AddModuleOption: React.FC<AddModuleOptionProps> = ({ onPress }) => {
+  return (
+    <Button
+      onPress={onPress}
+      className="mt-2 flex items-center justify-start bg-thunder-700"
+    >
+      <SPlusIcon className="mr-4" size={20} color={colors.white} />
+
+      <View>
+        <Text variant="md" weight="semibold">
+          Add new modules
+        </Text>
+      </View>
+    </Button>
+  );
+};
 
 const Trigger: React.FC<TriggerProps<Module>> = ({
   openBottomSheet,

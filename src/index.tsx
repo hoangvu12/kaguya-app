@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import * as SplashScreen from 'expo-splash-screen';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
@@ -9,8 +8,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { APIProvider } from '@/api';
 import { RootNavigator } from '@/navigation';
-
-SplashScreen.preventAutoHideAsync();
 
 const App = () => {
   return (

@@ -38,7 +38,7 @@ const NextEpisodeCountdown: React.FC<NextEpisodeCountdownProps> = ({
   const days = Math.floor(timeRemaining / (24 * 60 * 60));
 
   return (
-    <Text variant='sm'>
+    <Text variant="sm">
       EP {episode}: {days}d {hours}h {minutes}m {seconds}s
     </Text>
   );

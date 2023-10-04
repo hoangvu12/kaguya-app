@@ -82,6 +82,11 @@ export const AnimeDetailsScreen = () => {
             </Text>
             <View className="mb-2">
               <FlatList
+                contentContainerStyle={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
                 data={anime.genres}
                 renderItem={({ item: genre }) => (
                   <Text variant="sm">{genre}</Text>
@@ -144,17 +149,20 @@ export const AnimeDetailsScreen = () => {
           </Tabs.ScrollView>
         </Tabs.Tab>
         <Tabs.Tab name="Episodes">
-          <Tabs.ScrollView
-            style={{ paddingHorizontal: 16, paddingVertical: 16 }}
-          >
-            <UpdateHeader title={anime.title.userPreferred} />
+          <Tabs.Lazy>
+            <Tabs.ScrollView
+              nestedScrollEnabled
+              style={{ paddingHorizontal: 16, paddingVertical: 16 }}
+            >
+              <UpdateHeader title={anime.title.userPreferred} />
 
-            <EpisodeScreen />
-          </Tabs.ScrollView>
+              <EpisodeScreen media={anime} />
+            </Tabs.ScrollView>
+          </Tabs.Lazy>
         </Tabs.Tab>
       </Tabs>
     </>
   );
 };
 
-const Spacer = () => <Dot className="mx-0.5" />;
+const Spacer = () => <Dot className="mx-1 self-center" />;

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Else, If, Then } from 'react-if';
 
+import useModules from '@/hooks/use-modules';
 import { ActivityIndicator, Text, View } from '@/ui';
 import Sticker from '@/ui/sticker';
 import colors from '@/ui/theme/colors';
 
 import ModuleItemAction from './components/module-item-action';
-import useModules from './hooks/use-modules';
 
 const InstalledModuleScreen = () => {
   const { data, isLoading } = useModules({ variables: null });
