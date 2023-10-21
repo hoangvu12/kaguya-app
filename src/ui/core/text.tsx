@@ -5,9 +5,6 @@ import type { TextProps as RNTextProps } from 'react-native';
 import { Text as NNText } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
-import type { TxKeyPath } from '@/core';
-import { translate } from '@/core';
-
 const SText = styled(NNText);
 
 const fontWeights = {
@@ -25,12 +22,11 @@ const fontWeights = {
 export interface TextProps extends RNTextProps {
   variant?: keyof typeof textVariants;
   className?: string;
-  tx?: TxKeyPath;
   weight?: keyof typeof fontWeights;
 }
 
 export const textVariants = {
-  defaults: 'text-base text-white font-mono font-semibold',
+  defaults: 'text-base text-white font-outfit-medium font-semibold',
   xl: 'text-xl',
   lg: 'text-lg',
   md: 'text-base',
@@ -42,13 +38,10 @@ export const textVariants = {
 export const Text = ({
   variant = 'md',
   className = '',
-  tx,
   children,
   weight = 'medium',
   ...props
-}: TextProps) => {
-  const content = tx ? translate(tx) : children;
-
+}: React.PropsWithChildren<TextProps>) => {
   return (
     <SText
       className={twMerge(
@@ -59,7 +52,7 @@ export const Text = ({
       )}
       {...props}
     >
-      {content}
+      {children}
     </SText>
   );
 };

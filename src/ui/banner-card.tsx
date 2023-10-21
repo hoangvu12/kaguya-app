@@ -8,7 +8,7 @@ import { addAlpha } from '../utils';
 import type { ImgProps } from './core';
 import { Button, Image, Text, View } from './core';
 import AutoImage from './core/auto-image';
-import { Play as PlayIcon } from './icons/play';
+import PlayIcon from './icons/play';
 import { colors } from './theme';
 
 interface BannerCardProps extends ImgProps {
@@ -17,7 +17,6 @@ interface BannerCardProps extends ImgProps {
 }
 
 const SLinearGradient = styled(LinearGradient);
-const SPlayIcon = styled(PlayIcon);
 
 const linearGradientColors = [
   '#00000000',
@@ -62,7 +61,7 @@ export const BannerCard = ({ media, showInfo = true }: BannerCardProps) => {
 
             <View className="flex flex-row">
               <Button
-                leftIcon={<SPlayIcon className="h-6 w-6 text-white" />}
+                leftIcon={<PlayIcon className="h-6 w-6 text-white" />}
                 variant="primary"
               >
                 <Text>Watch now</Text>

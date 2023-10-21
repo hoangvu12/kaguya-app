@@ -1,7 +1,14 @@
 import { z } from 'zod';
 
 import { FileUrlSchema } from './file-url';
-import { VideoFormatSchema } from './video-container';
+
+export enum VideoFormat {
+  CONTAINER = 'container',
+  HLS = 'hls',
+  DASH = 'dash',
+}
+
+export const VideoFormatSchema = z.nativeEnum(VideoFormat);
 
 export const VideoSchema = z.object({
   quality: z.string().optional(),
