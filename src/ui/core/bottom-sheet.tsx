@@ -14,7 +14,7 @@ import { twMerge } from 'tailwind-merge';
 
 import colors from '../theme/colors';
 
-interface BottomSheetProps extends LBottomSheetProps {
+export interface BottomSheetProps extends LBottomSheetProps {
   containerViewProps?: Omit<ViewProps, 'className'>;
   containerViewClassName?: string;
 }
@@ -22,7 +22,17 @@ interface BottomSheetProps extends LBottomSheetProps {
 const SBottomSheetScrollView = styled(BottomSheetScrollView);
 
 const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
-  ({ containerViewProps, containerViewClassName, ...props }, ref) => {
+  (
+    {
+      containerViewProps,
+      containerViewClassName,
+      handleStyle,
+      handleIndicatorStyle,
+      backgroundStyle,
+      ...props
+    },
+    ref
+  ) => {
     const renderBackdrop = useCallback(
       (backdropProps: BottomSheetBackdropProps) => (
         <BottomSheetBackdrop
@@ -41,16 +51,22 @@ const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
         handleStyle={{
           backgroundColor: colors.thunder[900],
           borderRadius: 12,
+          // @ts-ignore
+          ...handleStyle,
         }}
         handleIndicatorStyle={{
           backgroundColor: colors.thunder[400],
+          // @ts-ignore
+          ...handleIndicatorStyle,
         }}
         backgroundStyle={{
           backgroundColor: colors.thunder[900],
+          // @ts-ignore
+          ...backgroundStyle,
         }}
         ref={ref}
-        {...props}
         backdropComponent={renderBackdrop}
+        {...props}
       >
         <SBottomSheetScrollView
           className={twMerge('p-4 rounded-xl', containerViewClassName)}

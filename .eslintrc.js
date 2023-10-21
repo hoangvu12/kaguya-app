@@ -74,6 +74,7 @@ module.exports = {
         ],
         'react-native/no-inline-styles': 'off',
         'react/no-unstable-nested-components': 'off',
+        '@typescript-eslint/no-shadow': 'off',
       },
     },
     // Configuration for  translations files (i18next)

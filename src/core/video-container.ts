@@ -5,14 +5,6 @@ import { SubtitleSchema } from './subtitle';
 import { TimestampSchema } from './timestamp';
 import { VideoSchema } from './video';
 
-export enum VideoFormat {
-  CONTAINER = 'container',
-  HLS = 'hls',
-  DASH = 'dash',
-}
-
-export const VideoFormatSchema = z.nativeEnum(VideoFormat);
-
 export const VideoContainerSchema = z.object({
   videos: z.array(VideoSchema),
   subtitles: z.array(SubtitleSchema).optional(),

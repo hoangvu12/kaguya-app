@@ -93,7 +93,7 @@ export const TabNavigator = () => {
         },
         tabBarShowLabel: false,
       })}
-      initialRouteName="Module"
+      initialRouteName="Anime"
       id="tab-navigator"
     >
       <Tab.Group
