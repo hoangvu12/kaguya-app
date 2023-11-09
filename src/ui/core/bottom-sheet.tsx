@@ -17,6 +17,7 @@ import colors from '../theme/colors';
 export interface BottomSheetProps extends LBottomSheetProps {
   containerViewProps?: Omit<ViewProps, 'className'>;
   containerViewClassName?: string;
+  useScrollView?: boolean;
 }
 
 const SBottomSheetScrollView = styled(BottomSheetScrollView);
@@ -29,6 +30,7 @@ const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
       handleStyle,
       handleIndicatorStyle,
       backgroundStyle,
+      useScrollView = true,
       ...props
     },
     ref
@@ -68,14 +70,20 @@ const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
         backdropComponent={renderBackdrop}
         {...props}
       >
-        <SBottomSheetScrollView
-          className={twMerge('p-4 rounded-xl', containerViewClassName)}
-          {...containerViewProps}
-        >
-          {typeof props.children === 'function'
-            ? props.children()
-            : props.children}
-        </SBottomSheetScrollView>
+        {useScrollView ? (
+          <SBottomSheetScrollView
+            className={twMerge('p-4 rounded-xl', containerViewClassName)}
+            {...containerViewProps}
+          >
+            {typeof props.children === 'function'
+              ? props.children()
+              : props.children}
+          </SBottomSheetScrollView>
+        ) : typeof props.children === 'function' ? (
+          props.children()
+        ) : (
+          props.children
+        )}
       </BottomSheetModal>
     );
   }

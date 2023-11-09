@@ -7,6 +7,7 @@ import type { SvgProps } from 'react-native-svg';
 
 import { AnimeHomeScreen } from '@/screens/anime/screen';
 import ModuleScreen from '@/screens/module/screen';
+import SearchScreen from '@/screens/search/screen';
 import {
   Anime as AnimeIcon,
   colors,
@@ -14,6 +15,7 @@ import {
   Settings as SettingsIcon,
 } from '@/ui';
 import { BoxIcon } from '@/ui/icons/box';
+import { Search } from '@/ui/icons/search';
 
 import { AnimeNavigator } from './anime-navigator';
 
@@ -22,6 +24,7 @@ type TabParamList = {
   Settings: undefined;
   Manga: undefined;
   Module: undefined;
+  Search: undefined;
 };
 
 type TabType = {
@@ -41,6 +44,7 @@ const tabsIcons: TabIconsType = {
   Manga: (props: SvgProps) => <MangaIcon {...props} />,
   Settings: (props: SvgProps) => <SettingsIcon {...props} />,
   Module: (props: SvgProps) => <BoxIcon {...props} />,
+  Search: (props: SvgProps) => <Search {...props} />,
 };
 
 export type TabList<T extends keyof TabParamList> = {
@@ -63,6 +67,11 @@ const tabs: TabType[] = [
     name: 'Module',
     component: ModuleScreen,
     label: 'Module',
+  },
+  {
+    name: 'Search',
+    component: SearchScreen,
+    label: 'Search',
   },
 ];
 
@@ -93,7 +102,7 @@ export const TabNavigator = () => {
         },
         tabBarShowLabel: false,
       })}
-      initialRouteName="Anime"
+      initialRouteName="Search"
       id="tab-navigator"
     >
       <Tab.Group
