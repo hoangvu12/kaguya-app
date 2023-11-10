@@ -8,7 +8,7 @@ import { AnimeWatchScreen } from '@/screens/anime/watch/screen';
 const Stack = createNativeStackNavigator();
 
 export const AnimeNavigator = () => (
-  <Stack.Navigator id="anime-navigator" initialRouteName="Watch">
+  <Stack.Navigator id="anime-navigator" initialRouteName="Home">
     <Stack.Group>
       <Stack.Screen
         options={{ headerShown: false }}

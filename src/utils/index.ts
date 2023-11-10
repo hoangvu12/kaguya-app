@@ -1,6 +1,9 @@
 import type { AxiosError } from 'axios';
+import dayjs from 'dayjs';
 import * as FileSystem from 'expo-file-system';
 import { showMessage } from 'react-native-flash-message';
+
+import { MediaSeason } from '@/gql/graphql';
 
 // for onError react queries and mutations
 export const showError = (error: AxiosError) => {
@@ -79,7 +82,7 @@ export const deepEqual = (x: any, y: any): boolean => {
     typeof y === 'object' &&
     y != null
   ) {
-    if (Object.keys(x).length != Object.keys(y).length) return false;
+    if (Object.keys(x).length !== Object.keys(y).length) return false;
 
     for (var prop in x) {
       if (y.hasOwnProperty(prop)) {
@@ -89,4 +92,57 @@ export const deepEqual = (x: any, y: any): boolean => {
 
     return true;
   } else return false;
+};
+
+export const getSeason = () => {
+  const month = dayjs().month();
+  const year = dayjs().year();
+
+  let season = MediaSeason.Winter;
+
+  if (month >= 3 && month <= 5) {
+    season = MediaSeason.Spring;
+  }
+
+  if (month >= 6 && month <= 8) {
+    season = MediaSeason.Summer;
+  }
+
+  if (month >= 9 && month <= 11) {
+    season = MediaSeason.Fall;
+  }
+
+  return {
+    season,
+    year,
+  };
+};
+
+export const getNextSeason = () => {
+  const { season, year } = getSeason();
+
+  let nextSeason = MediaSeason.Winter;
+  let nextYear = year;
+
+  if (season === MediaSeason.Winter) {
+    nextSeason = MediaSeason.Spring;
+  }
+
+  if (season === MediaSeason.Spring) {
+    nextSeason = MediaSeason.Summer;
+  }
+
+  if (season === MediaSeason.Summer) {
+    nextSeason = MediaSeason.Fall;
+  }
+
+  if (season === MediaSeason.Fall) {
+    nextSeason = MediaSeason.Winter;
+    nextYear = year + 1;
+  }
+
+  return {
+    season: nextSeason,
+    year: nextYear,
+  };
 };

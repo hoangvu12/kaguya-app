@@ -7,14 +7,8 @@ import { FlatList } from 'react-native-gesture-handler';
 
 import { formatNumberToAbbreviated } from '@/core';
 import anime from '@/mock_data/anime_details.json';
-import {
-  addAlpha,
-  BannerCard,
-  Button,
-  FocusAwareStatusBar,
-  Text,
-  View,
-} from '@/ui';
+import { Banner } from '@/screens/search/components/banner';
+import { addAlpha, Button, FocusAwareStatusBar, Text, View } from '@/ui';
 import { Dot } from '@/ui/core/dot-list';
 import Tabs from '@/ui/core/tabs';
 import { Heart as HeartIcon, Smile as SmileIcon } from '@/ui/icons';
@@ -61,7 +55,7 @@ export const AnimeDetailsScreen = () => {
     () => (
       <View className="mb-2 bg-thunder-950">
         <View className="relative h-48 w-full">
-          <BannerCard media={anime} showInfo={false} />
+          <Banner media={anime} />
 
           <SLinearGradient
             colors={linearGradientColors}

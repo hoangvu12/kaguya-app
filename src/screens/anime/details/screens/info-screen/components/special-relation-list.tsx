@@ -42,7 +42,7 @@ const SpecialRelationList: React.FC<RelationListProps> = ({
 
           <View className="absolute inset-0 bg-black/60" />
 
-          <View className=" relative">
+          <View className="relative">
             <Text variant="xl">
               {edge.relationType === MediaRelation.Prequel
                 ? 'Prequel'

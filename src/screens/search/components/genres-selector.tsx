@@ -3,89 +3,11 @@ import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { twMerge } from 'tailwind-merge';
 
+import { GENRE_LIST } from '@/constants';
 import { Text, TouchableOpacity, View } from '@/ui';
 import Chip from '@/ui/core/chip';
 
 import { genresAtom } from '../store';
-
-const genreOptions = [
-  {
-    value: 'Action',
-    label: 'Action',
-  },
-  {
-    value: 'Adventure',
-    label: 'Adventure',
-  },
-  {
-    value: 'Comedy',
-    label: 'Comedy',
-  },
-  {
-    value: 'Drama',
-    label: 'Drama',
-  },
-  {
-    value: 'Ecchi',
-    label: 'Ecchi',
-  },
-  {
-    value: 'Fantasy',
-    label: 'Fantasy',
-  },
-  {
-    value: 'Hentai',
-    label: 'Hentai',
-  },
-  {
-    value: 'Horror',
-    label: 'Horror',
-  },
-  {
-    value: 'Mahou Shoujo',
-    label: 'Mahou Shoujo',
-  },
-  {
-    value: 'Mecha',
-    label: 'Mecha',
-  },
-  {
-    value: 'Music',
-    label: 'Music',
-  },
-  {
-    value: 'Mystery',
-    label: 'Mystery',
-  },
-  {
-    value: 'Psychological',
-    label: 'Psychological',
-  },
-  {
-    value: 'Romance',
-    label: 'Romance',
-  },
-  {
-    value: 'Sci-Fi',
-    label: 'Sci-Fi',
-  },
-  {
-    value: 'Slice of Life',
-    label: 'Slice of Life',
-  },
-  {
-    value: 'Sports',
-    label: 'Sports',
-  },
-  {
-    value: 'Supernatural',
-    label: 'Supernatural',
-  },
-  {
-    value: 'Thriller',
-    label: 'Thriller',
-  },
-];
 
 const GenresSelector = () => {
   const [genres, setGenres] = useAtom(genresAtom);
@@ -93,7 +15,7 @@ const GenresSelector = () => {
   return (
     <FlatList
       horizontal
-      data={genreOptions}
+      data={GENRE_LIST}
       renderItem={({ item }) => (
         <TouchableOpacity
           onPress={() => {

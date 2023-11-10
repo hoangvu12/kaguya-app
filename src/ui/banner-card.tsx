@@ -1,54 +1,122 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { styled } from 'nativewind';
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
+import Carousel from 'react-native-reanimated-carousel';
+import { twMerge } from 'tailwind-merge';
 
-import type { Media } from '@/types/anilist';
+import type { FragmentType } from '@/gql';
+import { graphql, useFragment } from '@/gql';
+import { useGraphQL } from '@/hooks/use-graphql';
 
 import { addAlpha } from '../utils';
-import type { ImgProps } from './core';
-import { Button, Image, Text, View } from './core';
-import AutoImage from './core/auto-image';
-import PlayIcon from './icons/play';
-import { colors } from './theme';
+import { Image, Text, View } from './core';
+import Skeleton, { SkeletonItem } from './core/skeleton';
+import MediaUnitStats from './media-unit-stats';
+import { colors, WIDTH } from './theme';
 
-interface BannerCardProps extends ImgProps {
-  media: Media;
-  showInfo?: boolean;
-}
+const BannerCardFragment = graphql(`
+  fragment BannerCardMedia on Media {
+    title {
+      userPreferred
+    }
+    bannerImage
+    genres
+    ...MediaUnitStatsMedia
+  }
+`);
+
+type MediaFragment = FragmentType<typeof BannerCardFragment>;
+
+const document = graphql(`
+  query BannerCard {
+    Page(page: 1, perPage: 10) {
+      media(type: ANIME, sort: [TRENDING_DESC, POPULARITY_DESC]) {
+        ...BannerCardMedia
+      }
+    }
+  }
+`);
 
 const SLinearGradient = styled(LinearGradient);
 
 const linearGradientColors = [
   '#00000000',
   addAlpha(colors.thunder[950], 0.6),
-  addAlpha(colors.thunder[950], 1),
+  addAlpha(colors.thunder[950], 0.95),
 ];
 
-export const BannerCard = ({ media, showInfo = true }: BannerCardProps) => {
-  return (
-    <View className="relative h-full w-full rounded-md">
-      <Image
-        source={{
-          uri: media.bannerImage,
-          headers: {
-            referer: 'https://anilist.co',
-          },
-        }}
-        className="h-full w-full rounded-md object-cover"
-      />
+const CAROUSEL_HEIGHT = 208;
 
-      <SLinearGradient
-        colors={linearGradientColors}
-        className="absolute inset-0 flex flex-row items-end rounded-md"
-      >
-        {showInfo && (
+export const BannerList = () => {
+  const { data, isLoading } = useGraphQL(document);
+
+  const renderItem = useCallback(({ item }: { item: MediaFragment }) => {
+    return <BannerItem media={item} />;
+  }, []);
+
+  const mediaList = useMemo(() => {
+    if (!data?.Page?.media) return [];
+
+    return data.Page.media.filter(Boolean);
+  }, [data?.Page?.media]);
+
+  if (isLoading) {
+    return (
+      <Skeleton className="px-4">
+        <SkeletonItem style={{ height: CAROUSEL_HEIGHT }} className="w-full" />
+      </Skeleton>
+    );
+  }
+
+  if (!mediaList?.length) {
+    return <Text>No data</Text>;
+  }
+
+  return (
+    <Carousel
+      loop
+      autoPlay
+      autoPlayInterval={3000}
+      height={CAROUSEL_HEIGHT}
+      width={WIDTH}
+      data={mediaList!}
+      mode="parallax"
+      modeConfig={{
+        parallaxScrollingScale: 0.9,
+        parallaxScrollingOffset: 50,
+      }}
+      windowSize={4}
+      renderItem={renderItem}
+    />
+  );
+};
+
+const BannerItem = React.memo(
+  ({ media: mediaProps }: { media: MediaFragment }) => {
+    const media = useFragment(BannerCardFragment, mediaProps);
+
+    return (
+      <View className="relative h-full w-full rounded-md">
+        <View className="h-full w-full">
+          <Image
+            source={{
+              uri: media.bannerImage!,
+            }}
+            style={{
+              borderRadius: 6,
+              width: '100%',
+              height: '100%',
+            }}
+            contentFit="cover"
+          />
+        </View>
+
+        <SLinearGradient
+          colors={linearGradientColors}
+          className="absolute inset-0 flex flex-row items-end rounded-md"
+        >
           <View className="w-full p-4">
-            <AutoImage
-              source={{
-                uri: 'https://www.themoviedb.org/t/p/original/3JqKLnwoGAE8nK7YfESzmzn8qDG.png',
-              }}
-              className="mb-4 w-3/4"
-            />
+            <MediaUnitStats media={media} className="mt-1" />
 
             <Text
               weight="semibold"
@@ -56,20 +124,30 @@ export const BannerCard = ({ media, showInfo = true }: BannerCardProps) => {
               numberOfLines={1}
               className="mb-1"
             >
-              {media.title.userPreferred}
+              {media?.title?.userPreferred}
             </Text>
 
-            <View className="flex flex-row">
-              <Button
-                leftIcon={<PlayIcon className="h-6 w-6 text-white" />}
-                variant="primary"
-              >
-                <Text>Watch now</Text>
-              </Button>
+            <View className="flex flex-row items-center">
+              {media.genres!.slice(0, 4).map((genre, index) => {
+                const isLast =
+                  index === media.genres!.length - 1 || index === 3;
+
+                return (
+                  <React.Fragment key={genre}>
+                    <Text weight="normal" variant="md">
+                      {genre}
+                    </Text>
+
+                    {!isLast && (
+                      <Text className={twMerge(!isLast && 'mx-0.5')}>-</Text>
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </View>
           </View>
-        )}
-      </SLinearGradient>
-    </View>
-  );
-};
+        </SLinearGradient>
+      </View>
+    );
+  }
+);
