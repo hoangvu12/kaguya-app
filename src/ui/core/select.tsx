@@ -1,19 +1,13 @@
-// export const SelectItem = Picker.Item;
-
 import type { BottomSheetProps } from '@gorhom/bottom-sheet';
 import { type BottomSheetModal, TouchableOpacity } from '@gorhom/bottom-sheet';
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { twMerge } from 'tailwind-merge';
 
-import { WIDTH } from '../theme';
 import BottomSheet from './bottom-sheet';
 import { Button } from './button';
-import { ScrollView } from './scroll-view';
 import { Text } from './text';
 import { View } from './view';
-
-const PADDING = 16;
 
 export interface SelectOption<T> {
   label: string;
@@ -115,48 +109,40 @@ const SelectInner = <T,>(
         closeBottomSheet,
       })}
 
-      <BottomSheet ref={bottomSheetRef} snapPoints={snapPoints}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            flex: 1,
-            justifyContent: 'center',
-          }}
-        >
-          <View
-            className="mb-12 space-y-2"
-            style={{ width: WIDTH - PADDING * 2 }}
-          >
-            <FlatList
-              data={options}
-              renderItem={({ item }) => {
-                return (
-                  <TouchableOpacity
-                    key={item.label}
-                    onPress={() => {
-                      setCurrentOption(item);
-                      onSelect?.(item);
-                    }}
-                    style={{ width: '100%' }}
-                  >
-                    {option({
-                      closeBottomSheet,
-                      openBottomSheet,
-                      option: item,
-                      selectedOption,
-                      placeholder,
-                    })}
-                  </TouchableOpacity>
-                );
-              }}
-              ItemSeparatorComponent={() => <View className="my-1" />}
-              keyExtractor={(item) => item.label}
-            />
+      <BottomSheet
+        ref={bottomSheetRef}
+        snapPoints={snapPoints}
+        useScrollView={false}
+      >
+        <View className="mb-12 space-y-2 p-4">
+          <FlatList
+            data={options}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  key={item.label}
+                  onPress={() => {
+                    setCurrentOption(item);
+                    onSelect?.(item);
+                  }}
+                  style={{ width: '100%' }}
+                >
+                  {option({
+                    closeBottomSheet,
+                    openBottomSheet,
+                    option: item,
+                    selectedOption,
+                    placeholder,
+                  })}
+                </TouchableOpacity>
+              );
+            }}
+            ItemSeparatorComponent={() => <View className="my-1" />}
+            keyExtractor={(item) => item.label}
+          />
 
-            {endOptionSlot}
-          </View>
-        </ScrollView>
+          {endOptionSlot}
+        </View>
       </BottomSheet>
     </React.Fragment>
   );

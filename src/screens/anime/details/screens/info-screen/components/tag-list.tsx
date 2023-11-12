@@ -1,18 +1,35 @@
+import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import type { ViewProps } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 import { twMerge } from 'tailwind-merge';
 
-import type { MediaTag } from '@/types/anilist';
+import type { FragmentType } from '@/gql';
+import { graphql, useFragment } from '@/gql';
 import { Button, Text, View } from '@/ui';
 import Chip from '@/ui/core/chip';
 
+export const TagListFragment = graphql(`
+  fragment TagListMedia on MediaTag {
+    id
+    name
+    rank
+    isMediaSpoiler
+    isGeneralSpoiler
+  }
+`);
+
 interface TagListProps extends ViewProps {
-  tags: MediaTag[];
+  tags: FragmentType<typeof TagListFragment>[];
 }
 
-const TagList: React.FC<TagListProps> = ({ tags, className, ...props }) => {
+const TagList: React.FC<TagListProps> = ({
+  tags: tagsProps,
+  className,
+  ...props
+}) => {
   const [showSpoilers, setShowSpoilers] = React.useState(false);
+
+  const tags = useFragment(TagListFragment, tagsProps);
 
   const filteredTags = React.useMemo(() => {
     if (!showSpoilers) {
@@ -28,11 +45,12 @@ const TagList: React.FC<TagListProps> = ({ tags, className, ...props }) => {
         Tags
       </Text>
 
-      <FlatList
+      <FlashList
+        estimatedItemSize={137}
         data={filteredTags}
         renderItem={({ item }) => (
           <Chip>
-            <Text variant="sm">{`${item.name}: ${item.rank}%`}</Text>
+            <Text variant="sm">{`${item.name}: ${item.rank || 0}%`}</Text>
           </Chip>
         )}
         keyExtractor={(item) => item.id.toString()}

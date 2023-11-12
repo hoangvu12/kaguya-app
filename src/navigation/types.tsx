@@ -1,7 +1,9 @@
 import type { RouteProp as NRouteProp } from '@react-navigation/native';
 
-export type RootStackParamList = {}; //  & FooStackParamList & BarStackParamList
-// very important to type check useNavigation hook
+import type { AnimeParamsList } from './anime-navigator';
+
+export type RootStackParamList = AnimeParamsList;
+
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}

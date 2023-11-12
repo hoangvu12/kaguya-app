@@ -43,14 +43,10 @@ const ModuleItem: React.FC<ModuleItemProps> = ({
           <Text variant="sm" weight="normal">
             {module.languages.slice(0, 2).join(', ')}
           </Text>
-
-          <Text variant="xs" weight="normal" className="text-gray-300">
-            {module.info.description}
-          </Text>
         </View>
       </View>
 
-      <View>
+      <View className="shrink-0">
         <View className="flex flex-row items-center">
           <View className="mr-1">
             <UserIcon size={14} color="white" />

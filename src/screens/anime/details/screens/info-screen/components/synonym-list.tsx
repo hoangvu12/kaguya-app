@@ -1,6 +1,6 @@
+import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import type { ViewProps } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 
 import { Text, View } from '@/ui';
 import Chip from '@/ui/core/chip';
@@ -20,7 +20,8 @@ const SynonymList: React.FC<SynonymListProps> = ({
         Synonyms
       </Text>
 
-      <FlatList
+      <FlashList
+        estimatedItemSize={94}
         data={synonyms}
         renderItem={({ item }) => (
           <Chip>

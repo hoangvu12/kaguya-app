@@ -7,7 +7,6 @@ export const ModuleSchema = z.object({
   languages: z.array(z.string()),
   info: z.object({
     author: z.string(),
-    description: z.string(),
   }),
   type: z.enum(['anime', 'manga']),
 });

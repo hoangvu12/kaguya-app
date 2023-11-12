@@ -5,23 +5,19 @@ import type { ComponentType } from 'react';
 import * as React from 'react';
 import type { SvgProps } from 'react-native-svg';
 
-import { AnimeHomeScreen } from '@/screens/anime/screen';
 import ModuleScreen from '@/screens/module/screen';
-import {
-  Anime as AnimeIcon,
-  colors,
-  Manga as MangaIcon,
-  Settings as SettingsIcon,
-} from '@/ui';
+import SearchScreen from '@/screens/search/screen';
+import { Anime as AnimeIcon, colors, Settings as SettingsIcon } from '@/ui';
 import { BoxIcon } from '@/ui/icons/box';
+import { Search } from '@/ui/icons/search';
 
 import { AnimeNavigator } from './anime-navigator';
 
 type TabParamList = {
   Anime: undefined;
   Settings: undefined;
-  Manga: undefined;
   Module: undefined;
+  Search: undefined;
 };
 
 type TabType = {
@@ -38,9 +34,9 @@ const Tab = createBottomTabNavigator<TabParamList>();
 
 const tabsIcons: TabIconsType = {
   Anime: (props: SvgProps) => <AnimeIcon {...props} />,
-  Manga: (props: SvgProps) => <MangaIcon {...props} />,
   Settings: (props: SvgProps) => <SettingsIcon {...props} />,
   Module: (props: SvgProps) => <BoxIcon {...props} />,
+  Search: (props: SvgProps) => <Search {...props} />,
 };
 
 export type TabList<T extends keyof TabParamList> = {
@@ -54,15 +50,16 @@ const tabs: TabType[] = [
     component: AnimeNavigator,
     label: 'Anime',
   },
-  {
-    name: 'Manga',
-    component: AnimeHomeScreen,
-    label: 'Manga',
-  },
+
   {
     name: 'Module',
     component: ModuleScreen,
     label: 'Module',
+  },
+  {
+    name: 'Search',
+    component: SearchScreen,
+    label: 'Search',
   },
 ];
 

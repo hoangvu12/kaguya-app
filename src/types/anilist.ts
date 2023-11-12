@@ -1369,3 +1369,321 @@ export interface RecommendationArgs {
   /** The order the results will be returned in*/
   sort?: RecommendationSort[];
 }
+
+/** List of anime or manga */
+export interface MediaList {
+  /** The id of the list entry*/
+  id: number;
+  /** The id of the user owner of the list entry*/
+  userId: number;
+  /** The id of the media*/
+  mediaId: number;
+  /** The watching/reading status*/
+  status: MediaListStatus;
+  /** The score of the entry*/
+  score: number;
+  /** The amount of episodes/chapters consumed by the user*/
+  progress: number;
+  /** The amount of volumes read by the user*/
+  progressVolumes: number;
+  /** The amount of times the user has rewatched/read the media*/
+  repeat: number;
+  /** Priority of planning*/
+  priority: number;
+  /** If the entry should only be visible to authenticated user*/
+  private: boolean;
+  /** Text notes*/
+  notes: string;
+  /** If the entry shown be hidden from non-custom lists*/
+  hiddenFromStatusLists: boolean;
+  /** Map of booleans for which custom lists the entry are in*/
+  customLists: string;
+  /** Map of advanced scores with name keys*/
+  advancedScores: string;
+  /** When the entry was started by the user*/
+  startedAt: FuzzyDate;
+  /** When the entry was completed by the user*/
+  completedAt: FuzzyDate;
+  /** When the entry data was last updated*/
+  updatedAt: number;
+  /** When the entry data was created*/
+  createdAt: number;
+  media: Media;
+  user: User;
+}
+
+/** A user */
+export interface User {
+  /** The id of the user*/
+  id: number;
+  /** The name of the user*/
+  name: string;
+  /** The bio written by user (Markdown)*/
+  about: string;
+  /** The user's avatar images*/
+  avatar: UserAvatar;
+  /** The user's banner images*/
+  bannerImage: string;
+  /** If the authenticated user if following this user*/
+  isFollowing: boolean;
+  /** If this user if following the authenticated user*/
+  isFollower: boolean;
+  /** If the user is blocked by the authenticated user*/
+  isBlocked: boolean;
+  bans: string;
+  /** The user's general options*/
+  options: UserOptions;
+  /** The user's media list options*/
+  mediaListOptions: MediaListOptions;
+  /** The users favourites*/
+  favourites: Favourites;
+  /** The users anime & manga list statistics*/
+  statistics: UserStatisticTypes;
+  /** The number of unread notifications the user has*/
+  unreadNotificationCount: number;
+  /** The url for the user page on the AniList website*/
+  siteUrl: string;
+  /** The donation tier of the user*/
+  donatorTier: number;
+  /** Custom donation badge text*/
+  donatorBadge: string;
+  /** When the user's account was created. (Does not exist for accounts created before 2020)*/
+  createdAt: number;
+}
+
+/** A user's avatars */
+export interface UserAvatar {
+  /** The avatar of user at its largest size*/
+  large: string;
+  /** The avatar of user at medium size*/
+  medium: string;
+}
+
+export enum UserStaffNameLanguage {
+  Romaji_western = 'ROMAJI_WESTERN',
+  Romaji = 'ROMAJI',
+  Native = 'NATIVE',
+}
+
+/** A user's general options */
+export interface UserOptions {
+  /** The language the user wants to see media titles in*/
+  titleLanguage: UserTitleLanguage;
+  /** Whether the user has enabled viewing of 18+ content*/
+  displayAdultContent: boolean;
+  /** Whether the user receives notifications when a show they are watching aires*/
+  airingNotifications: boolean;
+  /** Profile highlight color (blue, purple, pink, orange, red, green, gray)*/
+  profileColor: string;
+  /** The user's timezone offset (Auth user only)*/
+  timezone: string;
+  /** Minutes between activity for them to be merged together. 0 is Never, Above 2 weeks (20160 mins) is Always.*/
+  activityMergeTime: number;
+  /** The language the user wants to see staff and character names in*/
+  staffNameLanguage: UserStaffNameLanguage;
+  /** Whether the user only allow messages from users they follow*/
+  restrictMessagesToFollowing: boolean;
+}
+
+/** The language the user wants to see media titles in */
+export enum UserTitleLanguage {
+  Romaji = 'ROMAJI',
+  English = 'ENGLISH',
+  Native = 'NATIVE',
+  Romaji_stylised = 'ROMAJI_STYLISED',
+  English_stylised = 'ENGLISH_STYLISED',
+  Native_stylised = 'NATIVE_STYLISED',
+}
+
+/** A user's list options */
+export interface MediaListOptions {
+  /** The score format the user is using for media lists*/
+  scoreFormat: ScoreFormat;
+  /** The default order list rows should be displayed in*/
+  rowOrder: string;
+  /** @deprecated No longer used*/
+  useLegacyLists: boolean;
+  /** The user's anime list options*/
+  animeList: MediaListTypeOptions;
+  /** The user's manga list options*/
+  mangaList: MediaListTypeOptions;
+  /** @deprecated No longer usedThe list theme options for both lists*/
+  sharedTheme: string;
+  /** @deprecated No longer usedIf the shared theme should be used instead of the individual list themes*/
+  sharedThemeEnabled: boolean;
+}
+
+/** Media list scoring type */
+export enum ScoreFormat {
+  Point_100 = 'POINT_100',
+  Point_10_decimal = 'POINT_10_DECIMAL',
+  Point_10 = 'POINT_10',
+  Point_5 = 'POINT_5',
+  Point_3 = 'POINT_3',
+}
+
+/** A user's list options for anime or manga lists */
+export interface MediaListTypeOptions {
+  /** The order each list should be displayed in*/
+  sectionOrder: string[];
+  /** If the completed sections of the list should be separated by format*/
+  splitCompletedSectionByFormat: boolean;
+  /** @deprecated This field has not yet been fully implemented and may change without warningThe list theme options*/
+  theme: string;
+  /** The names of the user's custom lists*/
+  customLists: string[];
+  /** The names of the user's advanced scoring sections*/
+  advancedScoring: string[];
+  /** If advanced scoring is enabled*/
+  advancedScoringEnabled: boolean;
+}
+
+/** User's favourite anime, manga, characters, staff & studios */
+export interface Favourites {
+  /** Favourite anime*/
+  anime: MediaConnection;
+  /** Favourite manga*/
+  manga: MediaConnection;
+  /** Favourite characters*/
+  characters: CharacterConnection;
+  /** Favourite staff*/
+  staff: StaffConnection;
+  /** Favourite studios*/
+  studios: StudioConnection;
+}
+
+export interface UserStatisticTypes {
+  anime: UserStatistics;
+  manga: UserStatistics;
+}
+
+export interface UserStatistics {
+  count: number;
+  meanScore: number;
+  standardDeviation: number;
+  minutesWatched: number;
+  episodesWatched: number;
+  chaptersRead: number;
+  volumesRead: number;
+  formats: UserFormatStatistic[];
+  statuses: UserStatusStatistic[];
+  scores: UserScoreStatistic[];
+  lengths: UserLengthStatistic[];
+  releaseYears: UserReleaseYearStatistic[];
+  startYears: UserStartYearStatistic[];
+  genres: UserGenreStatistic[];
+  tags: UserTagStatistic[];
+  countries: UserCountryStatistic[];
+  voiceActors: UserVoiceActorStatistic[];
+  staff: UserStaffStatistic[];
+  studios: UserStudioStatistic[];
+}
+
+export interface UserStatusStatistic {
+  count: number;
+  meanScore: number;
+  minutesWatched: number;
+  chaptersRead: number;
+  mediaIds: number[];
+  status: MediaListStatus;
+}
+
+export interface UserScoreStatistic {
+  count: number;
+  meanScore: number;
+  minutesWatched: number;
+  chaptersRead: number;
+  mediaIds: number[];
+  score: number;
+}
+
+export interface UserLengthStatistic {
+  count: number;
+  meanScore: number;
+  minutesWatched: number;
+  chaptersRead: number;
+  mediaIds: number[];
+  length: string;
+}
+
+export interface UserReleaseYearStatistic {
+  count: number;
+  meanScore: number;
+  minutesWatched: number;
+  chaptersRead: number;
+  mediaIds: number[];
+  releaseYear: number;
+}
+
+export interface UserStartYearStatistic {
+  count: number;
+  meanScore: number;
+  minutesWatched: number;
+  chaptersRead: number;
+  mediaIds: number[];
+  startYear: number;
+}
+
+export interface UserGenreStatistic {
+  count: number;
+  meanScore: number;
+  minutesWatched: number;
+  chaptersRead: number;
+  mediaIds: number[];
+  genre: string;
+}
+
+export interface UserTagStatistic {
+  count: number;
+  meanScore: number;
+  minutesWatched: number;
+  chaptersRead: number;
+  mediaIds: number[];
+  tag: MediaTag;
+}
+
+export interface UserCountryStatistic {
+  count: number;
+  meanScore: number;
+  minutesWatched: number;
+  chaptersRead: number;
+  mediaIds: number[];
+  country: undefined;
+}
+
+export interface UserVoiceActorStatistic {
+  count: number;
+  meanScore: number;
+  minutesWatched: number;
+  chaptersRead: number;
+  mediaIds: number[];
+  voiceActor: Staff;
+  characterIds: number[];
+}
+
+export interface UserStaffStatistic {
+  count: number;
+  meanScore: number;
+  minutesWatched: number;
+  chaptersRead: number;
+  mediaIds: number[];
+  staff: Staff;
+}
+
+export interface UserStudioStatistic {
+  count: number;
+  meanScore: number;
+  minutesWatched: number;
+  chaptersRead: number;
+  mediaIds: number[];
+  studio: Studio;
+}
+
+export interface UserFormatStatistic {
+  count: number;
+  meanScore: number;
+  minutesWatched: number;
+  chaptersRead: number;
+  mediaIds: number[];
+  format: MediaFormat;
+}

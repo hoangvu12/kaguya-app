@@ -1,14 +1,14 @@
 import React from 'react';
 
-import episodes from '@/mock_data/episodes.json';
-import type { Media } from '@/types/anilist';
+import type { FragmentType } from '@/gql';
 import { View } from '@/ui';
 
+import type { EpisodeContainerFragment } from './components/episode-container';
 import EpisodeContainer from './components/episode-container';
 import ModuleSelector from './components/module-selector';
 
 interface EpisodeScreenProps {
-  media: Media;
+  media: FragmentType<typeof EpisodeContainerFragment>;
 }
 
 const EpisodeScreen: React.FC<EpisodeScreenProps> = ({ media }) => {
@@ -17,10 +17,10 @@ const EpisodeScreen: React.FC<EpisodeScreenProps> = ({ media }) => {
       <ModuleSelector />
 
       <View className="mt-4">
-        <EpisodeContainer episodes={episodes} media={media} />
+        <EpisodeContainer media={media} />
       </View>
     </View>
   );
 };
 
-export default EpisodeScreen;
+export default React.memo(EpisodeScreen);

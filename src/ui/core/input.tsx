@@ -4,6 +4,8 @@ import type { TextInputProps } from 'react-native';
 import { TextInput as RNTextInput } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
+import colors from '../theme/colors';
+
 interface InputProps extends TextInputProps {
   className?: string;
 }
@@ -28,6 +30,8 @@ const Input: React.FC<InputProps> = ({
       onBlur={(e) => {
         onBlur && onBlur(e);
       }}
+      placeholderTextColor={'white'}
+      cursorColor={colors.primary[300]}
       {...props}
     />
   );

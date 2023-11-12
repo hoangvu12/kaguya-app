@@ -1,33 +1,81 @@
-import { useHydrateAtoms } from 'jotai/utils';
-import React from 'react';
+import { useSetAtom } from 'jotai/react';
+import React, { useEffect } from 'react';
+import { Else, If, Then } from 'react-if';
 
-import type { Episode } from '@/types';
-import type { Media } from '@/types/anilist';
-import { View } from '@/ui';
+import { type FragmentType, graphql, useFragment } from '@/gql';
+import { ActivityIndicator, colors, Text, View } from '@/ui';
 
-import { mediaAtom } from '../store';
+import useEpisodes from '../hooks/use-episodes';
+import { episodeChunkAtom, sectionEpisodesAtom } from '../store';
 import EpisodeChunkSelector from './episode-chunk-selector';
 import EpisodeLayoutContainer from './episode-layout-container';
 import EpisodeLayoutSelector from './episode-layout-selector';
 import EpisodeSectionSelector from './episode-section-selector';
+import WrongTitle from './wrong-title';
+
+export const EpisodeContainerFragment = graphql(`
+  fragment EpisodeContainer on Media {
+    ...WrongTitle
+    ...UseAnimeEpisode
+  }
+`);
 
 interface EpisodeContainerProps {
-  episodes: Episode[];
-  media: Media;
+  media: FragmentType<typeof EpisodeContainerFragment>;
 }
 
 const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
-  episodes,
-  media,
+  media: mediaFragment,
 }) => {
-  useHydrateAtoms([[mediaAtom, media]]);
+  const media = useFragment(EpisodeContainerFragment, mediaFragment);
+
+  const { data, isLoading } = useEpisodes(media);
+  const setSectionEpisodes = useSetAtom(sectionEpisodesAtom);
+  const setEpisodeChunk = useSetAtom(episodeChunkAtom);
+
+  useEffect(() => {
+    // Reset episodes when loading
+    if (isLoading) {
+      setSectionEpisodes([]);
+      setEpisodeChunk([]);
+    }
+  }, [isLoading, setEpisodeChunk, setSectionEpisodes]);
 
   return (
     <View>
-      <EpisodeSectionSelector episodes={episodes} />
-      <EpisodeLayoutSelector />
-      <EpisodeChunkSelector />
-      <EpisodeLayoutContainer />
+      <View className="flex flex-row justify-end space-x-2">
+        <View>
+          <WrongTitle media={media} />
+        </View>
+
+        <View>
+          <EpisodeLayoutSelector />
+        </View>
+      </View>
+
+      <If condition={isLoading}>
+        <Then>
+          <View>
+            <ActivityIndicator color={colors.primary[500]} size={48} />
+          </View>
+        </Then>
+
+        <Else>
+          <If condition={!data?.length}>
+            <Then>
+              <Text className="text-center">
+                There are no episodes for this anime
+              </Text>
+            </Then>
+
+            <Else>
+              <EpisodeSectionSelector episodes={data!} />
+              <EpisodeChunkSelector />
+              <EpisodeLayoutContainer />
+            </Else>
+          </If>
+        </Else>
+      </If>
     </View>
   );
 };

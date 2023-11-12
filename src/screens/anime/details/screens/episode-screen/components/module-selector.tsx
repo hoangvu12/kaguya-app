@@ -35,23 +35,6 @@ const ModuleSelector = () => {
       </View>
     );
   }
-  // const { sendMessage, isLoaded } = useWebView();
-
-  // useEffect(() => {
-  //   if (!isLoaded) return;
-
-  // //   (async () => {
-  // //     const searchResults = await sendMessage(
-  // //       'get-search-results',
-  // //       searchCode,
-  // //       {
-  // //         query: 'One Piece',
-  // //       }
-  // //     );
-
-  // //     console.log(searchResults);
-  // //   })();
-  // // }, [sendMessage, isLoaded]);
 
   return (
     <Select

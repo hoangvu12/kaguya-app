@@ -1,25 +1,21 @@
 import React from 'react';
 
 import type { Episode } from '@/types';
-import type { Media } from '@/types/anilist';
 import { Button, Image, Text, View } from '@/ui';
 
 interface EpisodeCardProps {
   episode: Episode;
-  media: Media;
 }
 
-const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode, media }) => {
+const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode }) => {
   return (
     <Button className="flex flex-col items-start justify-center rounded-md bg-transparent p-0">
       <Image
         className="aspect-video w-full rounded-md"
         source={{
-          uri:
-            episode.thumbnail ||
-            media.bannerImage ||
-            media.coverImage.extraLarge,
+          uri: episode.thumbnail,
         }}
+        key={episode.thumbnail}
       />
 
       <View className="mt-1">

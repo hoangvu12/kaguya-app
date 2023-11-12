@@ -3,18 +3,15 @@ import { Else, If, Then } from 'react-if';
 import { twMerge } from 'tailwind-merge';
 
 import type { Episode } from '@/types';
-import type { Media } from '@/types/anilist';
 import type { ButtonProps } from '@/ui';
 import { Button, Image, Text, View } from '@/ui';
 
 interface EpisodeDetailsProps extends ButtonProps {
   episode: Episode;
-  media: Media;
 }
 
 const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
   episode,
-  media,
   className,
   ...props
 }) => {
@@ -35,11 +32,9 @@ const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
         <Image
           className="aspect-video w-5/12 rounded-md object-cover"
           source={{
-            uri:
-              episode.thumbnail ||
-              media.bannerImage ||
-              media.coverImage.extraLarge,
+            uri: episode.thumbnail,
           }}
+          key={episode.thumbnail}
         />
 
         <View className="flex-1 p-2">

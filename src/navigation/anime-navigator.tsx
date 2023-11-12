@@ -5,24 +5,32 @@ import { AnimeHomeScreen } from '@/screens';
 import { AnimeDetailsScreen } from '@/screens/anime/details/screen';
 import { AnimeWatchScreen } from '@/screens/anime/watch/screen';
 
-const Stack = createNativeStackNavigator();
+export type AnimeParamsList = {
+  AnimeDetails: {
+    mediaId: number;
+  };
+  AnimeHome: undefined;
+  AnimeWatch: undefined;
+};
+
+const Stack = createNativeStackNavigator<AnimeParamsList>();
 
 export const AnimeNavigator = () => (
-  <Stack.Navigator id="anime-navigator" initialRouteName="Watch">
+  <Stack.Navigator id="anime-navigator" initialRouteName="AnimeHome">
     <Stack.Group>
       <Stack.Screen
         options={{ headerShown: false }}
-        name="Home"
+        name="AnimeHome"
         component={AnimeHomeScreen}
       />
       <Stack.Screen
         options={{ headerTransparent: true }}
-        name="Details"
+        name="AnimeDetails"
         component={AnimeDetailsScreen}
       />
       <Stack.Screen
         options={{ headerShown: false }}
-        name="Watch"
+        name="AnimeWatch"
         component={AnimeWatchScreen}
       />
     </Stack.Group>

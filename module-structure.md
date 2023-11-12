@@ -1,22 +1,5 @@
 Modules are saved to `FileSystem.documentDirectory/modules`
 
-## Modules structure of the app (not the module itself):
-
-```
-modules/
-│   └── module_id/ (anime)
-│       ├── search.js
-│       ├── episodes.js
-│       ├── video-servers.js
-│       ├── video-container.js
-│       └── metadata.json
-    └── module_id/ (manga)
-        ├── search.js
-        ├── chapters.js
-        ├── images.js
-        └── metadata.json
-```
-
 ## Metadata structure:
 
 ```
@@ -28,8 +11,7 @@ modules/
   "type": "anime",
   "info": {
     "logo": String (e.g. "https://logo-example.com"),
-    "author": String (e.g. "MostHandsomeDude"),
-    "description": String (e.g. "A module to get the data from aniwatch.to")
+    "author": String (e.g. "MostHandsomeDude")
   }
 }
 ```
