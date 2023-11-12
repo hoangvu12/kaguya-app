@@ -29,8 +29,14 @@ const useEpisodes = (
 
   const { data, isLoading: isAnimeIdLoading } = useAnimeId(media);
 
+  const queryKey = ['episodes', media.id];
+
+  if (data?.data) {
+    queryKey.push(data.data);
+  }
+
   return useWebViewData(
-    ['episodes', media.id],
+    queryKey,
     async (webview) => {
       if (!data?.data) {
         return [];

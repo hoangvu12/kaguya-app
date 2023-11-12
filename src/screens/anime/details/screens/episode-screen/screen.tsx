@@ -3,12 +3,12 @@ import React from 'react';
 import type { FragmentType } from '@/gql';
 import { View } from '@/ui';
 
+import type { EpisodeContainerFragment } from './components/episode-container';
 import EpisodeContainer from './components/episode-container';
 import ModuleSelector from './components/module-selector';
-import type { useAnimeEpisodeFragment } from './hooks/use-episodes';
 
 interface EpisodeScreenProps {
-  media: FragmentType<typeof useAnimeEpisodeFragment>;
+  media: FragmentType<typeof EpisodeContainerFragment>;
 }
 
 const EpisodeScreen: React.FC<EpisodeScreenProps> = ({ media }) => {

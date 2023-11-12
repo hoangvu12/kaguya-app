@@ -3,7 +3,7 @@ import React from 'react';
 
 import EpisodeCard from '@/screens/anime/components/episode-card';
 import EpisodeDetails from '@/screens/anime/components/episode-details';
-import { Text, View, WIDTH } from '@/ui';
+import { View, WIDTH } from '@/ui';
 
 import { episodeChunkAtom, layoutModeAtom } from '../store';
 
@@ -16,12 +16,6 @@ const EpisodeLayoutContainer = () => {
 
   return (
     <React.Fragment>
-      {!episodes?.length && (
-        <Text className="text-center">
-          There are no episodes available for this anime.
-        </Text>
-      )}
-
       {layoutMode === 'details' && (
         <View className="space-y-4">
           {episodes.map((episode) => (

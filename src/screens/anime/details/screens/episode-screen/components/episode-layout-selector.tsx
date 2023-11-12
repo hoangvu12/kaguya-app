@@ -14,7 +14,7 @@ const EpisodeLayoutSelector = () => {
   };
 
   return (
-    <View className="mb-4 flex flex-row justify-end gap-2">
+    <View className="mb-4 flex flex-row gap-1">
       <Button
         className="bg-transparent p-0"
         style={{ transform: [{ rotateY: '180deg' }] }}

@@ -74,6 +74,7 @@ const EpisodeChunkSelector = () => {
   return (
     <View className="mb-4 flex flex-row">
       <FlashList
+        estimatedItemSize={106}
         ref={flatListRef}
         className="w-5/6"
         data={chunks}

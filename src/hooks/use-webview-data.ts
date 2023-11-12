@@ -18,7 +18,7 @@ const getFileContent = async (moduleId: string, fileName: string) => {
 const useWebViewData = <Type>(
   queryKey: any[],
   queryFn: (webview: UseWebViewData) => Promise<Type>,
-  queryOptions?: UseQueryOptions<Type, unknown, Type, (string | number)[]>
+  queryOptions?: UseQueryOptions<Type, unknown, Type, any[]>
 ) => {
   const webview = useWebView();
   const currentModuleId = useAtomValue(currentModuleIdAtom);

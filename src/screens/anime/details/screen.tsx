@@ -25,7 +25,7 @@ const document = graphql(`
     Media(id: $id) {
       ...DetailsHeaderMedia
       ...InfoScreenMedia
-      ...UseAnimeEpisode
+      ...EpisodeContainer
     }
   }
 `);

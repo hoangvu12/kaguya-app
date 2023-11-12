@@ -4645,11 +4645,24 @@ export type InfoDetailsScreenQuery = {
         ' $fragmentRefs'?: {
           DetailsHeaderMediaFragment: DetailsHeaderMediaFragment;
           InfoScreenMediaFragment: InfoScreenMediaFragment;
-          UseAnimeEpisodeFragment: UseAnimeEpisodeFragment;
+          EpisodeContainerFragment: EpisodeContainerFragment;
         };
       })
     | null;
 };
+
+export type EpisodeContainerFragment = ({ __typename?: 'Media' } & {
+  ' $fragmentRefs'?: {
+    WrongTitleFragment: WrongTitleFragment;
+    UseAnimeEpisodeFragment: UseAnimeEpisodeFragment;
+  };
+}) & { ' $fragmentName'?: 'EpisodeContainerFragment' };
+
+export type WrongTitleFragment = {
+  __typename?: 'Media';
+  id: number;
+  title?: { __typename?: 'MediaTitle'; english?: string | null } | null;
+} & { ' $fragmentName'?: 'WrongTitleFragment' };
 
 export type UseAnimeIdFragment = {
   __typename?: 'Media';
@@ -4963,6 +4976,35 @@ export const DetailsHeaderMediaFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<DetailsHeaderMediaFragment, unknown>;
+export const WrongTitleFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'WrongTitle' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<WrongTitleFragment, unknown>;
 export const UseAnimeIdFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -5063,6 +5105,116 @@ export const UseAnimeEpisodeFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<UseAnimeEpisodeFragment, unknown>;
+export const EpisodeContainerFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'EpisodeContainer' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'WrongTitle' },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'UseAnimeEpisode' },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'UseAnimeId' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'native' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'romaji' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'WrongTitle' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'UseAnimeEpisode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'UseAnimeId' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'extraLarge' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<EpisodeContainerFragment, unknown>;
 export const SpecialRelationListMediaFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -7044,7 +7196,7 @@ export const InfoDetailsScreenDocument = {
                 },
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'UseAnimeEpisode' },
+                  name: { kind: 'Name', value: 'EpisodeContainer' },
                 },
               ],
             },
@@ -7486,6 +7638,30 @@ export const InfoDetailsScreenDocument = {
     },
     {
       kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'WrongTitle' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'UseAnimeId' },
       typeCondition: {
         kind: 'NamedType',
@@ -7508,6 +7684,36 @@ export const InfoDetailsScreenDocument = {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'userPreferred' },
                 },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'UseAnimeEpisode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'UseAnimeId' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'extraLarge' } },
               ],
             },
           },
@@ -7679,7 +7885,7 @@ export const InfoDetailsScreenDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'UseAnimeEpisode' },
+      name: { kind: 'Name', value: 'EpisodeContainer' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'Media' },
@@ -7689,20 +7895,11 @@ export const InfoDetailsScreenDocument = {
         selections: [
           {
             kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'UseAnimeId' },
+            name: { kind: 'Name', value: 'WrongTitle' },
           },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
           {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'coverImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'extraLarge' } },
-              ],
-            },
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'UseAnimeEpisode' },
           },
         ],
       },
