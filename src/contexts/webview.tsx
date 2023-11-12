@@ -1,6 +1,6 @@
 import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import type { WebViewMessageEvent } from 'react-native-webview';
 import WebView from 'react-native-webview';
 
@@ -36,6 +36,8 @@ window.sendInternalMessage = (event, data) => {
 }
 
 window.sendRequest = (request) => {
+  console.log(request);
+
   return new Promise((resolve) => {
     sendInternalMessage("internal__request", request);
     
@@ -120,7 +122,7 @@ const WebViewProvider: React.FC<React.PropsWithChildren<{}>> = ({
         onLoadEnd={() => {
           setWebView(webViewRef.current);
         }}
-        source={{ uri: 'https://vuighe2.com' }}
+        source={{ html: '<html><body><h1>Hello world</h1></body></html>' }}
         containerStyle={{ position: 'absolute', width: 0, height: 0 }}
         injectedJavaScript={preInjectCode}
       />
@@ -130,24 +132,48 @@ const WebViewProvider: React.FC<React.PropsWithChildren<{}>> = ({
   );
 };
 
+export type UseWebViewData = ReturnType<typeof useWebView>;
+
 export const useWebView = () => {
   const { webView, observer } = React.useContext(WebViewContext);
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const lastLoadedScript = useRef('');
+
+  const loadScript = React.useCallback(
+    (jsCode: string) => {
+      if (!webView) throw new Error('No WebView found');
+
+      if (lastLoadedScript.current === jsCode) {
+        return;
+      }
+
+      lastLoadedScript.current = jsCode;
+
+      webView.injectJavaScript(`
+        window.anime = {};
+      `);
+
+      webView.injectJavaScript(jsCode);
+    },
+    [webView]
+  );
 
   const sendMessage = React.useCallback(
-    <T,>(event: string, jsCode: string, args: Record<string, any> = {}) => {
+    <T,>(functionName: string, args: Record<string, any> = {}) => {
       if (!webView) throw new Error('No WebView found');
       if (!observer) throw new Error('No observer found');
+
+      const event = `event_${Math.random().toString(36).substring(2, 9)}`;
+
+      console.log(`${functionName}()`);
 
       webView.injectJavaScript(`
         try {        
           window.sendResponse = function(response) {
             window.sendBack(window.createMessage("${event}", response));
           }
-
-          ${jsCode}
   
-          run(${JSON.stringify(args)});
+          ${functionName}(${JSON.stringify(args)});
         } catch(e) {
           alert(e)
         }
@@ -155,22 +181,19 @@ export const useWebView = () => {
         true;
       `);
 
-      return new Promise((resolve) => {
-        observer.subscribe((e: WebViewMessageEvent) => {
-          try {
-            const { event: responseEvent, data: responseData } =
-              parseWebViewMessage<T>(e);
+      return new Promise<T>((resolve) => {
+        const handleResponse = (e: WebViewMessageEvent) => {
+          const { event: responseEvent, data: responseData } =
+            parseWebViewMessage<T>(e);
 
-            console.log(responseData);
+          if (responseEvent !== event) return;
 
-            if (responseEvent !== event) return;
+          observer.unsubscribe(handleResponse);
 
-            resolve(responseData);
-            observer.unsubscribe(resolve);
-          } catch (err) {
-            console.log(err);
-          }
-        });
+          resolve(responseData as T);
+        };
+
+        observer.subscribe(handleResponse);
       });
     },
     [observer, webView]
@@ -180,7 +203,7 @@ export const useWebView = () => {
     setIsLoaded(!!webView);
   }, [webView]);
 
-  return { webview: webView, sendMessage, isLoaded };
+  return { webview: webView, sendMessage, isLoaded, loadScript };
 };
 
 export default WebViewProvider;

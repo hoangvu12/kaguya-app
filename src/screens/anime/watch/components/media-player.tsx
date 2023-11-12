@@ -92,8 +92,6 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
   }, []);
 
   useEffect(() => {
-    console.log('set player');
-
     setPlayer(playerRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setPlayer, playerRef.current]);
@@ -299,8 +297,6 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
       }
       className="fixed inset-0 z-0 h-full w-full object-contain"
       onError={(error) => {
-        console.log(error);
-
         showMessage({ type: 'danger', message: JSON.stringify(error) });
       }}
       {...props}

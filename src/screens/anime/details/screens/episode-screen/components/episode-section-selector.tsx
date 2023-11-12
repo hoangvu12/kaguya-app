@@ -38,8 +38,12 @@ const EpisodeSectionSelector: React.FC<EpisodeSectionSelectorProps> = ({
   }, [sections.length, episodes, currentSection]);
 
   useEffect(() => {
-    setSectionEpisodes(sectionEpisodes);
-  }, [sectionEpisodes, setSectionEpisodes]);
+    if (!episodes.length) {
+      setSectionEpisodes([]);
+    } else {
+      setSectionEpisodes(sectionEpisodes);
+    }
+  }, [episodes.length, sectionEpisodes, setSectionEpisodes]);
 
   if (!sections.length) return null;
 

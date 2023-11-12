@@ -13,7 +13,13 @@ export function useGraphQL<TResult, TVariables>(
       variables,
     ] as const,
     async ({ queryKey: [document, variables] }) => {
-      return request('https://graphql.anilist.co', document, variables || {});
+      const data = await request(
+        'https://graphql.anilist.co',
+        document,
+        variables || {}
+      );
+
+      return data;
     }
   );
 }

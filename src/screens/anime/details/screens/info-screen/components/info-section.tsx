@@ -3,22 +3,56 @@ import React from 'react';
 import type { ViewProps } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
-import type { Media } from '@/types/anilist';
+import type { FragmentType } from '@/gql';
+import { graphql, useFragment } from '@/gql';
 import { Text, View } from '@/ui';
 
 import InfoItem from '../../../components/info-item';
 
+export const InfoSectionFragment = graphql(`
+  fragment InfoSectionMedia on Media {
+    meanScore
+    status
+    episodes
+    duration
+    format
+    source
+    studios(isMain: true) {
+      nodes {
+        id
+        name
+      }
+    }
+    season
+    seasonYear
+    startDate {
+      year
+      month
+      day
+    }
+    endDate {
+      year
+      month
+      day
+    }
+  }
+`);
+
 interface InfoSectionProps extends ViewProps {
-  media: Media;
+  media: FragmentType<typeof InfoSectionFragment>;
 }
 
 const InfoSection: React.FC<InfoSectionProps> = ({
-  media,
+  media: mediaProps,
   className,
   ...props
 }) => {
+  const media = useFragment(InfoSectionFragment, mediaProps);
+
   const startDate = React.useMemo(() => {
     let date = dayjs();
+
+    if (!media?.startDate) return null;
 
     if (media.startDate.day) {
       date = date.date(media.startDate.day);
@@ -38,6 +72,8 @@ const InfoSection: React.FC<InfoSectionProps> = ({
   const endDate = React.useMemo(() => {
     let date = dayjs();
 
+    if (!media?.endDate) return null;
+
     if (media.endDate.day) {
       date = date.date(media.endDate.day);
     }
@@ -53,6 +89,8 @@ const InfoSection: React.FC<InfoSectionProps> = ({
     return date.format('MMM D, YYYY');
   }, [media.endDate]);
 
+  const studios = media?.studios?.nodes?.filter(Boolean) ?? [];
+
   return (
     <View className={twMerge('space-y-2', className)} {...props}>
       <InfoItem
@@ -60,7 +98,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
         value={
           <Text variant="sm">
             <Text variant="sm" className="text-primary-300">
-              {media.meanScore / 10}
+              {(media.meanScore ?? 0) / 10}
             </Text>{' '}
             / <Text variant="sm">10</Text>
           </Text>
@@ -74,13 +112,9 @@ const InfoSection: React.FC<InfoSectionProps> = ({
       <InfoItem
         title="Studio"
         value={
-          <View>
-            {media.studios.nodes.map((studio) => (
-              <Text
-                variant="sm"
-                className="text-end text-primary-300"
-                key={studio.id}
-              >
+          <View className="flex items-end">
+            {studios.map((studio) => (
+              <Text variant="sm" className="text-primary-300" key={studio.id}>
                 {studio.name}
               </Text>
             ))}

@@ -146,3 +146,13 @@ export const getNextSeason = () => {
     year: nextYear,
   };
 };
+
+export const removeArrayOfObjectDup = <T extends object, K extends keyof T>(
+  arr: T[],
+  property: K
+) => {
+  return arr.filter(
+    (obj, index, self) =>
+      index === self.findIndex((t) => t[property] === obj[property])
+  );
+};

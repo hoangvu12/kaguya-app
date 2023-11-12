@@ -1,39 +1,46 @@
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { ArrowLeft, PlusCircle } from 'lucide-react-native';
-import { styled } from 'nativewind';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { FlatList } from 'react-native-gesture-handler';
+import { twMerge } from 'tailwind-merge';
 
-import { formatNumberToAbbreviated } from '@/core';
-import anime from '@/mock_data/anime_details.json';
-import { Banner } from '@/screens/search/components/banner';
-import { addAlpha, Button, FocusAwareStatusBar, Text, View } from '@/ui';
-import { Dot } from '@/ui/core/dot-list';
-import Tabs from '@/ui/core/tabs';
-import { Heart as HeartIcon, Smile as SmileIcon } from '@/ui/icons';
-import { PlainCard } from '@/ui/plain-card';
+import { graphql } from '@/gql';
+import { useGraphQL } from '@/hooks/use-graphql';
+import type { RootStackParamList } from '@/navigation/types';
+import {
+  ActivityIndicator,
+  Button,
+  FocusAwareStatusBar,
+  ScrollView,
+  Text,
+  View,
+} from '@/ui';
 import colors from '@/ui/theme/colors';
 
-import NextEpisodeCountdown from './components/next-episode-countdown';
-import UpdateHeader from './components/update-header';
+import Header from './components/header';
 import EpisodeScreen from './screens/episode-screen/screen';
 import InfoScreen from './screens/info-screen/screen';
 
-const SHeartIcon = styled(HeartIcon);
-const SSmileIcon = styled(SmileIcon);
-const PlusCircleIcon = styled(PlusCircle);
+const document = graphql(`
+  query InfoDetailsScreen($id: Int) {
+    Media(id: $id) {
+      ...DetailsHeaderMedia
+      ...InfoScreenMedia
+      ...UseAnimeEpisode
+    }
+  }
+`);
 
-const SLinearGradient = styled(LinearGradient);
+type Props = NativeStackScreenProps<RootStackParamList, 'AnimeDetails'>;
 
-const linearGradientColors = [
-  addAlpha(colors.thunder[950], 0.6),
-  addAlpha(colors.thunder[950], 0.2),
-  '#00000000',
-];
-
-export const AnimeDetailsScreen = () => {
+export const AnimeDetailsScreen: React.FC<Props> = ({ route }) => {
   const navigation = useNavigation();
+  const [activeTab, setActiveTab] = React.useState<'details' | 'episodes'>(
+    'details'
+  );
+
+  const handleChangeTab = (tab: 'details' | 'episodes') => () => {
+    setActiveTab(tab);
+  };
 
   React.useEffect(() => {
     const parent = navigation.getParent();
@@ -44,6 +51,13 @@ export const AnimeDetailsScreen = () => {
       },
     });
 
+    // @ts-ignore
+    const animeParent = navigation.getParent('anime-navigator');
+
+    animeParent?.setOptions({
+      header: () => null,
+    });
+
     return () => {
       parent?.setOptions({
         tabBarStyle: undefined,
@@ -51,112 +65,62 @@ export const AnimeDetailsScreen = () => {
     };
   }, [navigation]);
 
-  const Header = React.useCallback(
-    () => (
-      <View className="mb-2 bg-thunder-950">
-        <View className="relative h-48 w-full">
-          <Banner media={anime} />
+  const mediaId = route.params?.mediaId ?? 0;
 
-          <SLinearGradient
-            colors={linearGradientColors}
-            className="absolute top-0 h-20 w-full"
-          >
-            <Button className="left-4 top-4 h-7 w-7 bg-transparent p-0">
-              <ArrowLeft size={28} color="white" />
-            </Button>
-          </SLinearGradient>
-        </View>
+  const { data, isLoading } = useGraphQL(document, { id: mediaId });
 
-        <View className="-mt-4 flex flex-row space-x-4 px-4">
-          <PlainCard media={anime} className="aspect-[2/3] w-24" />
+  const anime = data?.Media;
 
-          <View className="flex-1">
-            <Text variant="lg" weight="semibold" className="mb-1">
-              {anime.title.userPreferred}
-            </Text>
-            <View className="mb-2">
-              <FlatList
-                contentContainerStyle={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-                data={anime.genres}
-                renderItem={({ item: genre }) => (
-                  <Text variant="sm">{genre}</Text>
-                )}
-                keyExtractor={(item) => item}
-                horizontal
-                ItemSeparatorComponent={Spacer}
-              />
-            </View>
-            <View className="flex flex-row items-center space-x-2">
-              <View className="flex flex-row items-center space-x-1">
-                <SHeartIcon className="inline-block h-4 w-4 text-red-400" />
-
-                <Text className="inline-block text-white">
-                  {formatNumberToAbbreviated(anime.favourites)}
-                </Text>
-              </View>
-
-              <View className="flex flex-row items-center space-x-1">
-                <SSmileIcon className="inline-block h-4 w-4 text-green-500" />
-
-                <Text className="inline-block text-white">
-                  {anime.averageScore + '%'}
-                </Text>
-              </View>
-
-              <View className="h-1.5 w-1.5 rounded-full bg-thunder-700" />
-
-              <Text>{anime.seasonYear}</Text>
-            </View>
-
-            <View className="mt-2">
-              <NextEpisodeCountdown episode={1} time={1696597200} />
-            </View>
-          </View>
-        </View>
-
-        <Button className="mx-4 mt-8 flex flex-row items-center bg-primary-500 py-3">
-          <PlusCircleIcon size={24} color="white" className="mr-2" />
-
-          <Text variant="md">Add to list</Text>
-        </Button>
+  if (isLoading) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator color={colors.primary[500]} size={48} />
       </View>
-    ),
-    []
-  );
+    );
+  }
+
+  if (!anime) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <Text>Something went wrong</Text>
+      </View>
+    );
+  }
 
   return (
     <>
       <FocusAwareStatusBar />
 
-      <Tabs renderHeader={Header}>
-        <Tabs.Tab name="Info">
-          <Tabs.ScrollView
-            style={{ paddingHorizontal: 16, paddingVertical: 16 }}
+      <ScrollView stickyHeaderIndices={[1]}>
+        <Header media={anime} />
+
+        <View className="flex flex-row space-x-2 bg-thunder-950 p-4">
+          <Button
+            onPress={handleChangeTab('details')}
+            className={twMerge(
+              'flex-1 bg-thunder-900/60',
+              activeTab === 'details' ? 'bg-primary-500' : 'bg-thunder-900/60'
+            )}
           >
-            <UpdateHeader title={anime.title.userPreferred} />
+            <Text className="text-center">Details</Text>
+          </Button>
 
-            <InfoScreen media={anime} />
-          </Tabs.ScrollView>
-        </Tabs.Tab>
-        <Tabs.Tab name="Episodes">
-          <Tabs.Lazy>
-            <Tabs.ScrollView
-              nestedScrollEnabled
-              style={{ paddingHorizontal: 16, paddingVertical: 16 }}
-            >
-              <UpdateHeader title={anime.title.userPreferred} />
+          <Button
+            onPress={handleChangeTab('episodes')}
+            className={twMerge(
+              'flex-1 bg-thunder-900/60',
+              activeTab === 'episodes' ? 'bg-primary-500' : 'bg-thunder-900/60'
+            )}
+          >
+            <Text className="text-center">Episodes</Text>
+          </Button>
+        </View>
 
-              <EpisodeScreen media={anime} />
-            </Tabs.ScrollView>
-          </Tabs.Lazy>
-        </Tabs.Tab>
-      </Tabs>
+        <View className="px-4">
+          {activeTab === 'details' && <InfoScreen media={anime} />}
+          {activeTab === 'episodes' && <EpisodeScreen media={anime} />}
+        </View>
+      </ScrollView>
     </>
   );
 };
-
-const Spacer = () => <Dot className="mx-1 self-center" />;

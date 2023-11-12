@@ -1,31 +1,55 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import type { ViewProps } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 
-import type { CharacterConnection } from '@/types/anilist';
+import type { FragmentType } from '@/gql';
+import { graphql, useFragment } from '@/gql';
 import { Text, View } from '@/ui';
-import CharacterCard from '@/ui/character-card';
+import CharacterCard, { CharacterCardFragment } from '@/ui/character-card';
+
+export const CharacterListFragment = graphql(`
+  fragment CharacterListMedia on CharacterConnection {
+    edges {
+      ...CharacterCard
+      node {
+        id
+      }
+      role
+    }
+  }
+`);
 
 interface CharacterListProps extends ViewProps {
-  characters: CharacterConnection;
+  characters: FragmentType<typeof CharacterListFragment>;
 }
 
 const CharacterList: React.FC<CharacterListProps> = ({
-  characters,
+  characters: charactersProps,
   className,
   ...props
 }) => {
+  const characterEdges = useFragment(
+    CharacterListFragment,
+    charactersProps
+  ).edges?.filter(Boolean);
+
   return (
     <View className={className} {...props}>
       <Text variant="xl" className="mb-2">
         Characters
       </Text>
 
-      <FlatList
-        data={characters.edges}
+      <FlashList
+        estimatedItemSize={124}
+        data={characterEdges}
         renderItem={({ item }) => <CharacterCard characterEdge={item} />}
         horizontal
-        keyExtractor={(item) => item.node.id.toString() + item.role}
+        keyExtractor={(item) => {
+          const character = useFragment(CharacterCardFragment, item);
+
+          return character.node!.id.toString() + character.role;
+        }}
         ItemSeparatorComponent={Spacer}
       />
     </View>

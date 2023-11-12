@@ -1,3 +1,4 @@
+import { StackActions, useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { styled } from 'nativewind';
 import React, { useCallback, useMemo } from 'react';
@@ -9,13 +10,14 @@ import { graphql, useFragment } from '@/gql';
 import { useGraphQL } from '@/hooks/use-graphql';
 
 import { addAlpha } from '../utils';
-import { Image, Text, View } from './core';
+import { Image, Text, TouchableOpacity, View } from './core';
 import Skeleton, { SkeletonItem } from './core/skeleton';
 import MediaUnitStats from './media-unit-stats';
 import { colors, WIDTH } from './theme';
 
 const BannerCardFragment = graphql(`
   fragment BannerCardMedia on Media {
+    id
     title {
       userPreferred
     }
@@ -94,9 +96,23 @@ export const BannerList = () => {
 const BannerItem = React.memo(
   ({ media: mediaProps }: { media: MediaFragment }) => {
     const media = useFragment(BannerCardFragment, mediaProps);
+    const navigation = useNavigation();
+
+    const handlePress = () => {
+      if (!media?.id) return console.warn('No media id');
+
+      navigation.dispatch(
+        StackActions.replace('AnimeDetails', {
+          mediaId: media.id,
+        })
+      );
+    };
 
     return (
-      <View className="relative h-full w-full rounded-md">
+      <TouchableOpacity
+        onPress={handlePress}
+        className="relative h-full w-full rounded-md"
+      >
         <View className="h-full w-full">
           <Image
             source={{
@@ -147,7 +163,7 @@ const BannerItem = React.memo(
             </View>
           </View>
         </SLinearGradient>
-      </View>
+      </TouchableOpacity>
     );
   }
 );

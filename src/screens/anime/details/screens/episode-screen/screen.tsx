@@ -1,14 +1,14 @@
 import React from 'react';
 
-import episodes from '@/mock_data/episodes.json';
-import type { Media } from '@/types/anilist';
+import type { FragmentType } from '@/gql';
 import { View } from '@/ui';
 
 import EpisodeContainer from './components/episode-container';
 import ModuleSelector from './components/module-selector';
+import type { useAnimeEpisodeFragment } from './hooks/use-episodes';
 
 interface EpisodeScreenProps {
-  media: Media;
+  media: FragmentType<typeof useAnimeEpisodeFragment>;
 }
 
 const EpisodeScreen: React.FC<EpisodeScreenProps> = ({ media }) => {
@@ -17,10 +17,10 @@ const EpisodeScreen: React.FC<EpisodeScreenProps> = ({ media }) => {
       <ModuleSelector />
 
       <View className="mt-4">
-        <EpisodeContainer episodes={episodes} media={media} />
+        <EpisodeContainer media={media} />
       </View>
     </View>
   );
 };
 
-export default EpisodeScreen;
+export default React.memo(EpisodeScreen);

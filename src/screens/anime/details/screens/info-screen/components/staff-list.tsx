@@ -1,13 +1,27 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import type { ViewProps } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 
-import type { StaffConnection } from '@/types/anilist';
+import type { FragmentType } from '@/gql';
+import { graphql, useFragment } from '@/gql';
 import { Text, View } from '@/ui';
-import StaffCard from '@/ui/staff-card';
+import StaffCard, { StaffCardFragment } from '@/ui/staff-card';
+
+export const StaffListFragment = graphql(`
+  fragment StaffListMedia on StaffConnection {
+    edges {
+      node {
+        id
+      }
+      role
+      ...StaffCard
+    }
+  }
+`);
 
 interface StaffListProps extends ViewProps {
-  staffList: StaffConnection;
+  staffList: FragmentType<typeof StaffListFragment>;
 }
 
 const StaffList: React.FC<StaffListProps> = ({
@@ -15,14 +29,24 @@ const StaffList: React.FC<StaffListProps> = ({
   className,
   ...props
 }) => {
+  const edges = useFragment(StaffListFragment, staffList).edges?.filter(
+    Boolean
+  );
+
   return (
     <View className={className}>
       <Text variant="xl" className="mb-2" {...props}>
         Staff
       </Text>
-      <FlatList
-        data={staffList.edges}
-        keyExtractor={(item) => item.node.id.toString() + item.role}
+
+      <FlashList
+        estimatedItemSize={124}
+        data={edges}
+        keyExtractor={(item) => {
+          const staff = useFragment(StaffCardFragment, item);
+
+          return staff.node!.id.toString() + staff.role;
+        }}
         renderItem={({ item }) => <StaffCard staffEdge={item} />}
         horizontal
         ItemSeparatorComponent={Spacer}

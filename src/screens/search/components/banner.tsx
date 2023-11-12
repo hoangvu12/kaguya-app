@@ -3,13 +3,12 @@ import { styled } from 'nativewind';
 import React from 'react';
 import { View } from 'react-native';
 
-import type { Media } from '@/types/anilist';
 import type { ImgProps } from '@/ui';
 import { colors, Image } from '@/ui';
 import { addAlpha } from '@/utils';
 
 interface BannerProps extends ImgProps {
-  media: Media;
+  bannerImage: string;
 }
 
 const SLinearGradient = styled(LinearGradient);
@@ -20,12 +19,12 @@ const linearGradientColors = [
   addAlpha(colors.thunder[950], 1),
 ];
 
-export const Banner = ({ media }: BannerProps) => {
+export const Banner = ({ bannerImage }: BannerProps) => {
   return (
     <View className="relative h-full w-screen rounded-md">
       <Image
         source={{
-          uri: media.bannerImage,
+          uri: bannerImage,
           headers: {
             referer: 'https://anilist.co',
           },

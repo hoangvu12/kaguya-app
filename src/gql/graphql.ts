@@ -4618,8 +4618,220 @@ export type UpcomingNextSeasonQuery = {
   } | null;
 };
 
+export type DetailsHeaderMediaFragment = {
+  __typename?: 'Media';
+  bannerImage?: string | null;
+  genres?: Array<string | null> | null;
+  favourites?: number | null;
+  averageScore?: number | null;
+  seasonYear?: number | null;
+  title?: { __typename?: 'MediaTitle'; userPreferred?: string | null } | null;
+  nextAiringEpisode?: {
+    __typename?: 'AiringSchedule';
+    airingAt: number;
+    episode: number;
+  } | null;
+  coverImage?: { __typename?: 'MediaCoverImage'; large?: string | null } | null;
+} & { ' $fragmentName'?: 'DetailsHeaderMediaFragment' };
+
+export type InfoDetailsScreenQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type InfoDetailsScreenQuery = {
+  __typename?: 'Query';
+  Media?:
+    | ({ __typename?: 'Media' } & {
+        ' $fragmentRefs'?: {
+          DetailsHeaderMediaFragment: DetailsHeaderMediaFragment;
+          InfoScreenMediaFragment: InfoScreenMediaFragment;
+          UseAnimeEpisodeFragment: UseAnimeEpisodeFragment;
+        };
+      })
+    | null;
+};
+
+export type UseAnimeIdFragment = {
+  __typename?: 'Media';
+  id: number;
+  title?: {
+    __typename?: 'MediaTitle';
+    english?: string | null;
+    native?: string | null;
+    romaji?: string | null;
+    userPreferred?: string | null;
+  } | null;
+} & { ' $fragmentName'?: 'UseAnimeIdFragment' };
+
+export type UseAnimeEpisodeFragment = ({
+  __typename?: 'Media';
+  id: number;
+  bannerImage?: string | null;
+  coverImage?: {
+    __typename?: 'MediaCoverImage';
+    large?: string | null;
+    extraLarge?: string | null;
+  } | null;
+} & { ' $fragmentRefs'?: { UseAnimeIdFragment: UseAnimeIdFragment } }) & {
+  ' $fragmentName'?: 'UseAnimeEpisodeFragment';
+};
+
+export type CharacterListMediaFragment = {
+  __typename?: 'CharacterConnection';
+  edges?: Array<
+    | ({
+        __typename?: 'CharacterEdge';
+        role?: CharacterRole | null;
+        node?: { __typename?: 'Character'; id: number } | null;
+      } & {
+        ' $fragmentRefs'?: { CharacterCardFragment: CharacterCardFragment };
+      })
+    | null
+  > | null;
+} & { ' $fragmentName'?: 'CharacterListMediaFragment' };
+
+export type InfoSectionMediaFragment = {
+  __typename?: 'Media';
+  meanScore?: number | null;
+  status?: MediaStatus | null;
+  episodes?: number | null;
+  duration?: number | null;
+  format?: MediaFormat | null;
+  source?: MediaSource | null;
+  season?: MediaSeason | null;
+  seasonYear?: number | null;
+  studios?: {
+    __typename?: 'StudioConnection';
+    nodes?: Array<{
+      __typename?: 'Studio';
+      id: number;
+      name: string;
+    } | null> | null;
+  } | null;
+  startDate?: {
+    __typename?: 'FuzzyDate';
+    year?: number | null;
+    month?: number | null;
+    day?: number | null;
+  } | null;
+  endDate?: {
+    __typename?: 'FuzzyDate';
+    year?: number | null;
+    month?: number | null;
+    day?: number | null;
+  } | null;
+} & { ' $fragmentName'?: 'InfoSectionMediaFragment' };
+
+export type RecommendationListMediaFragment = {
+  __typename?: 'RecommendationConnection';
+  nodes?: Array<{
+    __typename?: 'Recommendation';
+    mediaRecommendation?:
+      | ({ __typename?: 'Media' } & {
+          ' $fragmentRefs'?: { CardMediaFragment: CardMediaFragment };
+        })
+      | null;
+  } | null> | null;
+} & { ' $fragmentName'?: 'RecommendationListMediaFragment' };
+
+export type RelationListMediaFragment = {
+  __typename?: 'MediaEdge';
+  relationType?: MediaRelation | null;
+  node?:
+    | ({ __typename?: 'Media' } & {
+        ' $fragmentRefs'?: { CardMediaFragment: CardMediaFragment };
+      })
+    | null;
+} & { ' $fragmentName'?: 'RelationListMediaFragment' };
+
+export type SpecialRelationListMediaFragment = {
+  __typename?: 'MediaEdge';
+  relationType?: MediaRelation | null;
+  node?: {
+    __typename?: 'Media';
+    id: number;
+    bannerImage?: string | null;
+    coverImage?: {
+      __typename?: 'MediaCoverImage';
+      large?: string | null;
+    } | null;
+  } | null;
+} & { ' $fragmentName'?: 'SpecialRelationListMediaFragment' };
+
+export type StaffListMediaFragment = {
+  __typename?: 'StaffConnection';
+  edges?: Array<
+    | ({
+        __typename?: 'StaffEdge';
+        role?: string | null;
+        node?: { __typename?: 'Staff'; id: number } | null;
+      } & { ' $fragmentRefs'?: { StaffCardFragment: StaffCardFragment } })
+    | null
+  > | null;
+} & { ' $fragmentName'?: 'StaffListMediaFragment' };
+
+export type TagListMediaFragment = {
+  __typename?: 'MediaTag';
+  id: number;
+  name: string;
+  rank?: number | null;
+  isMediaSpoiler?: boolean | null;
+  isGeneralSpoiler?: boolean | null;
+} & { ' $fragmentName'?: 'TagListMediaFragment' };
+
+export type InfoScreenMediaFragment = ({
+  __typename?: 'Media';
+  description?: string | null;
+  synonyms?: Array<string | null> | null;
+  relations?: {
+    __typename?: 'MediaConnection';
+    edges?: Array<
+      | ({ __typename?: 'MediaEdge' } & {
+          ' $fragmentRefs'?: {
+            SpecialRelationListMediaFragment: SpecialRelationListMediaFragment;
+            RelationListMediaFragment: RelationListMediaFragment;
+          };
+        })
+      | null
+    > | null;
+  } | null;
+  recommendations?:
+    | ({ __typename?: 'RecommendationConnection' } & {
+        ' $fragmentRefs'?: {
+          RecommendationListMediaFragment: RecommendationListMediaFragment;
+        };
+      })
+    | null;
+  characters?:
+    | ({ __typename?: 'CharacterConnection' } & {
+        ' $fragmentRefs'?: {
+          CharacterListMediaFragment: CharacterListMediaFragment;
+        };
+      })
+    | null;
+  staff?:
+    | ({ __typename?: 'StaffConnection' } & {
+        ' $fragmentRefs'?: { StaffListMediaFragment: StaffListMediaFragment };
+      })
+    | null;
+  tags?: Array<
+    | ({ __typename?: 'MediaTag' } & {
+        ' $fragmentRefs'?: { TagListMediaFragment: TagListMediaFragment };
+      })
+    | null
+  > | null;
+  trailer?: {
+    __typename?: 'MediaTrailer';
+    id?: string | null;
+    site?: string | null;
+  } | null;
+} & {
+  ' $fragmentRefs'?: { InfoSectionMediaFragment: InfoSectionMediaFragment };
+}) & { ' $fragmentName'?: 'InfoScreenMediaFragment' };
+
 export type BannerCardMediaFragment = ({
   __typename?: 'Media';
+  id: number;
   bannerImage?: string | null;
   genres?: Array<string | null> | null;
   title?: { __typename?: 'MediaTitle'; userPreferred?: string | null } | null;
@@ -4648,6 +4860,7 @@ export type BannerCardQuery = {
 
 export type CardMediaFragment = ({
   __typename?: 'Media';
+  id: number;
   title?: { __typename?: 'MediaTitle'; userPreferred?: string | null } | null;
   coverImage?: { __typename?: 'MediaCoverImage'; large?: string | null } | null;
 } & {
@@ -4655,6 +4868,20 @@ export type CardMediaFragment = ({
     MediaUnitStatsMediaFragment: MediaUnitStatsMediaFragment;
   };
 }) & { ' $fragmentName'?: 'CardMediaFragment' };
+
+export type CharacterCardFragment = {
+  __typename?: 'CharacterEdge';
+  role?: CharacterRole | null;
+  node?: {
+    __typename?: 'Character';
+    id: number;
+    name?: {
+      __typename?: 'CharacterName';
+      userPreferred?: string | null;
+    } | null;
+    image?: { __typename?: 'CharacterImage'; large?: string | null } | null;
+  } | null;
+} & { ' $fragmentName'?: 'CharacterCardFragment' };
 
 export type MediaUnitStatsMediaFragment = {
   __typename?: 'Media';
@@ -4668,6 +4895,214 @@ export type MediaUnitStatsMediaFragment = {
   nextAiringEpisode?: { __typename?: 'AiringSchedule'; episode: number } | null;
 } & { ' $fragmentName'?: 'MediaUnitStatsMediaFragment' };
 
+export type StaffCardFragment = {
+  __typename?: 'StaffEdge';
+  role?: string | null;
+  node?: {
+    __typename?: 'Staff';
+    id: number;
+    name?: { __typename?: 'StaffName'; userPreferred?: string | null } | null;
+    image?: { __typename?: 'StaffImage'; large?: string | null } | null;
+  } | null;
+} & { ' $fragmentName'?: 'StaffCardFragment' };
+
+export const DetailsHeaderMediaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'DetailsHeaderMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'genres' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'favourites' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'seasonYear' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'airingAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<DetailsHeaderMediaFragment, unknown>;
+export const UseAnimeIdFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'UseAnimeId' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'native' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'romaji' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UseAnimeIdFragment, unknown>;
+export const UseAnimeEpisodeFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'UseAnimeEpisode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'UseAnimeId' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'extraLarge' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'UseAnimeId' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'native' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'romaji' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UseAnimeEpisodeFragment, unknown>;
+export const SpecialRelationListMediaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'SpecialRelationListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'MediaEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'relationType' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'coverImage' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SpecialRelationListMediaFragment, unknown>;
 export const MediaUnitStatsMediaFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -4709,79 +5144,6 @@ export const MediaUnitStatsMediaFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<MediaUnitStatsMediaFragment, unknown>;
-export const BannerCardMediaFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'BannerCardMedia' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Media' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'title' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'userPreferred' },
-                },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'genres' } },
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Media' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'mediaListEntry' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'nextAiringEpisode' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<BannerCardMediaFragment, unknown>;
 export const CardMediaFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -4795,6 +5157,7 @@ export const CardMediaFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'title' },
@@ -4863,6 +5226,1236 @@ export const CardMediaFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CardMediaFragment, unknown>;
+export const RelationListMediaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'RelationListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'MediaEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'relationType' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CardMedia' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CardMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<RelationListMediaFragment, unknown>;
+export const RecommendationListMediaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'RecommendationListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'RecommendationConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nodes' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'mediaRecommendation' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'CardMedia' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CardMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<RecommendationListMediaFragment, unknown>;
+export const CharacterCardFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'CharacterEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'name' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'userPreferred' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'image' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CharacterCardFragment, unknown>;
+export const CharacterListMediaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'CharacterConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'edges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CharacterCard' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'node' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'CharacterEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'name' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'userPreferred' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'image' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CharacterListMediaFragment, unknown>;
+export const StaffCardFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'StaffCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'StaffEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'name' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'userPreferred' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'image' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<StaffCardFragment, unknown>;
+export const StaffListMediaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'StaffListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'StaffConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'edges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'node' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'StaffCard' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'StaffCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'StaffEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'name' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'userPreferred' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'image' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<StaffListMediaFragment, unknown>;
+export const TagListMediaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TagListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'MediaTag' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'rank' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isMediaSpoiler' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isGeneralSpoiler' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<TagListMediaFragment, unknown>;
+export const InfoSectionMediaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'InfoSectionMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'meanScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'duration' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'format' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'source' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'studios' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'isMain' },
+                value: { kind: 'BooleanValue', value: true },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'season' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'seasonYear' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'startDate' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'endDate' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<InfoSectionMediaFragment, unknown>;
+export const InfoScreenMediaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'InfoScreenMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'relations' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {
+                          kind: 'Name',
+                          value: 'SpecialRelationListMedia',
+                        },
+                      },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'RelationListMedia' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'recommendations' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'RecommendationListMedia' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'characters' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CharacterListMedia' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'staff' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'StaffListMedia' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'tags' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'TagListMedia' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'trailer' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'site' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'synonyms' } },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'InfoSectionMedia' },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CardMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'CharacterEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'name' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'userPreferred' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'image' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'StaffCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'StaffEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'name' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'userPreferred' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'image' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'SpecialRelationListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'MediaEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'relationType' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'coverImage' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'RelationListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'MediaEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'relationType' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CardMedia' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'RecommendationListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'RecommendationConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nodes' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'mediaRecommendation' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'CardMedia' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'CharacterConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'edges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CharacterCard' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'node' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'StaffListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'StaffConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'edges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'node' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'StaffCard' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TagListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'MediaTag' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'rank' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isMediaSpoiler' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isGeneralSpoiler' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'InfoSectionMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'meanScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'duration' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'format' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'source' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'studios' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'isMain' },
+                value: { kind: 'BooleanValue', value: true },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'season' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'seasonYear' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'startDate' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'endDate' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<InfoScreenMediaFragment, unknown>;
+export const BannerCardMediaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'BannerCardMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'genres' } },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<BannerCardMediaFragment, unknown>;
 export const AiringScheduleDocument = {
   kind: 'Document',
   definitions: [
@@ -5009,6 +6602,7 @@ export const AiringScheduleDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'title' },
@@ -5188,6 +6782,7 @@ export const PopularThisSeasonDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'title' },
@@ -5370,6 +6965,7 @@ export const UpcomingNextSeasonDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'title' },
@@ -5404,6 +7000,717 @@ export const UpcomingNextSeasonDocument = {
 } as unknown as DocumentNode<
   UpcomingNextSeasonQuery,
   UpcomingNextSeasonQueryVariables
+>;
+export const InfoDetailsScreenDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'InfoDetailsScreen' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'Media' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'id' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'DetailsHeaderMedia' },
+                },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'InfoScreenMedia' },
+                },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'UseAnimeEpisode' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'SpecialRelationListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'MediaEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'relationType' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'coverImage' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CardMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'RelationListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'MediaEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'relationType' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CardMedia' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'RecommendationListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'RecommendationConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nodes' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'mediaRecommendation' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'CardMedia' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'CharacterEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'name' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'userPreferred' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'image' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'CharacterConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'edges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CharacterCard' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'node' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'StaffCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'StaffEdge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'node' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'name' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'userPreferred' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'image' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'StaffListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'StaffConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'edges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'node' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'role' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'StaffCard' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TagListMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'MediaTag' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'rank' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isMediaSpoiler' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isGeneralSpoiler' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'InfoSectionMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'meanScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'duration' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'format' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'source' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'studios' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'isMain' },
+                value: { kind: 'BooleanValue', value: true },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'season' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'seasonYear' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'startDate' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'endDate' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'UseAnimeId' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'native' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'romaji' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'DetailsHeaderMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'genres' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'favourites' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'seasonYear' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'airingAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'InfoScreenMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'relations' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {
+                          kind: 'Name',
+                          value: 'SpecialRelationListMedia',
+                        },
+                      },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'RelationListMedia' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'recommendations' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'RecommendationListMedia' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'characters' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CharacterListMedia' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'staff' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'StaffListMedia' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'tags' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'TagListMedia' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'trailer' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'site' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'synonyms' } },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'InfoSectionMedia' },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'UseAnimeEpisode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'UseAnimeId' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'extraLarge' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  InfoDetailsScreenQuery,
+  InfoDetailsScreenQueryVariables
 >;
 export const BannerCardDocument = {
   kind: 'Document',
@@ -5516,6 +7823,7 @@ export const BannerCardDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'title' },

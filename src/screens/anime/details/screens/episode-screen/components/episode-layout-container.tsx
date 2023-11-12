@@ -3,9 +3,9 @@ import React from 'react';
 
 import EpisodeCard from '@/screens/anime/components/episode-card';
 import EpisodeDetails from '@/screens/anime/components/episode-details';
-import { View, WIDTH } from '@/ui';
+import { Text, View, WIDTH } from '@/ui';
 
-import { episodeChunkAtom, layoutModeAtom, mediaAtom } from '../store';
+import { episodeChunkAtom, layoutModeAtom } from '../store';
 
 const PADDING = 16;
 const SPACE_BETWEEN = 4;
@@ -13,14 +13,19 @@ const SPACE_BETWEEN = 4;
 const EpisodeLayoutContainer = () => {
   const layoutMode = useAtomValue(layoutModeAtom);
   const episodes = useAtomValue(episodeChunkAtom);
-  const media = useAtomValue(mediaAtom);
 
   return (
     <React.Fragment>
+      {!episodes?.length && (
+        <Text className="text-center">
+          There are no episodes available for this anime.
+        </Text>
+      )}
+
       {layoutMode === 'details' && (
         <View className="space-y-4">
           {episodes.map((episode) => (
-            <EpisodeDetails key={episode.id} episode={episode} media={media!} />
+            <EpisodeDetails key={episode.id} episode={episode} />
           ))}
         </View>
       )}
@@ -36,7 +41,7 @@ const EpisodeLayoutContainer = () => {
               }}
               key={episode.id}
             >
-              <EpisodeCard episode={episode} media={media!} />
+              <EpisodeCard episode={episode} />
             </View>
           ))}
         </View>

@@ -1,31 +1,50 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import type { ViewProps } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 
-import type { MediaConnection } from '@/types/anilist';
+import type { FragmentType } from '@/gql';
+import { graphql, useFragment } from '@/gql';
 import { Text, View } from '@/ui';
-import { Card } from '@/ui/card';
+import { Card, CardFragment } from '@/ui/card';
+
+export const RelationListFragment = graphql(`
+  fragment RelationListMedia on MediaEdge {
+    relationType
+    node {
+      ...CardMedia
+    }
+  }
+`);
 
 interface RelationListProps extends ViewProps {
-  relations: MediaConnection;
+  relations: FragmentType<typeof RelationListFragment>[];
 }
 
 const RelationList: React.FC<RelationListProps> = ({
-  relations,
+  relations: relationsProps,
   className,
   ...props
 }) => {
+  const relations = useFragment(RelationListFragment, relationsProps).filter(
+    Boolean
+  );
+
+  if (!relations?.length) return null;
+
   return (
     <View className={className} {...props}>
       <Text variant="xl" className="mb-2">
         Relations
       </Text>
 
-      <FlatList
-        data={relations.edges}
+      <FlashList
+        estimatedItemSize={112}
+        data={relations}
         renderItem={({ item }) => (
           <Card
-            media={item.node}
+            shouldReplaceScreen
+            media={item.node!}
             endSlot={
               <Text
                 numberOfLines={1}
@@ -38,7 +57,9 @@ const RelationList: React.FC<RelationListProps> = ({
           />
         )}
         horizontal
-        keyExtractor={(item) => item.node.id.toString()}
+        keyExtractor={(item) =>
+          useFragment(CardFragment, item.node!).id.toString()
+        }
         ItemSeparatorComponent={Spacer}
       />
     </View>

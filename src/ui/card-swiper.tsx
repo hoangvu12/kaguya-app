@@ -1,6 +1,6 @@
+import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import type { FlatListProps } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 
 import type { FragmentType } from '@/gql';
 
@@ -17,12 +17,13 @@ interface CardSwiperProps
 
 export default function CardSwiper({ data, ...props }: CardSwiperProps) {
   return (
-    <FlatList
+    <FlashList
       data={data}
+      estimatedItemSize={120}
+      // @ts-expect-error
       renderItem={({ item }) => <Card media={item} />}
       horizontal
       ItemSeparatorComponent={Spacer}
-      style={{ overflow: 'visible' }}
       {...props}
     />
   );

@@ -1,7 +1,7 @@
+import { FlashList } from '@shopify/flash-list';
 import { useAtom, useAtomValue } from 'jotai/react';
 import { ChevronDown } from 'lucide-react-native';
 import React, { useEffect, useRef } from 'react';
-import { FlatList } from 'react-native-gesture-handler';
 import { twMerge } from 'tailwind-merge';
 
 import type { Episode } from '@/types';
@@ -34,11 +34,13 @@ const EpisodeChunkSelector = () => {
   const [currentChunk, setCurrentChunk] = useAtom(episodeChunkAtom);
   const sectionEpisodes = useAtomValue(sectionEpisodesAtom);
 
-  const flatListRef = useRef<FlatList<Episode[]>>(null);
+  const flatListRef = useRef<FlashList<Episode[]>>(null);
   const selectRef = useRef<SelectRef>(null);
 
   useEffect(() => {
-    if (!chunks.length) return;
+    if (!chunks.length) {
+      return;
+    }
 
     if (!currentChunk.length) {
       setCurrentChunk(chunks[0]);
@@ -46,7 +48,11 @@ const EpisodeChunkSelector = () => {
   }, [currentChunk, chunks, setCurrentChunk]);
 
   useEffect(() => {
-    if (!chunks.length) return;
+    if (!chunks.length) {
+      setCurrentChunk([]);
+
+      return;
+    }
 
     setCurrentChunk(chunks[0]);
   }, [sectionEpisodes, chunks, setCurrentChunk]);
@@ -67,7 +73,7 @@ const EpisodeChunkSelector = () => {
 
   return (
     <View className="mb-4 flex flex-row">
-      <FlatList
+      <FlashList
         ref={flatListRef}
         className="w-5/6"
         data={chunks}

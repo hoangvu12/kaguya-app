@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 
+import WebViewProvider from '@/contexts/webview';
+
 import { NavigationContainer } from './navigation-container';
 import { TabNavigator } from './tab-navigator';
 const Stack = createNativeStackNavigator();
@@ -28,13 +30,13 @@ export const Root = () => {
 export const RootNavigator = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <WebViewProvider> */}
-      <BottomSheetModalProvider>
-        <NavigationContainer>
-          <Root />
-        </NavigationContainer>
-      </BottomSheetModalProvider>
-      {/* </WebViewProvider> */}
+      <WebViewProvider>
+        <BottomSheetModalProvider>
+          <NavigationContainer>
+            <Root />
+          </NavigationContainer>
+        </BottomSheetModalProvider>
+      </WebViewProvider>
     </QueryClientProvider>
   );
 };

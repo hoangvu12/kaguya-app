@@ -1,30 +1,47 @@
-import { useHydrateAtoms } from 'jotai/utils';
-import React from 'react';
+import { useSetAtom } from 'jotai/react';
+import React, { useEffect } from 'react';
 
-import type { Episode } from '@/types';
-import type { Media } from '@/types/anilist';
-import { View } from '@/ui';
+import type { FragmentType } from '@/gql';
+import { ActivityIndicator, colors, View } from '@/ui';
 
-import { mediaAtom } from '../store';
+import type { useAnimeEpisodeFragment } from '../hooks/use-episodes';
+import useEpisodes from '../hooks/use-episodes';
+import { episodeChunkAtom, sectionEpisodesAtom } from '../store';
 import EpisodeChunkSelector from './episode-chunk-selector';
 import EpisodeLayoutContainer from './episode-layout-container';
 import EpisodeLayoutSelector from './episode-layout-selector';
 import EpisodeSectionSelector from './episode-section-selector';
 
 interface EpisodeContainerProps {
-  episodes: Episode[];
-  media: Media;
+  media: FragmentType<typeof useAnimeEpisodeFragment>;
 }
 
 const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
-  episodes,
-  media,
+  media: mediaFragment,
 }) => {
-  useHydrateAtoms([[mediaAtom, media]]);
+  const { data, isLoading } = useEpisodes(mediaFragment);
+  const setSectionEpisodes = useSetAtom(sectionEpisodesAtom);
+  const setEpisodeChunk = useSetAtom(episodeChunkAtom);
+
+  useEffect(() => {
+    // Reset episodes when loading
+    if (isLoading) {
+      setSectionEpisodes([]);
+      setEpisodeChunk([]);
+    }
+  }, [isLoading, setEpisodeChunk, setSectionEpisodes]);
+
+  if (isLoading || !data) {
+    return (
+      <View className="mt-8">
+        <ActivityIndicator color={colors.primary[500]} size={48} />
+      </View>
+    );
+  }
 
   return (
     <View>
-      <EpisodeSectionSelector episodes={episodes} />
+      <EpisodeSectionSelector episodes={data} />
       <EpisodeLayoutSelector />
       <EpisodeChunkSelector />
       <EpisodeLayoutContainer />

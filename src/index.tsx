@@ -6,17 +6,14 @@ import { StyleSheet } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { APIProvider } from '@/api';
 import { RootNavigator } from '@/navigation';
 
 const App = () => {
   return (
     <GestureHandlerRootView style={styles.container}>
       <BottomSheetModalProvider>
-        <APIProvider>
-          <RootNavigator />
-          <FlashMessage position="bottom" />
-        </APIProvider>
+        <RootNavigator />
+        <FlashMessage position="bottom" />
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
