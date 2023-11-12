@@ -33,7 +33,7 @@ const ModuleItem: React.FC<ModuleItemProps> = ({
       {...props}
     >
       <View className="flex flex-row items-center justify-start">
-        <Image source={logo} className="h-5 w-5" />
+        <Image source={logo} className="h-5 w-5" key={logo} />
 
         <View className="ml-4">
           <Text variant="md" weight="semibold">

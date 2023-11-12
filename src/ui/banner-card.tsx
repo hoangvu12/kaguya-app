@@ -124,6 +124,7 @@ const BannerItem = React.memo(
               height: '100%',
             }}
             contentFit="cover"
+            key={media.bannerImage!}
           />
         </View>
 

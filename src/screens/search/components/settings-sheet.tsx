@@ -83,16 +83,6 @@ const SettingsSheet = () => {
 
           <TagsSelector />
         </View>
-
-        <View className="mt-8 flex flex-row items-end justify-between">
-          <Button variant="outline" className="grow">
-            <Text>Cancel</Text>
-          </Button>
-
-          <Button variant="outline" className="ml-2 grow">
-            <Text>Apply</Text>
-          </Button>
-        </View>
       </BottomSheet>
     </React.Fragment>
   );

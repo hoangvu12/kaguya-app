@@ -1,39 +1,34 @@
+import { FlashList } from '@shopify/flash-list';
 import React from 'react';
-import { FlatList } from 'react-native-gesture-handler';
 
-import type { Media } from '@/types/anilist';
-import { ScrollView, View, WIDTH } from '@/ui';
+import { type FragmentType, useFragment } from '@/gql';
+import { View } from '@/ui';
 
+import { DetailsCardFragment } from './details-card';
 import DetailsCard from './details-card';
 
 interface DetailsListProps {
-  mediaList: Media[];
+  mediaList: readonly FragmentType<typeof DetailsCardFragment>[];
+  onLoadMore: () => void;
 }
 
-const CONTAINER_PADDING = 16;
-
-const DetailsList: React.FC<DetailsListProps> = ({ mediaList }) => {
+const DetailsList: React.FC<DetailsListProps> = ({ mediaList, onLoadMore }) => {
   return (
-    <ScrollView horizontal>
-      {/* 
-        Using scrollview cause the view can be scrolling horizontal
-        Using another view with a fixed width fix this
-      */}
+    <FlashList
+      data={mediaList}
+      estimatedItemSize={136}
+      renderItem={({ item }) => <DetailsCard media={item} />}
+      keyExtractor={(item) => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const media = useFragment(DetailsCardFragment, item);
 
-      <View
-        style={{
-          width: WIDTH - CONTAINER_PADDING * 2,
-        }}
-        className="pb-16"
-      >
-        <FlatList
-          data={mediaList}
-          renderItem={({ item }) => <DetailsCard media={item} />}
-          keyExtractor={(item) => item.id.toString()}
-          ItemSeparatorComponent={() => <View className="my-2" />}
-        />
-      </View>
-    </ScrollView>
+        return media.id.toString();
+      }}
+      onEndReached={onLoadMore}
+      onEndReachedThreshold={0.05}
+      ListFooterComponentStyle={{ paddingBottom: 300 }}
+      ItemSeparatorComponent={() => <View className="my-2" />}
+    />
   );
 };
 

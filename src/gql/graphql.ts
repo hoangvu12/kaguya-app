@@ -4842,6 +4842,166 @@ export type InfoScreenMediaFragment = ({
   ' $fragmentRefs'?: { InfoSectionMediaFragment: InfoSectionMediaFragment };
 }) & { ' $fragmentName'?: 'InfoScreenMediaFragment' };
 
+export type DetailsCardFragment = {
+  __typename?: 'Media';
+  id: number;
+  genres?: Array<string | null> | null;
+  averageScore?: number | null;
+  favourites?: number | null;
+  title?: { __typename?: 'MediaTitle'; userPreferred?: string | null } | null;
+  coverImage?: { __typename?: 'MediaCoverImage'; large?: string | null } | null;
+} & { ' $fragmentName'?: 'DetailsCardFragment' };
+
+export type SearchLayoutContainerFragment = ({ __typename?: 'Media' } & {
+  ' $fragmentRefs'?: {
+    CardMediaFragment: CardMediaFragment;
+    DetailsCardFragment: DetailsCardFragment;
+  };
+}) & { ' $fragmentName'?: 'SearchLayoutContainerFragment' };
+
+export type MediaQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['Int']['input']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['Int']['input']>;
+  idMal?: InputMaybe<Scalars['Int']['input']>;
+  startDate?: InputMaybe<Scalars['FuzzyDateInt']['input']>;
+  endDate?: InputMaybe<Scalars['FuzzyDateInt']['input']>;
+  season?: InputMaybe<MediaSeason>;
+  seasonYear?: InputMaybe<Scalars['Int']['input']>;
+  type?: InputMaybe<MediaType>;
+  format?: InputMaybe<MediaFormat>;
+  status?: InputMaybe<MediaStatus>;
+  episodes?: InputMaybe<Scalars['Int']['input']>;
+  duration?: InputMaybe<Scalars['Int']['input']>;
+  chapters?: InputMaybe<Scalars['Int']['input']>;
+  volumes?: InputMaybe<Scalars['Int']['input']>;
+  isAdult?: InputMaybe<Scalars['Boolean']['input']>;
+  genre?: InputMaybe<Scalars['String']['input']>;
+  tag?: InputMaybe<Scalars['String']['input']>;
+  minimumTagRank?: InputMaybe<Scalars['Int']['input']>;
+  tagCategory?: InputMaybe<Scalars['String']['input']>;
+  onList?: InputMaybe<Scalars['Boolean']['input']>;
+  licensedBy?: InputMaybe<Scalars['String']['input']>;
+  licensedById?: InputMaybe<Scalars['Int']['input']>;
+  averageScore?: InputMaybe<Scalars['Int']['input']>;
+  popularity?: InputMaybe<Scalars['Int']['input']>;
+  source?: InputMaybe<MediaSource>;
+  countryOfOrigin?: InputMaybe<Scalars['CountryCode']['input']>;
+  isLicensed?: InputMaybe<Scalars['Boolean']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
+  id_not?: InputMaybe<Scalars['Int']['input']>;
+  id_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['Int']['input']>>
+    | InputMaybe<Scalars['Int']['input']>
+  >;
+  id_not_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['Int']['input']>>
+    | InputMaybe<Scalars['Int']['input']>
+  >;
+  idMal_not?: InputMaybe<Scalars['Int']['input']>;
+  idMal_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['Int']['input']>>
+    | InputMaybe<Scalars['Int']['input']>
+  >;
+  idMal_not_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['Int']['input']>>
+    | InputMaybe<Scalars['Int']['input']>
+  >;
+  startDate_greater?: InputMaybe<Scalars['FuzzyDateInt']['input']>;
+  startDate_lesser?: InputMaybe<Scalars['FuzzyDateInt']['input']>;
+  startDate_like?: InputMaybe<Scalars['String']['input']>;
+  endDate_greater?: InputMaybe<Scalars['FuzzyDateInt']['input']>;
+  endDate_lesser?: InputMaybe<Scalars['FuzzyDateInt']['input']>;
+  endDate_like?: InputMaybe<Scalars['String']['input']>;
+  format_in?: InputMaybe<
+    Array<InputMaybe<MediaFormat>> | InputMaybe<MediaFormat>
+  >;
+  format_not?: InputMaybe<MediaFormat>;
+  format_not_in?: InputMaybe<
+    Array<InputMaybe<MediaFormat>> | InputMaybe<MediaFormat>
+  >;
+  status_in?: InputMaybe<
+    Array<InputMaybe<MediaStatus>> | InputMaybe<MediaStatus>
+  >;
+  status_not?: InputMaybe<MediaStatus>;
+  status_not_in?: InputMaybe<
+    Array<InputMaybe<MediaStatus>> | InputMaybe<MediaStatus>
+  >;
+  episodes_greater?: InputMaybe<Scalars['Int']['input']>;
+  episodes_lesser?: InputMaybe<Scalars['Int']['input']>;
+  duration_greater?: InputMaybe<Scalars['Int']['input']>;
+  duration_lesser?: InputMaybe<Scalars['Int']['input']>;
+  chapters_greater?: InputMaybe<Scalars['Int']['input']>;
+  chapters_lesser?: InputMaybe<Scalars['Int']['input']>;
+  volumes_greater?: InputMaybe<Scalars['Int']['input']>;
+  volumes_lesser?: InputMaybe<Scalars['Int']['input']>;
+  genre_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>
+  >;
+  genre_not_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>
+  >;
+  tag_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>
+  >;
+  tag_not_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>
+  >;
+  tagCategory_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>
+  >;
+  tagCategory_not_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>
+  >;
+  licensedBy_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>
+  >;
+  licensedById_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['Int']['input']>>
+    | InputMaybe<Scalars['Int']['input']>
+  >;
+  averageScore_not?: InputMaybe<Scalars['Int']['input']>;
+  averageScore_greater?: InputMaybe<Scalars['Int']['input']>;
+  averageScore_lesser?: InputMaybe<Scalars['Int']['input']>;
+  popularity_not?: InputMaybe<Scalars['Int']['input']>;
+  popularity_greater?: InputMaybe<Scalars['Int']['input']>;
+  popularity_lesser?: InputMaybe<Scalars['Int']['input']>;
+  source_in?: InputMaybe<
+    Array<InputMaybe<MediaSource>> | InputMaybe<MediaSource>
+  >;
+  sort?: InputMaybe<Array<InputMaybe<MediaSort>> | InputMaybe<MediaSort>>;
+}>;
+
+export type MediaQuery = {
+  __typename?: 'Query';
+  Page?: {
+    __typename?: 'Page';
+    pageInfo?: {
+      __typename?: 'PageInfo';
+      total?: number | null;
+      perPage?: number | null;
+      currentPage?: number | null;
+      lastPage?: number | null;
+      hasNextPage?: boolean | null;
+    } | null;
+    media?: Array<
+      | ({ __typename?: 'Media' } & {
+          ' $fragmentRefs'?: {
+            SearchLayoutContainerFragment: SearchLayoutContainerFragment;
+          };
+        })
+      | null
+    > | null;
+  } | null;
+};
+
 export type BannerCardMediaFragment = ({
   __typename?: 'Media';
   id: number;
@@ -6534,6 +6694,194 @@ export const InfoScreenMediaFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<InfoScreenMediaFragment, unknown>;
+export const DetailsCardFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'DetailsCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'genres' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'favourites' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<DetailsCardFragment, unknown>;
+export const SearchLayoutContainerFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'SearchLayoutContainer' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'CardMedia' },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'DetailsCard' },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CardMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'DetailsCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'genres' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'favourites' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SearchLayoutContainerFragment, unknown>;
 export const BannerCardMediaFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -7909,6 +8257,1471 @@ export const InfoDetailsScreenDocument = {
   InfoDetailsScreenQuery,
   InfoDetailsScreenQueryVariables
 >;
+export const MediaDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Media' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'page' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          defaultValue: { kind: 'IntValue', value: '1' },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'perPage' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          defaultValue: { kind: 'IntValue', value: '20' },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'idMal' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'startDate' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'FuzzyDateInt' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'endDate' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'FuzzyDateInt' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'season' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'MediaSeason' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'seasonYear' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'type' } },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'MediaType' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'format' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'MediaFormat' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'status' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'MediaStatus' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'episodes' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'duration' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'chapters' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'volumes' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'isAdult' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'genre' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'tag' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'minimumTagRank' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tagCategory' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'onList' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'licensedBy' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'licensedById' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'averageScore' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'popularity' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'source' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'MediaSource' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'countryOfOrigin' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'CountryCode' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'isLicensed' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'search' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'id_not' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'id_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'id_not_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'idMal_not' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'idMal_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'idMal_not_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'startDate_greater' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'FuzzyDateInt' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'startDate_lesser' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'FuzzyDateInt' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'startDate_like' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'endDate_greater' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'FuzzyDateInt' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'endDate_lesser' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'FuzzyDateInt' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'endDate_like' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'format_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'MediaFormat' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'format_not' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'MediaFormat' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'format_not_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'MediaFormat' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'status_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'MediaStatus' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'status_not' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'MediaStatus' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'status_not_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'MediaStatus' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'episodes_greater' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'episodes_lesser' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'duration_greater' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'duration_lesser' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'chapters_greater' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'chapters_lesser' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'volumes_greater' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'volumes_lesser' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'genre_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'genre_not_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tag_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tag_not_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tagCategory_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tagCategory_not_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'licensedBy_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'licensedById_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'averageScore_not' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'averageScore_greater' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'averageScore_lesser' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'popularity_not' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'popularity_greater' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'popularity_lesser' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'source_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'MediaSource' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'MediaSort' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'Page' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'page' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'page' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'perPage' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'perPage' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'currentPage' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'lastPage' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'hasNextPage' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'media' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'id' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'id' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'idMal' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'idMal' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'startDate' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'startDate' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'endDate' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'endDate' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'season' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'season' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'seasonYear' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'seasonYear' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'type' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'type' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'format' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'format' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'status' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'status' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'episodes' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'episodes' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'duration' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'duration' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'chapters' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'chapters' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'volumes' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'volumes' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'isAdult' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'isAdult' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'genre' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'genre' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'tag' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'tag' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'minimumTagRank' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'minimumTagRank' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'tagCategory' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'tagCategory' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'onList' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'onList' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'licensedBy' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'licensedBy' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'licensedById' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'licensedById' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'averageScore' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'averageScore' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'popularity' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'popularity' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'source' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'source' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'countryOfOrigin' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'countryOfOrigin' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'isLicensed' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'isLicensed' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'search' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'search' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'id_not' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'id_not' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'id_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'id_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'id_not_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'id_not_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'idMal_not' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'idMal_not' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'idMal_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'idMal_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'idMal_not_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'idMal_not_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'startDate_greater' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'startDate_greater' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'startDate_lesser' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'startDate_lesser' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'startDate_like' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'startDate_like' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'endDate_greater' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'endDate_greater' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'endDate_lesser' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'endDate_lesser' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'endDate_like' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'endDate_like' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'format_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'format_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'format_not' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'format_not' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'format_not_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'format_not_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'status_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'status_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'status_not' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'status_not' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'status_not_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'status_not_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'episodes_greater' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'episodes_greater' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'episodes_lesser' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'episodes_lesser' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'duration_greater' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'duration_greater' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'duration_lesser' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'duration_lesser' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'chapters_greater' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'chapters_greater' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'chapters_lesser' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'chapters_lesser' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'volumes_greater' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'volumes_greater' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'volumes_lesser' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'volumes_lesser' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'genre_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'genre_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'genre_not_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'genre_not_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'tag_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'tag_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'tag_not_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'tag_not_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'tagCategory_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'tagCategory_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'tagCategory_not_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'tagCategory_not_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'licensedBy_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'licensedBy_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'licensedById_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'licensedById_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'averageScore_not' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'averageScore_not' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'averageScore_greater' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'averageScore_greater' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'averageScore_lesser' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'averageScore_lesser' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'popularity_not' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'popularity_not' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'popularity_greater' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'popularity_greater' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'popularity_lesser' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'popularity_lesser' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'source_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'source_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'sort' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'sort' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'SearchLayoutContainer' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CardMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'DetailsCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'genres' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'favourites' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'SearchLayoutContainer' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'CardMedia' },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'DetailsCard' },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MediaQuery, MediaQueryVariables>;
 export const BannerCardDocument = {
   kind: 'Document',
   definitions: [

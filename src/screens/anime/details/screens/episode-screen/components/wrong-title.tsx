@@ -98,6 +98,20 @@ const WrongTitle: React.FC<WrongTitleProps> = ({ media: mediaFragment }) => {
                 setSearchQuery(text);
               }, 500);
             }}
+            onSubmitEditing={() => {
+              setSearchQuery(tempSearchQuery);
+
+              if (searchQueryTimeout.current) {
+                clearTimeout(searchQueryTimeout.current);
+              }
+            }}
+            onBlur={() => {
+              setSearchQuery(tempSearchQuery);
+
+              if (searchQueryTimeout.current) {
+                clearTimeout(searchQueryTimeout.current);
+              }
+            }}
           />
 
           <Text variant="lg" className="mt-2 mb-4">

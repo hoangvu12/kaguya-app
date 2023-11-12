@@ -18,6 +18,7 @@ export const PlainCard = ({
       source={{
         uri: coverImage,
       }}
+      key={coverImage}
       className={twMerge('aspect-[2/3] rounded-md', className)}
       contentFit="cover"
       {...props}

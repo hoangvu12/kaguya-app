@@ -1,34 +1,37 @@
+import { useAtom } from 'jotai/react';
 import { ArrowDownZAIcon } from 'lucide-react-native';
 import React from 'react';
 
-import { MediaSort } from '@/types/anilist';
+import { MediaSort } from '@/gql/graphql';
 import { Text, TouchableOpacity } from '@/ui';
 import Select from '@/ui/core/select';
+
+import { sortAtom } from '../store';
 
 const mediaSortOptions = [
   {
     label: 'Popularity',
-    value: MediaSort.Popularity_desc,
+    value: MediaSort.PopularityDesc,
   },
   {
     label: 'Average Score',
-    value: MediaSort.Score_desc,
+    value: MediaSort.ScoreDesc,
   },
   {
     label: 'Trending',
-    value: MediaSort.Trending_desc,
+    value: MediaSort.TrendingDesc,
   },
   {
     label: 'Favourites',
-    value: MediaSort.Favourites_desc,
+    value: MediaSort.FavouritesDesc,
   },
   {
     label: 'Date Added',
-    value: MediaSort.Id_desc,
+    value: MediaSort.IdDesc,
   },
   {
     label: 'Release Date',
-    value: MediaSort.Start_date_desc,
+    value: MediaSort.StartDateDesc,
   },
 ];
 
@@ -37,11 +40,16 @@ const mediaSortValueToOption = (value: MediaSort) => {
 };
 
 const SortSelector = () => {
+  const [sort, setSort] = useAtom(sortAtom);
+
   return (
     <Select
       snapPoints={['80%']}
+      onSelect={(option) => {
+        setSort(option.value);
+      }}
       options={mediaSortOptions}
-      selectedOption={mediaSortValueToOption(MediaSort.Popularity_desc)}
+      selectedOption={mediaSortValueToOption(sort)}
       trigger={({ selectedOption, openBottomSheet, placeholder }) => {
         return (
           <TouchableOpacity

@@ -38,6 +38,7 @@ const StaffCard: React.FC<StaffCardProps> = ({ staffEdge: staffEdgeProps }) => {
           source={{ uri: node!.image!.large! }}
           className="h-full w-full rounded-md"
           contentFit="cover"
+          key={node!.image!.large!}
         />
       </View>
 

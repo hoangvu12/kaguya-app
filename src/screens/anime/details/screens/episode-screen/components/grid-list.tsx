@@ -43,6 +43,7 @@ const GridList: React.FC<GridListProps> = ({ searchResults, onSelect }) => {
                   source={{ uri: item.thumbnail }}
                   className="h-full w-full rounded-md"
                   contentFit="cover"
+                  key={item.thumbnail}
                 />
               </View>
 

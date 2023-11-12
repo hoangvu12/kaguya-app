@@ -77,6 +77,10 @@ const SpecialRelationList: React.FC<RelationListProps> = ({
                 relationEdge.node.coverImage?.large
               }
               className="absolute inset-0"
+              key={
+                relationEdge.node.bannerImage ||
+                relationEdge.node.coverImage?.large
+              }
             />
 
             <View className="absolute inset-0 bg-black/60" />

@@ -9,6 +9,7 @@ import { keywordAtom } from '../store';
 const SearchInput = () => {
   const [keyword, setKeyword] = useAtom(keywordAtom);
   const [innerKeyword, setInnerKeyword] = React.useState<string>(keyword);
+  const updateTimeOut = React.useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setInnerKeyword(keyword);
@@ -22,11 +23,30 @@ const SearchInput = () => {
         cursorColor={colors.neutral[300]}
         placeholderTextColor={colors.neutral[400]}
         value={innerKeyword}
-        onChange={(e) => {
-          setInnerKeyword(e.nativeEvent.text);
+        onChangeText={(text) => {
+          setInnerKeyword(text);
+
+          if (updateTimeOut.current) {
+            clearTimeout(updateTimeOut.current);
+          }
+
+          updateTimeOut.current = setTimeout(() => {
+            setKeyword(text);
+          }, 500);
+        }}
+        onSubmitEditing={() => {
+          setKeyword(innerKeyword);
+
+          if (updateTimeOut.current) {
+            clearTimeout(updateTimeOut.current);
+          }
         }}
         onBlur={() => {
           setKeyword(innerKeyword);
+
+          if (updateTimeOut.current) {
+            clearTimeout(updateTimeOut.current);
+          }
         }}
       />
     </View>

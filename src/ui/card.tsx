@@ -68,6 +68,7 @@ export const Card = ({
           }}
           className="h-full w-full rounded-md"
           contentFit="cover"
+          key={media?.coverImage?.large!}
           {...props}
         />
       </View>

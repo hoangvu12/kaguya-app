@@ -29,6 +29,7 @@ export const Banner = ({ bannerImage }: BannerProps) => {
             referer: 'https://anilist.co',
           },
         }}
+        key={bannerImage}
         className="h-full w-full rounded-md object-cover"
       />
 

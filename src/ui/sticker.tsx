@@ -19,12 +19,11 @@ interface StickerProps extends Omit<ImgProps, 'source'> {
 }
 
 const Sticker: React.FC<StickerProps> = ({ name, ...props }) => {
-  // eslint-disable-next-line @typescript-eslint/no-shadow
   const sticker = stickers.find((sticker) => sticker.name === name);
 
   if (!sticker) throw new Error(`Sticker ${name} not found`);
 
-  return <Image source={sticker.image} {...props} />;
+  return <Image source={sticker.image} key={sticker.image} {...props} />;
 };
 
 export default Sticker;

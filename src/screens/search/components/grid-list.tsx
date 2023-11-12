@@ -1,47 +1,56 @@
+import { FlashList } from '@shopify/flash-list';
 import React from 'react';
-import { FlatList } from 'react-native-gesture-handler';
 
-import type { Media } from '@/types/anilist';
-import { ScrollView, View, WIDTH } from '@/ui';
-import { Card } from '@/ui/card';
+import { type FragmentType, useFragment } from '@/gql';
+import { View, WIDTH } from '@/ui';
+import { Card, CARD_WIDTH, CardFragment } from '@/ui/card';
 
 interface GridListProps {
-  mediaList: Media[];
+  mediaList: readonly FragmentType<typeof CardFragment>[];
+  onLoadMore: () => void;
 }
 
 const SPACE_BETWEEN = 32;
 const CONTAINER_PADDING = 16;
 const LIST_PADDING = 16;
+const CARD_HEIGHT = CARD_WIDTH * (3 / 2);
+const CARD_TITLE_HEIGHT = 60;
 
-const GridList: React.FC<GridListProps> = ({ mediaList }) => {
+const GridList: React.FC<GridListProps> = ({ mediaList, onLoadMore }) => {
   return (
-    <ScrollView horizontal={true}>
-      <View
-        className="flex w-full flex-1 items-center justify-center"
-        style={{ marginLeft: LIST_PADDING }}
-      >
-        <FlatList
-          numColumns={2}
-          data={mediaList}
-          renderItem={({ item, index }) => (
-            <View
-              style={{
-                width:
-                  WIDTH / 2 -
-                  CONTAINER_PADDING -
-                  LIST_PADDING -
-                  SPACE_BETWEEN / 2,
-                marginLeft: index % 2 !== 0 ? SPACE_BETWEEN : 0,
-                marginBottom: SPACE_BETWEEN,
-              }}
-            >
-              <Card media={item} containerProps={{ className: 'w-full' }} />
-            </View>
-          )}
-          keyExtractor={(item) => item.id.toString()}
-        />
-      </View>
-    </ScrollView>
+    <View
+      className="h-full w-full flex-1"
+      style={{ marginLeft: LIST_PADDING, flex: 1 }}
+    >
+      <FlashList
+        numColumns={2}
+        data={mediaList}
+        renderItem={({ item, index }) => (
+          <View
+            style={{
+              width:
+                WIDTH / 2 -
+                CONTAINER_PADDING -
+                LIST_PADDING -
+                SPACE_BETWEEN / 2,
+              marginLeft:
+                index % 2 !== 0 ? SPACE_BETWEEN - LIST_PADDING * 2 : 0,
+              marginBottom: SPACE_BETWEEN,
+            }}
+          >
+            <Card media={item} containerProps={{ className: 'w-full' }} />
+          </View>
+        )}
+        estimatedItemSize={294}
+        onEndReached={onLoadMore}
+        onEndReachedThreshold={0.05}
+        ListFooterComponentStyle={{
+          paddingBottom: CARD_HEIGHT + CARD_TITLE_HEIGHT,
+        }}
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        keyExtractor={(item) => useFragment(CardFragment, item).id.toString()}
+      />
+    </View>
   );
 };
 
