@@ -16,6 +16,7 @@ import { Text, View } from '@/ui';
 import {
   currentTimeAtom,
   durationAtom,
+  isOverlayVisibleAtom,
   isSlidingAtom,
   pausedAtom,
   playableDurationAtom,
@@ -68,6 +69,7 @@ const MediaSlider = () => {
   const setPaused = useSetAtom(pausedAtom);
   const playableDuration = useAtomValue(playableDurationAtom);
   const setIsSliding = useSetAtom(isSlidingAtom);
+  const setOverlayVisible = useSetAtom(isOverlayVisibleAtom);
 
   const animateValue = useSharedValue(0);
 
@@ -91,6 +93,8 @@ const MediaSlider = () => {
     .minPointers(1)
     .activeOffsetX(ACTIVEOFFSETX)
     .onBegin((e) => {
+      runOnJS(setOverlayVisible)(true);
+
       runOnJS(setPaused)(true);
 
       shouldSync.value = false;
@@ -100,6 +104,7 @@ const MediaSlider = () => {
       animateValue.value = value;
     })
     .onUpdate((e) => {
+      runOnJS(setOverlayVisible)(true);
       runOnJS(setIsSliding)(true);
 
       const value = e.x / containerWidth;
@@ -107,6 +112,8 @@ const MediaSlider = () => {
       animateValue.value = value;
     })
     .onFinalize((e) => {
+      runOnJS(setOverlayVisible)(false);
+
       runOnJS(seek)(e.x / containerWidth);
 
       runOnJS(setIsSliding)(false);
@@ -191,11 +198,11 @@ const MediaSlider = () => {
           />
 
           <View
-            className="absolute z-10 h-2 rounded-md bg-gray-400/60"
+            className="absolute z-10 h-2 rounded-md bg-gray-300/60"
             style={{ width: `${(playableDuration / duration) * 100}%` }}
           />
 
-          <View className="absolute z-0 h-2 w-full rounded-md bg-gray-600/60" />
+          <View className="absolute z-0 h-2 w-full rounded-md bg-gray-400/60" />
         </View>
       </GestureDetector>
 

@@ -13,6 +13,7 @@ interface EpisodeDetailsProps extends ButtonProps {
 const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
   episode,
   className,
+  onLongPress,
   ...props
 }) => {
   const [shouldExpandDescription, setShouldExpandDescription] = useState(false);
@@ -23,7 +24,9 @@ const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
         'flex flex-col items-start rounded-md bg-thunder-900 p-0',
         className
       )}
-      onLongPress={() => {
+      onLongPress={(e) => {
+        onLongPress?.(e);
+
         setShouldExpandDescription((prev) => !prev);
       }}
       {...props}

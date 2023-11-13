@@ -79,7 +79,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
     VideoTrack | undefined
   >(undefined);
 
-  const paused = useAtomValue(pausedAtom);
+  const [paused, setPaused] = useAtom(pausedAtom);
   const setIsBuffering = useSetAtom(isBufferingAtom);
   const playBackRate = useAtomValue(playBackRateAtom);
   const volume = useAtomValue(volumeAtom);
@@ -249,6 +249,10 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
       }
     })();
   }, [videos, currentQuality, setCurrentSource, setVideoSize, videoTracks]);
+
+  useEffect(() => {
+    setPaused(false);
+  }, [currentSource?.file, setPaused]);
 
   useEffect(() => {
     if (!shouldMaintainTime.current) return;

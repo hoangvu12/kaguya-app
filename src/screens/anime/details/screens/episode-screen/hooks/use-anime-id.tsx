@@ -37,7 +37,7 @@ const useAnimeId = (mediaFragment: FragmentType<typeof useAnimeIdFragment>) => {
       const validation = AnimeIdSchema.safeParse(rawAnimeId);
 
       if (!validation.success) {
-        console.warn(validation.error);
+        console.warn(validation.error, rawAnimeId);
 
         return null;
       }

@@ -35,9 +35,11 @@ const useEpisodes = (
     queryKey.push(data.data);
   }
 
-  return useWebViewData(
+  const episodes = useWebViewData(
     queryKey,
     async (webview) => {
+      console.log('use-episodes-anime-id', data?.data);
+
       if (!data?.data) {
         return [];
       }
@@ -53,7 +55,7 @@ const useEpisodes = (
       const validation = z.array(EpisodeSchema).safeParse(nonValidatedEpisodes);
 
       if (!validation.success) {
-        console.error(validation.error);
+        console.log("Couldn't load video servers", validation.error);
 
         showMessage({
           type: 'danger',
@@ -90,8 +92,25 @@ const useEpisodes = (
 
       return episodes;
     },
-    { enabled: !isAnimeIdLoading }
+
+    {
+      onError: (error) => {
+        console.log('useEpisodes', error);
+      },
+      enabled: !isAnimeIdLoading,
+      retry: 0,
+
+      // For some reason, when calling useEpisodes in watch screen, it will return empty episodes
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+    }
   );
+
+  return {
+    ...episodes,
+    isLoading: isAnimeIdLoading || episodes.isLoading,
+  };
 };
 
 export default useEpisodes;

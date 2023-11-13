@@ -23,7 +23,7 @@ const documents = {
     types.DetailsHeaderMediaFragmentDoc,
   '\n  query InfoDetailsScreen($id: Int) {\n    Media(id: $id) {\n      ...DetailsHeaderMedia\n      ...InfoScreenMedia\n      ...EpisodeContainer\n    }\n  }\n':
     types.InfoDetailsScreenDocument,
-  '\n  fragment EpisodeContainer on Media {\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n':
+  '\n  fragment EpisodeContainer on Media {\n    id\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n':
     types.EpisodeContainerFragmentDoc,
   '\n  fragment WrongTitle on Media {\n    id\n    title {\n      english\n    }\n  }\n':
     types.WrongTitleFragmentDoc,
@@ -47,6 +47,8 @@ const documents = {
     types.TagListMediaFragmentDoc,
   '\n  fragment InfoScreenMedia on Media {\n    relations {\n      edges {\n        ...SpecialRelationListMedia\n        ...RelationListMedia\n      }\n    }\n    recommendations {\n      ...RecommendationListMedia\n    }\n    characters {\n      ...CharacterListMedia\n    }\n    staff {\n      ...StaffListMedia\n    }\n    tags {\n      ...TagListMedia\n    }\n    description\n    trailer {\n      id\n      site\n    }\n    synonyms\n    ...InfoSectionMedia\n  }\n':
     types.InfoScreenMediaFragmentDoc,
+  '\n  query AnimeWatchScreenQuery($mediaId: Int!) {\n    Media(id: $mediaId) {\n      title {\n        userPreferred\n      }\n      ...UseAnimeEpisode\n    }\n  }\n':
+    types.AnimeWatchScreenQueryDocument,
   '\n  fragment DetailsCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    genres\n    averageScore\n    favourites\n    coverImage {\n      large\n    }\n  }\n':
     types.DetailsCardFragmentDoc,
   '\n  fragment SearchLayoutContainer on Media {\n    ...CardMedia\n    ...DetailsCard\n  }\n':
@@ -115,8 +117,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment EpisodeContainer on Media {\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n'
-): (typeof documents)['\n  fragment EpisodeContainer on Media {\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n'];
+  source: '\n  fragment EpisodeContainer on Media {\n    id\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n'
+): (typeof documents)['\n  fragment EpisodeContainer on Media {\n    id\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -183,6 +185,12 @@ export function graphql(
 export function graphql(
   source: '\n  fragment InfoScreenMedia on Media {\n    relations {\n      edges {\n        ...SpecialRelationListMedia\n        ...RelationListMedia\n      }\n    }\n    recommendations {\n      ...RecommendationListMedia\n    }\n    characters {\n      ...CharacterListMedia\n    }\n    staff {\n      ...StaffListMedia\n    }\n    tags {\n      ...TagListMedia\n    }\n    description\n    trailer {\n      id\n      site\n    }\n    synonyms\n    ...InfoSectionMedia\n  }\n'
 ): (typeof documents)['\n  fragment InfoScreenMedia on Media {\n    relations {\n      edges {\n        ...SpecialRelationListMedia\n        ...RelationListMedia\n      }\n    }\n    recommendations {\n      ...RecommendationListMedia\n    }\n    characters {\n      ...CharacterListMedia\n    }\n    staff {\n      ...StaffListMedia\n    }\n    tags {\n      ...TagListMedia\n    }\n    description\n    trailer {\n      id\n      site\n    }\n    synonyms\n    ...InfoSectionMedia\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query AnimeWatchScreenQuery($mediaId: Int!) {\n    Media(id: $mediaId) {\n      title {\n        userPreferred\n      }\n      ...UseAnimeEpisode\n    }\n  }\n'
+): (typeof documents)['\n  query AnimeWatchScreenQuery($mediaId: Int!) {\n    Media(id: $mediaId) {\n      title {\n        userPreferred\n      }\n      ...UseAnimeEpisode\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

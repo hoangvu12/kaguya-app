@@ -36,15 +36,21 @@ window.sendInternalMessage = (event, data) => {
 }
 
 window.sendRequest = (request) => {
-  console.log(request);
-
   return new Promise((resolve) => {
-    sendInternalMessage("internal__request", request);
+    console.log(request);
+
+    const key = Math.random().toString(36).substring(2, 9);
+
+    sendInternalMessage("internal__request", { request, key });
     
     const handleMessage = function(event) {
       const data = JSON.parse(event.data);
       
       if (data.event === 'internal__response') {
+        console.log(request, event.data);
+
+        if (data.data.key !== key) return;
+
         window.removeEventListener('message', handleMessage);
         document.removeEventListener('message', handleMessage);
         
@@ -93,13 +99,25 @@ const WebViewProvider: React.FC<React.PropsWithChildren<{}>> = ({
     const obs = observer.current;
 
     const handleMessage = async (e: WebViewMessageEvent) => {
-      const { event: responseEvent, data: responseData } =
-        parseWebViewMessage<AxiosRequestConfig>(e);
+      const { event: responseEvent, data: responseData } = parseWebViewMessage<{
+        key: string;
+        request: AxiosRequestConfig;
+      }>(e);
 
       if (responseEvent === 'internal__request') {
-        axios(responseData).then((response) => {
+        const { request, key } = responseData;
+
+        axios(request).then((response) => {
           webView?.postMessage(
-            JSON.stringify(createMessage('internal__response', response.data))
+            JSON.stringify(
+              createMessage('internal__response', {
+                data: response.data,
+                status: response.status,
+                statusText: response.statusText,
+                headers: response.headers,
+                key,
+              })
+            )
           );
         });
       }

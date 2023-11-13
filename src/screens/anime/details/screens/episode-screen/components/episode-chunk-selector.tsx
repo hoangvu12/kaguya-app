@@ -102,25 +102,28 @@ const EpisodeChunkSelector = () => {
         horizontal
         keyExtractor={(item, index) => index.toString() + item[0].id}
         ItemSeparatorComponent={() => <View className="mx-1" />}
+        extraData={{ currentChunk }}
       />
 
-      <Select
-        ref={selectRef}
-        trigger={Trigger}
-        onSelect={(option) => {
-          setCurrentChunk(option.value);
-        }}
-        placeholder="Select chunk"
-        selectedOption={{
-          label: chunkToLabel(currentChunk),
-          value: currentChunk,
-        }}
-        options={chunks.map((chunk) => ({
-          label: chunkToLabel(chunk),
-          value: chunk,
-        }))}
-        snapPoints={['80%']}
-      />
+      {chunks.length > 10 && (
+        <Select
+          ref={selectRef}
+          trigger={Trigger}
+          onSelect={(option) => {
+            setCurrentChunk(option.value);
+          }}
+          placeholder="Select chunk"
+          selectedOption={{
+            label: chunkToLabel(currentChunk),
+            value: currentChunk,
+          }}
+          options={chunks.map((chunk) => ({
+            label: chunkToLabel(chunk),
+            value: chunk,
+          }))}
+          snapPoints={['80%']}
+        />
+      )}
     </View>
   );
 };

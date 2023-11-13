@@ -10,7 +10,10 @@ export type AnimeParamsList = {
     mediaId: number;
   };
   AnimeHome: undefined;
-  AnimeWatch: undefined;
+  AnimeWatch: {
+    mediaId: number;
+    episodeId: string;
+  };
 };
 
 const Stack = createNativeStackNavigator<AnimeParamsList>();

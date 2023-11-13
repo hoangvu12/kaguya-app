@@ -1,24 +1,37 @@
+import { useNavigation } from '@react-navigation/native';
 import { useAtomValue } from 'jotai/react';
+import { SkipBackIcon } from 'lucide-react-native';
 import React from 'react';
 
 import { View } from '@/ui';
-import SeekBackwardIcon from '@/ui/icons/seek-backward';
 
-import { currentTimeAtom, playerAtom } from '../store';
+import { currentEpisodeAtom, sectionEpisodesAtom } from '../store';
 import Tappable from './tappable';
 
 const BackwardButton = () => {
-  const player = useAtomValue(playerAtom);
-  const currentTime = useAtomValue(currentTimeAtom);
+  const currentEpisode = useAtomValue(currentEpisodeAtom);
+  const sectionEpisodes = useAtomValue(sectionEpisodesAtom);
 
-  const handleSeek = () => {
-    player?.seek(currentTime - 10);
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    if (!currentEpisode) return;
+
+    const currentEpisodeIndex = sectionEpisodes.findIndex(
+      (episode) => episode.id === currentEpisode.id
+    );
+
+    const prevEpisode = sectionEpisodes[currentEpisodeIndex - 1];
+
+    if (!prevEpisode) return;
+
+    navigation.setParams({ episodeId: prevEpisode.id });
   };
 
   return (
-    <Tappable onPress={handleSeek}>
+    <Tappable onPress={handlePress}>
       <View className="bg-transparent">
-        <SeekBackwardIcon className="h-12 w-12 text-white" />
+        <SkipBackIcon size={40} color="white" fill="white" />
       </View>
     </Tappable>
   );

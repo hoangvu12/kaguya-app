@@ -2,7 +2,7 @@ import { atom } from 'jotai/vanilla';
 import type RNVideo from 'react-native-video';
 
 import { atomWithMMKV } from '@/core/storage';
-import type { Subtitle, Video } from '@/types';
+import type { Episode, Subtitle, Video, VideoServer } from '@/types';
 
 export const playerAtom = atom<RNVideo | null>(null);
 export const isOverlayVisibleAtom = atom(true);
@@ -105,3 +105,13 @@ export const subtitleBackgroundOpacityAtom = atomWithMMKV<number>(
   'subtitle__background_opacity',
   DEFAULT_BACKGROUND_OPACITY
 );
+
+export const currentServerAtom = atom<VideoServer | undefined>(undefined);
+export const serversAtom = atom<VideoServer[]>([]);
+
+export const currentEpisodeAtom = atom<Episode | undefined>(undefined);
+export const episodesAtom = atom<Episode[]>([]);
+
+export const mediaTitleAtom = atom('');
+
+export const sectionEpisodesAtom = atom<Episode[]>([]);

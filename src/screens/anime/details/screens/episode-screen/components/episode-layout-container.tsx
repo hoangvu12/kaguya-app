@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useAtomValue } from 'jotai/react';
 import React from 'react';
 
@@ -10,16 +11,31 @@ import { episodeChunkAtom, layoutModeAtom } from '../store';
 const PADDING = 16;
 const SPACE_BETWEEN = 4;
 
-const EpisodeLayoutContainer = () => {
+const EpisodeLayoutContainer: React.FC<{ mediaId: number }> = ({ mediaId }) => {
   const layoutMode = useAtomValue(layoutModeAtom);
   const episodes = useAtomValue(episodeChunkAtom);
+
+  const navigation = useNavigation();
+
+  const handleNavigate = (episodeId: string) => {
+    navigation.navigate('AnimeWatch', {
+      episodeId,
+      mediaId,
+    });
+  };
 
   return (
     <React.Fragment>
       {layoutMode === 'details' && (
         <View className="space-y-4">
           {episodes.map((episode) => (
-            <EpisodeDetails key={episode.id} episode={episode} />
+            <EpisodeDetails
+              onPress={() => {
+                handleNavigate(episode.id);
+              }}
+              key={episode.id}
+              episode={episode}
+            />
           ))}
         </View>
       )}
@@ -35,7 +51,12 @@ const EpisodeLayoutContainer = () => {
               }}
               key={episode.id}
             >
-              <EpisodeCard episode={episode} />
+              <EpisodeCard
+                onPress={() => {
+                  handleNavigate(episode.id);
+                }}
+                episode={episode}
+              />
             </View>
           ))}
         </View>

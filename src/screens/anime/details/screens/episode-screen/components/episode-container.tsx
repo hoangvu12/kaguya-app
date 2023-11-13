@@ -15,6 +15,7 @@ import WrongTitle from './wrong-title';
 
 export const EpisodeContainerFragment = graphql(`
   fragment EpisodeContainer on Media {
+    id
     ...WrongTitle
     ...UseAnimeEpisode
   }
@@ -71,7 +72,7 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
             <Else>
               <EpisodeSectionSelector episodes={data!} />
               <EpisodeChunkSelector />
-              <EpisodeLayoutContainer />
+              <EpisodeLayoutContainer mediaId={media.id} />
             </Else>
           </If>
         </Else>
