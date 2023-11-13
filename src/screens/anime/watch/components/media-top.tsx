@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useAtomValue } from 'jotai/react';
 import { ChevronLeftIcon } from 'lucide-react-native';
 import React from 'react';
+import Orientation from 'react-native-orientation-locker';
 
 import { currentModuleIdAtom } from '@/store';
 import { Button, Text, View } from '@/ui';
@@ -30,6 +31,8 @@ const MediaTop = () => {
   const navigation = useNavigation();
 
   const handleGoBack = () => {
+    Orientation.lockToPortrait();
+
     if (navigation.canGoBack()) {
       navigation.goBack();
     } else {
