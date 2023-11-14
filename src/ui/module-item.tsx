@@ -8,7 +8,7 @@ import { getModuleFilePath } from '@/utils/module';
 import type { ButtonProps } from './core';
 import { Button, Image, Text, View } from './core';
 
-export interface ModuleItemProps extends ButtonProps {
+export interface ModuleItemProps extends Omit<ButtonProps, 'children'> {
   module: Module;
   onPress?: () => void;
   className?: string;

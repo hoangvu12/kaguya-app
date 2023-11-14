@@ -13,5 +13,5 @@ export const SubtitleFormatSchema = z.nativeEnum(SubtitleFormat);
 export const SubtitleSchema = z.object({
   language: z.string(),
   file: FileUrlSchema,
-  format: SubtitleFormatSchema,
+  format: SubtitleFormatSchema.nullable().optional(),
 });

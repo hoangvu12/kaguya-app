@@ -36,7 +36,9 @@ const MediaSubtitle: React.FC<MediaSubtitleProps> = ({ subtitles }) => {
     if (!currentSubtitle) return;
 
     axios
-      .get(currentSubtitle.file.url, { headers: currentSubtitle.file.headers })
+      .get(currentSubtitle.file.url, {
+        headers: currentSubtitle?.file?.headers || {},
+      })
       .then((data) => {
         setSubContent(data.data);
       });
@@ -46,15 +48,15 @@ const MediaSubtitle: React.FC<MediaSubtitleProps> = ({ subtitles }) => {
 
   return (
     <React.Fragment>
-      {(currentSubtitle?.format === SubtitleFormat.ASS ||
-        isASS(currentSubtitle.file.url)) && (
+      {currentSubtitle?.format === SubtitleFormat.ASS ||
+      isASS(currentSubtitle.file.url) ? (
         <MediaASSSubtitle subContent={subContent} />
-      )}
+      ) : null}
 
-      {(currentSubtitle?.format !== SubtitleFormat.ASS ||
-        !isASS(currentSubtitle.file.url)) && (
+      {currentSubtitle?.format !== SubtitleFormat.ASS ||
+      !isASS(currentSubtitle.file.url) ? (
         <MediaTextSubtitle subContent={subContent} />
-      )}
+      ) : null}
     </React.Fragment>
   );
 };

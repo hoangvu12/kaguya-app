@@ -1,9 +1,9 @@
 import { useAtom } from 'jotai/react';
 import { ChevronDown } from 'lucide-react-native';
 import React from 'react';
-import { Pressable } from 'react-native';
 
 import { Text } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 import Select from '@/ui/core/select';
 
 import { countryAtom, MediaCountry } from '../store';

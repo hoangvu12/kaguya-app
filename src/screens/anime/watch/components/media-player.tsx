@@ -52,10 +52,6 @@ type VideoSource = {
   type?: 'mpd' | 'm3u8' | undefined;
 };
 
-function isDefined<T>(argument: T | undefined): argument is T {
-  return argument !== undefined;
-}
-
 const EMPTY_VIDEO: VideoSource = {
   uri: 'https://cdn.plyr.io/static/blank.mp4',
 };
@@ -161,7 +157,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
     if (videos.length > 1) {
       const qualityList = videos
         .map((video) => video.quality)
-        .filter(isDefined)
+        .filter(Boolean)
         .sort((a, b) => {
           const aWithoutP = parseInt(a.replace('p', ''), 10);
           const bWithoutP = parseInt(b.replace('p', ''), 10);
@@ -192,7 +188,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
     ) {
       const qualityList = videos
         .map((video) => video.quality)
-        .filter(isDefined)
+        .filter(Boolean)
         .sort((a, b) => {
           const aWithoutP = parseInt(a.replace('p', ''), 10);
           const bWithoutP = parseInt(b.replace('p', ''), 10);
@@ -202,7 +198,9 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
 
       const quality = qualityList[0];
 
-      setCurrentQuality(quality);
+      if (quality) {
+        setCurrentQuality(quality);
+      }
 
       setQualityList(qualityList);
     }

@@ -42,7 +42,7 @@ const LocalModuleScreen = () => {
     queryClient.invalidateQueries(useModules.getKey(), { type: 'all' });
 
     Toast.show({
-      text1: `Successfully installed module ${module.name}`,
+      text2: `Successfully installed module ${module.name}`,
       type: 'success',
     });
   };

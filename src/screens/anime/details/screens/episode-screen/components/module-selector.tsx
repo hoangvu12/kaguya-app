@@ -49,6 +49,8 @@ const ModuleSelector = () => {
       ref={selectRef}
       trigger={Trigger}
       onSelect={(option) => {
+        console.log(option.value);
+
         setCurrentModuleId(option.value.id);
       }}
       placeholder="Select a module"
@@ -75,11 +77,14 @@ const ModuleSelector = () => {
 };
 
 const ModuleOption: React.FC<
-  Pick<ItemProps<Module>, 'option' | 'closeBottomSheet'>
-> = ({ option, closeBottomSheet }) => {
+  Pick<ItemProps<Module>, 'option' | 'closeBottomSheet' | 'onPress'>
+> = ({ option, closeBottomSheet, onPress }) => {
   return (
     <ModuleItem
-      onPress={closeBottomSheet}
+      onPress={() => {
+        closeBottomSheet();
+        onPress();
+      }}
       module={option.value}
       key={option.value.id}
       className="bg-thunder-700"

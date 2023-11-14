@@ -21,11 +21,11 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
 
   return (
     <React.Fragment>
-      {(isLoading || isServerLoading) && (
+      {isLoading || isServerLoading ? (
         <View className="absolute z-10 flex h-full w-full items-center justify-center whitespace-pre-wrap">
           <ActivityIndicator size={48} color={colors.primary[500]} />
         </View>
-      )}
+      ) : null}
 
       <MediaOverlay />
 
@@ -33,9 +33,9 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
         <MediaPlayer videos={container.videos} />
       ) : null}
 
-      {container?.subtitles?.length && (
+      {container?.subtitles?.length ? (
         <MediaSubtitle subtitles={container.subtitles} />
-      )}
+      ) : null}
     </React.Fragment>
   );
 };

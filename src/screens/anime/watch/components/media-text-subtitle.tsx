@@ -9,6 +9,7 @@ import { TextStroke } from '@/ui/core/text-stroke';
 
 import {
   currentTimeAtom,
+  DEFAULT_BACKGROUND_COLOR,
   subtitleBackgroundColor,
   subtitleBackgroundOpacityAtom,
   subtitleFontColorAtom,
@@ -83,7 +84,10 @@ const MediaTextSubtitle: React.FC<MediaTextSubtitleProps> = ({
       <View
         className="absolute bottom-2 rounded-md p-2 text-center"
         style={{
-          backgroundColor: addAlphaToRGB(backgroundColor, backgroundOpacity),
+          backgroundColor: addAlphaToRGB(
+            backgroundColor || DEFAULT_BACKGROUND_COLOR,
+            backgroundOpacity
+          ),
           paddingHorizontal: padding.horizontal,
           paddingVertical: padding.vertical,
         }}

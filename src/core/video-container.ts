@@ -7,7 +7,7 @@ import { VideoSchema } from './video';
 
 export const VideoContainerSchema = z.object({
   videos: z.array(VideoSchema),
-  subtitles: z.array(SubtitleSchema).optional(),
-  fonts: z.array(FontSchema).optional(),
-  timestamps: z.array(TimestampSchema).optional(),
+  subtitles: z.array(SubtitleSchema).nullable().optional(),
+  fonts: z.array(FontSchema).nullable().optional(),
+  timestamps: z.array(TimestampSchema).nullable().optional(),
 });

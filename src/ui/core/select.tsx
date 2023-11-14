@@ -6,7 +6,6 @@ import { twMerge } from 'tailwind-merge';
 
 import BottomSheet from './bottom-sheet';
 import { Button } from './button';
-import Pressable from './pressable';
 import { Text } from './text';
 import { View } from './view';
 
@@ -30,6 +29,7 @@ export interface ItemProps<T> {
   closeBottomSheet: () => void;
   placeholder?: string;
   setSelectedOption?: (option: SelectOption<T>) => void;
+  onPress: () => void;
 }
 
 export interface SelectRef {
@@ -63,7 +63,10 @@ const SelectInner = <T,>(
             : 'bg-primary-500'
         )}
         key={JSON.stringify(props.option.value)}
-        onPress={props.closeBottomSheet}
+        onPress={() => {
+          props.closeBottomSheet();
+          props.onPress();
+        }}
       >
         <Text>{props.option.label}</Text>
       </Button>
@@ -120,22 +123,19 @@ const SelectInner = <T,>(
             data={options}
             renderItem={({ item }) => {
               return (
-                <Pressable
-                  key={item.label}
-                  onPress={() => {
-                    setCurrentOption(item);
-                    onSelect?.(item);
-                  }}
-                  style={{ width: '100%' }}
-                >
+                <View key={item.label} style={{ width: '100%' }}>
                   {option({
                     closeBottomSheet,
                     openBottomSheet,
                     option: item,
                     selectedOption,
                     placeholder,
+                    onPress: () => {
+                      setCurrentOption(item);
+                      onSelect?.(item);
+                    },
                   })}
-                </Pressable>
+                </View>
               );
             }}
             ItemSeparatorComponent={() => <View className="my-1" />}

@@ -194,33 +194,6 @@ export const useWebView = () => {
 
       const event = `event_${Math.random().toString(36).substring(2, 9)}`;
 
-      console.log(` window.sendResponse = function(response) {
-        window.sendBack(window.createMessage("${event}", response));
-      }
-
-      window.sendError = function(err) {
-        window.sendBack(window.createError("${event}", err));
-      }
-
-      try {
-        if (${functionName}.constructor.name !== 'AsyncFunction') {
-          ${functionName}();
-        } else {
-          ${functionName}().catch((e) => {
-            console.error("Error in inject js async", e);
-
-            window.sendError(e);
-          })
-        }
-
-      } catch(e) {
-        console.error("Error in inject js", e);
-
-        window.sendError(e);
-      }
-
-      true;`);
-
       webView.injectJavaScript(`
         window.sendResponse = function(response) {
           window.sendBack(window.createMessage("${event}", response));

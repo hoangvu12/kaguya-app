@@ -22,7 +22,6 @@ import {
 import Tappable from './tappable';
 
 const CARD_WIDTH = 160;
-const CARD_HEIGHT = 160 * (9 / 16);
 
 const chunkToLabel = (chunk: Episode[]) => {
   const firstEpisode = chunk[0];
@@ -74,6 +73,18 @@ const EpisodesButton = () => {
   const [currentChunk, setCurrentChunk] = useState(chunks[0]);
 
   useEffect(() => {
+    if (!sections?.length) return;
+
+    const currentEpisodeSection = currentEpisode?.section;
+
+    const section = sections.find((section) => {
+      return section === currentEpisodeSection;
+    });
+
+    setCurrentSection(section || sections[0]);
+  }, [currentEpisode?.section, sections]);
+
+  useEffect(() => {
     if (!chunks?.length) return;
 
     setCurrentChunk(chunks[0]);
@@ -95,8 +106,8 @@ const EpisodesButton = () => {
         </View>
       </Tappable>
 
-      <BottomSheet ref={bottomSheetRef} snapPoints={[CARD_HEIGHT * 3]}>
-        {sections?.length > 1 && (
+      <BottomSheet ref={bottomSheetRef} snapPoints={['100%']}>
+        {sections?.length > 1 ? (
           <Select
             trigger={({ selectedOption, openBottomSheet }) => (
               <Button
@@ -120,9 +131,9 @@ const EpisodesButton = () => {
             }}
             snapPoints={['80%']}
           />
-        )}
+        ) : null}
 
-        <View className="mb-4 flex flex-row justify-between">
+        <View className="my-4 flex flex-row justify-between">
           <FlatList
             className="w-5/6"
             data={chunks}
@@ -153,7 +164,7 @@ const EpisodesButton = () => {
             extraData={{ currentChunk }}
           />
 
-          {chunks?.length > 10 && (
+          {chunks?.length > 10 ? (
             <Select
               trigger={Trigger}
               onSelect={(option) => {
@@ -170,13 +181,18 @@ const EpisodesButton = () => {
               }))}
               snapPoints={['80%']}
             />
-          )}
+          ) : null}
         </View>
 
-        {currentChunk?.length && (
+        {currentChunk?.length ? (
           <FlatList
             horizontal
             data={currentChunk}
+            contentContainerStyle={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+            }}
             renderItem={({ item }) => (
               <EpisodeCard
                 episode={item}
@@ -192,7 +208,7 @@ const EpisodesButton = () => {
             keyExtractor={(item) => item.id}
             ItemSeparatorComponent={() => <View className="mx-1" />}
           />
-        )}
+        ) : null}
       </BottomSheet>
     </View>
   );

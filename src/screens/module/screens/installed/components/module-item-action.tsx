@@ -29,7 +29,7 @@ const ModuleItemAction: React.FC<ModuleItemActionProps> = ({
 
     Toast.show({
       type: 'success',
-      text1: `Successfully uninstalled module ${uninstallModule.name}`,
+      text2: `Successfully uninstalled module ${uninstallModule.name}`,
     });
   };
 

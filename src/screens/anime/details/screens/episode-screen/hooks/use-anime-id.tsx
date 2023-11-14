@@ -7,7 +7,7 @@ import useWebViewData from '@/hooks/use-webview-data';
 
 const AnimeIdSchema = z.object({
   data: z.string(),
-  extraData: z.record(z.string()).optional(),
+  extraData: z.record(z.string()).nullable().optional(),
 });
 
 export const useAnimeIdFragment = graphql(`

@@ -11,7 +11,7 @@ export enum VideoFormat {
 export const VideoFormatSchema = z.nativeEnum(VideoFormat);
 
 export const VideoSchema = z.object({
-  quality: z.string().optional(),
+  quality: z.string().nullable().optional(),
   format: VideoFormatSchema.optional(),
   file: FileUrlSchema,
 });
