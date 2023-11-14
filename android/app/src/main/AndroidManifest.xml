@@ -4,6 +4,7 @@
   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
   <uses-permission android:name="android.permission.VIBRATE"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
   <queries>
     <intent>
       <action android:name="android.intent.action.VIEW"/>
@@ -25,8 +26,6 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="com.app.development"/>
-        <data android:scheme="exp+obytesapp"/>
         <data android:scheme="com.hoangvu12.kaguya.development"/>
         <data android:scheme="exp+kaguya"/>
       </intent-filter>

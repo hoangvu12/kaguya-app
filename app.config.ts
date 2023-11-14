@@ -4,18 +4,19 @@ import { ClientEnv, Env } from './env';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
+  backgroundColor: '#1c1414',
   name: Env.NAME,
   description: `${Env.NAME} is an app with a good user interface that let you watch anime and read manga for free.`,
   owner: Env.EXPO_ACCOUNT_OWNER,
   slug: 'kaguya',
   version: Env.VERSION.toString(),
   orientation: 'portrait',
-  icon: './assets/icon.png',
+  icon: './assets/adaptive-icon.png',
   userInterfaceStyle: 'automatic',
   splash: {
     image: './assets/splash.png',
     resizeMode: 'cover',
-    backgroundColor: '#F75469',
+    backgroundColor: '#1c1414',
   },
   updates: {
     fallbackToCacheTimeout: 0,
@@ -29,9 +30,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
-      backgroundColor: '#FFFFFF',
+      backgroundColor: '#1c1414',
     },
     package: Env.PACKAGE,
+    icon: './assets/adaptive-icon.png',
   },
   web: {
     favicon: './assets/favicon.png',

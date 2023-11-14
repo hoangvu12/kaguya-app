@@ -74,6 +74,15 @@ dependencies:
   expo-linear-gradient:
     specifier: ~12.3.0
     version: 12.3.0(expo@49.0.6)
+  expo-splash-screen:
+    specifier: ~0.20.5
+    version: 0.20.5(expo-modules-autolinking@1.5.0)(expo@49.0.6)
+  expo-status-bar:
+    specifier: ~1.6.0
+    version: 1.6.0
+  expo-system-ui:
+    specifier: ~2.4.0
+    version: 2.4.0(expo@49.0.6)
   expo-updates:
     specifier: ~0.18.17
     version: 0.18.17(expo@49.0.6)
@@ -107,9 +116,6 @@ dependencies:
   react-native:
     specifier: 0.72.5
     version: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
-  react-native-flash-message:
-    specifier: ^0.4.0
-    version: 0.4.0(prop-types@15.8.1)(react-native@0.72.5)(react@18.2.0)
   react-native-gesture-handler:
     specifier: ~2.12.0
     version: 2.12.0(react-native@0.72.5)(react@18.2.0)
@@ -9122,8 +9128,37 @@ packages:
       invariant: 2.2.4
     dev: false
 
+  /expo-splash-screen@0.20.5(expo-modules-autolinking@1.5.0)(expo@49.0.6):
+    resolution: {integrity: sha512-nTALYdjHpeEA30rdOWSguxn72ctv8WM8ptuUgpfRgsWyn4i6rwYds/rBXisX69XO5fg+XjHAQqijGx/b28+3tg==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      '@expo/prebuild-config': 6.2.6(expo-modules-autolinking@1.5.0)
+      expo: 49.0.6(@babel/core@7.21.0)
+    transitivePeerDependencies:
+      - encoding
+      - expo-modules-autolinking
+      - supports-color
+    dev: false
+
+  /expo-status-bar@1.6.0:
+    resolution: {integrity: sha512-e//Oi2WPdomMlMDD3skE4+1ZarKCJ/suvcB4Jo/nO427niKug5oppcPNYO+csR6y3ZglGuypS+3pp/hJ+Xp6fQ==}
+    dev: false
+
   /expo-structured-headers@3.3.0:
     resolution: {integrity: sha512-t+h5Zqaukd3Tn97LaWPpibVsmiC/TFP8F+8sAUliwCSMzgcb5TATRs2NcAB+JcIr8EP3JJDyYXJrZle1cjs4mQ==}
+    dev: false
+
+  /expo-system-ui@2.4.0(expo@49.0.6):
+    resolution: {integrity: sha512-uaBAYeQtFzyE8WVcch2V3G243xvOf7vJkLzrIJ3rJ8NA3uZRmxF0lMMe75oMrAaLVXyr1Z+ZE6UZwh7x49FuIg==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      '@react-native/normalize-color': 2.1.0
+      debug: 4.3.4
+      expo: 49.0.6(@babel/core@7.21.0)
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /expo-updates-interface@0.10.1(expo@49.0.6):
@@ -13975,19 +14010,6 @@ packages:
       prop-types: 15.8.1
     dev: false
 
-  /react-native-flash-message@0.4.0(prop-types@15.8.1)(react-native@0.72.5)(react@18.2.0):
-    resolution: {integrity: sha512-ZCVnQj+82cQnWqBtkIVPxMEJxwzWqq8WQcIulUqc9UiCdvWQJRLN0Pe0PvzFs/l/GM2ek6zXSck7LJzUq8pahQ==}
-    peerDependencies:
-      prop-types: ^15.0 || ^16.0
-      react: '*'
-      react-native: '*'
-    dependencies:
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-native: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
-      react-native-iphone-screen-helper: 2.0.3(react-native@0.72.5)
-    dev: false
-
   /react-native-gesture-handler@2.12.0(react-native@0.72.5)(react@18.2.0):
     resolution: {integrity: sha512-rr+XwVzXAVpY8co25ukvyI38fKCxTQjz7WajeZktl8qUPdh1twnSExgpT47DqDi4n+m+OiJPAnHfZOkqqAQMOg==}
     peerDependencies:
@@ -14000,14 +14022,6 @@ packages:
       lodash: 4.17.21
       prop-types: 15.8.1
       react: 18.2.0
-      react-native: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
-    dev: false
-
-  /react-native-iphone-screen-helper@2.0.3(react-native@0.72.5):
-    resolution: {integrity: sha512-gbSnV0iYWQ3hne3inYoueatSJL/Un49biIkHLGKsm7J7QjFhL+/WSPB1sZhQ87lNIANwFh33nvxcjixxR4T+NQ==}
-    peerDependencies:
-      react-native: '>=0.42.0'
-    dependencies:
       react-native: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
     dev: false
 
