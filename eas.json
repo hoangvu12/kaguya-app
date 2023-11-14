@@ -5,7 +5,6 @@
   "build": {
     "production": {
       "channel": "production",
-      "distribution": "store",
       "ios": {
         "image": "latest"
       },
@@ -23,8 +22,8 @@
         "key": "eas-1"
       }
     },
-    "staging": {
-      "channel": "staging",
+    "alpha": {
+      "channel": "alpha",
       "distribution": "internal",
       "ios": {
         "image": "latest"
@@ -34,11 +33,10 @@
         "image": "latest"
       },
       "env": {
-        "APP_ENV": "staging",
+        "APP_ENV": "alpha",
         "EXPO_NO_DOTENV": "1",
         "FLIPPER_DISABLE": "1"
       },
-
       "prebuildCommand": "prebuild --skip-dependency-update react",
       "cache": {
         "key": "eas-1"
@@ -57,7 +55,6 @@
         "APP_ENV": "development",
         "EXPO_NO_DOTENV": "1"
       },
-
       "prebuildCommand": "prebuild --skip-dependency-update react",
       "cache": {
         "key": "eas-1"

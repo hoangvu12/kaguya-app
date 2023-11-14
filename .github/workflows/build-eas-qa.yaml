@@ -10,20 +10,19 @@ jobs:
     name: EAS QA Build (Android & IOS) (EAS)
     runs-on: ubuntu-latest
     steps:
-      - name : 📦 Checkout project repo
+      - name: 📦 Checkout project repo
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name : 📦 Setup Node + PNPM + install deps
+      - name: 📦 Setup Node + PNPM + install deps
         uses: ./.github/actions/setup-node-pnpm-install
 
       - name: ⏱️ EAS Build
         uses: ./.github/actions/eas-build
         with:
-          APP_ENV: staging
+          APP_ENV: alpha
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
           VERSION: ${{ github.event.release.tag_name }}
           IOS: false # TODO: set as true when IOS account is ready
-
 

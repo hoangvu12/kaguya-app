@@ -2,9 +2,9 @@ name: 'Setup  Node + PNPM + Install Dependencies'
 description: 'Setup  Node + PNPM + Install Dependencies'
 inputs:
   APP_ENV:
-    description: 'APP_ENV (one of): development, staging, production'
+    description: 'APP_ENV (one of): development, alpha, production'
     required: true
-    default: 'staging'
+    default: 'alpha'
   AUTO_SUBMIT: ## TODO: we need to handle this too
     description: 'AUTO_SUBMIT (one of): true, false'
     required: true
@@ -29,22 +29,22 @@ inputs:
 runs:
   using: 'composite'
   steps:
-      - name: 📦 Setup Expo and EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ inputs.EXPO_TOKEN }}
+    - name: 📦 Setup Expo and EAS
+      uses: expo/expo-github-action@v8
+      with:
+        eas-version: latest
+        token: ${{ inputs.EXPO_TOKEN }}
 
-      - name: ⚙️ Run Prebuild
-        run: pnpm prebuild:${{ inputs.APP_ENV }}
-        shell: bash
+    - name: ⚙️ Run Prebuild
+      run: pnpm prebuild:${{ inputs.APP_ENV }}
+      shell: bash
 
-      - name: 📱 Run Android Build
-        if: ${{ inputs.ANDROID == 'true' }}
-        run: pnpm build:${{ inputs.APP_ENV }}:android --non-interactive  --no-wait --message "Build  ${{ inputs.APP_ENV }} ${{ inputs.VERSION }}"
-        shell: bash
+    - name: 📱 Run Android Build
+      if: ${{ inputs.ANDROID == 'true' }}
+      run: pnpm build:${{ inputs.APP_ENV }}:android --non-interactive  --no-wait --message "Build  ${{ inputs.APP_ENV }} ${{ inputs.VERSION }}"
+      shell: bash
 
-      - name: 📱 Run IOS Build
-        if: ${{ inputs.IOS == 'true' }}
-        run: pnpm build:${{ inputs.APP_ENV }}:ios --non-interactive  --no-wait --message "Build ${{ inputs.APP_ENV }} ${{ inputs.VERSION }}"
-        shell: bash
+    - name: 📱 Run IOS Build
+      if: ${{ inputs.IOS == 'true' }}
+      run: pnpm build:${{ inputs.APP_ENV }}:ios --non-interactive  --no-wait --message "Build ${{ inputs.APP_ENV }} ${{ inputs.VERSION }}"
+      shell: bash

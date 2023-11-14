@@ -77,6 +77,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         ],
       },
     ],
+    [
+      'expo-updates',
+      {
+        username: 'hoangvu12',
+      },
+    ],
   ],
   extra: {
     ...ClientEnv,
