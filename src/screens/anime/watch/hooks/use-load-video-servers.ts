@@ -1,3 +1,4 @@
+import Toast from 'react-native-toast-message';
 import { z } from 'zod';
 
 import { VideoServerSchema } from '@/core/video-server';
@@ -8,35 +9,47 @@ const useLoadVideoServers = (
   episodeId: string,
   extraData?: Record<string, string>
 ) => {
-  return useWebViewData(['videoServers', episodeId], async (webview) => {
-    if (!episodeId) {
-      console.log("Couldn't load video servers: no episode id");
+  return useWebViewData(
+    ['videoServers', episodeId],
+    async (webview) => {
+      if (!episodeId) {
+        console.log("Couldn't load video servers: no episode id");
 
-      return [];
-    }
-
-    const nonValidatedServers = await webview.sendMessage(
-      'anime.loadVideoServers',
-      {
-        episodeId,
-        extraData,
+        return [];
       }
-    );
 
-    const validation = z
-      .array(VideoServerSchema)
-      .safeParse(nonValidatedServers);
-
-    if (!validation.success) {
-      showErrorMessage(
-        `Couldn't load video servers (${validation.error.message})`
+      const nonValidatedServers = await webview.sendMessage(
+        'anime.loadVideoServers',
+        {
+          episodeId,
+          extraData,
+        }
       );
 
-      return [];
-    }
+      const validation = z
+        .array(VideoServerSchema)
+        .safeParse(nonValidatedServers);
 
-    return validation.data;
-  });
+      if (!validation.success) {
+        showErrorMessage(
+          `Couldn't load video servers (${validation.error.message})`
+        );
+
+        return [];
+      }
+
+      return validation.data;
+    },
+    {
+      onError: (err: any) => {
+        Toast.show({
+          type: 'error',
+          text1: 'Cannot load video servers',
+          text2: err,
+        });
+      },
+    }
+  );
 };
 
 export default useLoadVideoServers;

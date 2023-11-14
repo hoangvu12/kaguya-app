@@ -95,8 +95,12 @@ const useEpisodes = (
     },
 
     {
-      onError: (error) => {
-        console.log('useEpisodes', error);
+      onError: (err: any) => {
+        Toast.show({
+          type: 'error',
+          text1: 'Cannot find episodes',
+          text2: err,
+        });
       },
       enabled: !isAnimeIdLoading,
       retry: 0,

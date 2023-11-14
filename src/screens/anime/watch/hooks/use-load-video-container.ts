@@ -1,4 +1,5 @@
 import { useAtomValue } from 'jotai/react';
+import Toast from 'react-native-toast-message';
 
 import { VideoContainerSchema } from '@/core/video-container';
 import useWebViewData from '@/hooks/use-webview-data';
@@ -40,6 +41,13 @@ const useLoadVideoContainer = (server?: VideoServer) => {
     },
     {
       enabled: !!currentEpisode?.id,
+      onError: (err: any) => {
+        Toast.show({
+          type: 'error',
+          text1: 'Cannot load video container',
+          text2: err,
+        });
+      },
     }
   );
 };

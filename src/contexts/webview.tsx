@@ -12,11 +12,11 @@ const createMessage = <T,>(event: string, data: T) => {
 };
 
 const parseWebViewMessage = <T,>(event: WebViewMessageEvent) => {
-  const { event: responseEvent, data: responseData } = JSON.parse(
-    event.nativeEvent.data
-  ) as { event: string; data: T };
+  const message = JSON.parse(event.nativeEvent.data) as
+    | { event: string; data: T }
+    | { event: string; error: string };
 
-  return { event: responseEvent, data: responseData };
+  return message;
 };
 
 const preInjectCode = `
@@ -26,6 +26,13 @@ window.createMessage = (event, data) => {
     data,
   };
 };
+
+window.createError = (event, error) => {
+  return {
+    event,
+    error: JSON.stringify(error, Object.getOwnPropertyNames(error)),
+  };
+}
 
 window.sendBack = (data) => {
   window.ReactNativeWebView.postMessage(JSON.stringify(data));
@@ -99,13 +106,17 @@ const WebViewProvider: React.FC<React.PropsWithChildren<{}>> = ({
     const obs = observer.current;
 
     const handleMessage = async (e: WebViewMessageEvent) => {
-      const { event: responseEvent, data: responseData } = parseWebViewMessage<{
+      const message = parseWebViewMessage<{
         key: string;
         request: AxiosRequestConfig;
       }>(e);
 
-      if (responseEvent === 'internal__request') {
-        const { request, key } = responseData;
+      if ('error' in message) {
+        return;
+      }
+
+      if (message.event === 'internal__request') {
+        const { request, key } = message.data;
 
         axios(request).then((response) => {
           webView?.postMessage(
@@ -183,15 +194,40 @@ export const useWebView = () => {
 
       const event = `event_${Math.random().toString(36).substring(2, 9)}`;
 
-      console.log(`${functionName}()`);
+      console.log(` window.sendResponse = function(response) {
+        window.sendBack(window.createMessage("${event}", response));
+      }
+
+      window.sendError = function(err) {
+        window.sendBack(window.createError("${event}", err));
+      }
+
+      try {
+        if (${functionName}.constructor.name !== 'AsyncFunction') {
+          ${functionName}();
+        } else {
+          ${functionName}().catch((e) => {
+            console.error("Error in inject js async", e);
+
+            window.sendError(e);
+          })
+        }
+
+      } catch(e) {
+        console.error("Error in inject js", e);
+
+        window.sendError(e);
+      }
+
+      true;`);
 
       webView.injectJavaScript(`
         window.sendResponse = function(response) {
           window.sendBack(window.createMessage("${event}", response));
         }
 
-        const sendError = function(err) {
-          window.sendResponse({ error: JSON.stringify(err, Object.getOwnPropertyNames(err)) });
+        window.sendError = function(err) {
+          window.sendBack(window.createError("${event}", err));
         }
 
         try {
@@ -201,31 +237,38 @@ export const useWebView = () => {
             ${functionName}(${JSON.stringify(args)}).catch((e) => {
               console.error("Error in inject js async", e);
 
-              sendError(e);
+              window.sendError(e);
             })
           }
 
         } catch(e) {
           console.error("Error in inject js", e);
 
-          sendError(e);
+          window.sendError(e);
         }
 
         true;
       `);
 
-      return new Promise<T>((resolve) => {
+      return new Promise<T>((resolve, reject) => {
+        const timeout = setTimeout(() => {
+          reject(new Error('Timeout'));
+        }, 60000);
+
         const handleResponse = (e: WebViewMessageEvent) => {
-          const { event: responseEvent, data: responseData } =
-            parseWebViewMessage<T>(e);
+          const message = parseWebViewMessage<T>(e);
 
-          console.log(responseData);
+          if (message.event !== event) return;
 
-          if (responseEvent !== event) return;
+          if ('error' in message) {
+            reject(new Error(message.error));
+            return;
+          }
 
           observer.unsubscribe(handleResponse);
+          clearTimeout(timeout);
 
-          resolve(responseData as T);
+          resolve(message.data as T);
         };
 
         observer.subscribe(handleResponse);

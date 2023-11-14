@@ -1,3 +1,4 @@
+import Toast from 'react-native-toast-message';
 import { z } from 'zod';
 
 import type { FragmentType } from '@/gql';
@@ -37,14 +38,21 @@ const useAnimeId = (mediaFragment: FragmentType<typeof useAnimeIdFragment>) => {
       const validation = AnimeIdSchema.safeParse(rawAnimeId);
 
       if (!validation.success) {
-        console.warn(validation.error, rawAnimeId);
-
-        return null;
+        throw validation.error.message;
       }
 
       return validation.data;
     },
-    { retry: 0 }
+    {
+      retry: 0,
+      onError: (err: any) => {
+        Toast.show({
+          type: 'error',
+          text1: 'Cannot find anime id',
+          text2: err,
+        });
+      },
+    }
   );
 };
 
