@@ -8,9 +8,10 @@ import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
 import { currentModuleIdAtom } from '@/store';
 import type { SearchResult } from '@/types';
-import { ActivityIndicator, colors, Text, TouchableOpacity, View } from '@/ui';
+import { ActivityIndicator, colors, Text, View } from '@/ui';
 import BottomSheet from '@/ui/core/bottom-sheet';
 import Input from '@/ui/core/input';
+import Pressable from '@/ui/core/pressable';
 
 import useAnimeSearch from '../hooks/use-anime-search';
 import GridList from './grid-list';
@@ -68,11 +69,11 @@ const WrongTitle: React.FC<WrongTitleProps> = ({ media: mediaFragment }) => {
 
   return (
     <React.Fragment>
-      <TouchableOpacity onPress={handleOpen}>
+      <Pressable onPress={handleOpen}>
         <Text className="underline" weight="semibold">
           Wrong title?
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
       <BottomSheet
         useScrollView={false}

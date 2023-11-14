@@ -2,8 +2,9 @@ import { useAtom, useAtomValue } from 'jotai/react';
 import { ChevronDown } from 'lucide-react-native';
 import React from 'react';
 
-import { MediaFormat, MediaType } from '@/types/anilist';
-import { Text, TouchableOpacity } from '@/ui';
+import { MediaFormat, MediaType } from '@/gql/graphql';
+import { Text } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 import Select from '@/ui/core/select';
 
 import { formatAtom, mediaTypeAtom } from '../store';
@@ -19,7 +20,7 @@ const animeFormatOptions = [
   },
   {
     label: 'TV Short',
-    value: MediaFormat.Tv_short,
+    value: MediaFormat.TvShort,
   },
   {
     label: 'Special',
@@ -50,7 +51,7 @@ const mangaFormatOptions = [
   },
   {
     label: 'One Shot',
-    value: MediaFormat.One_shot,
+    value: MediaFormat.OneShot,
   },
 ];
 
@@ -72,7 +73,7 @@ const FormatSelector = () => {
       }}
       trigger={({ selectedOption, openBottomSheet, placeholder }) => {
         return (
-          <TouchableOpacity
+          <Pressable
             onPress={openBottomSheet}
             className="flex flex-row items-center justify-between rounded-md bg-thunder-700 p-2"
           >
@@ -81,7 +82,7 @@ const FormatSelector = () => {
             </Text>
 
             <ChevronDown size={18} color="white" />
-          </TouchableOpacity>
+          </Pressable>
         );
       }}
       placeholder="Format"

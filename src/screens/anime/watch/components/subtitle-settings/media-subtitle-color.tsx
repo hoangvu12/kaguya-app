@@ -3,7 +3,8 @@ import { useAtom } from 'jotai/react';
 import { CheckIcon, PaletteIcon } from 'lucide-react-native';
 import React, { useRef } from 'react';
 
-import { Text, TouchableOpacity, View } from '@/ui';
+import { Text, View } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 
 import { subtitleFontColorAtom } from '../../store';
 import SettingsBottomSheet from '../settings-bottom-sheet';
@@ -75,7 +76,7 @@ const MediaSubtitleColor = () => {
       >
         <View className="pb-16">
           {colors.map((color) => (
-            <TouchableOpacity
+            <Pressable
               key={color.value}
               onPress={() => {
                 setFontColor(color.value);
@@ -89,7 +90,7 @@ const MediaSubtitleColor = () => {
               {fontColor === color.value && (
                 <CheckIcon size={24} color="white" />
               )}
-            </TouchableOpacity>
+            </Pressable>
           ))}
         </View>
       </SettingsBottomSheet>

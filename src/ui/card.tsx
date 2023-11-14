@@ -5,7 +5,8 @@ import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
 
 import type { ImgProps } from './core';
-import { Image, Text, TouchableOpacity, View } from './core';
+import { Image, Text, View } from './core';
+import Pressable from './core/pressable';
 import MediaUnitStats from './media-unit-stats';
 
 export const CardFragment = graphql(`
@@ -25,7 +26,7 @@ interface CardProps extends Partial<ImgProps> {
   media: FragmentType<typeof CardFragment>;
   shouldReplaceScreen?: boolean;
   endSlot?: React.ReactNode;
-  containerProps?: React.ComponentPropsWithoutRef<typeof TouchableOpacity>;
+  containerProps?: React.ComponentPropsWithoutRef<typeof View>;
 }
 
 export const CARD_WIDTH = 112;
@@ -56,12 +57,11 @@ export const Card = ({
   };
 
   return (
-    <TouchableOpacity
-      onPress={handlePress}
-      className="w-28"
-      {...containerProps}
-    >
-      <View className="mb-1.5 aspect-[2/3] w-full rounded-md">
+    <View className="w-28" {...containerProps}>
+      <Pressable
+        onPress={handlePress}
+        className="mb-1.5 aspect-[2/3] w-full rounded-md"
+      >
         <Image
           source={{
             uri: media?.coverImage?.large!,
@@ -71,15 +71,17 @@ export const Card = ({
           key={media?.coverImage?.large!}
           {...props}
         />
-      </View>
+      </Pressable>
 
-      <Text numberOfLines={2} variant="md" weight="medium">
-        {media?.title?.userPreferred}
-      </Text>
+      <Pressable android_ripple={null} onPress={handlePress}>
+        <Text numberOfLines={2} variant="md" weight="medium">
+          {media?.title?.userPreferred}
+        </Text>
 
-      <MediaUnitStats media={media} className="mt-1" />
+        <MediaUnitStats media={media} className="mt-1" />
 
-      {endSlot}
-    </TouchableOpacity>
+        {endSlot}
+      </Pressable>
+    </View>
   );
 };

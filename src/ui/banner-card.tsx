@@ -10,7 +10,8 @@ import { graphql, useFragment } from '@/gql';
 import { useGraphQL } from '@/hooks/use-graphql';
 
 import { addAlpha } from '../utils';
-import { Image, Text, TouchableOpacity, View } from './core';
+import { Image, Text, View } from './core';
+import Pressable from './core/pressable';
 import Skeleton, { SkeletonItem } from './core/skeleton';
 import MediaUnitStats from './media-unit-stats';
 import { colors, WIDTH } from './theme';
@@ -109,7 +110,7 @@ const BannerItem = React.memo(
     };
 
     return (
-      <TouchableOpacity
+      <Pressable
         onPress={handlePress}
         className="relative h-full w-full rounded-md"
       >
@@ -164,7 +165,7 @@ const BannerItem = React.memo(
             </View>
           </View>
         </SLinearGradient>
-      </TouchableOpacity>
+      </Pressable>
     );
   }
 );

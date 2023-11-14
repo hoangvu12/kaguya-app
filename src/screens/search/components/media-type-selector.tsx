@@ -3,7 +3,8 @@ import { ChevronDown } from 'lucide-react-native';
 import React from 'react';
 
 import { MediaType } from '@/types/anilist';
-import { Text, TouchableOpacity, View } from '@/ui';
+import { Text, View } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 import Select from '@/ui/core/select';
 
 import { mediaTypeAtom } from '../store';
@@ -31,7 +32,7 @@ const MediaTypeSelector = () => {
         selectedOption={mediaTypeValueToOption(mediaType)}
         trigger={({ selectedOption, openBottomSheet }) => {
           return (
-            <TouchableOpacity
+            <Pressable
               onPress={openBottomSheet}
               className="flex flex-row items-center rounded-md bg-thunder-800 p-2"
             >
@@ -44,7 +45,7 @@ const MediaTypeSelector = () => {
               </Text>
 
               <ChevronDown size={24} color="white" />
-            </TouchableOpacity>
+            </Pressable>
           );
         }}
         onSelect={(option) => {

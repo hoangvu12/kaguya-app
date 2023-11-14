@@ -3,7 +3,8 @@ import { useAtom } from 'jotai/react';
 import { ChevronDown } from 'lucide-react-native';
 import React from 'react';
 
-import { Text, TouchableOpacity } from '@/ui';
+import { Text } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 import Select from '@/ui/core/select';
 
 import { yearAtom } from '../store';
@@ -38,7 +39,7 @@ const YearSelector = () => {
       }}
       trigger={({ selectedOption, openBottomSheet, placeholder }) => {
         return (
-          <TouchableOpacity
+          <Pressable
             onPress={openBottomSheet}
             className="flex flex-row items-center justify-between rounded-md bg-thunder-700 p-2"
           >
@@ -47,7 +48,7 @@ const YearSelector = () => {
             </Text>
 
             <ChevronDown size={18} color="white" />
-          </TouchableOpacity>
+          </Pressable>
         );
       }}
       placeholder="Year"

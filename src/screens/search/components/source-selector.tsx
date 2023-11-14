@@ -2,8 +2,9 @@ import { useAtom } from 'jotai/react';
 import { ChevronDown } from 'lucide-react-native';
 import React from 'react';
 
-import { MediaSource } from '@/types/anilist';
-import { Text, TouchableOpacity } from '@/ui';
+import { MediaSource } from '@/gql/graphql';
+import { Text } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 import Select from '@/ui/core/select';
 
 import { sourceAtom } from '../store';
@@ -11,19 +12,19 @@ import { sourceAtom } from '../store';
 const sourceOptions = [
   { label: 'Original', value: MediaSource.Original },
   { label: 'Manga', value: MediaSource.Manga },
-  { label: 'Light Novel', value: MediaSource.Light_novel },
-  { label: 'Visual Novel', value: MediaSource.Visual_novel },
-  { label: 'Video Game', value: MediaSource.Video_game },
+  { label: 'Light Novel', value: MediaSource.LightNovel },
+  { label: 'Visual Novel', value: MediaSource.VisualNovel },
+  { label: 'Video Game', value: MediaSource.VideoGame },
   { label: 'Other', value: MediaSource.Other },
   { label: 'Novel', value: MediaSource.Novel },
   { label: 'Doujinshi', value: MediaSource.Doujinshi },
   { label: 'Anime', value: MediaSource.Anime },
-  { label: 'Web Novel', value: MediaSource.Web_novel },
-  { label: 'Live Action', value: MediaSource.Live_action },
+  { label: 'Web Novel', value: MediaSource.WebNovel },
+  { label: 'Live Action', value: MediaSource.LiveAction },
   { label: 'Game', value: MediaSource.Game },
   { label: 'Comic', value: MediaSource.Comic },
-  { label: 'Multimedia Project', value: MediaSource.Multimedia_project },
-  { label: 'Picture Book', value: MediaSource.Picture_book },
+  { label: 'Multimedia Project', value: MediaSource.MultimediaProject },
+  { label: 'Picture Book', value: MediaSource.PictureBook },
 ];
 
 const sourceValueToOption = (value: MediaSource | undefined) => {
@@ -43,7 +44,7 @@ const SourceSelector = () => {
       }}
       trigger={({ selectedOption, openBottomSheet, placeholder }) => {
         return (
-          <TouchableOpacity
+          <Pressable
             onPress={openBottomSheet}
             className="flex flex-row items-center justify-between rounded-md bg-thunder-700 p-2"
           >
@@ -52,7 +53,7 @@ const SourceSelector = () => {
             </Text>
 
             <ChevronDown size={18} color="white" />
-          </TouchableOpacity>
+          </Pressable>
         );
       }}
       placeholder="Source"

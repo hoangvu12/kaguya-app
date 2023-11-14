@@ -3,7 +3,8 @@ import { ChevronDown } from 'lucide-react-native';
 import React from 'react';
 
 import { MediaSeason } from '@/types/anilist';
-import { Text, TouchableOpacity } from '@/ui';
+import { Text } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 import Select from '@/ui/core/select';
 
 import { seasonAtom } from '../store';
@@ -44,7 +45,7 @@ const SeasonSelector = () => {
       }}
       trigger={({ selectedOption, openBottomSheet, placeholder }) => {
         return (
-          <TouchableOpacity
+          <Pressable
             onPress={openBottomSheet}
             className="flex flex-row items-center justify-between rounded-md bg-thunder-700 p-2"
           >
@@ -53,7 +54,7 @@ const SeasonSelector = () => {
             </Text>
 
             <ChevronDown size={18} color="white" />
-          </TouchableOpacity>
+          </Pressable>
         );
       }}
       placeholder="Season"

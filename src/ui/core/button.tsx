@@ -1,12 +1,9 @@
 import React from 'react';
-import type {
-  ActivityIndicatorProps,
-  TouchableOpacityProps,
-} from 'react-native';
+import type { ActivityIndicatorProps } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
 import { ActivityIndicator } from './activity-indicator';
-import { TouchableOpacity } from './touchable-opacity';
+import Pressable from './pressable';
 
 type Variant = {
   container: string;
@@ -41,12 +38,14 @@ export const buttonVariants: BVariant = {
   },
 };
 
-export interface ButtonProps extends TouchableOpacityProps {
+export interface ButtonProps
+  extends Omit<React.ComponentPropsWithoutRef<typeof Pressable>, 'children'> {
   variant?: VariantName;
   loading?: boolean;
   indicatorClassName?: string;
   leftIcon?: React.ReactNode;
   loadingProps?: ActivityIndicatorProps;
+  children: React.ReactNode;
 }
 
 export const Button = ({
@@ -60,7 +59,8 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   return (
-    <TouchableOpacity
+    <Pressable
+      android_ripple={{ color: 'rgba(255,255,255,0.2)' }}
       disabled={disabled || loading}
       className={twMerge(
         buttonVariants.defaults.container,
@@ -86,6 +86,6 @@ export const Button = ({
       ) : (
         props.children
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 };

@@ -47,7 +47,7 @@ const MediaTop = () => {
           <View className="flex w-2/3 flex-row">
             <Button
               onPress={handleGoBack}
-              className="mr-2 items-start bg-transparent p-0"
+              className="mr-2 h-8 w-8 items-start bg-transparent p-0"
             >
               <ChevronLeftIcon size={32} color={colors.white} />
             </Button>

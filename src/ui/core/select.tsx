@@ -1,11 +1,12 @@
 import type { BottomSheetProps } from '@gorhom/bottom-sheet';
-import { type BottomSheetModal, TouchableOpacity } from '@gorhom/bottom-sheet';
+import { type BottomSheetModal } from '@gorhom/bottom-sheet';
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { twMerge } from 'tailwind-merge';
 
 import BottomSheet from './bottom-sheet';
 import { Button } from './button';
+import Pressable from './pressable';
 import { Text } from './text';
 import { View } from './view';
 
@@ -119,7 +120,7 @@ const SelectInner = <T,>(
             data={options}
             renderItem={({ item }) => {
               return (
-                <TouchableOpacity
+                <Pressable
                   key={item.label}
                   onPress={() => {
                     setCurrentOption(item);
@@ -134,7 +135,7 @@ const SelectInner = <T,>(
                     selectedOption,
                     placeholder,
                   })}
-                </TouchableOpacity>
+                </Pressable>
               );
             }}
             ItemSeparatorComponent={() => <View className="my-1" />}

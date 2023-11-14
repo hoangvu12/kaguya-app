@@ -138,7 +138,7 @@ export const AnimeDetailsScreen: React.FC<Props> = ({ route }) => {
       <View className="relative">
         <AnimatedView
           style={containerStyles}
-          className="absolute top-0 z-50 flex w-full flex-row items-center gap-2 bg-thunder-900 p-4"
+          className="absolute top-0 z-50 flex w-full flex-row items-center gap-2 overflow-hidden bg-thunder-900 p-4"
         >
           <Button
             onPress={() => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 
-import { TouchableOpacity } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 
 interface TappableProps {
   onPress?: () => void;
@@ -30,7 +30,7 @@ const Tappable: React.FC<TappableProps> = ({
 
   return (
     <GestureDetector gesture={gesture}>
-      <TouchableOpacity>{children}</TouchableOpacity>
+      <Pressable>{children}</Pressable>
     </GestureDetector>
   );
 };

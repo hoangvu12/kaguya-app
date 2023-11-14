@@ -1,11 +1,12 @@
 import { HeartIcon, SmileIcon } from 'lucide-react-native';
 import React from 'react';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
 
 import { formatNumberToAbbreviated } from '@/core';
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
 import { Text, View } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 import { PlainCard } from '@/ui/plain-card';
 
 export const DetailsCardFragment = graphql(`
@@ -31,7 +32,7 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ media: mediaProps }) => {
   const media = useFragment(DetailsCardFragment, mediaProps);
 
   return (
-    <TouchableOpacity>
+    <Pressable>
       <View className="flex flex-row rounded-md bg-thunder-900">
         <PlainCard className="w-20" coverImage={media?.coverImage?.large!} />
         <View className="flex-1 p-2">
@@ -74,7 +75,7 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ media: mediaProps }) => {
           </View>
         </View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

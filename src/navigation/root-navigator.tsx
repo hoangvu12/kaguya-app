@@ -31,7 +31,11 @@ export const Root = () => {
       }}
     >
       <Stack.Group>
-        <Stack.Screen name="App" component={TabNavigator} />
+        <Stack.Screen
+          name="App"
+          component={TabNavigator}
+          options={{ animation: 'slide_from_left', orientation: 'portrait' }}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );

@@ -2,7 +2,8 @@ import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 
 import type { SearchResult } from '@/types';
-import { Image, ScrollView, Text, TouchableOpacity, View, WIDTH } from '@/ui';
+import { Image, ScrollView, Text, View, WIDTH } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 
 interface GridListProps {
   searchResults: SearchResult[];
@@ -24,7 +25,7 @@ const GridList: React.FC<GridListProps> = ({ searchResults, onSelect }) => {
           numColumns={2}
           data={searchResults}
           renderItem={({ item, index }) => (
-            <TouchableOpacity
+            <Pressable
               onPress={() => {
                 onSelect?.(item);
               }}
@@ -48,7 +49,7 @@ const GridList: React.FC<GridListProps> = ({ searchResults, onSelect }) => {
               </View>
 
               <Text className="mt-1">{item.title}</Text>
-            </TouchableOpacity>
+            </Pressable>
           )}
           keyExtractor={(item) => item.id.toString()}
         />

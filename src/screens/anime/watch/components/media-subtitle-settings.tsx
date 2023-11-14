@@ -6,7 +6,8 @@ import { useAtom, useAtomValue } from 'jotai/react';
 import { CheckIcon } from 'lucide-react-native';
 import React, { useRef } from 'react';
 
-import { Text, TouchableOpacity, View } from '@/ui';
+import { Text, View } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 import SubtitleIcon from '@/ui/icons/subtitle';
 
 import { currentSubtitleAtom, subtitleListAtom } from '../store';
@@ -46,7 +47,7 @@ const MediaSubtitleSettings = () => {
         <View className="pb-16">
           <MediaSubtitleAdvancedSettings />
 
-          <TouchableOpacity
+          <Pressable
             onPress={() => {
               setCurrentSubtitle(null);
 
@@ -59,10 +60,10 @@ const MediaSubtitleSettings = () => {
             </Text>
 
             {!currentSubtitle && <CheckIcon size={24} color="white" />}
-          </TouchableOpacity>
+          </Pressable>
 
           {subtitles.map((subtitle) => (
-            <TouchableOpacity
+            <Pressable
               key={subtitle.language}
               onPress={() => {
                 setCurrentSubtitle(subtitle);
@@ -78,7 +79,7 @@ const MediaSubtitleSettings = () => {
               {subtitle.language === currentSubtitle?.language && (
                 <CheckIcon size={24} color="white" />
               )}
-            </TouchableOpacity>
+            </Pressable>
           ))}
         </View>
       </SettingsBottomSheet>

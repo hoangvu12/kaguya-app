@@ -6,7 +6,8 @@ import { useAtom } from 'jotai/react';
 import { CheckIcon, GaugeIcon } from 'lucide-react-native';
 import React, { useRef } from 'react';
 
-import { Text, TouchableOpacity, View } from '@/ui';
+import { Text, View } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 
 import { playBackRateAtom } from '../store';
 import SettingsBottomSheet from './settings-bottom-sheet';
@@ -43,7 +44,7 @@ const MediaPlayBackSettings = () => {
       <SettingsBottomSheet canGoBack ref={bottomSheetRef}>
         <View className="pb-16">
           {playbackRates.map((rate) => (
-            <TouchableOpacity
+            <Pressable
               key={rate}
               onPress={() => {
                 setPlayBackRate(rate);
@@ -57,7 +58,7 @@ const MediaPlayBackSettings = () => {
               </Text>
 
               {rate === playbackRate && <CheckIcon size={24} color="white" />}
-            </TouchableOpacity>
+            </Pressable>
           ))}
         </View>
       </SettingsBottomSheet>

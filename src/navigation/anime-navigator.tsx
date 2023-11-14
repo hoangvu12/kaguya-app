@@ -20,7 +20,9 @@ const Stack = createNativeStackNavigator<AnimeParamsList>();
 
 export const AnimeNavigator = () => (
   <Stack.Navigator id="anime-navigator" initialRouteName="AnimeHome">
-    <Stack.Group>
+    <Stack.Group
+      screenOptions={{ animation: 'slide_from_right', orientation: 'portrait' }}
+    >
       <Stack.Screen
         options={{ headerShown: false }}
         name="AnimeHome"

@@ -4,8 +4,9 @@ import { FlatList } from 'react-native-gesture-handler';
 import { twMerge } from 'tailwind-merge';
 
 import { GENRE_LIST } from '@/constants';
-import { Text, TouchableOpacity, View } from '@/ui';
+import { Text, View } from '@/ui';
 import Chip from '@/ui/core/chip';
+import Pressable from '@/ui/core/pressable';
 
 import { genresAtom } from '../store';
 
@@ -17,7 +18,7 @@ const GenresSelector = () => {
       horizontal
       data={GENRE_LIST}
       renderItem={({ item }) => (
-        <TouchableOpacity
+        <Pressable
           onPress={() => {
             if (genres.includes(item.value)) {
               setGenres(genres.filter((genre) => genre !== item.value));
@@ -33,7 +34,7 @@ const GenresSelector = () => {
           >
             <Text>{item.label}</Text>
           </Chip>
-        </TouchableOpacity>
+        </Pressable>
       )}
       keyExtractor={(item) => item.value}
       ItemSeparatorComponent={() => <View className="mx-0.5" />}

@@ -4,22 +4,28 @@ import { twMerge } from 'tailwind-merge';
 
 import type { Episode } from '@/types';
 import type { ButtonProps } from '@/ui';
-import { Button, Image, Text, View } from '@/ui';
+import { addAlpha, Button, Image, Text, View } from '@/ui';
+import Pressable from '@/ui/core/pressable';
+import colors from '@/ui/theme/colors';
 
 interface EpisodeDetailsProps extends ButtonProps {
   episode: Episode;
 }
 
+const rippleColor = addAlpha(colors.thunder[900], 0.26);
+
 const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
   episode,
   className,
   onLongPress,
+  onPress,
   ...props
 }) => {
   const [shouldExpandDescription, setShouldExpandDescription] = useState(false);
 
   return (
     <Button
+      android_ripple={null}
       className={twMerge(
         'flex flex-col items-start rounded-md bg-thunder-900 p-0',
         className
@@ -29,16 +35,23 @@ const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
 
         setShouldExpandDescription((prev) => !prev);
       }}
+      onPress={onPress}
       {...props}
     >
-      <View className="flex flex-row items-start justify-start gap-1">
-        <Image
-          className="aspect-video w-5/12 rounded-md object-cover"
-          source={{
-            uri: episode.thumbnail,
-          }}
-          key={episode.thumbnail}
-        />
+      <Pressable
+        android_ripple={{ color: rippleColor, foreground: true }}
+        onPress={onPress}
+        className="flex flex-row items-start justify-start gap-1 bg-thunder-900"
+      >
+        <View className="aspect-video w-5/12">
+          <Image
+            className="h-full w-full rounded-md object-cover"
+            source={{
+              uri: episode.thumbnail,
+            }}
+            key={episode.thumbnail}
+          />
+        </View>
 
         <View className="flex-1 p-2">
           <If condition={episode.title}>
@@ -59,7 +72,7 @@ const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
             </Else>
           </If>
         </View>
-      </View>
+      </Pressable>
 
       {episode.description && (
         <View className="pb-2">

@@ -6,7 +6,8 @@ import { useAtom, useAtomValue } from 'jotai/react';
 import { CheckIcon } from 'lucide-react-native';
 import React, { useRef } from 'react';
 
-import { Text, TouchableOpacity, View } from '@/ui';
+import { Text, View } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 import QualityIcon from '@/ui/icons/quality';
 
 import { currentQualityAtom, qualityListAtom } from '../store';
@@ -46,7 +47,7 @@ const MediaQualitySettings = () => {
       <SettingsBottomSheet canGoBack ref={bottomSheetRef}>
         <View className="pb-16">
           {qualityList.map((quality, index) => (
-            <TouchableOpacity
+            <Pressable
               key={`${currentQualiy} + ${index}`}
               onPress={() => {
                 setCurrentQuality(quality);
@@ -62,7 +63,7 @@ const MediaQualitySettings = () => {
               {quality === currentQualiy && (
                 <CheckIcon size={24} color="white" />
               )}
-            </TouchableOpacity>
+            </Pressable>
           ))}
         </View>
       </SettingsBottomSheet>

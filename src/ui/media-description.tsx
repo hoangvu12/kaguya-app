@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 
 import { stripHTML } from '@/core';
 
-import { Text, TouchableOpacity, View } from './core';
+import { Text, View } from './core';
+import Pressable from './core/pressable';
 
 interface MediaDescriptionProps {
   description: string;
@@ -21,10 +22,7 @@ export const MediaDescription: React.FC<MediaDescriptionProps> = ({
   };
 
   return (
-    <TouchableOpacity
-      onPress={handleExpand}
-      className="rounded-md bg-thunder-900 p-4"
-    >
+    <Pressable onPress={handleExpand} className="rounded-md bg-thunder-900 p-4">
       <Text variant="lg" className="mb-3 font-semibold">
         Description
       </Text>
@@ -42,6 +40,6 @@ export const MediaDescription: React.FC<MediaDescriptionProps> = ({
           <ChevronDown color="white" />
         </View>
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 };

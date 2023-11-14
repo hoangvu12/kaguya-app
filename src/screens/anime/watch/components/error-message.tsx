@@ -25,7 +25,7 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }) => {
 
       <Text>{message}</Text>
 
-      <Button onPress={handleGoBack}>
+      <Button className="mt-2" onPress={handleGoBack}>
         <Text>Go back</Text>
       </Button>
     </View>

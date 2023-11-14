@@ -59,7 +59,9 @@ const ModuleItemAction: React.FC<ModuleItemActionProps> = ({
               onPress={async () => {
                 await handleUninstallModule(module);
 
-                queryClient.invalidateQueries(useModules.getKey());
+                queryClient.invalidateQueries(useModules.getKey(), {
+                  type: 'all',
+                });
 
                 setModalVisible(false);
               }}

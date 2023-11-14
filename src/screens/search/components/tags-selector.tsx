@@ -3,8 +3,9 @@ import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { twMerge } from 'tailwind-merge';
 
-import { Text, TouchableOpacity, View } from '@/ui';
+import { Text, View } from '@/ui';
 import Chip from '@/ui/core/chip';
+import Pressable from '@/ui/core/pressable';
 
 import { tagsAtom } from '../store';
 import tags from './tags';
@@ -22,7 +23,7 @@ const TagsSelector = () => {
       horizontal
       data={tagOptions}
       renderItem={({ item }) => (
-        <TouchableOpacity
+        <Pressable
           onPress={() => {
             if (tags.includes(item.value)) {
               setTags(tags.filter((genre) => genre !== item.value));
@@ -38,7 +39,7 @@ const TagsSelector = () => {
           >
             <Text>{item.label}</Text>
           </Chip>
-        </TouchableOpacity>
+        </Pressable>
       )}
       keyExtractor={(item) => item.value}
       ItemSeparatorComponent={() => <View className="mx-0.5" />}

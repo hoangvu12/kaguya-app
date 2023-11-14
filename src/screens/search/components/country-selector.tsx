@@ -1,8 +1,9 @@
 import { useAtom } from 'jotai/react';
 import { ChevronDown } from 'lucide-react-native';
 import React from 'react';
+import { Pressable } from 'react-native';
 
-import { Text, TouchableOpacity } from '@/ui';
+import { Text } from '@/ui';
 import Select from '@/ui/core/select';
 
 import { countryAtom, MediaCountry } from '../store';
@@ -43,7 +44,7 @@ const CountrySelector = () => {
       }}
       trigger={({ selectedOption, openBottomSheet, placeholder }) => {
         return (
-          <TouchableOpacity
+          <Pressable
             onPress={openBottomSheet}
             className="flex flex-row items-center justify-between rounded-md bg-thunder-700 p-2"
           >
@@ -52,7 +53,7 @@ const CountrySelector = () => {
             </Text>
 
             <ChevronDown size={18} color="white" />
-          </TouchableOpacity>
+          </Pressable>
         );
       }}
       placeholder="Country"

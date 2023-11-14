@@ -2,7 +2,8 @@ import React, { useCallback } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 
 import { GENRE_LIST } from '@/constants';
-import { Image, Text, TouchableOpacity, View } from '@/ui';
+import { Image, Text, View } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 
 interface Genre {
   label: string;
@@ -32,7 +33,7 @@ const Spacer = () => <View className="w-2" />;
 const GenreCard: React.FC<{ genre: Genre }> = React.memo(
   ({ genre: { label, thumbnail } }) => {
     return (
-      <TouchableOpacity>
+      <Pressable>
         <View className="relative aspect-video w-28">
           <Image
             source={{
@@ -46,7 +47,7 @@ const GenreCard: React.FC<{ genre: Genre }> = React.memo(
             <Text variant="md">{label}</Text>
           </View>
         </View>
-      </TouchableOpacity>
+      </Pressable>
     );
   }
 );

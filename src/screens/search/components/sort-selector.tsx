@@ -3,7 +3,8 @@ import { ArrowDownZAIcon } from 'lucide-react-native';
 import React from 'react';
 
 import { MediaSort } from '@/gql/graphql';
-import { Text, TouchableOpacity } from '@/ui';
+import { Text } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 import Select from '@/ui/core/select';
 
 import { sortAtom } from '../store';
@@ -52,7 +53,7 @@ const SortSelector = () => {
       selectedOption={mediaSortValueToOption(sort)}
       trigger={({ selectedOption, openBottomSheet, placeholder }) => {
         return (
-          <TouchableOpacity
+          <Pressable
             onPress={openBottomSheet}
             className="flex flex-row items-center"
           >
@@ -61,7 +62,7 @@ const SortSelector = () => {
             <Text className="ml-2 text-base">
               {selectedOption?.label || placeholder}
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         );
       }}
     />

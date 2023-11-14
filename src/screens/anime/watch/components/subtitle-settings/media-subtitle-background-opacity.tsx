@@ -3,7 +3,8 @@ import { useAtom } from 'jotai/react';
 import { CheckIcon, PaletteIcon } from 'lucide-react-native';
 import React, { useRef } from 'react';
 
-import { Text, TouchableOpacity, View } from '@/ui';
+import { Text, View } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 
 import { subtitleBackgroundOpacityAtom } from '../../store';
 import SettingsBottomSheet from '../settings-bottom-sheet';
@@ -48,7 +49,7 @@ const MediaSubtitleBackgroundOpacity = () => {
       >
         <View className="pb-16">
           {backgroundOpacityList.map((opacity) => (
-            <TouchableOpacity
+            <Pressable
               key={opacity}
               onPress={() => {
                 setBackgroundOpacity(opacity);
@@ -62,7 +63,7 @@ const MediaSubtitleBackgroundOpacity = () => {
               {opacity === backgroundOpacity && (
                 <CheckIcon size={24} color="white" />
               )}
-            </TouchableOpacity>
+            </Pressable>
           ))}
         </View>
       </SettingsBottomSheet>

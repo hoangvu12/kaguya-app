@@ -3,34 +3,46 @@ import { twMerge } from 'tailwind-merge';
 
 import type { Episode } from '@/types';
 import type { ButtonProps } from '@/ui';
-import { Button, Image, Text, View } from '@/ui';
+import { addAlpha, Button, Image, Text, View } from '@/ui';
+import Pressable from '@/ui/core/pressable';
+import colors from '@/ui/theme/colors';
 
-interface EpisodeCardProps extends ButtonProps {
+interface EpisodeCardProps extends Omit<ButtonProps, 'children'> {
   episode: Episode;
   shouldHighlight?: boolean;
 }
+
+const rippleColor = addAlpha(colors.thunder[900], 0.26);
 
 const EpisodeCard: React.FC<EpisodeCardProps> = ({
   episode,
   className,
   shouldHighlight = false,
+  onPress,
   ...buttonProps
 }) => {
   return (
     <Button
+      android_ripple={null}
       className={twMerge(
         'flex flex-col items-start justify-center rounded-md bg-transparent p-0',
         className
       )}
+      onPress={onPress}
       {...buttonProps}
     >
-      <Image
-        className="aspect-video w-full rounded-md"
-        source={{
-          uri: episode.thumbnail,
-        }}
-        key={episode.thumbnail}
-      />
+      <Pressable
+        onPress={onPress}
+        android_ripple={{ color: rippleColor, foreground: true }}
+      >
+        <Image
+          className="aspect-video w-full rounded-md"
+          source={{
+            uri: episode.thumbnail,
+          }}
+          key={episode.thumbnail}
+        />
+      </Pressable>
 
       <View className="mt-1">
         <Text
