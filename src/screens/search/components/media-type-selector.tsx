@@ -2,7 +2,7 @@ import { useAtom } from 'jotai/react';
 import { ChevronDown } from 'lucide-react-native';
 import React from 'react';
 
-import { MediaType } from '@/types/anilist';
+import { MediaType } from '@/gql/graphql';
 import { Text, View } from '@/ui';
 import Pressable from '@/ui/core/pressable';
 import Select from '@/ui/core/select';

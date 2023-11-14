@@ -3,7 +3,7 @@ import { useAtomValue } from 'jotai/react';
 import { Settings } from 'lucide-react-native';
 import React, { useRef } from 'react';
 
-import { MediaType } from '@/types/anilist';
+import { MediaType } from '@/gql/graphql';
 import { Button, Text, View } from '@/ui';
 import BottomSheet from '@/ui/core/bottom-sheet';
 

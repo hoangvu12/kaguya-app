@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
-import { MediaType } from '@/types/anilist';
+import { MediaType } from '@/gql/graphql';
 
 import type { TextProps } from './core';
 import { Text } from './core';
