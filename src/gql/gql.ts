@@ -21,7 +21,7 @@ const documents = {
     types.UpcomingNextSeasonDocument,
   '\n  fragment DetailsHeaderMedia on Media {\n    title {\n      userPreferred\n    }\n    bannerImage\n    genres\n    favourites\n    averageScore\n    seasonYear\n    nextAiringEpisode {\n      airingAt\n      episode\n    }\n    coverImage {\n      large\n    }\n  }\n':
     types.DetailsHeaderMediaFragmentDoc,
-  '\n  query InfoDetailsScreen($id: Int) {\n    Media(id: $id) {\n      ...DetailsHeaderMedia\n      ...InfoScreenMedia\n      ...EpisodeContainer\n    }\n  }\n':
+  '\n  query InfoDetailsScreen($id: Int) {\n    Media(id: $id) {\n      title {\n        userPreferred\n      }\n      ...DetailsHeaderMedia\n      ...InfoScreenMedia\n      ...EpisodeContainer\n    }\n  }\n':
     types.InfoDetailsScreenDocument,
   '\n  fragment EpisodeContainer on Media {\n    id\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n':
     types.EpisodeContainerFragmentDoc,
@@ -111,8 +111,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query InfoDetailsScreen($id: Int) {\n    Media(id: $id) {\n      ...DetailsHeaderMedia\n      ...InfoScreenMedia\n      ...EpisodeContainer\n    }\n  }\n'
-): (typeof documents)['\n  query InfoDetailsScreen($id: Int) {\n    Media(id: $id) {\n      ...DetailsHeaderMedia\n      ...InfoScreenMedia\n      ...EpisodeContainer\n    }\n  }\n'];
+  source: '\n  query InfoDetailsScreen($id: Int) {\n    Media(id: $id) {\n      title {\n        userPreferred\n      }\n      ...DetailsHeaderMedia\n      ...InfoScreenMedia\n      ...EpisodeContainer\n    }\n  }\n'
+): (typeof documents)['\n  query InfoDetailsScreen($id: Int) {\n    Media(id: $id) {\n      title {\n        userPreferred\n      }\n      ...DetailsHeaderMedia\n      ...InfoScreenMedia\n      ...EpisodeContainer\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

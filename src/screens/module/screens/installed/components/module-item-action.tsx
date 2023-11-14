@@ -1,8 +1,8 @@
 import { useQueryClient } from '@tanstack/react-query';
 import * as FileSystem from 'expo-file-system';
 import React from 'react';
-import { showMessage } from 'react-native-flash-message';
 import Modal from 'react-native-modal';
+import Toast from 'react-native-toast-message';
 
 import { MODULE_DIR } from '@/constants';
 import useModules from '@/hooks/use-modules';
@@ -27,9 +27,9 @@ const ModuleItemAction: React.FC<ModuleItemActionProps> = ({
 
     await FileSystem.deleteAsync(moduleDir, { idempotent: true });
 
-    showMessage({
-      message: `Successfully uninstalled module ${uninstallModule.name}`,
+    Toast.show({
       type: 'success',
+      text1: `Successfully uninstalled module ${uninstallModule.name}`,
     });
   };
 

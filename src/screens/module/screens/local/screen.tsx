@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import * as DocumentPicker from 'expo-document-picker';
 import { UploadCloudIcon } from 'lucide-react-native';
 import React, { useState } from 'react';
-import { showMessage } from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 
 import useModules from '@/hooks/use-modules';
 import type { Module } from '@/types';
@@ -32,17 +32,17 @@ const LocalModuleScreen = () => {
 
       setModules((prev) => [...prev, { ...metadata, path }]);
     } catch (error: any) {
-      showMessage({ message: error.message, type: 'danger' });
+      Toast.show({ text1: error.message, type: 'error' });
     }
   };
 
   const handleInstall = async (module: ModuleWithPath) => {
     await processKModule(module.id, module.path);
 
-    queryClient.invalidateQueries(useModules.getKey());
+    queryClient.invalidateQueries(useModules.getKey(), { type: 'all' });
 
-    showMessage({
-      message: `Successfully installed module ${module.name}`,
+    Toast.show({
+      text1: `Successfully installed module ${module.name}`,
       type: 'success',
     });
   };

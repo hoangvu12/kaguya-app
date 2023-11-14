@@ -1,4 +1,4 @@
-import { showMessage } from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 import { z } from 'zod';
 
 import { EpisodeSchema } from '@/core/episode';
@@ -57,9 +57,10 @@ const useEpisodes = (
       if (!validation.success) {
         console.log("Couldn't load video servers", validation.error);
 
-        showMessage({
-          type: 'danger',
-          message: `Cannot find episodes (${validation.error.flatten()})`,
+        Toast.show({
+          type: 'error',
+          text1: 'Cannot find episodes',
+          text2: validation.error.message,
         });
 
         return [];

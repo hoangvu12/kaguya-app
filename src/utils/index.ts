@@ -1,7 +1,7 @@
 import type { AxiosError } from 'axios';
 import dayjs from 'dayjs';
 import * as FileSystem from 'expo-file-system';
-import { showMessage } from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 
 import { MediaSeason } from '@/gql/graphql';
 
@@ -10,20 +10,20 @@ export const showError = (error: AxiosError) => {
   console.log(JSON.stringify(error?.response?.data));
   const description = extractError(error?.response?.data).trimEnd();
 
-  showMessage({
-    message: 'Error',
-    description,
-    type: 'danger',
-    duration: 4000,
-    icon: 'danger',
+  Toast.show({
+    text1: 'Error',
+    text2: description,
+    type: 'error',
+    visibilityTime: 4000,
   });
 };
 
 export const showErrorMessage = (message: string = 'Something went wrong ') => {
-  showMessage({
-    message,
-    type: 'danger',
-    duration: 4000,
+  Toast.show({
+    text1: 'Error',
+    text2: message,
+    type: 'error',
+    visibilityTime: 4000,
   });
 };
 

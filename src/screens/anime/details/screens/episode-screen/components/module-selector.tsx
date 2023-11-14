@@ -28,11 +28,19 @@ const ModuleSelector = () => {
     (module) => module.id === currentModuleId
   );
 
-  if (isLoading || !modules?.length) {
+  if (isLoading) {
     return (
       <View className="flex items-center justify-center">
         <ActivityIndicator color={colors.primary[300]} size={48} />
       </View>
+    );
+  }
+
+  if (!modules?.length) {
+    return (
+      <Text variant="lg" className="mt-4 text-center text-white">
+        You haven't installed any modules yet.
+      </Text>
     );
   }
 

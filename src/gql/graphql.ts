@@ -4641,7 +4641,13 @@ export type InfoDetailsScreenQueryVariables = Exact<{
 export type InfoDetailsScreenQuery = {
   __typename?: 'Query';
   Media?:
-    | ({ __typename?: 'Media' } & {
+    | ({
+        __typename?: 'Media';
+        title?: {
+          __typename?: 'MediaTitle';
+          userPreferred?: string | null;
+        } | null;
+      } & {
         ' $fragmentRefs'?: {
           DetailsHeaderMediaFragment: DetailsHeaderMediaFragment;
           InfoScreenMediaFragment: InfoScreenMediaFragment;
@@ -7554,6 +7560,19 @@ export const InfoDetailsScreenDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'title' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'userPreferred' },
+                      },
+                    ],
+                  },
+                },
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'DetailsHeaderMedia' },

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Else, If, Then } from 'react-if';
-import { showMessage } from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 
 import {
   ActivityIndicator,
@@ -28,15 +28,15 @@ const SearchScreen = () => {
     }
 
     if (!hasNextPage) {
-      return showMessage({
+      return Toast.show({
         type: 'info',
-        message: 'You have reached the end of the list',
+        text1: 'You have reached the end of the list',
         position: 'top',
-        duration: 5000,
+        visibilityTime: 5000,
       });
     }
 
-    showMessage({ type: 'info', message: 'Loading more...', position: 'top' });
+    Toast.show({ type: 'info', text1: 'Loading more...', position: 'top' });
 
     fetchNextPage();
   };

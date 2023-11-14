@@ -54,7 +54,7 @@ const EpisodesButton = () => {
       new Set(episodes.map((episode) => episode.section))
     );
 
-    if (episodeSections.length === 1) return [];
+    if (episodeSections?.length === 1) return [];
 
     return episodeSections;
   }, [episodes]);
@@ -62,10 +62,10 @@ const EpisodesButton = () => {
   const [currentSection, setCurrentSection] = useState(sections[0]);
 
   const sectionEpisodes = useMemo(() => {
-    if (sections.length <= 1) return episodes;
+    if (sections?.length <= 1) return episodes;
 
     return episodes.filter((episode) => episode.section === currentSection);
-  }, [sections.length, episodes, currentSection]);
+  }, [sections?.length, episodes, currentSection]);
 
   const chunks = useMemo(() => {
     return chunk(sectionEpisodes, 16);
@@ -74,7 +74,7 @@ const EpisodesButton = () => {
   const [currentChunk, setCurrentChunk] = useState(chunks[0]);
 
   useEffect(() => {
-    if (!chunks.length) return;
+    if (!chunks?.length) return;
 
     setCurrentChunk(chunks[0]);
   }, [chunks]);
@@ -96,7 +96,7 @@ const EpisodesButton = () => {
       </Tappable>
 
       <BottomSheet ref={bottomSheetRef} snapPoints={[CARD_HEIGHT * 3]}>
-        {sections.length > 1 && (
+        {sections?.length > 1 && (
           <Select
             trigger={({ selectedOption, openBottomSheet }) => (
               <Button
@@ -153,7 +153,7 @@ const EpisodesButton = () => {
             extraData={{ currentChunk }}
           />
 
-          {chunks.length > 10 && (
+          {chunks?.length > 10 && (
             <Select
               trigger={Trigger}
               onSelect={(option) => {
@@ -173,7 +173,7 @@ const EpisodesButton = () => {
           )}
         </View>
 
-        {currentChunk.length && (
+        {currentChunk?.length && (
           <FlatList
             horizontal
             data={currentChunk}

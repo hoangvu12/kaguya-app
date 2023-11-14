@@ -1,6 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { ArrowLeft } from 'lucide-react-native';
 import * as React from 'react';
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 import { twMerge } from 'tailwind-merge';
 
 import { graphql } from '@/gql';
@@ -23,6 +29,9 @@ import InfoScreen from './screens/info-screen/screen';
 const document = graphql(`
   query InfoDetailsScreen($id: Int) {
     Media(id: $id) {
+      title {
+        userPreferred
+      }
       ...DetailsHeaderMedia
       ...InfoScreenMedia
       ...EpisodeContainer
@@ -32,11 +41,24 @@ const document = graphql(`
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AnimeDetails'>;
 
+const tabBarStyle = {
+  backgroundColor: colors.thunder[900],
+  borderTopWidth: 0,
+  borderTopLeftRadius: 20,
+  borderTopRightRadius: 20,
+  height: 64,
+};
+
+const AnimatedView = Animated.createAnimatedComponent(View);
+const AnimatedText = Animated.createAnimatedComponent(Text);
+
 export const AnimeDetailsScreen: React.FC<Props> = ({ route }) => {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = React.useState<'details' | 'episodes'>(
     'details'
   );
+  const [headerHeight, setHeaderHeight] = React.useState(0);
+  const navigationTopProgress = useSharedValue(0);
 
   const handleChangeTab = (tab: 'details' | 'episodes') => () => {
     setActiveTab(tab);
@@ -60,7 +82,7 @@ export const AnimeDetailsScreen: React.FC<Props> = ({ route }) => {
 
     return () => {
       parent?.setOptions({
-        tabBarStyle: undefined,
+        tabBarStyle: tabBarStyle,
       });
     };
   }, [navigation]);
@@ -70,6 +92,28 @@ export const AnimeDetailsScreen: React.FC<Props> = ({ route }) => {
   const { data, isLoading } = useGraphQL(document, { id: mediaId });
 
   const anime = data?.Media;
+
+  const containerStyles = useAnimatedStyle(() => {
+    return {
+      opacity: navigationTopProgress.value,
+    };
+  });
+
+  const titleStyles = useAnimatedStyle(() => {
+    return {
+      opacity: navigationTopProgress.value,
+      transform: [
+        {
+          translateY: interpolate(
+            navigationTopProgress.value,
+            [0, 1],
+            [100, 0],
+            { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
+          ),
+        },
+      ],
+    };
+  });
 
   if (isLoading) {
     return (
@@ -91,36 +135,78 @@ export const AnimeDetailsScreen: React.FC<Props> = ({ route }) => {
     <>
       <FocusAwareStatusBar />
 
-      <ScrollView stickyHeaderIndices={[1]}>
-        <Header media={anime} />
-
-        <View className="flex flex-row space-x-2 bg-thunder-950 p-4">
+      <View className="relative">
+        <AnimatedView
+          style={containerStyles}
+          className="absolute top-0 z-50 flex w-full flex-row items-center gap-2 bg-thunder-900 p-4"
+        >
           <Button
-            onPress={handleChangeTab('details')}
-            className={twMerge(
-              'flex-1 bg-thunder-900/60',
-              activeTab === 'details' ? 'bg-primary-500' : 'bg-thunder-900/60'
-            )}
+            onPress={() => {
+              if (navigation.canGoBack()) {
+                navigation.goBack();
+              } else {
+                navigation.navigate('AnimeHome');
+              }
+            }}
+            className="h-7 w-7 bg-transparent p-0"
           >
-            <Text className="text-center">Details</Text>
+            <ArrowLeft size={28} color="white" />
           </Button>
 
-          <Button
-            onPress={handleChangeTab('episodes')}
-            className={twMerge(
-              'flex-1 bg-thunder-900/60',
-              activeTab === 'episodes' ? 'bg-primary-500' : 'bg-thunder-900/60'
-            )}
-          >
-            <Text className="text-center">Episodes</Text>
-          </Button>
-        </View>
+          <AnimatedText style={titleStyles}>
+            {anime?.title?.userPreferred}
+          </AnimatedText>
+        </AnimatedView>
 
-        <View className="px-4">
-          {activeTab === 'details' && <InfoScreen media={anime} />}
-          {activeTab === 'episodes' && <EpisodeScreen media={anime} />}
-        </View>
-      </ScrollView>
+        <ScrollView
+          onScroll={(e) => {
+            const scrollY = e.nativeEvent.contentOffset.y;
+
+            navigationTopProgress.value = interpolate(
+              scrollY,
+              [0, headerHeight / 2],
+              [0, 1]
+            );
+          }}
+        >
+          <View
+            onLayout={(e) => {
+              setHeaderHeight(e.nativeEvent.layout.height);
+            }}
+          >
+            <Header media={anime} />
+          </View>
+
+          <View className="flex flex-row space-x-2 bg-thunder-950 p-4">
+            <Button
+              onPress={handleChangeTab('details')}
+              className={twMerge(
+                'flex-1 bg-thunder-900/60',
+                activeTab === 'details' ? 'bg-primary-500' : 'bg-thunder-900/60'
+              )}
+            >
+              <Text className="text-center">Details</Text>
+            </Button>
+
+            <Button
+              onPress={handleChangeTab('episodes')}
+              className={twMerge(
+                'flex-1 bg-thunder-900/60',
+                activeTab === 'episodes'
+                  ? 'bg-primary-500'
+                  : 'bg-thunder-900/60'
+              )}
+            >
+              <Text className="text-center">Episodes</Text>
+            </Button>
+          </View>
+
+          <View className="px-4">
+            {activeTab === 'details' && <InfoScreen media={anime} />}
+            {activeTab === 'episodes' && <EpisodeScreen media={anime} />}
+          </View>
+        </ScrollView>
+      </View>
     </>
   );
 };

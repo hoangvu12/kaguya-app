@@ -35,24 +35,30 @@ export const textVariants = {
   error: 'text-red-300',
 };
 
-export const Text = ({
-  variant = 'md',
-  className = '',
-  children,
-  weight = 'medium',
-  ...props
-}: React.PropsWithChildren<TextProps>) => {
-  return (
-    <SText
-      className={twMerge(
-        textVariants.defaults,
-        textVariants[variant],
-        fontWeights[weight],
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </SText>
-  );
-};
+export const Text = React.forwardRef(
+  (
+    {
+      variant = 'md',
+      className = '',
+      children,
+      weight = 'medium',
+      ...props
+    }: React.PropsWithChildren<TextProps>,
+    ref
+  ) => {
+    return (
+      <SText
+        ref={ref}
+        className={twMerge(
+          textVariants.defaults,
+          textVariants[variant],
+          fontWeights[weight],
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </SText>
+    );
+  }
+);

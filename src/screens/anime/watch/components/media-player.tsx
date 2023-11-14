@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { showMessage } from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 import type {
   OnBufferData,
   OnLoadData,
@@ -301,7 +301,11 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
       }
       className="fixed inset-0 z-0 h-full w-full object-contain"
       onError={(error) => {
-        showMessage({ type: 'danger', message: JSON.stringify(error) });
+        Toast.show({
+          type: 'error',
+          text1: 'Media player error',
+          text2: JSON.stringify(error).slice(0, 10),
+        });
       }}
       {...props}
     />

@@ -36,8 +36,6 @@ const useLoadVideoContainer = (server?: VideoServer) => {
         };
       }
 
-      console.log(validation.data);
-
       return validation.data;
     },
     {

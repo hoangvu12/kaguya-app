@@ -14,9 +14,6 @@ dependencies:
   '@graphql-typed-document-node/core':
     specifier: ^3.2.0
     version: 3.2.0(graphql@16.8.1)
-  '@miblanchard/react-native-slider':
-    specifier: ^2.3.1
-    version: 2.3.1(react-native@0.72.5)(react@18.2.0)
   '@plussub/srt-vtt-parser':
     specifier: ^1.1.0
     version: 1.1.0
@@ -77,15 +74,6 @@ dependencies:
   expo-linear-gradient:
     specifier: ~12.3.0
     version: 12.3.0(expo@49.0.6)
-  expo-splash-screen:
-    specifier: 0.20.5
-    version: 0.20.5(expo-modules-autolinking@1.5.0)(expo@49.0.6)
-  expo-status-bar:
-    specifier: ~1.6.0
-    version: 1.6.0
-  expo-system-ui:
-    specifier: ~2.4.0
-    version: 2.4.0(expo@49.0.6)
   expo-updates:
     specifier: ~0.18.17
     version: 0.18.17(expo@49.0.6)
@@ -119,9 +107,6 @@ dependencies:
   react-native:
     specifier: 0.72.5
     version: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
-  react-native-avoid-softinput:
-    specifier: ^4.0.1
-    version: 4.0.1(react-native@0.72.5)(react@18.2.0)
   react-native-flash-message:
     specifier: ^0.4.0
     version: 0.4.0(prop-types@15.8.1)(react-native@0.72.5)(react@18.2.0)
@@ -161,6 +146,9 @@ dependencies:
   react-native-tab-view:
     specifier: ^3.5.2
     version: 3.5.2(react-native-pager-view@6.2.0)(react-native@0.72.5)(react@18.2.0)
+  react-native-toast-message:
+    specifier: ^2.1.7
+    version: 2.1.7(react-native@0.72.5)(react@18.2.0)
   react-native-video:
     specifier: 6.0.0-alpha.8
     version: 6.0.0-alpha.8(react-native@0.72.5)(react@18.2.0)
@@ -5055,16 +5043,6 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
 
-  /@miblanchard/react-native-slider@2.3.1(react-native@0.72.5)(react@18.2.0):
-    resolution: {integrity: sha512-J/hZDBWmXq8fJeOnTVHqIUVDHshqMSpJVxJ4WqwuCBKl5Rke9OBYXIdkSlgi75OgtScAr8FKK5KNkDKHUf6JIg==}
-    peerDependencies:
-      react: '>=16.8'
-      react-native: '>=0.59'
-    dependencies:
-      react: 18.2.0
-      react-native: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
-    dev: false
-
   /@microsoft/applicationinsights-web-snippet@1.0.1:
     resolution: {integrity: sha512-2IHAOaLauc8qaAitvWS+U931T+ze+7MNWrDHY47IENP5y2UA0vqJDu67kWZDdpCN1fFC77sfgfB+HV7SrKshnQ==}
     dev: false
@@ -9144,37 +9122,8 @@ packages:
       invariant: 2.2.4
     dev: false
 
-  /expo-splash-screen@0.20.5(expo-modules-autolinking@1.5.0)(expo@49.0.6):
-    resolution: {integrity: sha512-nTALYdjHpeEA30rdOWSguxn72ctv8WM8ptuUgpfRgsWyn4i6rwYds/rBXisX69XO5fg+XjHAQqijGx/b28+3tg==}
-    peerDependencies:
-      expo: '*'
-    dependencies:
-      '@expo/prebuild-config': 6.2.6(expo-modules-autolinking@1.5.0)
-      expo: 49.0.6(@babel/core@7.21.0)
-    transitivePeerDependencies:
-      - encoding
-      - expo-modules-autolinking
-      - supports-color
-    dev: false
-
-  /expo-status-bar@1.6.0:
-    resolution: {integrity: sha512-e//Oi2WPdomMlMDD3skE4+1ZarKCJ/suvcB4Jo/nO427niKug5oppcPNYO+csR6y3ZglGuypS+3pp/hJ+Xp6fQ==}
-    dev: false
-
   /expo-structured-headers@3.3.0:
     resolution: {integrity: sha512-t+h5Zqaukd3Tn97LaWPpibVsmiC/TFP8F+8sAUliwCSMzgcb5TATRs2NcAB+JcIr8EP3JJDyYXJrZle1cjs4mQ==}
-    dev: false
-
-  /expo-system-ui@2.4.0(expo@49.0.6):
-    resolution: {integrity: sha512-uaBAYeQtFzyE8WVcch2V3G243xvOf7vJkLzrIJ3rJ8NA3uZRmxF0lMMe75oMrAaLVXyr1Z+ZE6UZwh7x49FuIg==}
-    peerDependencies:
-      expo: '*'
-    dependencies:
-      '@react-native/normalize-color': 2.1.0
-      debug: 4.3.4
-      expo: 49.0.6(@babel/core@7.21.0)
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /expo-updates-interface@0.10.1(expo@49.0.6):
@@ -14026,16 +13975,6 @@ packages:
       prop-types: 15.8.1
     dev: false
 
-  /react-native-avoid-softinput@4.0.1(react-native@0.72.5)(react@18.2.0):
-    resolution: {integrity: sha512-feMt+Pb/wEcuobbIRDHXj1leXT15uC8CekgwMb/t8s61kWy5ifCGtX/YqDZMDRiD0sqeFLZx0gykLQOSrCpybA==}
-    peerDependencies:
-      react: '>=17.0.0'
-      react-native: '>=0.65.0'
-    dependencies:
-      react: 18.2.0
-      react-native: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
-    dev: false
-
   /react-native-flash-message@0.4.0(prop-types@15.8.1)(react-native@0.72.5)(react@18.2.0):
     resolution: {integrity: sha512-ZCVnQj+82cQnWqBtkIVPxMEJxwzWqq8WQcIulUqc9UiCdvWQJRLN0Pe0PvzFs/l/GM2ek6zXSck7LJzUq8pahQ==}
     peerDependencies:
@@ -14213,6 +14152,16 @@ packages:
       react-native: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
       react-native-pager-view: 6.2.0(react-native@0.72.5)(react@18.2.0)
       use-latest-callback: 0.1.5
+    dev: false
+
+  /react-native-toast-message@2.1.7(react-native@0.72.5)(react@18.2.0):
+    resolution: {integrity: sha512-5zX3T5buVpg4bn9KZYVZ2VUQiLQZ1FHSM2AFQHVpgeKMYb+Gq+jt7wjhfPqhuMkJElQr7XNrnRw/rBCdD+7Q9w==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
     dev: false
 
   /react-native-video@6.0.0-alpha.8(react-native@0.72.5)(react@18.2.0):

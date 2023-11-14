@@ -73,6 +73,14 @@ const BarIcon = ({ color, name, ...reset }: BarIconType) => {
   return <Icon color={color} {...reset} />;
 };
 
+export const tabBarStyle = {
+  backgroundColor: colors.thunder[900],
+  borderTopWidth: 0,
+  borderTopLeftRadius: 20,
+  borderTopRightRadius: 20,
+  height: 64,
+};
+
 export const TabNavigator = () => {
   return (
     <Tab.Navigator
@@ -81,13 +89,7 @@ export const TabNavigator = () => {
 
         tabBarIcon: ({ color }) => <BarIcon name={route.name} color={color} />,
         tabBarActiveTintColor: colors.primary[400],
-        tabBarStyle: {
-          backgroundColor: colors.thunder[900],
-          borderTopWidth: 0,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-          height: 64,
-        },
+        tabBarStyle,
         tabBarShowLabel: false,
       })}
       initialRouteName="Anime"

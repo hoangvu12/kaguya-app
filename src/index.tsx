@@ -3,8 +3,8 @@ import 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import FlashMessage from 'react-native-flash-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 
 import { RootNavigator } from '@/navigation';
 
@@ -13,7 +13,7 @@ const App = () => {
     <GestureHandlerRootView style={styles.container}>
       <BottomSheetModalProvider>
         <RootNavigator />
-        <FlashMessage position="bottom" />
+        <Toast />
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );

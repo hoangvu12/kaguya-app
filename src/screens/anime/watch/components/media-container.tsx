@@ -20,8 +20,6 @@ const MediaContainer: React.FC<MediaContainerProps> = ({
 }) => {
   const { data, isLoading } = useEpisodes(mediaFragment);
 
-  console.log('currentEpisodeId', currentEpisodeId);
-
   if (isLoading) {
     return (
       <View className="flex h-full w-full flex-1 items-center justify-center">
