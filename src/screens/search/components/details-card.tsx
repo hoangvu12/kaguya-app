@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { HeartIcon, SmileIcon } from 'lucide-react-native';
 import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
@@ -31,8 +32,16 @@ interface DetailsCardProps {
 const DetailsCard: React.FC<DetailsCardProps> = ({ media: mediaProps }) => {
   const media = useFragment(DetailsCardFragment, mediaProps);
 
+  const navigation = useNavigation();
+
+  const onPress = () => {
+    navigation.navigate('AnimeDetails', {
+      mediaId: media.id,
+    });
+  };
+
   return (
-    <Pressable>
+    <Pressable onPress={onPress}>
       <View className="flex flex-row rounded-md bg-thunder-900">
         <PlainCard className="w-20" coverImage={media?.coverImage?.large!} />
         <View className="flex-1 p-2">

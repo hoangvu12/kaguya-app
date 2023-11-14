@@ -15,6 +15,8 @@ import { PlainCard } from '@/ui/plain-card';
 import colors from '@/ui/theme/colors';
 import { addAlpha } from '@/utils';
 
+import NextEpisodeCountdown from './next-episode-countdown';
+
 const SLinearGradient = styled(LinearGradient);
 
 const linearGradientColors = [
@@ -133,14 +135,14 @@ const Header: React.FC<HeaderProps> = ({ media: mediaProps }) => {
             <Text>{media.seasonYear}</Text>
           </View>
 
-          {/* <View className="mt-2">
-          {anime.nextAiringEpisode?.episode && (
-            <NextEpisodeCountdown
-              episode={anime.nextAiringEpisode.episode}
-              time={anime.nextAiringEpisode.airingAt!}
-            />
+          {media.nextAiringEpisode?.episode && (
+            <View className="mt-2">
+              <NextEpisodeCountdown
+                episode={media.nextAiringEpisode.episode}
+                time={media.nextAiringEpisode.airingAt!}
+              />
+            </View>
           )}
-        </View> */}
         </View>
       </View>
     </View>

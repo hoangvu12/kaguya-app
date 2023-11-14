@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef } from 'react';
 import React from 'react';
 import { Pressable as NPressable } from 'react-native';
 
-import { addAlpha } from '..';
+import { addAlpha } from '../../utils';
 import colors from '../theme/colors';
 
 const StyledPressable = styled(NPressable);

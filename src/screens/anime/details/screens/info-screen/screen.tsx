@@ -2,7 +2,8 @@ import React from 'react';
 
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
-import { MediaDescription, View } from '@/ui';
+import { View } from '@/ui';
+import { MediaDescription } from '@/ui/media-description';
 
 import CharacterList from './components/character-list';
 import InfoSection from './components/info-section';
@@ -12,6 +13,7 @@ import SpecialRelationList from './components/special-relation-list';
 import StaffList from './components/staff-list';
 import SynonymList from './components/synonym-list';
 import TagList from './components/tag-list';
+import Trailer from './components/trailer';
 
 export const InfoScreenFragment = graphql(`
   fragment InfoScreenMedia on Media {
@@ -72,9 +74,9 @@ const InfoScreen: React.FC<InfoScreenProps> = ({ media: mediaProps }) => {
 
       <TagList tags={tags} />
 
-      {/* {media.trailer && media.trailer.site === 'youtube' && media.trailer.id ? (
+      {media.trailer && media.trailer.site === 'youtube' && media.trailer.id ? (
         <Trailer youtubeId={media.trailer.id} />
-      ) : null} */}
+      ) : null}
 
       <CharacterList characters={characters} />
       <StaffList staffList={staff} />

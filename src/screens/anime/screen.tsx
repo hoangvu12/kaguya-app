@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { ScrollView } from 'react-native';
 
-import { BannerList, FocusAwareStatusBar, Text, View } from '@/ui';
+import { FocusAwareStatusBar, Text, View } from '@/ui';
+import { BannerList } from '@/ui/banner-card';
 
 import AiringTodayList from './components/airing-today-list';
 import GenreList from './components/genre-list';

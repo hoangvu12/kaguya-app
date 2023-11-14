@@ -186,14 +186,29 @@ export const useWebView = () => {
       console.log(`${functionName}()`);
 
       webView.injectJavaScript(`
-        try {        
-          window.sendResponse = function(response) {
-            window.sendBack(window.createMessage("${event}", response));
+        window.sendResponse = function(response) {
+          window.sendBack(window.createMessage("${event}", response));
+        }
+
+        const sendError = function(err) {
+          window.sendResponse({ error: JSON.stringify(err, Object.getOwnPropertyNames(err)) });
+        }
+
+        try {
+          if (${functionName}.constructor.name !== 'AsyncFunction') {
+            ${functionName}(${JSON.stringify(args)});
+          } else {
+            ${functionName}(${JSON.stringify(args)}).catch((e) => {
+              console.error("Error in inject js async", e);
+
+              sendError(e);
+            })
           }
-  
-          ${functionName}(${JSON.stringify(args)});
+
         } catch(e) {
-          alert(e)
+          console.error("Error in inject js", e);
+
+          sendError(e);
         }
 
         true;
@@ -203,6 +218,8 @@ export const useWebView = () => {
         const handleResponse = (e: WebViewMessageEvent) => {
           const { event: responseEvent, data: responseData } =
             parseWebViewMessage<T>(e);
+
+          console.log(responseData);
 
           if (responseEvent !== event) return;
 
