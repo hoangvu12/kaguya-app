@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useSetAtom } from 'jotai/react';
 import React, { useEffect } from 'react';
-import Orientation from 'react-native-orientation-locker';
 
 import { graphql } from '@/gql';
 import { useGraphQL } from '@/hooks/use-graphql';
@@ -44,8 +43,6 @@ export const AnimeWatchScreen: React.FC<Props> = ({ route }) => {
   }, [media?.Media?.title?.userPreferred, setMediaTitle]);
 
   useEffect(() => {
-    Orientation.lockToLandscapeLeft();
-
     const parent = navigation.getParent();
 
     parent?.setOptions({

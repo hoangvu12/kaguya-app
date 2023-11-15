@@ -34,7 +34,7 @@ export const AnimeNavigator = () => (
         component={AnimeDetailsScreen}
       />
       <Stack.Screen
-        options={{ headerShown: false }}
+        options={{ headerShown: false, orientation: 'landscape' }}
         name="AnimeWatch"
         component={AnimeWatchScreen}
       />
