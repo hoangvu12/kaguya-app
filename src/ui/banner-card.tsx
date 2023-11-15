@@ -8,13 +8,14 @@ import { twMerge } from 'tailwind-merge';
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
 import { useGraphQL } from '@/hooks/use-graphql';
+import useScreenSize from '@/hooks/use-screen-size';
 
 import { addAlpha } from '../utils';
 import { Image, Text, View } from './core';
 import Pressable from './core/pressable';
 import Skeleton, { SkeletonItem } from './core/skeleton';
 import MediaUnitStats from './media-unit-stats';
-import { colors, WIDTH } from './theme';
+import { colors } from './theme';
 
 const BannerCardFragment = graphql(`
   fragment BannerCardMedia on Media {
@@ -53,6 +54,8 @@ const CAROUSEL_HEIGHT = 208;
 export const BannerList = () => {
   const { data, isLoading } = useGraphQL(document);
 
+  const { width } = useScreenSize();
+
   const renderItem = useCallback(({ item }: { item: MediaFragment }) => {
     return <BannerItem media={item} />;
   }, []);
@@ -81,7 +84,7 @@ export const BannerList = () => {
       autoPlay
       autoPlayInterval={3000}
       height={CAROUSEL_HEIGHT}
-      width={WIDTH}
+      width={width}
       data={mediaList!}
       mode="parallax"
       modeConfig={{

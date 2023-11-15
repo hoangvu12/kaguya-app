@@ -2,9 +2,10 @@ import { useNavigation } from '@react-navigation/native';
 import { useAtomValue } from 'jotai/react';
 import React from 'react';
 
+import useScreenSize from '@/hooks/use-screen-size';
 import EpisodeCard from '@/screens/anime/components/episode-card';
 import EpisodeDetails from '@/screens/anime/components/episode-details';
-import { View, WIDTH } from '@/ui';
+import { View } from '@/ui';
 
 import { episodeChunkAtom, layoutModeAtom } from '../store';
 
@@ -14,6 +15,7 @@ const SPACE_BETWEEN = 4;
 const EpisodeLayoutContainer: React.FC<{ mediaId: number }> = ({ mediaId }) => {
   const layoutMode = useAtomValue(layoutModeAtom);
   const episodes = useAtomValue(episodeChunkAtom);
+  const { width } = useScreenSize();
 
   const navigation = useNavigation();
 
@@ -45,7 +47,7 @@ const EpisodeLayoutContainer: React.FC<{ mediaId: number }> = ({ mediaId }) => {
           {episodes.map((episode, index) => (
             <View
               style={{
-                width: WIDTH / 2 - PADDING - SPACE_BETWEEN,
+                width: width / 2 - PADDING - SPACE_BETWEEN,
                 marginBottom:
                   index < episodes.length - 2 ? SPACE_BETWEEN * 2 : 0,
               }}

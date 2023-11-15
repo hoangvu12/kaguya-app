@@ -8,7 +8,7 @@ import { addAlpha, Button, Image, Text, View } from '@/ui';
 import Pressable from '@/ui/core/pressable';
 import colors from '@/ui/theme/colors';
 
-interface EpisodeDetailsProps extends ButtonProps {
+interface EpisodeDetailsProps extends Omit<ButtonProps, 'children'> {
   episode: Episode;
 }
 
@@ -47,7 +47,7 @@ const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
           <Image
             className="h-full w-full rounded-md object-cover"
             source={{
-              uri: episode.thumbnail,
+              uri: episode.thumbnail || '',
             }}
             key={episode.thumbnail}
           />

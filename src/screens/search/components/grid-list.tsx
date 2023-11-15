@@ -2,7 +2,8 @@ import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 
 import { type FragmentType, useFragment } from '@/gql';
-import { View, WIDTH } from '@/ui';
+import useScreenSize from '@/hooks/use-screen-size';
+import { View } from '@/ui';
 import { Card, CARD_WIDTH, CardFragment } from '@/ui/card';
 
 interface GridListProps {
@@ -17,6 +18,8 @@ const CARD_HEIGHT = CARD_WIDTH * (3 / 2);
 const CARD_TITLE_HEIGHT = 60;
 
 const GridList: React.FC<GridListProps> = ({ mediaList, onLoadMore }) => {
+  const { width } = useScreenSize();
+
   return (
     <View
       className="h-full w-full flex-1"
@@ -29,7 +32,7 @@ const GridList: React.FC<GridListProps> = ({ mediaList, onLoadMore }) => {
           <View
             style={{
               width:
-                WIDTH / 2 -
+                width / 2 -
                 CONTAINER_PADDING -
                 LIST_PADDING -
                 SPACE_BETWEEN / 2,

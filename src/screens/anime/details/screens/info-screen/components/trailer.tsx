@@ -4,7 +4,8 @@ import type { YoutubeIframeProps } from 'react-native-youtube-iframe';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import { twMerge } from 'tailwind-merge';
 
-import { Text, View, WIDTH } from '@/ui';
+import useScreenSize from '@/hooks/use-screen-size';
+import { Text, View } from '@/ui';
 
 interface TrailerProps extends ViewProps {
   youtubeId: string;
@@ -19,6 +20,8 @@ const Trailer: React.FC<TrailerProps> = ({
   className,
   ...props
 }) => {
+  const { width } = useScreenSize();
+
   return (
     <View className={twMerge(className)} {...props}>
       <Text variant="xl" className="mb-2">
@@ -27,7 +30,7 @@ const Trailer: React.FC<TrailerProps> = ({
 
       <View className="overflow-hidden rounded-md">
         <YoutubePlayer
-          height={(WIDTH - PADDING * 2) * (9 / 16)}
+          height={(width - PADDING * 2) * (9 / 16)}
           videoId={youtubeId}
           {...youtubeProps}
         />

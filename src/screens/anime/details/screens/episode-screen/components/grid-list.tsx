@@ -1,8 +1,9 @@
 import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 
+import useScreenSize from '@/hooks/use-screen-size';
 import type { SearchResult } from '@/types';
-import { Image, ScrollView, Text, View, WIDTH } from '@/ui';
+import { Image, ScrollView, Text, View } from '@/ui';
 import Pressable from '@/ui/core/pressable';
 
 interface GridListProps {
@@ -15,6 +16,8 @@ const CONTAINER_PADDING = 16;
 const LIST_PADDING = 16;
 
 const GridList: React.FC<GridListProps> = ({ searchResults, onSelect }) => {
+  const { width } = useScreenSize();
+
   return (
     <ScrollView horizontal={true}>
       <View
@@ -31,7 +34,7 @@ const GridList: React.FC<GridListProps> = ({ searchResults, onSelect }) => {
               }}
               style={{
                 width:
-                  WIDTH / 2 -
+                  width / 2 -
                   CONTAINER_PADDING -
                   LIST_PADDING -
                   SPACE_BETWEEN / 2,

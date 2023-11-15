@@ -10,7 +10,8 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import { HEIGHT, View } from '@/ui';
+import useScreenSize from '@/hooks/use-screen-size';
+import { View } from '@/ui';
 
 import { volumeAtom, volumeSliderAtom } from '../store';
 
@@ -19,8 +20,10 @@ const HEIGHT_PERCENT = 0.7;
 const AnimatedView = styled(Animated.View);
 
 const VolumeSlider = () => {
+  const { height } = useScreenSize();
+
   const [sliderHeight, setSliderHeight] = React.useState(
-    HEIGHT * HEIGHT_PERCENT
+    height * HEIGHT_PERCENT
   );
 
   const [volume, setVolume] = useAtom(volumeAtom);

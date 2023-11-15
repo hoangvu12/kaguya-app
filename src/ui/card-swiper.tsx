@@ -3,12 +3,12 @@ import React from 'react';
 import type { FlatListProps } from 'react-native';
 
 import type { FragmentType } from '@/gql';
+import useScreenSize from '@/hooks/use-screen-size';
 
 import type { CardFragment } from './card';
 import { Card, CARD_WIDTH } from './card';
 import { View } from './core';
 import Skeleton, { SkeletonItem } from './core/skeleton';
-import { WIDTH } from './theme';
 
 interface CardSwiperProps
   extends Partial<FlatListProps<FragmentType<typeof CardFragment>>> {
@@ -31,11 +31,11 @@ export default function CardSwiper({ data, ...props }: CardSwiperProps) {
 
 const SPACE_BETWEEN = 8;
 
-const numberOfItems = Math.floor(WIDTH / (CARD_WIDTH - SPACE_BETWEEN));
-
-const skeletonItems = Array.from({ length: numberOfItems }).map((_, i) => i);
-
 export function CardSwiperSkeleton() {
+  const { width } = useScreenSize();
+  const numberOfItems = Math.floor(width / (CARD_WIDTH - SPACE_BETWEEN));
+  const skeletonItems = Array.from({ length: numberOfItems }).map((_, i) => i);
+
   return (
     <Skeleton className="flex flex-row items-center">
       {skeletonItems.map((_, i) => (
