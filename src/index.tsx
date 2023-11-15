@@ -5,9 +5,51 @@ import * as SplashScreen from 'expo-splash-screen';
 import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import Toast from 'react-native-toast-message';
+import type { ToastConfig } from 'react-native-toast-message';
+import Toast, { ErrorToast, SuccessToast } from 'react-native-toast-message';
 
 import { RootNavigator } from '@/navigation';
+
+import colors from './ui/theme/colors';
+
+const toastConfig: ToastConfig = {
+  /*
+      Overwrite 'success' type,
+      by modifying the existing `BaseToast` component
+    */
+  success: (props) => (
+    <SuccessToast
+      {...props}
+      contentContainerStyle={{ backgroundColor: colors.thunder[900] }}
+      text1Style={{
+        fontSize: 17,
+        fontWeight: '500',
+        color: 'white',
+      }}
+      text2Style={{
+        fontSize: 15,
+        fontWeight: '400',
+        color: 'white',
+      }}
+    />
+  ),
+  error: (props) => (
+    <ErrorToast
+      {...props}
+      text1Style={{
+        fontSize: 17,
+        fontWeight: '500',
+        color: 'white',
+      }}
+      text2Style={{
+        fontSize: 15,
+        fontWeight: '400',
+        color: 'white',
+      }}
+      contentContainerStyle={{ backgroundColor: colors.thunder[900] }}
+    />
+  ),
+};
 
 const App = () => {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -39,7 +81,7 @@ const App = () => {
     >
       <BottomSheetModalProvider>
         <RootNavigator />
-        <Toast />
+        <Toast config={toastConfig} />
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
