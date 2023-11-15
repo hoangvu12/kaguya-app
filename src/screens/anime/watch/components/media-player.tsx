@@ -297,7 +297,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
           ? { type: 'resolution', value: currentVideoTrack.height }
           : undefined
       }
-      className="fixed inset-0 z-0 h-full w-full object-contain"
+      className="fixed inset-0 z-0 h-full w-full bg-black object-contain"
       onError={(error) => {
         Toast.show({
           type: 'error',
