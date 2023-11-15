@@ -24,7 +24,7 @@ const useBrightnessGesture = () => {
     baseValue: 0,
     initialBrightness: 0,
     moveTouchY: 0,
-    finalValue: 1,
+    finalValue: 0,
   });
 
   const brightnessPan = Gesture.Pan()
@@ -33,10 +33,13 @@ const useBrightnessGesture = () => {
       if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
       if (event.y > screenSize.height * HEIGHT_PERCENT) return;
 
+      const initialBrightness = brightnessSlider.getBrightness();
+
       refs.value.sliderHeight = brightnessSlider.getHeight();
       refs.value.baseValue = event.y;
-      refs.value.initialBrightness = brightnessSlider.getBrightness();
+      refs.value.initialBrightness = initialBrightness;
       refs.value.moveTouchY = 0;
+      refs.value.finalValue = initialBrightness;
 
       brightnessSlider.show();
     })
@@ -73,7 +76,7 @@ const useBrightnessGesture = () => {
 
       brightnessSlider.setAnimationValue(refs.value.finalValue);
     })
-    .onFinalize(() => {
+    .onEnd(() => {
       runOnJS(brightnessSlider.setBrightness)(refs.value.finalValue);
 
       brightnessSlider.hide();

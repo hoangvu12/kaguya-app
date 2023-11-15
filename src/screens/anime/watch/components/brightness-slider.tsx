@@ -1,5 +1,5 @@
 import * as Brightness from 'expo-brightness';
-import { useSetAtom } from 'jotai/react';
+import { useAtom, useSetAtom } from 'jotai/react';
 import { SunIcon } from 'lucide-react-native';
 import { styled } from 'nativewind';
 import React, { useEffect } from 'react';
@@ -11,6 +11,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import { atomWithMMKV } from '@/core/storage';
 import useScreenSize from '@/hooks/use-screen-size';
 import { View } from '@/ui';
 
@@ -20,6 +21,8 @@ const HEIGHT_PERCENT = 0.7;
 
 const AnimatedView = styled(Animated.View);
 
+const bridgeBrightnessAtom = atomWithMMKV('player__brightness', 1);
+
 const BrightnessSlider = () => {
   const { height } = useScreenSize();
 
@@ -28,7 +31,7 @@ const BrightnessSlider = () => {
   );
 
   const setBrightnessSlider = useSetAtom(brightnessSliderAtom);
-  const [bridgeBrightness, setBridgeBrightness] = React.useState(0);
+  const [bridgeBrightness, setBridgeBrightness] = useAtom(bridgeBrightnessAtom);
 
   const animateValue = useSharedValue(0);
   const opacityValue = useSharedValue(0);
@@ -48,9 +51,9 @@ const BrightnessSlider = () => {
   }, []);
 
   useEffect(() => {
-    Brightness.getBrightnessAsync().then((value) => {
-      setBridgeBrightness(value);
-    });
+    return () => {
+      Brightness.restoreSystemBrightnessAsync();
+    };
   }, []);
 
   useEffect(() => {
@@ -92,6 +95,7 @@ const BrightnessSlider = () => {
     animateValue,
     bridgeBrightness,
     opacityValue,
+    setBridgeBrightness,
     setBrightnessSlider,
     sliderHeight,
   ]);
