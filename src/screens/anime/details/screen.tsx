@@ -153,7 +153,7 @@ export const AnimeDetailsScreen: React.FC<Props> = ({ route }) => {
             <ArrowLeft size={28} color="white" />
           </Button>
 
-          <AnimatedText style={titleStyles}>
+          <AnimatedText numberOfLines={1} style={titleStyles}>
             {anime?.title?.userPreferred}
           </AnimatedText>
         </AnimatedView>
