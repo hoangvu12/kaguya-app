@@ -159,9 +159,9 @@ const BannerItem = React.memo(
                       {genre}
                     </Text>
 
-                    {!isLast && (
+                    {!isLast ? (
                       <Text className={twMerge(!isLast && 'mx-0.5')}>-</Text>
-                    )}
+                    ) : null}
                   </React.Fragment>
                 );
               })}

@@ -76,9 +76,9 @@ const MediaSubtitleSettings = () => {
                 {subtitle.language}
               </Text>
 
-              {subtitle.language === currentSubtitle?.language && (
+              {subtitle.language === currentSubtitle?.language ? (
                 <CheckIcon size={24} color="white" />
-              )}
+              ) : null}
             </Pressable>
           ))}
         </View>

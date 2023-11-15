@@ -87,9 +87,9 @@ const MediaSubtitleColor = () => {
                 {color.label}
               </Text>
 
-              {fontColor === color.value && (
+              {fontColor === color.value ? (
                 <CheckIcon size={24} color="white" />
-              )}
+              ) : null}
             </Pressable>
           ))}
         </View>

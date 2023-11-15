@@ -89,9 +89,9 @@ const MediaSubtitleBackgroundColor = () => {
                 {color.label}
               </Text>
 
-              {backgroundColor === color.value && (
+              {backgroundColor === color.value ? (
                 <CheckIcon size={24} color="white" />
-              )}
+              ) : null}
             </Pressable>
           ))}
         </View>

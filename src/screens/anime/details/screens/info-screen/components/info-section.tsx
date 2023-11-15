@@ -122,15 +122,15 @@ const InfoSection: React.FC<InfoSectionProps> = ({
         }
       />
 
-      {media.season && media.seasonYear && (
+      {media.season && media.seasonYear ? (
         <InfoItem
           title="Season"
           value={`${media.season} ${media.seasonYear}`}
         />
-      )}
+      ) : null}
 
-      {startDate && <InfoItem title="Start date" value={startDate} />}
-      {endDate && <InfoItem title="End date" value={endDate} />}
+      {startDate ? <InfoItem title="Start date" value={startDate} /> : null}
+      {endDate ? <InfoItem title="End date" value={endDate} /> : null}
     </View>
   );
 };

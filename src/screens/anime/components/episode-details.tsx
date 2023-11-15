@@ -74,7 +74,7 @@ const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
         </View>
       </Pressable>
 
-      {episode.description && (
+      {episode.description ? (
         <View className="pb-2">
           <Text
             numberOfLines={!shouldExpandDescription ? 2 : 0}
@@ -84,7 +84,7 @@ const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
             {episode.description}
           </Text>
         </View>
-      )}
+      ) : null}
     </Button>
   );
 };

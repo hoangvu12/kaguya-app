@@ -53,22 +53,22 @@ const MediaUnitStats: React.FC<
 
   return (
     <Text className={twMerge('space-x-2', className)} {...props}>
-      {media.mediaListEntry?.progress && (
+      {media.mediaListEntry?.progress ? (
         <Text variant="sm" weight="normal" className="text-primary-300">
           {media.mediaListEntry.progress}
         </Text>
-      )}
+      ) : null}
 
       <Text variant="sm" weight="normal" className="text-gray-300">
         {media.mediaListEntry?.progress && ' | '}
         {releasedEpisode || totalMediaUnit} {'| '}
       </Text>
 
-      {totalMediaUnit && (
+      {totalMediaUnit ? (
         <Text variant="sm" weight="normal" className="text-gray-300">
           {totalMediaUnit}
         </Text>
-      )}
+      ) : null}
     </Text>
   );
 };

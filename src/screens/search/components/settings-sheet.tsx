@@ -43,11 +43,11 @@ const SettingsSheet = () => {
             <YearSelector />
           </View>
 
-          {mediaType === MediaType.Anime && (
+          {mediaType === MediaType.Anime ? (
             <View className="grow">
               <SeasonSelector />
             </View>
-          )}
+          ) : null}
 
           <View className="grow">
             <FormatSelector />

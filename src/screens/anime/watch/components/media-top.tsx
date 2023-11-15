@@ -50,18 +50,18 @@ const MediaTop = () => {
             </Button>
 
             <View>
-              {currentEpisode && (
+              {currentEpisode ? (
                 <Text weight="semibold" variant="md" numberOfLines={1}>
                   Episode {currentEpisode?.number}
                   {currentEpisode?.title ? `: ${currentEpisode.title}` : ''}
                 </Text>
-              )}
+              ) : null}
 
-              {mediaTitle && (
+              {mediaTitle ? (
                 <Text variant="sm" className="text-gray-300">
                   {mediaTitle}
                 </Text>
-              )}
+              ) : null}
             </View>
           </View>
 
@@ -81,17 +81,17 @@ const MediaTop = () => {
             </View>
 
             <View className="mt-3 flex items-end text-right">
-              {currentServer?.name && (
+              {currentServer?.name ? (
                 <Text className="text-gray-300" variant="md" numberOfLines={1}>
                   {currentServer.name}
                 </Text>
-              )}
+              ) : null}
 
-              {currentModuleId && (
+              {currentModuleId ? (
                 <Text variant="md" weight="semibold" className="uppercase">
                   {currentModuleId}
                 </Text>
-              )}
+              ) : null}
 
               {videoSize.width && videoSize.height ? (
                 <Text className="text-gray-300" variant="sm">

@@ -105,7 +105,7 @@ const EpisodeChunkSelector = () => {
         extraData={{ currentChunk }}
       />
 
-      {chunks.length > 10 && (
+      {chunks.length > 10 ? (
         <Select
           ref={selectRef}
           trigger={Trigger}
@@ -123,7 +123,7 @@ const EpisodeChunkSelector = () => {
           }))}
           snapPoints={['80%']}
         />
-      )}
+      ) : null}
     </View>
   );
 };

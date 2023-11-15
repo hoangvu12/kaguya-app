@@ -60,9 +60,9 @@ const MediaSubtitleBackgroundOpacity = () => {
                 {opacity * 100 + '%'}
               </Text>
 
-              {opacity === backgroundOpacity && (
+              {opacity === backgroundOpacity ? (
                 <CheckIcon size={24} color="white" />
-              )}
+              ) : null}
             </Pressable>
           ))}
         </View>

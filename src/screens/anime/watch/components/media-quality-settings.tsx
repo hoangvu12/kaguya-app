@@ -60,9 +60,9 @@ const MediaQualitySettings = () => {
                 {quality}
               </Text>
 
-              {quality === currentQualiy && (
+              {quality === currentQualiy ? (
                 <CheckIcon size={24} color="white" />
-              )}
+              ) : null}
             </Pressable>
           ))}
         </View>

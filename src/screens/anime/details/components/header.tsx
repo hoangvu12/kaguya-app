@@ -135,14 +135,14 @@ const Header: React.FC<HeaderProps> = ({ media: mediaProps }) => {
             <Text>{media.seasonYear}</Text>
           </View>
 
-          {media.nextAiringEpisode?.episode && (
+          {media.nextAiringEpisode?.episode ? (
             <View className="mt-2">
               <NextEpisodeCountdown
                 episode={media.nextAiringEpisode.episode}
                 time={media.nextAiringEpisode.airingAt!}
               />
             </View>
-          )}
+          ) : null}
         </View>
       </View>
     </View>

@@ -62,7 +62,7 @@ const SettingsBottomSheet = React.forwardRef<
         snapPoints={['80%']}
         handleComponent={() => (
           <View className="relative flex h-12 w-full flex-row items-center justify-center">
-            {shouldGoBack && (
+            {shouldGoBack ? (
               <Button
                 onPress={() => dismiss()}
                 className="absolute left-6 bg-transparent p-0"
@@ -71,7 +71,7 @@ const SettingsBottomSheet = React.forwardRef<
 
                 {goBackTitle && <Text>{goBackTitle}</Text>}
               </Button>
-            )}
+            ) : null}
 
             <View className="h-2 w-12 rounded-full bg-thunder-400" />
           </View>

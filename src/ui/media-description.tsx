@@ -35,11 +35,11 @@ export const MediaDescription: React.FC<MediaDescriptionProps> = ({
         {stripHTML(description)}
       </Text>
 
-      {!isExpanded && (
+      {!isExpanded ? (
         <View className="mx-auto mt-4">
           <ChevronDown color="white" />
         </View>
-      )}
+      ) : null}
     </Pressable>
   );
 };

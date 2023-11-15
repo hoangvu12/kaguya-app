@@ -56,7 +56,7 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
         </View>
       </View>
 
-      {currentModuleId && (
+      {currentModuleId ? (
         <If condition={isLoading}>
           <Then>
             <View>
@@ -80,7 +80,7 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
             </If>
           </Else>
         </If>
-      )}
+      ) : null}
     </View>
   );
 };

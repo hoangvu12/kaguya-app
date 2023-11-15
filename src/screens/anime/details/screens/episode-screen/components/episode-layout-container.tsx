@@ -28,7 +28,7 @@ const EpisodeLayoutContainer: React.FC<{ mediaId: number }> = ({ mediaId }) => {
 
   return (
     <React.Fragment>
-      {layoutMode === 'details' && (
+      {layoutMode === 'details' ? (
         <View className="space-y-4">
           {episodes.map((episode) => (
             <EpisodeDetails
@@ -40,9 +40,9 @@ const EpisodeLayoutContainer: React.FC<{ mediaId: number }> = ({ mediaId }) => {
             />
           ))}
         </View>
-      )}
+      ) : null}
 
-      {layoutMode === 'card' && (
+      {layoutMode === 'card' ? (
         <View className="flex flex-row flex-wrap justify-between">
           {episodes.map((episode, index) => (
             <View
@@ -62,7 +62,7 @@ const EpisodeLayoutContainer: React.FC<{ mediaId: number }> = ({ mediaId }) => {
             </View>
           ))}
         </View>
-      )}
+      ) : null}
     </React.Fragment>
   );
 };
