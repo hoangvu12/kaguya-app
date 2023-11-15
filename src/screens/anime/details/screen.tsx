@@ -73,13 +73,6 @@ export const AnimeDetailsScreen: React.FC<Props> = ({ route }) => {
       },
     });
 
-    // @ts-ignore
-    const animeParent = navigation.getParent('anime-navigator');
-
-    animeParent?.setOptions({
-      header: () => null,
-    });
-
     return () => {
       parent?.setOptions({
         tabBarStyle: tabBarStyle,

@@ -25,6 +25,14 @@ const document = graphql(`
   }
 `);
 
+const tabBarStyle = {
+  backgroundColor: colors.thunder[900],
+  borderTopWidth: 0,
+  borderTopLeftRadius: 20,
+  borderTopRightRadius: 20,
+  height: 64,
+};
+
 export const AnimeWatchScreen: React.FC<Props> = ({ route }) => {
   const navigation = useNavigation();
   const params = route.params;
@@ -53,7 +61,7 @@ export const AnimeWatchScreen: React.FC<Props> = ({ route }) => {
 
     return () => {
       parent?.setOptions({
-        tabBarStyle: undefined,
+        tabBarStyle,
       });
     };
   }, [navigation]);

@@ -29,7 +29,7 @@ export const AnimeNavigator = () => (
         component={AnimeHomeScreen}
       />
       <Stack.Screen
-        options={{ headerTransparent: true }}
+        options={{ header: () => null }}
         name="AnimeDetails"
         component={AnimeDetailsScreen}
       />
