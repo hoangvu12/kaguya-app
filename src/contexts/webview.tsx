@@ -233,13 +233,14 @@ export const useWebView = () => {
 
           if (message.event !== event) return;
 
+          clearTimeout(timeout);
+
           if ('error' in message) {
             reject(new Error(message.error));
             return;
           }
 
           observer.unsubscribe(handleResponse);
-          clearTimeout(timeout);
 
           resolve(message.data as T);
         };

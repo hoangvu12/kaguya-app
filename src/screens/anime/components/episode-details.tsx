@@ -41,9 +41,9 @@ const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
       <Pressable
         android_ripple={{ color: rippleColor, foreground: true }}
         onPress={onPress}
-        className="flex flex-row items-start justify-start gap-1 bg-thunder-900"
+        className="flex flex-row items-start justify-start bg-thunder-900"
       >
-        <View className="aspect-video w-5/12">
+        <View className="mr-1 aspect-video w-5/12">
           <Image
             className="h-full w-full rounded-md object-cover"
             source={{
