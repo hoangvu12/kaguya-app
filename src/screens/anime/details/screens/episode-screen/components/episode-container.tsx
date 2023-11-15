@@ -1,8 +1,9 @@
-import { useSetAtom } from 'jotai/react';
+import { useAtomValue, useSetAtom } from 'jotai/react';
 import React, { useEffect } from 'react';
 import { Else, If, Then } from 'react-if';
 
 import { type FragmentType, graphql, useFragment } from '@/gql';
+import { currentModuleIdAtom } from '@/store';
 import { ActivityIndicator, colors, Text, View } from '@/ui';
 
 import useEpisodes from '../hooks/use-episodes';
@@ -29,6 +30,7 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
   media: mediaFragment,
 }) => {
   const media = useFragment(EpisodeContainerFragment, mediaFragment);
+  const currentModuleId = useAtomValue(currentModuleIdAtom);
 
   const { data, isLoading } = useEpisodes(media);
   const setSectionEpisodes = useSetAtom(sectionEpisodesAtom);
@@ -54,29 +56,31 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
         </View>
       </View>
 
-      <If condition={isLoading}>
-        <Then>
-          <View>
-            <ActivityIndicator color={colors.primary[500]} size={48} />
-          </View>
-        </Then>
+      {currentModuleId && (
+        <If condition={isLoading}>
+          <Then>
+            <View>
+              <ActivityIndicator color={colors.primary[500]} size={48} />
+            </View>
+          </Then>
 
-        <Else>
-          <If condition={!data?.length}>
-            <Then>
-              <Text className="text-center">
-                There are no episodes for this anime
-              </Text>
-            </Then>
+          <Else>
+            <If condition={!data?.length}>
+              <Then>
+                <Text className="text-center">
+                  There are no episodes for this anime
+                </Text>
+              </Then>
 
-            <Else>
-              <EpisodeSectionSelector episodes={data!} />
-              <EpisodeChunkSelector />
-              <EpisodeLayoutContainer mediaId={media.id} />
-            </Else>
-          </If>
-        </Else>
-      </If>
+              <Else>
+                <EpisodeSectionSelector episodes={data!} />
+                <EpisodeChunkSelector />
+                <EpisodeLayoutContainer mediaId={media.id} />
+              </Else>
+            </If>
+          </Else>
+        </If>
+      )}
     </View>
   );
 };
