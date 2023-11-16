@@ -10,6 +10,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import useScreenSize from '@/hooks/use-screen-size';
 import { View } from '@/ui';
 import SeekBackwardIcon from '@/ui/icons/seek-backward';
 import SeekForwardIcon from '@/ui/icons/seek-forward';
@@ -24,6 +25,8 @@ const MediaSeekingGesture = () => {
   const indicatorRightAnimateValue = useSharedValue(0);
   const player = useAtomValue(playerAtom);
   const currentTime = useAtomValue(currentTimeAtom);
+
+  const screenSize = useScreenSize();
 
   useEffect(() => {
     setHandleSeeking({
@@ -105,7 +108,15 @@ const MediaSeekingGesture = () => {
     >
       <AnimatedView
         className="absolute z-50 flex h-full w-1/2 items-center justify-center bg-black/40"
-        style={[animIndicatorLeftStyle]}
+        style={[
+          animIndicatorLeftStyle,
+          {
+            borderTopLeftRadius: 0,
+            borderTopRightRadius: (screenSize.width / 2) * 0.8, // 20% of the width or height, whichever is smaller
+            borderBottomRightRadius: (screenSize.width / 2) * 0.8,
+            borderBottomLeftRadius: 0,
+          },
+        ]}
       >
         <AnimatedView
           style={animIconLeftStyle}
@@ -117,7 +128,15 @@ const MediaSeekingGesture = () => {
 
       <AnimatedView
         className="absolute right-0 z-50 flex h-full w-1/2 items-center justify-center bg-black/40"
-        style={[animIndicatorRightStyle]}
+        style={[
+          animIndicatorRightStyle,
+          {
+            borderTopRightRadius: 0,
+            borderTopLeftRadius: (screenSize.width / 2) * 0.8, // 20% of the width or height, whichever is smaller
+            borderBottomLeftRadius: (screenSize.width / 2) * 0.8,
+            borderBottomRightRadius: 0,
+          },
+        ]}
       >
         <AnimatedView
           style={animIconRightStyle}
