@@ -23,7 +23,7 @@ export const InfoScreenFragment = graphql(`
         ...RelationListMedia
       }
     }
-    recommendations {
+    recommendations(page: 1, perPage: 15) {
       ...RecommendationListMedia
     }
     characters {

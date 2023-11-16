@@ -6217,6 +6217,18 @@ export const InfoScreenMediaFragmentDoc = {
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'recommendations' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'page' },
+                value: { kind: 'IntValue', value: '1' },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: { kind: 'IntValue', value: '15' },
+              },
+            ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
@@ -8201,6 +8213,18 @@ export const InfoDetailsScreenDocument = {
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'recommendations' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'page' },
+                value: { kind: 'IntValue', value: '1' },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: { kind: 'IntValue', value: '15' },
+              },
+            ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [

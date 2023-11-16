@@ -45,7 +45,7 @@ const documents = {
     types.StaffListMediaFragmentDoc,
   '\n  fragment TagListMedia on MediaTag {\n    id\n    name\n    rank\n    isMediaSpoiler\n    isGeneralSpoiler\n  }\n':
     types.TagListMediaFragmentDoc,
-  '\n  fragment InfoScreenMedia on Media {\n    relations {\n      edges {\n        ...SpecialRelationListMedia\n        ...RelationListMedia\n      }\n    }\n    recommendations {\n      ...RecommendationListMedia\n    }\n    characters {\n      ...CharacterListMedia\n    }\n    staff {\n      ...StaffListMedia\n    }\n    tags {\n      ...TagListMedia\n    }\n    description\n    trailer {\n      id\n      site\n    }\n    synonyms\n    ...InfoSectionMedia\n  }\n':
+  '\n  fragment InfoScreenMedia on Media {\n    relations {\n      edges {\n        ...SpecialRelationListMedia\n        ...RelationListMedia\n      }\n    }\n    recommendations(page: 1, perPage: 15) {\n      ...RecommendationListMedia\n    }\n    characters {\n      ...CharacterListMedia\n    }\n    staff {\n      ...StaffListMedia\n    }\n    tags {\n      ...TagListMedia\n    }\n    description\n    trailer {\n      id\n      site\n    }\n    synonyms\n    ...InfoSectionMedia\n  }\n':
     types.InfoScreenMediaFragmentDoc,
   '\n  query AnimeWatchScreenQuery($mediaId: Int!) {\n    Media(id: $mediaId) {\n      title {\n        userPreferred\n      }\n      ...UseAnimeEpisode\n    }\n  }\n':
     types.AnimeWatchScreenQueryDocument,
@@ -183,8 +183,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment InfoScreenMedia on Media {\n    relations {\n      edges {\n        ...SpecialRelationListMedia\n        ...RelationListMedia\n      }\n    }\n    recommendations {\n      ...RecommendationListMedia\n    }\n    characters {\n      ...CharacterListMedia\n    }\n    staff {\n      ...StaffListMedia\n    }\n    tags {\n      ...TagListMedia\n    }\n    description\n    trailer {\n      id\n      site\n    }\n    synonyms\n    ...InfoSectionMedia\n  }\n'
-): (typeof documents)['\n  fragment InfoScreenMedia on Media {\n    relations {\n      edges {\n        ...SpecialRelationListMedia\n        ...RelationListMedia\n      }\n    }\n    recommendations {\n      ...RecommendationListMedia\n    }\n    characters {\n      ...CharacterListMedia\n    }\n    staff {\n      ...StaffListMedia\n    }\n    tags {\n      ...TagListMedia\n    }\n    description\n    trailer {\n      id\n      site\n    }\n    synonyms\n    ...InfoSectionMedia\n  }\n'];
+  source: '\n  fragment InfoScreenMedia on Media {\n    relations {\n      edges {\n        ...SpecialRelationListMedia\n        ...RelationListMedia\n      }\n    }\n    recommendations(page: 1, perPage: 15) {\n      ...RecommendationListMedia\n    }\n    characters {\n      ...CharacterListMedia\n    }\n    staff {\n      ...StaffListMedia\n    }\n    tags {\n      ...TagListMedia\n    }\n    description\n    trailer {\n      id\n      site\n    }\n    synonyms\n    ...InfoSectionMedia\n  }\n'
+): (typeof documents)['\n  fragment InfoScreenMedia on Media {\n    relations {\n      edges {\n        ...SpecialRelationListMedia\n        ...RelationListMedia\n      }\n    }\n    recommendations(page: 1, perPage: 15) {\n      ...RecommendationListMedia\n    }\n    characters {\n      ...CharacterListMedia\n    }\n    staff {\n      ...StaffListMedia\n    }\n    tags {\n      ...TagListMedia\n    }\n    description\n    trailer {\n      id\n      site\n    }\n    synonyms\n    ...InfoSectionMedia\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
