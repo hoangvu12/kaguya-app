@@ -39,21 +39,25 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     intentFilters: [
       {
         action: 'VIEW',
-        data: {
-          scheme: 'file',
-          pathPattern: '.*\\\\.kmodule',
-          mimeType: 'application/zip',
-        },
-        category: ['DEFAULT', 'BROWSABLE'],
+        data: [
+          {
+            scheme: 'https',
+            host: 'anilist.co',
+            pathPrefix: '/anime',
+          },
+        ],
+        category: ['BROWSABLE', 'DEFAULT'],
       },
       {
         action: 'VIEW',
-        data: {
-          scheme: 'file',
-          pathPattern: '.*\\\\.kmodule',
-          mimeType: 'application/octet-stream',
-        },
-        category: ['DEFAULT', 'BROWSABLE'],
+        data: [
+          {
+            scheme: 'https',
+            host: 'anilist.co',
+            pathPrefix: '/manga',
+          },
+        ],
+        category: ['BROWSABLE', 'DEFAULT'],
       },
       {
         action: 'VIEW',

@@ -1,12 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import { useQueryClient } from '@tanstack/react-query';
 import { useURL } from 'expo-linking';
+import * as Linking from 'expo-linking';
 import { useCallback, useEffect } from 'react';
 import Toast from 'react-native-toast-message';
 
 import { parseKModule, processKModule } from '@/utils/module';
 
 import useModules from './use-modules';
+
+const scheme = Linking.createURL('');
 
 const useModuleLinking = () => {
   const url = useURL();
@@ -35,6 +38,13 @@ const useModuleLinking = () => {
 
   useEffect(() => {
     if (!url) return;
+
+    if (
+      url.includes(scheme) ||
+      url.includes('https://') ||
+      url.includes('http://')
+    )
+      return;
 
     installModule(url);
   }, [installModule, url]);

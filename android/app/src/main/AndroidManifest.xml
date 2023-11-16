@@ -33,15 +33,15 @@
       </intent-filter>
       <intent-filter data-generated="true">
         <action android:name="android.intent.action.VIEW"/>
-        <data android:scheme="file" android:pathPattern=".*\\.kmodule" android:mimeType="application/zip"/>
-        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:scheme="https" android:host="anilist.co" android:pathPrefix="/anime"/>
         <category android:name="android.intent.category.BROWSABLE"/>
+        <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
       <intent-filter data-generated="true">
         <action android:name="android.intent.action.VIEW"/>
-        <data android:scheme="file" android:pathPattern=".*\\.kmodule" android:mimeType="application/octet-stream"/>
-        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:scheme="https" android:host="anilist.co" android:pathPrefix="/manga"/>
         <category android:name="android.intent.category.BROWSABLE"/>
+        <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
       <intent-filter data-generated="true">
         <action android:name="android.intent.action.VIEW"/>
