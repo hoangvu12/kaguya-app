@@ -18,9 +18,13 @@ const WEBVIEW_URL = 'https://ass-renderer.netlify.app';
 
 interface MediaASSSubtitleProps {
   subContent: string;
+  fonts?: string[];
 }
 
-const MediaASSSubtitle: React.FC<MediaASSSubtitleProps> = ({ subContent }) => {
+const MediaASSSubtitle: React.FC<MediaASSSubtitleProps> = ({
+  subContent,
+  fonts,
+}) => {
   const webViewRef = useRef<WebView | null>(null);
   const [isWebViewReady, setIsWebViewReady] = useState(false);
   const [isWebViewLoaded, setIsWebViewLoaded] = useState(false);
@@ -52,10 +56,15 @@ const MediaASSSubtitle: React.FC<MediaASSSubtitleProps> = ({ subContent }) => {
   }, [postMessage, currentTime]);
 
   const setSubContent = useCallback(
-    (content: string) => {
+    (message: { content: string; fonts?: string[] }) => {
+      let msg = {
+        content: message.content,
+        fonts: message.fonts || [],
+      };
+
       postMessage({
         type: 'setSubContent',
-        value: content,
+        value: JSON.stringify(msg),
       });
     },
     [postMessage]
@@ -64,8 +73,8 @@ const MediaASSSubtitle: React.FC<MediaASSSubtitleProps> = ({ subContent }) => {
   useEffect(() => {
     if (!isWebViewLoaded) return;
 
-    setSubContent(subContent);
-  }, [subContent, isWebViewLoaded, setSubContent]);
+    setSubContent({ content: subContent, fonts });
+  }, [subContent, isWebViewLoaded, setSubContent, fonts]);
 
   useEffect(() => {
     if (!isWebViewReady) return;

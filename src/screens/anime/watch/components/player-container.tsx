@@ -34,7 +34,10 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
       ) : null}
 
       {container?.subtitles?.length ? (
-        <MediaSubtitle subtitles={container.subtitles} />
+        <MediaSubtitle
+          fonts={container.fonts?.map((font) => font.file.url) || []}
+          subtitles={container.subtitles}
+        />
       ) : null}
     </React.Fragment>
   );

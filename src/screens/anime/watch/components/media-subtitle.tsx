@@ -11,13 +11,14 @@ import MediaTextSubtitle from './media-text-subtitle';
 
 interface MediaSubtitleProps {
   subtitles: Subtitle[];
+  fonts?: string[];
 }
 
 const isASS = (url: string) => {
   return url.includes('.ass');
 };
 
-const MediaSubtitle: React.FC<MediaSubtitleProps> = ({ subtitles }) => {
+const MediaSubtitle: React.FC<MediaSubtitleProps> = ({ subtitles, fonts }) => {
   const setSubtitleList = useSetAtom(subtitleListAtom);
   const [currentSubtitle, setCurrentSubtitle] = useAtom(currentSubtitleAtom);
   const [subContent, setSubContent] = useState('');
@@ -50,10 +51,10 @@ const MediaSubtitle: React.FC<MediaSubtitleProps> = ({ subtitles }) => {
     <React.Fragment>
       {currentSubtitle?.format === SubtitleFormat.ASS ||
       isASS(currentSubtitle.file.url) ? (
-        <MediaASSSubtitle subContent={subContent} />
+        <MediaASSSubtitle fonts={fonts} subContent={subContent} />
       ) : null}
 
-      {currentSubtitle?.format !== SubtitleFormat.ASS ||
+      {currentSubtitle?.format !== SubtitleFormat.ASS &&
       !isASS(currentSubtitle.file.url) ? (
         <MediaTextSubtitle subContent={subContent} />
       ) : null}
