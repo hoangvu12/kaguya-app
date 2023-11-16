@@ -67,7 +67,7 @@ const MediaTop = () => {
           </View>
 
           <View>
-            <View className="flex flex-row items-center justify-end gap-2">
+            <View className="flex flex-row items-center justify-end gap-2.5">
               <View>
                 <ServerSelector />
               </View>
