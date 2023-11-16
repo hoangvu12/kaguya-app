@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useAtom, useSetAtom } from 'jotai/react';
 import React, { useEffect, useState } from 'react';
+import { MMKV } from 'react-native-mmkv';
 
 import { SubtitleFormat } from '@/core/subtitle';
 import type { Subtitle } from '@/types';
@@ -18,6 +19,8 @@ const isASS = (url: string) => {
   return url.includes('.ass');
 };
 
+const storage = new MMKV();
+
 const MediaSubtitle: React.FC<MediaSubtitleProps> = ({ subtitles, fonts }) => {
   const setSubtitleList = useSetAtom(subtitleListAtom);
   const [currentSubtitle, setCurrentSubtitle] = useAtom(currentSubtitleAtom);
@@ -28,10 +31,20 @@ const MediaSubtitle: React.FC<MediaSubtitleProps> = ({ subtitles, fonts }) => {
 
     if (!subtitles.length) return;
 
-    const firstSubtitle = subtitles[0];
+    const savedSubtitleLanguage = storage.getString('subtitle');
 
-    setCurrentSubtitle(firstSubtitle);
+    const subtitle =
+      subtitles.find((sub) => sub.language === savedSubtitleLanguage) ||
+      subtitles[0];
+
+    setCurrentSubtitle(subtitle);
   }, [setCurrentSubtitle, setSubtitleList, subtitles]);
+
+  useEffect(() => {
+    if (!currentSubtitle) return;
+
+    storage.set('subtitle', currentSubtitle.language);
+  }, [currentSubtitle]);
 
   useEffect(() => {
     if (!currentSubtitle) return;
