@@ -1,5 +1,6 @@
 import { useSetAtom } from 'jotai/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { MMKV } from 'react-native-mmkv';
 
 import type { Episode } from '@/types';
 import type { SelectRef } from '@/ui';
@@ -11,6 +12,8 @@ import { sectionEpisodesAtom } from '../store';
 interface EpisodeSectionSelectorProps {
   episodes: Episode[];
 }
+
+const storage = new MMKV();
 
 const EpisodeSectionSelector: React.FC<EpisodeSectionSelectorProps> = ({
   episodes,
@@ -29,7 +32,17 @@ const EpisodeSectionSelector: React.FC<EpisodeSectionSelectorProps> = ({
     return episodeSections;
   }, [episodes]);
 
-  const [currentSection, setCurrentSection] = useState(sections[0]);
+  const [currentSection, setCurrentSection] = useState<string | undefined>(
+    () => {
+      const section = storage.getString('section');
+
+      if (sections.includes(section)) {
+        return section;
+      }
+
+      return sections[0] || undefined;
+    }
+  );
 
   const sectionEpisodes = useMemo(() => {
     if (sections.length <= 1) return episodes;
@@ -44,6 +57,22 @@ const EpisodeSectionSelector: React.FC<EpisodeSectionSelectorProps> = ({
       setSectionEpisodes(sectionEpisodes);
     }
   }, [episodes.length, sectionEpisodes, setSectionEpisodes]);
+
+  useEffect(() => {
+    if (!currentSection) return;
+
+    storage.set('section', currentSection);
+  }, [currentSection]);
+
+  useEffect(() => {
+    const section = storage.getString('section');
+
+    if (sections.includes(section)) {
+      setCurrentSection(section);
+    } else {
+      setCurrentSection(sections[0] || undefined);
+    }
+  }, [sections]);
 
   if (!sections.length) return null;
 
@@ -60,7 +89,7 @@ const EpisodeSectionSelector: React.FC<EpisodeSectionSelectorProps> = ({
           </Button>
         )}
         onSelect={(option) => {
-          setCurrentSection(option.value);
+          setCurrentSection(option.value || undefined);
         }}
         placeholder="Select a section"
         options={sections.map((section) => ({
