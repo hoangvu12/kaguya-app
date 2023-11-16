@@ -177,7 +177,7 @@ const MediaSlider = () => {
           className="relative flex h-12 w-full justify-center"
         >
           <AnimatedView
-            className="absolute z-20 h-2 rounded-md bg-primary-500"
+            className="absolute z-20 h-1 rounded-md bg-primary-500"
             style={trackStyles}
           />
 
@@ -198,11 +198,11 @@ const MediaSlider = () => {
           />
 
           <View
-            className="absolute z-10 h-2 rounded-md bg-gray-300/60"
+            className="absolute z-10 h-1 rounded-md bg-gray-300/60"
             style={{ width: `${(playableDuration / duration) * 100}%` }}
           />
 
-          <View className="absolute z-0 h-2 w-full rounded-md bg-gray-400/60" />
+          <View className="absolute z-0 h-1 w-full rounded-md bg-gray-400/60" />
         </View>
       </GestureDetector>
 
