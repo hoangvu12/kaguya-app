@@ -33,6 +33,8 @@ const StaffList: React.FC<StaffListProps> = ({
     Boolean
   );
 
+  if (!edges?.length) return null;
+
   return (
     <View className={className}>
       <Text variant="xl" className="mb-2" {...props}>

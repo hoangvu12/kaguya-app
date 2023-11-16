@@ -21,6 +21,8 @@ export const MediaDescription: React.FC<MediaDescriptionProps> = ({
     setIsExpanded((prevIsExpanded) => !prevIsExpanded);
   };
 
+  if (!description) return null;
+
   return (
     <Pressable onPress={handleExpand} className="rounded-md bg-thunder-900 p-4">
       <Text variant="lg" className="mb-3 font-semibold">

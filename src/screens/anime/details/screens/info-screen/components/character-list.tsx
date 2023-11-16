@@ -34,6 +34,8 @@ const CharacterList: React.FC<CharacterListProps> = ({
     charactersProps
   ).edges?.filter(Boolean);
 
+  if (!characterEdges?.length) return null;
+
   return (
     <View className={className} {...props}>
       <Text variant="xl" className="mb-2">

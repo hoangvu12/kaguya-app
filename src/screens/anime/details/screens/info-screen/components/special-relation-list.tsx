@@ -40,7 +40,8 @@ const SpecialRelationList: React.FC<RelationListProps> = ({
         relationEdge.relationType === MediaRelation.Prequel ||
         relationEdge.relationType === MediaRelation.Sequel
     )
-    .filter(Boolean);
+    .filter(Boolean)
+    .filter((relationEdge) => relationEdge.node);
 
   if (specialRelations.length === 0) return null;
 

@@ -14,6 +14,8 @@ const SynonymList: React.FC<SynonymListProps> = ({
   className,
   ...props
 }) => {
+  if (!synonyms.length) return null;
+
   return (
     <View className={className} {...props}>
       <Text variant="xl" className="mb-1">

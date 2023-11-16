@@ -39,6 +39,8 @@ const TagList: React.FC<TagListProps> = ({
     return tags;
   }, [showSpoilers, tags]);
 
+  if (tags.length === 0) return null;
+
   return (
     <View className={twMerge('relative mt-8', className)} {...props}>
       <Text variant="xl" className="mb-1">
