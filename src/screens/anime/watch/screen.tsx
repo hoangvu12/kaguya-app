@@ -79,6 +79,10 @@ export const AnimeWatchScreen: React.FC<Props> = ({ route }) => {
   }
 
   return (
-    <MediaContainer currentEpisodeId={episodeId} mediaFragment={media.Media} />
+    <MediaContainer
+      currentEpisodeId={episodeId}
+      mediaFragment={media.Media}
+      mediaId={mediaId}
+    />
   );
 };

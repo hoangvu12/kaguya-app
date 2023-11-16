@@ -1,4 +1,5 @@
-import React from 'react';
+import { useSetAtom } from 'jotai/react';
+import React, { useEffect } from 'react';
 
 import type { FragmentType } from '@/gql';
 import { ActivityIndicator, View } from '@/ui';
@@ -6,18 +7,27 @@ import colors from '@/ui/theme/colors';
 
 import type { useAnimeEpisodeFragment } from '../../details/screens/episode-screen/hooks/use-episodes';
 import useEpisodes from '../../details/screens/episode-screen/hooks/use-episodes';
+import { mediaIdAtom } from '../store';
 import EpisodesContainer from './episodes-container';
 import ErrorMessage from './error-message';
 
 interface MediaContainerProps {
   mediaFragment: FragmentType<typeof useAnimeEpisodeFragment>;
   currentEpisodeId: string;
+  mediaId: number;
 }
 
 const MediaContainer: React.FC<MediaContainerProps> = ({
   mediaFragment,
   currentEpisodeId,
+  mediaId,
 }) => {
+  const setMediaId = useSetAtom(mediaIdAtom);
+
+  useEffect(() => {
+    setMediaId(mediaId);
+  }, [setMediaId, mediaId]);
+
   const { data, isLoading } = useEpisodes(mediaFragment);
 
   if (isLoading) {

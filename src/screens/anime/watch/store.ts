@@ -115,3 +115,5 @@ export const episodesAtom = atom<Episode[]>([]);
 export const mediaTitleAtom = atom('');
 
 export const sectionEpisodesAtom = atom<Episode[]>([]);
+
+export const mediaIdAtom = atom(0);

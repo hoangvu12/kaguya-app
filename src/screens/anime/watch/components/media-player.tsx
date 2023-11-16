@@ -17,14 +17,17 @@ import type {
 import RNVideo from 'react-native-video';
 
 import { VideoFormat } from '@/core/video';
+import { getWatchedEpisode, markEpisodeAsWatched } from '@/storage/episode';
 import type { Video } from '@/types';
 
 import {
+  currentEpisodeAtom,
   currentQualityAtom,
   currentSourceAtom,
   currentTimeAtom,
   durationAtom,
   isBufferingAtom,
+  mediaIdAtom,
   pausedAtom,
   playableDurationAtom,
   playBackRateAtom,
@@ -67,6 +70,9 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
   const setQualityList = useSetAtom(qualityListAtom);
   const setVideoSize = useSetAtom(videoSizeAtom);
 
+  const currentEpisode = useAtomValue(currentEpisodeAtom);
+  const mediaId = useAtomValue(mediaIdAtom);
+
   const [currentSource, setCurrentSource] = useAtom(currentSourceAtom);
   const [currentQuality, setCurrentQuality] = useAtom(currentQualityAtom);
 
@@ -83,6 +89,11 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
   const showBufferingTimeout = useRef<NodeJS.Timeout | null>(null);
   const shouldMaintainTime = useRef(false);
 
+  const hasResumeTime = useRef(false);
+  const shouldStartResumeTime = useRef(false);
+
+  const refCurrentTime = useRef(currentTime);
+
   useEffect(() => {
     playerRef.current?.presentFullscreenPlayer();
   }, []);
@@ -94,6 +105,10 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
 
   const handleProgress = useCallback(
     (progress: OnProgressData) => {
+      if (progress.currentTime > 0) {
+        shouldStartResumeTime.current = true;
+      }
+
       setCurrentTime(progress.currentTime);
       setPlayableDuration(progress.playableDuration);
     },
@@ -102,7 +117,9 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
 
   const handleLoad = useCallback(
     (data: OnLoadData) => {
-      setDuration(data.duration);
+      const duration = data.duration;
+
+      setDuration(duration);
       setVideoSize(data.naturalSize);
 
       if (videos.length > 1) {
@@ -127,11 +144,11 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
       setCurrentQuality(qualityList[0]);
     },
     [
-      videos.length,
-      setCurrentQuality,
       setDuration,
-      setQualityList,
       setVideoSize,
+      videos.length,
+      setQualityList,
+      setCurrentQuality,
     ]
   );
 
@@ -260,6 +277,42 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
     playerRef.current?.seek(currentTime);
   }, [currentTime]);
 
+  useEffect(() => {
+    refCurrentTime.current = currentTime;
+  }, [currentTime]);
+
+  useEffect(() => {
+    if (!mediaId) return;
+
+    if (hasResumeTime.current) return;
+    if (!shouldStartResumeTime.current) return;
+
+    hasResumeTime.current = true;
+
+    const watchedEpisode = getWatchedEpisode(mediaId);
+
+    if (!watchedEpisode) return;
+
+    playerRef.current?.seek(watchedEpisode.time);
+  }, [currentTime, mediaId, setCurrentTime]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!currentEpisode?.id) return;
+      if (!mediaId) return;
+
+      markEpisodeAsWatched({
+        episode: currentEpisode,
+        time: refCurrentTime.current,
+        mediaId,
+      });
+    }, 10000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [currentEpisode, mediaId]);
+
   const composedCurrentSource: VideoSource = useMemo(() => {
     let type: 'mpd' | 'm3u8' | undefined;
 
@@ -284,6 +337,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
 
   return (
     <StyledVideo
+      currentTime={currentTime}
       onProgress={handleProgress}
       onLoad={handleLoad}
       onBuffer={handleBuffer}
