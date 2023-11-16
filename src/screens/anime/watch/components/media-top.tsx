@@ -18,6 +18,7 @@ import EpisodesButton from './episodes-button';
 import MediaSettings from './media-settings';
 import MediaSlidingIndicator from './media-sliding-indicator';
 import MediaToggleSubtitle from './media-toggle-subtitle';
+import ServerSelector from './server-selector';
 
 const MediaTop = () => {
   const isSliding = useAtomValue(isSlidingAtom);
@@ -67,6 +68,10 @@ const MediaTop = () => {
 
           <View>
             <View className="flex flex-row items-center justify-end gap-2">
+              <View>
+                <ServerSelector />
+              </View>
+
               <View>
                 <EpisodesButton />
               </View>
