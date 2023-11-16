@@ -17,25 +17,45 @@ const ensureFolderExists = (path: string) => {
   });
 };
 
+const randomString = () => {
+  return Math.random().toString(36).substring(7);
+};
+
 export const parseKModule = async (filePath: string) => {
+  let actualFilePath = '';
+
+  // If the filePath is not .kmodule, then it must be a content:// URI
+  // URI that when the user open the app by opening the .kmodule
   if (!filePath.endsWith('.kmodule')) {
-    throw new Error('File must be a .kmodule file!');
+    if (!filePath.startsWith('content://')) {
+      throw new Error('File must be a .kmodule file!');
+    }
+
+    const randomName = randomString();
+
+    const newPath = `${FileSystem.cacheDirectory}${randomName}.kmodule`;
+
+    await FileSystem.copyAsync({
+      from: filePath,
+      to: newPath,
+    });
+
+    actualFilePath = newPath;
+  } else {
+    actualFilePath = filePath;
   }
 
-  const renamedUri = filePath.replace('.kmodule', '.zip');
-  const fileName = filePath.split('/').pop();
-  const fileNameWithoutExtension = fileName
-    ?.split('.')
-    .shift()
-    ?.replaceAll('-', '');
+  const renamedUri = actualFilePath.replace('.kmodule', '.zip');
 
   await FileSystem.moveAsync({
-    from: filePath,
+    from: actualFilePath,
     to: renamedUri,
   });
 
+  const temporaryFolderName = randomString();
+
   const cacheModuleDir = FileSystem.cacheDirectory + 'modules';
-  const cacheModuleZipDir = `${cacheModuleDir}/${fileNameWithoutExtension}`;
+  const cacheModuleZipDir = `${cacheModuleDir}/${temporaryFolderName}`;
 
   await ensureFolderExists(cacheModuleZipDir);
 

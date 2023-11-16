@@ -13,7 +13,7 @@ import { Search } from '@/ui/icons/search';
 
 import { AnimeNavigator } from './anime-navigator';
 
-type TabParamList = {
+export type TabParamList = {
   Anime: undefined;
   Settings: undefined;
   Module: undefined;

@@ -13,8 +13,6 @@ const useLoadVideoServers = (
     ['videoServers', episodeId],
     async (webview) => {
       if (!episodeId) {
-        console.log("Couldn't load video servers: no episode id");
-
         return [];
       }
 

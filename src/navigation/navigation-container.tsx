@@ -10,6 +10,7 @@ export const NavigationContainer = ({
   children: React.ReactNode;
 }) => {
   const theme = useThemeConfig();
+
   return (
     <SafeAreaProvider>
       <RNNavigationContainer theme={theme}>{children}</RNNavigationContainer>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ScrollView } from 'react-native';
 
+import useModuleLinking from '@/hooks/use-module-linking';
 import { FocusAwareStatusBar, Text, View } from '@/ui';
 import { BannerList } from '@/ui/banner-card';
 
@@ -10,6 +11,8 @@ import PopularThisSeason from './components/popular-this-season';
 import UpcomingNextSeason from './components/upcoming-next-season';
 
 export const AnimeHomeScreen = () => {
+  useModuleLinking();
+
   return (
     <>
       <FocusAwareStatusBar />

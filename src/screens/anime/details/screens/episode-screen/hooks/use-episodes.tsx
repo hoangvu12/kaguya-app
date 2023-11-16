@@ -38,8 +38,6 @@ const useEpisodes = (
   const episodes = useWebViewData(
     queryKey,
     async (webview) => {
-      console.log('use-episodes-anime-id', data?.data);
-
       if (!data?.data) {
         return [];
       }
@@ -55,8 +53,6 @@ const useEpisodes = (
       const validation = z.array(EpisodeSchema).safeParse(nonValidatedEpisodes);
 
       if (!validation.success) {
-        console.log("Couldn't load video servers", validation.error);
-
         Toast.show({
           type: 'error',
           text1: 'Cannot find episodes',

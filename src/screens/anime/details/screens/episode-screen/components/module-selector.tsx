@@ -49,8 +49,6 @@ const ModuleSelector = () => {
       ref={selectRef}
       trigger={Trigger}
       onSelect={(option) => {
-        console.log(option.value);
-
         setCurrentModuleId(option.value.id);
       }}
       placeholder="Select a module"

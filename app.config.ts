@@ -5,6 +5,7 @@ import { ClientEnv, Env } from './env';
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   backgroundColor: '#1c1414',
+  scheme: 'kaguya',
   name: Env.NAME,
   description: `${Env.NAME} is an app with a good user interface that let you watch anime and read manga for free.`,
   owner: Env.EXPO_ACCOUNT_OWNER,
@@ -28,12 +29,51 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
 
   android: {
+    permissions: ['READ_EXTERNAL_STORAGE'],
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#1c1414',
     },
     package: Env.PACKAGE,
     icon: './assets/adaptive-icon.png',
+    intentFilters: [
+      {
+        action: 'VIEW',
+        data: {
+          scheme: 'file',
+          pathPattern: '.*\\\\.kmodule',
+          mimeType: 'application/zip',
+        },
+        category: ['DEFAULT', 'BROWSABLE'],
+      },
+      {
+        action: 'VIEW',
+        data: {
+          scheme: 'file',
+          pathPattern: '.*\\\\.kmodule',
+          mimeType: 'application/octet-stream',
+        },
+        category: ['DEFAULT', 'BROWSABLE'],
+      },
+      {
+        action: 'VIEW',
+        data: {
+          scheme: 'content',
+          pathPattern: '.*\\\\.kmodule',
+          mimeType: 'application/zip',
+        },
+        category: ['DEFAULT', 'BROWSABLE'],
+      },
+      {
+        action: 'VIEW',
+        data: {
+          scheme: 'content',
+          pathPattern: '.*\\\\.kmodule',
+          mimeType: 'application/octet-stream',
+        },
+        category: ['DEFAULT', 'BROWSABLE'],
+      },
+    ],
   },
   web: {
     favicon: './assets/favicon.png',
