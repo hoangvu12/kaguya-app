@@ -47,6 +47,7 @@ const useBrightnessGesture = () => {
       if (event.x > screenSize.width - screenSize.width * WIDTH_PERCENT) return;
       if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
       if (event.y > screenSize.height * HEIGHT_PERCENT) return;
+      if (Math.abs(event.translationY) < 10) return;
 
       const draggedHeight = event.y - refs.value.baseValue;
       const draggedBrightness = Math.abs(
