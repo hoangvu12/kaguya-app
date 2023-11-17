@@ -6,17 +6,17 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import type { ToastConfig } from 'react-native-toast-message';
-import Toast, { ErrorToast, SuccessToast } from 'react-native-toast-message';
+import Toast, {
+  ErrorToast,
+  InfoToast,
+  SuccessToast,
+} from 'react-native-toast-message';
 
 import { RootNavigator } from '@/navigation';
 
 import colors from './ui/theme/colors';
 
 const toastConfig: ToastConfig = {
-  /*
-      Overwrite 'success' type,
-      by modifying the existing `BaseToast` component
-    */
   success: (props) => (
     <SuccessToast
       {...props}
@@ -35,6 +35,22 @@ const toastConfig: ToastConfig = {
   ),
   error: (props) => (
     <ErrorToast
+      {...props}
+      text1Style={{
+        fontSize: 17,
+        fontWeight: '500',
+        color: 'white',
+      }}
+      text2Style={{
+        fontSize: 15,
+        fontWeight: '400',
+        color: 'white',
+      }}
+      contentContainerStyle={{ backgroundColor: colors.thunder[900] }}
+    />
+  ),
+  info: (props) => (
+    <InfoToast
       {...props}
       text1Style={{
         fontSize: 17,
