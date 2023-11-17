@@ -36,7 +36,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundColor: '#1c1414',
     },
     package: Env.PACKAGE,
-    icon: './assets/adaptive-icon.png',
+    icon: './assets/icon.png',
     intentFilters: [
       {
         action: 'VIEW',
