@@ -16,6 +16,7 @@ import MediaTypeSelector from './components/media-type-selector';
 import SearchInput from './components/search-input';
 import SettingsSheet from './components/settings-sheet';
 import SortSelector from './components/sort-selector';
+import ValueList from './components/value-list';
 import useSearchMedia from './hooks/use-search-media';
 
 const SearchScreen = () => {
@@ -62,6 +63,10 @@ const SearchScreen = () => {
         <View className="mt-3 flex flex-row items-center justify-between">
           <SortSelector />
           <LayoutSelector />
+        </View>
+
+        <View className="mt-3">
+          <ValueList />
         </View>
 
         <View className="my-4 w-full">
