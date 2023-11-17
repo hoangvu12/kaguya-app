@@ -289,7 +289,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
 
     hasResumeTime.current = true;
 
-    const watchedEpisode = getWatchedEpisode(mediaId);
+    const watchedEpisode = getWatchedEpisode(mediaId.anilistId);
 
     if (!watchedEpisode) return;
 
@@ -304,7 +304,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
       markEpisodeAsWatched({
         episode: currentEpisode,
         time: refCurrentTime.current,
-        mediaId,
+        mediaId: mediaId.anilistId,
       });
     }, 10000);
 

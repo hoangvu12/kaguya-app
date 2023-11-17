@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from 'jotai/react';
 import { styled } from 'nativewind';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { TextInput } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
@@ -21,6 +21,7 @@ import {
   pausedAtom,
   playableDurationAtom,
   playerAtom,
+  timestampsAtom,
 } from '../store';
 import FastForwardButton from './fast-forward-button';
 
@@ -70,10 +71,19 @@ const MediaSlider = () => {
   const playableDuration = useAtomValue(playableDurationAtom);
   const setIsSliding = useSetAtom(isSlidingAtom);
   const setOverlayVisible = useSetAtom(isOverlayVisibleAtom);
+  const timestamps = useAtomValue(timestampsAtom);
 
   const animateValue = useSharedValue(0);
-
   const shouldSync = useSharedValue(true);
+
+  const timestamp = useMemo(() => {
+    if (!timestamps?.length) return null;
+
+    return timestamps.find(
+      (timestamp) =>
+        currentTime >= timestamp.startTime && currentTime <= timestamp.endTime
+    );
+  }, [currentTime, timestamps]);
 
   const seek = (value: number) => {
     const seekTime = value * duration;
@@ -167,6 +177,14 @@ const MediaSlider = () => {
         <Text> / </Text>
 
         <Text className="text-gray-300">{formatTime(duration)}</Text>
+
+        {timestamp ? (
+          <React.Fragment>
+            <Text> • </Text>
+
+            <Text>{timestamp.type}</Text>
+          </React.Fragment>
+        ) : null}
       </View>
 
       <GestureDetector gesture={gesture}>
@@ -197,6 +215,24 @@ const MediaSlider = () => {
             ]}
           />
 
+          {timestamps?.map((timestamp) => {
+            const left = timestamp.startTime / duration;
+            const width = (timestamp.endTime - timestamp.startTime) / duration;
+
+            return (
+              <View
+                key={timestamp.type}
+                className="absolute z-20 h-1 rounded-md bg-primary-500"
+                style={[
+                  {
+                    width: `${width * 100}%`,
+                    left: `${left * 100}%`,
+                  },
+                ]}
+              />
+            );
+          })}
+
           <View
             className="absolute z-10 h-1 rounded-md bg-gray-300/60"
             style={{ width: `${(playableDuration / duration) * 100}%` }}
@@ -206,7 +242,7 @@ const MediaSlider = () => {
         </View>
       </GestureDetector>
 
-      <FastForwardButton />
+      {!timestamp ? <FastForwardButton /> : null}
     </View>
   );
 };

@@ -78,8 +78,6 @@ const useVolumeGesture = () => {
       if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
       if (event.y > screenSize.height * HEIGHT_PERCENT) return;
 
-      console.log(refs.value.isShown);
-
       runOnJS(volumeSlider.setVolume)(refs.value.finalValue);
 
       volumeSlider.hide();

@@ -4857,6 +4857,7 @@ export type AnimeWatchScreenQueryQuery = {
   Media?:
     | ({
         __typename?: 'Media';
+        idMal?: number | null;
         title?: {
           __typename?: 'MediaTitle';
           userPreferred?: string | null;
@@ -8373,6 +8374,7 @@ export const AnimeWatchScreenQueryDocument = {
                     ],
                   },
                 },
+                { kind: 'Field', name: { kind: 'Name', value: 'idMal' } },
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'UseAnimeEpisode' },

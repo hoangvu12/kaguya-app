@@ -14,19 +14,24 @@ import ErrorMessage from './error-message';
 interface MediaContainerProps {
   mediaFragment: FragmentType<typeof useAnimeEpisodeFragment>;
   currentEpisodeId: string;
-  mediaId: number;
+  anilistId: number;
+  malId: number | undefined;
 }
 
 const MediaContainer: React.FC<MediaContainerProps> = ({
   mediaFragment,
   currentEpisodeId,
-  mediaId,
+  anilistId,
+  malId,
 }) => {
   const setMediaId = useSetAtom(mediaIdAtom);
 
   useEffect(() => {
-    setMediaId(mediaId);
-  }, [setMediaId, mediaId]);
+    setMediaId({
+      anilistId,
+      malId,
+    });
+  }, [setMediaId, anilistId, malId]);
 
   const { data, isLoading } = useEpisodes(mediaFragment);
 

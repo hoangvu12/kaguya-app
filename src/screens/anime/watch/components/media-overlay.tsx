@@ -18,6 +18,7 @@ import MediaControls from './media-controls';
 import MediaSeekingGesture from './media-seeking-gesture';
 import MediaSlider from './media-slider';
 import MediaTop from './media-top';
+import SkipTimestampButton from './skip-timestamp-button';
 import VolumeSlider from './volume-slider';
 
 const AnimatedView = styled(Animated.View);
@@ -55,7 +56,7 @@ const MediaOverlay = () => {
         </View>
       </GestureHandler>
 
-      {/* <MediaASSSubtitle /> */}
+      <SkipTimestampButton />
       <MediaSeekingGesture />
       <VolumeSlider />
       <BrightnessSlider />

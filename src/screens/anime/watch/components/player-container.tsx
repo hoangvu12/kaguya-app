@@ -1,9 +1,11 @@
-import React from 'react';
+import { useSetAtom } from 'jotai/react';
+import React, { useEffect } from 'react';
 
 import type { VideoServer } from '@/types';
 import { ActivityIndicator, colors, View } from '@/ui';
 
 import useLoadVideoContainer from '../hooks/use-load-video-container';
+import { timestampsAtom } from '../store';
 import MediaOverlay from './media-overlay';
 import MediaPlayer from './media-player';
 import MediaSubtitle from './media-subtitle';
@@ -18,6 +20,18 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
   isServerLoading,
 }) => {
   const { data: container, isLoading } = useLoadVideoContainer(videoServer);
+
+  const setTimestamps = useSetAtom(timestampsAtom);
+
+  useEffect(() => {
+    if (!container?.timestamps?.length) {
+      setTimestamps([]);
+
+      return;
+    }
+
+    setTimestamps(container.timestamps);
+  }, [container, setTimestamps]);
 
   return (
     <React.Fragment>
