@@ -112,7 +112,7 @@ const MediaSeekingGesture = () => {
           animIndicatorLeftStyle,
           {
             borderTopLeftRadius: 0,
-            borderTopRightRadius: (screenSize.width / 2) * 0.8, // 20% of the width or height, whichever is smaller
+            borderTopRightRadius: (screenSize.width / 2) * 0.8,
             borderBottomRightRadius: (screenSize.width / 2) * 0.8,
             borderBottomLeftRadius: 0,
           },

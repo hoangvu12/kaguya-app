@@ -123,7 +123,7 @@ const BrightnessSlider = () => {
         sliderContainerStyles,
       ]}
     >
-      <View className="relative w-full flex-1">
+      <View className="relative w-full flex-1 overflow-hidden rounded-full">
         <View className="absolute top-0 h-full w-full rounded-full bg-primary-500/40" />
 
         <AnimatedView

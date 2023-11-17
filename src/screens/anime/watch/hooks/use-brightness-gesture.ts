@@ -24,7 +24,8 @@ const useBrightnessGesture = () => {
     baseValue: 0,
     initialBrightness: 0,
     moveTouchY: 0,
-    finalValue: 0,
+    finalValue: 1,
+    isShown: false,
   });
 
   const brightnessPan = Gesture.Pan()
@@ -40,14 +41,18 @@ const useBrightnessGesture = () => {
       refs.value.initialBrightness = initialBrightness;
       refs.value.moveTouchY = 0;
       refs.value.finalValue = initialBrightness;
-
-      brightnessSlider.show();
     })
     .onUpdate((event) => {
       if (event.x > screenSize.width - screenSize.width * WIDTH_PERCENT) return;
       if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
       if (event.y > screenSize.height * HEIGHT_PERCENT) return;
-      if (Math.abs(event.translationY) < 10) return;
+
+      if (Math.abs(event.translationY) > 10) {
+        if (!refs.value.isShown) {
+          brightnessSlider.show();
+          refs.value.isShown = true;
+        }
+      }
 
       const draggedHeight = event.y - refs.value.baseValue;
       const draggedBrightness = Math.abs(
@@ -77,10 +82,16 @@ const useBrightnessGesture = () => {
 
       brightnessSlider.setAnimationValue(refs.value.finalValue);
     })
-    .onEnd(() => {
+    .onEnd((event) => {
+      if (event.x > screenSize.width - screenSize.width * WIDTH_PERCENT) return;
+      if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
+      if (event.y > screenSize.height * HEIGHT_PERCENT) return;
+
       runOnJS(brightnessSlider.setBrightness)(refs.value.finalValue);
 
       brightnessSlider.hide();
+
+      refs.value.isShown = false;
     });
 
   return brightnessPan;
