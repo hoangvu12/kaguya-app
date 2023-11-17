@@ -11,7 +11,7 @@ export type ImgProps = ImageProps & {
 export const Image = ({
   style,
   className,
-  placeholder = 'L6PZfSi_.AyE_3t7t7R**0o#DgR4',
+  placeholder = 'L0Eyb[xufQxu-;fQfQfQfQfQfQfQ',
   ...props
 }: ImgProps) => {
   return (
@@ -19,6 +19,10 @@ export const Image = ({
       className={className}
       placeholder={placeholder}
       style={style}
+      transition={{
+        effect: 'cross-dissolve',
+        duration: 200,
+      }}
       {...props}
     />
   );
