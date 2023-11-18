@@ -2,17 +2,35 @@ import type { ConfigContext, ExpoConfig } from '@expo/config';
 
 import { ClientEnv, Env } from './env';
 
+let adaptiveIcon = '';
+let icon = '';
+let name = '';
+
+if (Env.APP_ENV === 'development') {
+  adaptiveIcon = './assets/dev-adaptive-icon.png';
+  icon = './assets/dev-icon.png';
+  name = `${Env.NAME} Dev`;
+} else if (Env.APP_ENV === 'alpha') {
+  adaptiveIcon = './assets/alpha-adaptive-icon.png';
+  icon = './assets/alpha-icon.png';
+  name = `${Env.NAME} Alpha`;
+} else {
+  adaptiveIcon = './assets/adaptive-icon.png';
+  icon = './assets/icon.png';
+  name = Env.NAME;
+}
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   backgroundColor: '#1c1414',
   scheme: 'kaguya',
-  name: Env.NAME,
+  name,
   description: `${Env.NAME} is an app with a good user interface that let you watch anime and read manga for free.`,
   owner: Env.EXPO_ACCOUNT_OWNER,
   slug: 'kaguya',
   version: Env.VERSION.toString(),
   orientation: 'portrait',
-  icon: './assets/adaptive-icon.png',
+  icon: adaptiveIcon,
   userInterfaceStyle: 'automatic',
   splash: {
     image: './assets/splash.png',
@@ -32,11 +50,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     permissions: ['READ_EXTERNAL_STORAGE'],
     adaptiveIcon: {
-      foregroundImage: './assets/adaptive-icon.png',
+      foregroundImage: adaptiveIcon,
       backgroundColor: '#1c1414',
     },
     package: Env.PACKAGE,
-    icon: './assets/icon.png',
+    icon: icon,
     intentFilters: [
       {
         action: 'VIEW',
@@ -104,24 +122,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         android: {
           kotlinVersion: '1.7.22', // this is for softinput package
         },
-      },
-    ],
-    [
-      'app-icon-badge',
-      {
-        enabled: true,
-        badges: [
-          {
-            text: Env.APP_ENV,
-            type: 'banner',
-            color: 'white',
-          },
-          {
-            text: Env.VERSION.toString(),
-            type: 'ribbon',
-            color: 'white',
-          },
-        ],
       },
     ],
     [
