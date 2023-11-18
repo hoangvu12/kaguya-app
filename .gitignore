@@ -56,3 +56,5 @@ yarn-error.*
 # @end expo-cli
 
 .env*
+
+android/

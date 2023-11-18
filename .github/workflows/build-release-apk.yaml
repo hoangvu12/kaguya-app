@@ -1,0 +1,42 @@
+name: Alpha Build
+
+# on:
+#   push:
+#     tags:
+#       - '*-alpha'
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: ⚙️ Run Prebuild
+        run: pnpm prebuild:alpha
+        shell: bash
+
+      - name: 📱 Run Android Build
+        run: pnpm build --non-interactive --output=./app-build --no-wait --message "Build alpha ${{ inputs.version }}"
+        shell: bash
+
+      - name: List files in app-build folder
+        run: ls -la ./app-build
+        shell: bash
+
+      # - name: Generate changelog
+      #   id: changelog
+      #   uses: metcalfc/changelog-generator@v4.1.0
+      #   with:
+      #     myToken: ${{ secrets.GITHUB_TOKEN }}

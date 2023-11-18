@@ -5,10 +5,6 @@ inputs:
     description: 'APP_ENV (one of): development, alpha, production'
     required: true
     default: 'alpha'
-  AUTO_SUBMIT: ## TODO: we need to handle this too
-    description: 'AUTO_SUBMIT (one of): true, false'
-    required: true
-    default: 'false'
   VERSION:
     description: 'VERSION (one of): latest, 0.0.0'
     required: true
