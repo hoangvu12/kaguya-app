@@ -1,52 +1,24 @@
 <h1 align="center">
   <img alt="logo" src="./assets/adaptive-icon.png" width="124px" style="border-radius:10px"/><br/>
-Mobile App </h1>
+Kaguya </h1>
 
-> This Project is based on [Obytes starter](https://starter.obytes.com)
+[![LICENSE](https://img.shields.io/github/license/hoangvu12/kaguya-app)](https://github.com/hoangvu12/kaguya-app/blob/main/LICENSE)
+[![Release](https://img.shields.io/github/package-json/v/hoangvu12/kaguya-app?color=b)](https://github.com/hoangvu12/kaguya-app/releases/latest)
 
-## 🔗 Requirements
+Kaguya is an application that track your anime/manga progress using AniList.
 
-## Requirements
+## Disclaimer
 
-- [React Native dev environment ](https://reactnative.dev/docs/environment-setup)
-- [Node.js LTS release](https://nodejs.org/en/)
-- [Git](https://git-scm.com/)
-- [Watchman](https://facebook.github.io/watchman/docs/install#buildinstall), required only for macOS or Linux users
-- [Pnpm](https://pnpm.io/installation)
-- [Expo Cli](https://docs.expo.dev/workflow/expo-cli/)
-- [VS Code Editor](https://code.visualstudio.com/download) ⚠️ Make sure to install all recommended extension from `.vscode/extensions.json`
+Kaguya do not host any of the media content. Please be aware of the copyright laws and regulations in your country before using the application.
 
-## 👋 Quick start
+## Support and Contribution
 
-Clone the repo to your machine and install deps :
+If you encounter any issues, have suggestions for improvement, or wish to contribute to the development of the application, feel free to create an issue or submit a pull request on our GitHub repository.
 
-```sh
-git clone https://github.com/user/repo-name
+## Discord
 
-cd ./repo-name
+<img src="https://invidget.switchblade.xyz/382BEFfER6" align="center"/>
 
-pnpm install
-```
+## License
 
-To run the app on ios
-
-```sh
-pnpm ios
-```
-
-To run the app on Android
-
-```sh
-pnpm android
-```
-
-## ✍️ Documentation
-
-- [Rules and Conventions](https://starter.obytes.com/getting-started/rules-and-convetions)
-- [Project structure](https://starter.obytes.com/getting-started/project-structure)
-- [Environment vars and config](https://starter.obytes.com/getting-started/environment-vars-config)
-- [UI and Theming](https://starter.obytes.com/ui-and-theme/ui-theming)
-- [Components](https://starter.obytes.com/ui-and-theme/components)
-- [Forms](https://starter.obytes.com/ui-and-theme/Forms)
-- [Data fetching](https://starter.obytes.com/guides/data-fetching)
-- [Contribute to starter](https://starter.obytes.com/how-to-contribute/)
+Kaguya is licensed under the [GNU General Public License v3.0](https://github.com/hoangvu12/kaguya-app/blob/main/LICENSE)
