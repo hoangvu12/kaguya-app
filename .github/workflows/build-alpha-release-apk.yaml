@@ -43,7 +43,7 @@ jobs:
         shell: bash
 
       - name: 📱 Run Android Build
-        run: pnpm build --non-interactive --output=./app-build --no-wait --message "Build alpha ${{ inputs.version }}"
+        run: pnpm build:alpha --non-interactive --output=./app-build --no-wait --message "Build alpha ${{ inputs.version }}"
         shell: bash
 
       - name: List files in app-build folder
