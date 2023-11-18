@@ -25,6 +25,13 @@ jobs:
       - name: 📦 Setup Node + PNPM + install deps
         uses: ./.github/actions/setup-node-pnpm-install
 
+      - name: Create .env with Github Secrets
+        run: |
+          touch .env.alpha
+          echo EAS_PROJECT_ID=$EAS_PROJECT_ID >> .env.alpha
+        env:
+          EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
+
       - name: 📦 Setup Expo and EAS
         uses: expo/expo-github-action@v8
         with:
