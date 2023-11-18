@@ -8,6 +8,7 @@ import { AnimeWatchScreen } from '@/screens/anime/watch/screen';
 export type AnimeParamsList = {
   AnimeDetails: {
     mediaId: number;
+    tab?: 'details' | 'episodes';
   };
   AnimeHome: undefined;
   AnimeWatch: {

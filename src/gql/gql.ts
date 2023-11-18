@@ -19,6 +19,10 @@ const documents = {
     types.PopularThisSeasonDocument,
   '\n  query UpcomingNextSeason($season: MediaSeason, $seasonYear: Int) {\n    Page(page: 1, perPage: 10) {\n      media(\n        type: ANIME\n        sort: [POPULARITY_DESC]\n        season: $season\n        seasonYear: $seasonYear\n      ) {\n        ...CardMedia\n      }\n    }\n  }\n':
     types.UpcomingNextSeasonDocument,
+  '\n  fragment WatchCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    bannerImage\n  }\n':
+    types.WatchCardFragmentDoc,
+  '\n  query WatchedList($id_in: [Int]) {\n    Page(page: 1, perPage: 10) {\n      media(id_in: $id_in) {\n        id\n        ...WatchCard\n      }\n    }\n  }\n':
+    types.WatchedListDocument,
   '\n  fragment DetailsHeaderMedia on Media {\n    title {\n      userPreferred\n    }\n    bannerImage\n    genres\n    favourites\n    averageScore\n    seasonYear\n    nextAiringEpisode {\n      airingAt\n      episode\n    }\n    coverImage {\n      large\n    }\n  }\n':
     types.DetailsHeaderMediaFragmentDoc,
   '\n  query InfoDetailsScreen($id: Int) {\n    Media(id: $id) {\n      title {\n        userPreferred\n      }\n      ...DetailsHeaderMedia\n      ...InfoScreenMedia\n      ...EpisodeContainer\n    }\n  }\n':
@@ -101,6 +105,18 @@ export function graphql(
 export function graphql(
   source: '\n  query UpcomingNextSeason($season: MediaSeason, $seasonYear: Int) {\n    Page(page: 1, perPage: 10) {\n      media(\n        type: ANIME\n        sort: [POPULARITY_DESC]\n        season: $season\n        seasonYear: $seasonYear\n      ) {\n        ...CardMedia\n      }\n    }\n  }\n'
 ): (typeof documents)['\n  query UpcomingNextSeason($season: MediaSeason, $seasonYear: Int) {\n    Page(page: 1, perPage: 10) {\n      media(\n        type: ANIME\n        sort: [POPULARITY_DESC]\n        season: $season\n        seasonYear: $seasonYear\n      ) {\n        ...CardMedia\n      }\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment WatchCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    bannerImage\n  }\n'
+): (typeof documents)['\n  fragment WatchCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    bannerImage\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query WatchedList($id_in: [Int]) {\n    Page(page: 1, perPage: 10) {\n      media(id_in: $id_in) {\n        id\n        ...WatchCard\n      }\n    }\n  }\n'
+): (typeof documents)['\n  query WatchedList($id_in: [Int]) {\n    Page(page: 1, perPage: 10) {\n      media(id_in: $id_in) {\n        id\n        ...WatchCard\n      }\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

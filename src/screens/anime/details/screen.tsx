@@ -55,7 +55,7 @@ const AnimatedText = Animated.createAnimatedComponent(Text);
 export const AnimeDetailsScreen: React.FC<Props> = ({ route }) => {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = React.useState<'details' | 'episodes'>(
-    'details'
+    route.params.tab || 'details'
   );
   const [headerHeight, setHeaderHeight] = React.useState(0);
   const navigationTopProgress = useSharedValue(0);

@@ -9,6 +9,7 @@ import AiringTodayList from './components/airing-today-list';
 import GenreList from './components/genre-list';
 import PopularThisSeason from './components/popular-this-season';
 import UpcomingNextSeason from './components/upcoming-next-season';
+import WatchedList from './components/watched-list';
 
 export const AnimeHomeScreen = () => {
   useModuleLinking();
@@ -21,6 +22,8 @@ export const AnimeHomeScreen = () => {
         <BannerList />
 
         <View className="flex-1 space-y-4 p-4">
+          <WatchedList />
+
           <View className="w-full space-y-2">
             <Text variant="lg">Genres</Text>
 

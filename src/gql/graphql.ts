@@ -4618,6 +4618,34 @@ export type UpcomingNextSeasonQuery = {
   } | null;
 };
 
+export type WatchCardFragment = {
+  __typename?: 'Media';
+  id: number;
+  bannerImage?: string | null;
+  title?: { __typename?: 'MediaTitle'; userPreferred?: string | null } | null;
+  coverImage?: { __typename?: 'MediaCoverImage'; large?: string | null } | null;
+} & { ' $fragmentName'?: 'WatchCardFragment' };
+
+export type WatchedListQueryVariables = Exact<{
+  id_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['Int']['input']>>
+    | InputMaybe<Scalars['Int']['input']>
+  >;
+}>;
+
+export type WatchedListQuery = {
+  __typename?: 'Query';
+  Page?: {
+    __typename?: 'Page';
+    media?: Array<
+      | ({ __typename?: 'Media'; id: number } & {
+          ' $fragmentRefs'?: { WatchCardFragment: WatchCardFragment };
+        })
+      | null
+    > | null;
+  } | null;
+};
+
 export type DetailsHeaderMediaFragment = {
   __typename?: 'Media';
   bannerImage?: string | null;
@@ -5105,6 +5133,49 @@ export type StaffCardFragment = {
   } | null;
 } & { ' $fragmentName'?: 'StaffCardFragment' };
 
+export const WatchCardFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'WatchCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<WatchCardFragment, unknown>;
 export const DetailsHeaderMediaFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -7540,6 +7611,117 @@ export const UpcomingNextSeasonDocument = {
   UpcomingNextSeasonQuery,
   UpcomingNextSeasonQueryVariables
 >;
+export const WatchedListDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'WatchedList' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'id_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'Page' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'page' },
+                value: { kind: 'IntValue', value: '1' },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: { kind: 'IntValue', value: '10' },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'media' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'id_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'id_in' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'WatchCard' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'WatchCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<WatchedListQuery, WatchedListQueryVariables>;
 export const InfoDetailsScreenDocument = {
   kind: 'Document',
   definitions: [
