@@ -1,16 +1,9 @@
 name: Alpha Build
 
-# on:
-#   push:
-#     tags:
-#       - '*-alpha'
-
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version'
-        required: true
+  push:
+    tags:
+      - 'v*-alpha'
 
 jobs:
   build:
@@ -43,21 +36,13 @@ jobs:
         shell: bash
 
       - name: 📱 Run Android Build
-        run: pnpm build:alpha --non-interactive --output=./app-build --no-wait --message "Build alpha ${{ inputs.version }}"
+        run: pnpm build:alpha --non-interactive --output=alpha-${{github.ref_name}}.apk --no-wait --message "Build alpha ${{ github.ref_name }}"
         shell: bash
 
-      - name: List files in app-build folder
-        run: ls -la ./app-build
-        shell: bash
-
-      - name: 📱 Upload binary
-        uses: actions/upload-artifact@v2
+      - name: Create Github Release
+        uses: ncipollo/release-action@v1
         with:
-          name: alpha-${{ inputs.version }}
-          path: app-build
-
-      # - name: Generate changelog
-      #   id: changelog
-      #   uses: metcalfc/changelog-generator@v4.1.0
-      #   with:
-      #     myToken: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: true
+          artifacts: 'alpha-${{github.ref_name}}.apk'
+          generateReleaseNotes: true
+          draft: false
