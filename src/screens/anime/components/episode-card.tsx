@@ -38,7 +38,7 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({
         <Image
           className="aspect-video w-full rounded-md"
           source={{
-            uri: episode.thumbnail,
+            uri: episode.thumbnail!,
           }}
           key={episode.thumbnail}
         />
