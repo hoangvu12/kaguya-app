@@ -293,8 +293,10 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
 
     if (!watchedEpisode) return;
 
+    if (watchedEpisode?.episode?.id !== currentEpisode?.id) return;
+
     playerRef.current?.seek(watchedEpisode.time);
-  }, [currentTime, mediaId, setCurrentTime]);
+  }, [currentEpisode?.id, currentTime, mediaId, setCurrentTime]);
 
   useEffect(() => {
     const interval = setInterval(() => {
