@@ -21,7 +21,7 @@ const GridList: React.FC<GridListProps> = ({ searchResults, onSelect }) => {
   return (
     <ScrollView horizontal={true}>
       <View
-        className="flex w-full flex-1 items-center justify-center"
+        className="flex w-full flex-1 items-center justify-center pb-32"
         style={{ marginLeft: LIST_PADDING }}
       >
         <FlatList
