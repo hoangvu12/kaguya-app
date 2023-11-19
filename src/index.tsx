@@ -11,10 +11,15 @@ import Toast, {
   InfoToast,
   SuccessToast,
 } from 'react-native-toast-message';
+import * as Sentry from 'sentry-expo';
 
 import { RootNavigator } from '@/navigation';
 
 import colors from './ui/theme/colors';
+
+Sentry.init({
+  dsn: 'https://cad498a877dee4bab91c07139ac82d8a@o4506254238285824.ingest.sentry.io/4506254249426944',
+});
 
 const toastConfig: ToastConfig = {
   success: (props) => (

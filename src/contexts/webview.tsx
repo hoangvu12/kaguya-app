@@ -3,8 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useRef } from 'react';
 import type { WebViewMessageEvent } from 'react-native-webview';
 import WebView from 'react-native-webview';
-
-import { reportErrorToDiscord } from '@/services/discord';
+import * as Sentry from 'sentry-expo';
 
 const createMessage = <T,>(event: string, data: T) => {
   return {
@@ -154,9 +153,7 @@ const WebViewProvider: React.FC<React.PropsWithChildren<{}>> = ({
           setWebView(webViewRef.current);
         }}
         onError={(error) => {
-          reportErrorToDiscord(
-            `Domain: ${error.nativeEvent.domain}\nCode: ${error.nativeEvent.code}\nDescription: ${error.nativeEvent.description}\nURL: ${error.nativeEvent.url}`
-          );
+          Sentry.Native.captureException(error);
         }}
         source={{ html: '<html><body><h1>Hello world</h1></body></html>' }}
         containerStyle={{ position: 'absolute', width: 0, height: 0 }}

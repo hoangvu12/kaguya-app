@@ -130,6 +130,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         username: 'hoangvu12',
       },
     ],
+    'sentry-expo',
   ],
   extra: {
     ...ClientEnv,
@@ -139,5 +140,17 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   runtimeVersion: {
     policy: 'appVersion',
+  },
+
+  hooks: {
+    postPublish: [
+      {
+        file: 'sentry-expo/upload-sourcemaps',
+        config: {
+          organization: 'kaguya-et',
+          project: 'kaguya-app',
+        },
+      },
+    ],
   },
 });
