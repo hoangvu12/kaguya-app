@@ -10,6 +10,7 @@ import { parseKModule, processKModule } from '@/utils/module';
 import useModules from './use-modules';
 
 const scheme = Linking.createURL('');
+const authScheme = Linking.createURL('auth');
 
 const useModuleLinking = () => {
   const url = useURL();
@@ -45,6 +46,8 @@ const useModuleLinking = () => {
       url.includes('http://')
     )
       return;
+
+    if (url.includes(authScheme)) return;
 
     installModule(url);
   }, [installModule, url]);

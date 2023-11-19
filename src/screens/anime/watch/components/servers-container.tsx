@@ -19,7 +19,7 @@ const ServersContainer: React.FC<ServersContainerProps> = ({
   const [currentServer, setCurrentServer] = useAtom(currentServerAtom);
 
   const { data: videoServers, isLoading: videoServersLoading } =
-    useLoadVideoServers(currentEpisode.id, currentEpisode.extra);
+    useLoadVideoServers(currentEpisode.id, currentEpisode.extra || undefined);
 
   useEffect(() => {
     if (!videoServers?.length) {

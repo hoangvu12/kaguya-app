@@ -5,8 +5,20 @@ import type { ComponentType } from 'react';
 import * as React from 'react';
 import type { SvgProps } from 'react-native-svg';
 
+import type {
+  MediaFormat,
+  MediaSeason,
+  MediaSort,
+  MediaSource,
+  MediaStatus,
+  MediaType,
+} from '@/gql/graphql';
 import ModuleScreen from '@/screens/module/screen';
 import SearchScreen from '@/screens/search/screen';
+import SettingsScreen from '@/screens/settings/screen';
+
+import type { MediaCountry } from '@/screens/search/store';
+
 import { Anime as AnimeIcon, colors, Settings as SettingsIcon } from '@/ui';
 import { BoxIcon } from '@/ui/icons/box';
 import { Search } from '@/ui/icons/search';
@@ -16,8 +28,20 @@ import { AnimeNavigator } from './anime-navigator';
 export type TabParamList = {
   Anime: undefined;
   Settings: undefined;
+  Search: {
+    keyword?: string;
+    mediaType?: MediaType;
+    sort?: MediaSort;
+    genres?: string[];
+    year?: number;
+    season?: MediaSeason;
+    format?: MediaFormat;
+    country?: MediaCountry;
+    tags?: string[];
+    status?: MediaStatus;
+    source?: MediaSource;
+  };
   Module: undefined;
-  Search: undefined;
 };
 
 type TabType = {
@@ -61,6 +85,11 @@ const tabs: TabType[] = [
     component: SearchScreen,
     label: 'Search',
   },
+  {
+    name: 'Settings',
+    component: SettingsScreen,
+    label: 'Settings',
+  },
 ];
 
 type BarIconType = {
@@ -97,7 +126,6 @@ export const TabNavigator = () => {
     >
       <Tab.Group
         screenOptions={{
-          // header,
           headerShown: false,
         }}
       >

@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import type { ViewProps } from 'react-native';
@@ -7,6 +8,7 @@ import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
 import { Button, Text, View } from '@/ui';
 import Chip from '@/ui/core/chip';
+import Pressable from '@/ui/core/pressable';
 
 export const TagListFragment = graphql(`
   fragment TagListMedia on MediaTag {
@@ -39,6 +41,12 @@ const TagList: React.FC<TagListProps> = ({
     return tags;
   }, [showSpoilers, tags]);
 
+  const navigation = useNavigation();
+
+  const handlePress = (tag: string) => {
+    navigation.navigate('Search', { tags: [tag] });
+  };
+
   if (tags.length === 0) return null;
 
   return (
@@ -51,9 +59,11 @@ const TagList: React.FC<TagListProps> = ({
         estimatedItemSize={137}
         data={filteredTags}
         renderItem={({ item }) => (
-          <Chip>
-            <Text variant="sm">{`${item.name}: ${item.rank || 0}%`}</Text>
-          </Chip>
+          <Pressable onPress={() => handlePress(item.name)}>
+            <Chip>
+              <Text variant="sm">{`${item.name}: ${item.rank || 0}%`}</Text>
+            </Chip>
+          </Pressable>
         )}
         keyExtractor={(item) => item.id.toString()}
         horizontal

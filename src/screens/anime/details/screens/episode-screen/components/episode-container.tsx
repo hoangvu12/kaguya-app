@@ -1,8 +1,9 @@
 import { useAtomValue, useSetAtom } from 'jotai/react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Else, If, Then } from 'react-if';
 
 import { type FragmentType, graphql, useFragment } from '@/gql';
+import { getWatchedEpisode } from '@/storage/episode';
 import { currentModuleIdAtom } from '@/store';
 import { ActivityIndicator, colors, Text, View } from '@/ui';
 
@@ -17,6 +18,9 @@ import WrongTitle from './wrong-title';
 export const EpisodeContainerFragment = graphql(`
   fragment EpisodeContainer on Media {
     id
+    mediaListEntry {
+      progress
+    }
     ...WrongTitle
     ...UseAnimeEpisode
   }
@@ -36,6 +40,8 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
   const setSectionEpisodes = useSetAtom(sectionEpisodesAtom);
   const setEpisodeChunk = useSetAtom(episodeChunkAtom);
 
+  const watchedEp = getWatchedEpisode(media.id);
+
   useEffect(() => {
     // Reset episodes when loading
     if (isLoading) {
@@ -43,6 +49,34 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
       setEpisodeChunk([]);
     }
   }, [isLoading, setEpisodeChunk, setSectionEpisodes]);
+
+  const progress = useMemo(() => {
+    const hasAniListProgress =
+      media.mediaListEntry?.progress !== null &&
+      media.mediaListEntry?.progress !== undefined;
+    const hasLocalProgress = watchedEp !== null && watchedEp !== undefined;
+
+    if (!hasAniListProgress && !hasLocalProgress) {
+      return undefined;
+    }
+
+    if (!hasAniListProgress) {
+      const number = parseInt(watchedEp?.episode.number ?? '0', 10);
+
+      return isNaN(number) ? undefined : number;
+    }
+
+    if (!hasLocalProgress) {
+      return media.mediaListEntry?.progress || undefined;
+    }
+
+    const localProgress = parseInt(watchedEp?.episode.number ?? '0', 10);
+
+    // +1 because we want to start from the next episode
+    const anilistProgress = media.mediaListEntry?.progress! + 1;
+
+    return Math.max(localProgress!, anilistProgress);
+  }, [media.mediaListEntry?.progress, watchedEp]);
 
   return (
     <View>
@@ -75,7 +109,10 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
               <Else>
                 <EpisodeSectionSelector episodes={data!} />
                 <EpisodeChunkSelector />
-                <EpisodeLayoutContainer mediaId={media.id} />
+                <EpisodeLayoutContainer
+                  mediaId={media.id}
+                  progress={progress}
+                />
               </Else>
             </If>
           </Else>

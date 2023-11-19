@@ -82,12 +82,10 @@ const useBrightnessGesture = () => {
 
       brightnessSlider.setAnimationValue(refs.value.finalValue);
     })
-    .onEnd((event) => {
-      if (event.x > screenSize.width - screenSize.width * WIDTH_PERCENT) return;
-      if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
-      if (event.y > screenSize.height * HEIGHT_PERCENT) return;
-
-      runOnJS(brightnessSlider.setBrightness)(refs.value.finalValue);
+    .onFinalize((event) => {
+      if (Math.abs(event.translationY) > 10) {
+        runOnJS(brightnessSlider.setBrightness)(refs.value.finalValue);
+      }
 
       brightnessSlider.hide();
 

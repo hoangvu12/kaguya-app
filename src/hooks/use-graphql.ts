@@ -1,6 +1,7 @@
 import type { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { useQuery } from '@tanstack/react-query';
-import request from 'graphql-request';
+
+import anilistClient from '@/services/anilist';
 
 export function useGraphQL<TResult, TVariables>(
   document: TypedDocumentNode<TResult, TVariables>,
@@ -13,11 +14,7 @@ export function useGraphQL<TResult, TVariables>(
       variables,
     ] as const,
     async ({ queryKey: [document, variables] }) => {
-      const data = await request(
-        'https://graphql.anilist.co',
-        document,
-        variables || {}
-      );
+      const data = await anilistClient.request(document, variables || {});
 
       return data;
     }

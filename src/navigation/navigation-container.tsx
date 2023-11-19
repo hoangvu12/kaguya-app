@@ -21,6 +21,9 @@ const linking = {
               AnimeHome: '*',
             },
           },
+          Settings: {
+            path: 'settings',
+          },
         },
       },
     },
