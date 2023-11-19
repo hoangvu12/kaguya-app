@@ -33,7 +33,7 @@ const documents = {
     types.DetailsHeaderMediaFragmentDoc,
   '\n  query InfoDetailsScreen($id: Int) {\n    Media(id: $id) {\n      title {\n        userPreferred\n      }\n      ...DetailsHeaderMedia\n      ...InfoScreenMedia\n      ...EpisodeContainer\n    }\n  }\n':
     types.InfoDetailsScreenDocument,
-  '\n  fragment EpisodeContainer on Media {\n    id\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n':
+  '\n  fragment EpisodeContainer on Media {\n    id\n    mediaListEntry {\n      progress\n    }\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n':
     types.EpisodeContainerFragmentDoc,
   '\n  fragment WrongTitle on Media {\n    id\n    title {\n      english\n    }\n  }\n':
     types.WrongTitleFragmentDoc,
@@ -157,8 +157,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment EpisodeContainer on Media {\n    id\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n'
-): (typeof documents)['\n  fragment EpisodeContainer on Media {\n    id\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n'];
+  source: '\n  fragment EpisodeContainer on Media {\n    id\n    mediaListEntry {\n      progress\n    }\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n'
+): (typeof documents)['\n  fragment EpisodeContainer on Media {\n    id\n    mediaListEntry {\n      progress\n    }\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

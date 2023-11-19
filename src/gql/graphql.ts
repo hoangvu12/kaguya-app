@@ -4764,7 +4764,14 @@ export type InfoDetailsScreenQuery = {
     | null;
 };
 
-export type EpisodeContainerFragment = ({ __typename?: 'Media'; id: number } & {
+export type EpisodeContainerFragment = ({
+  __typename?: 'Media';
+  id: number;
+  mediaListEntry?: {
+    __typename?: 'MediaList';
+    progress?: number | null;
+  } | null;
+} & {
   ' $fragmentRefs'?: {
     WrongTitleFragment: WrongTitleFragment;
     UseAnimeEpisodeFragment: UseAnimeEpisodeFragment;
@@ -5536,6 +5543,16 @@ export const EpisodeContainerFragmentDoc = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'WrongTitle' },
@@ -9241,6 +9258,16 @@ export const InfoDetailsScreenDocument = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'WrongTitle' },
