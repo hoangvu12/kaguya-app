@@ -7,7 +7,7 @@ import type { SearchResult } from '@/types';
 
 const useAnimeSearch = (
   query: string,
-  options?: UseQueryOptions<SearchResult[], unknown, SearchResult[], any[]>
+  options?: UseQueryOptions<SearchResult[], Error, SearchResult[], any[]>
 ) => {
   return useWebViewData(
     ['anime-search', query],
