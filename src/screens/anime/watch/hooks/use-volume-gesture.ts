@@ -73,12 +73,10 @@ const useVolumeGesture = () => {
 
       volumeSlider.setAnimationValue(refs.value.finalValue);
     })
-    .onEnd((event) => {
-      if (event.x < screenSize.width * WIDTH_PERCENT) return;
-      if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
-      if (event.y > screenSize.height * HEIGHT_PERCENT) return;
-
-      runOnJS(volumeSlider.setVolume)(refs.value.finalValue);
+    .onFinalize((event) => {
+      if (Math.abs(event.translationY) > 10) {
+        runOnJS(volumeSlider.setVolume)(refs.value.finalValue);
+      }
 
       volumeSlider.hide();
 

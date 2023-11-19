@@ -90,7 +90,7 @@ export function WatchedListSkeleton() {
   const skeletonItems = Array.from({ length: numberOfItems }).map((_, i) => i);
 
   return (
-    <Skeleton className="flex flex-row items-center bg-red-500">
+    <Skeleton className="flex flex-row items-center">
       {skeletonItems.map((_, i) => (
         <SkeletonItem
           key={i}
