@@ -22,10 +22,8 @@ jobs:
         run: |
           touch .env.alpha
           echo EAS_PROJECT_ID=$EAS_PROJECT_ID >> .env.alpha
-          echo SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN >> .env.alpha
         env:
           EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
       - name: 📦 Setup Expo and EAS
         uses: expo/expo-github-action@v8
@@ -40,6 +38,8 @@ jobs:
       - name: 📱 Run Android Build
         run: pnpm build:alpha --non-interactive --output=alpha-${{github.ref_name}}.apk --no-wait --message "Build alpha ${{ github.ref_name }}"
         shell: bash
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
       - name: Create Github Release
         uses: ncipollo/release-action@v1
