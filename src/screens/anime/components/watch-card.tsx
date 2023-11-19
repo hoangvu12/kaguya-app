@@ -5,9 +5,9 @@ import React from 'react';
 
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
-import type { WatchedEpisode } from '@/storage/episode';
 import { addAlpha, colors, Image, Text, View } from '@/ui';
 import Pressable from '@/ui/core/pressable';
+import MediaUnitStats from '@/ui/media-unit-stats';
 
 export const WatchCardFragment = graphql(`
   fragment WatchCard on Media {
@@ -19,12 +19,17 @@ export const WatchCardFragment = graphql(`
       large
     }
     bannerImage
+    ...MediaUnitStatsMedia
   }
 `);
 
 interface WatchCardProps {
   media: FragmentType<typeof WatchCardFragment>;
-  watchedData: WatchedEpisode;
+  watchedData: {
+    thumbnail?: string;
+    number: string | number;
+    title?: string;
+  };
 }
 
 const linearGradientColors = [
@@ -58,7 +63,7 @@ const WatchCard: React.FC<WatchCardProps> = ({
         <Image
           source={{
             uri:
-              watchedData?.episode?.thumbnail ||
+              watchedData?.thumbnail ||
               media?.bannerImage ||
               media?.coverImage?.large!,
           }}
@@ -71,25 +76,27 @@ const WatchCard: React.FC<WatchCardProps> = ({
           className="absolute inset-0"
         />
 
-        <View className="gap-1,5 absolute bottom-1.5 left-1.5 flex flex-row items-center gap-1.5">
-          <Text variant="sm" numberOfLines={1}>
-            {watchedData?.episode?.number}
-          </Text>
-
-          <View className="h-1.5 w-1.5 rounded-full bg-thunder-400" />
-
-          {watchedData?.episode?.title && (
+        {watchedData?.title && (
+          <View className="absolute bottom-1.5 left-1.5 flex flex-row items-center gap-1.5">
             <Text variant="sm" numberOfLines={1}>
-              {watchedData.episode.title}
+              {watchedData?.number}
             </Text>
-          )}
-        </View>
+
+            <View className="h-1.5 w-1.5 rounded-full bg-thunder-400" />
+
+            <Text variant="sm" numberOfLines={1}>
+              {watchedData.title}
+            </Text>
+          </View>
+        )}
       </Pressable>
 
       <Pressable onPress={handleNavigate} android_ripple={null}>
-        <Text variant="sm" className="mt-1" numberOfLines={2}>
+        <Text variant="sm" className="mt-1" numberOfLines={1}>
           {media?.title?.userPreferred}
         </Text>
+
+        <MediaUnitStats media={media} />
       </Pressable>
     </View>
   );
