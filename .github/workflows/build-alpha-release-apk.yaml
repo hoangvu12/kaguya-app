@@ -22,8 +22,10 @@ jobs:
         run: |
           touch .env.alpha
           echo EAS_PROJECT_ID=$EAS_PROJECT_ID >> .env.alpha
+          echo REPORT_WEBHOOK=$REPORT_WEBHOOK >> .env.alpha
         env:
           EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
+          REPORT_WEBHOOK: ${{ secrets.REPORT_WEBHOOK }}
 
       - name: 📦 Setup Expo and EAS
         uses: expo/expo-github-action@v8

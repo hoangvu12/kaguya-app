@@ -116,6 +116,12 @@ dependencies:
   react-native:
     specifier: 0.72.5
     version: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
+  react-native-device-info:
+    specifier: ^10.11.0
+    version: 10.11.0(react-native@0.72.5)
+  react-native-exception-handler:
+    specifier: ^2.10.10
+    version: 2.10.10(react-native@0.72.5)(react@18.2.0)
   react-native-gesture-handler:
     specifier: ~2.12.0
     version: 2.12.0(react-native@0.72.5)(react@18.2.0)
@@ -13493,6 +13499,24 @@ packages:
     resolution: {integrity: sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==}
     dependencies:
       prop-types: 15.8.1
+    dev: false
+
+  /react-native-device-info@10.11.0(react-native@0.72.5):
+    resolution: {integrity: sha512-qRzhuYOm5ZXQi5dhfJFjDq157oipxcEW/fo0QyMm5+TI6V6/+P/tju+Hif6z0rpLCf7MV7iDVRv2Kqha4D/yvQ==}
+    peerDependencies:
+      react-native: '*'
+    dependencies:
+      react-native: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
+    dev: false
+
+  /react-native-exception-handler@2.10.10(react-native@0.72.5)(react@18.2.0):
+    resolution: {integrity: sha512-otAXGoZDl1689OoUJWN/rXxVbdoZ3xcmyF1uq/CsizdLwwyZqVGd6d+p/vbYvnF996FfEyAEBnHrdFxulTn51w==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
     dev: false
 
   /react-native-gesture-handler@2.12.0(react-native@0.72.5)(react@18.2.0):
