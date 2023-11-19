@@ -73,6 +73,8 @@ const client = z.object({
   VERSION: z.string(),
 
   // ADD YOUR CLIENT ENV VARS HERE
+
+  REPORT_WEBHOOK: z.string().optional(),
 });
 
 const buildTime = z.object({
@@ -92,6 +94,7 @@ const _clientEnv = {
   VERSION: packageJSON.version,
 
   // ADD YOUR ENV VARS HERE TOO
+  REPORT_WEBHOOK: process.env.REPORT_WEBHOOK,
 };
 
 /**
