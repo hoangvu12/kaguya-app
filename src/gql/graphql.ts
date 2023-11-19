@@ -4562,6 +4562,53 @@ export type YearStats = {
   year?: Maybe<Scalars['Int']['output']>;
 };
 
+export type ViewerQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ViewerQuery = {
+  __typename?: 'Query';
+  Viewer?: {
+    __typename?: 'User';
+    name: string;
+    id: number;
+    avatar?: { __typename?: 'UserAvatar'; medium?: string | null } | null;
+  } | null;
+};
+
+export type SaveMediaListEntryMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['Int']['input']>;
+  mediaId?: InputMaybe<Scalars['Int']['input']>;
+  status?: InputMaybe<MediaListStatus>;
+  score?: InputMaybe<Scalars['Float']['input']>;
+  scoreRaw?: InputMaybe<Scalars['Int']['input']>;
+  progress?: InputMaybe<Scalars['Int']['input']>;
+  progressVolumes?: InputMaybe<Scalars['Int']['input']>;
+  repeat?: InputMaybe<Scalars['Int']['input']>;
+  priority?: InputMaybe<Scalars['Int']['input']>;
+  private?: InputMaybe<Scalars['Boolean']['input']>;
+  notes?: InputMaybe<Scalars['String']['input']>;
+  hiddenFromStatusLists?: InputMaybe<Scalars['Boolean']['input']>;
+  customLists?: InputMaybe<
+    | Array<InputMaybe<Scalars['String']['input']>>
+    | InputMaybe<Scalars['String']['input']>
+  >;
+  advancedScores?: InputMaybe<
+    | Array<InputMaybe<Scalars['Float']['input']>>
+    | InputMaybe<Scalars['Float']['input']>
+  >;
+  startedAt?: InputMaybe<FuzzyDateInput>;
+  completedAt?: InputMaybe<FuzzyDateInput>;
+}>;
+
+export type SaveMediaListEntryMutation = {
+  __typename?: 'Mutation';
+  SaveMediaListEntry?: {
+    __typename?: 'MediaList';
+    progress?: number | null;
+    score?: number | null;
+    status?: MediaListStatus | null;
+  } | null;
+};
+
 export type AiringScheduleQueryVariables = Exact<{
   airingAt_greater?: InputMaybe<Scalars['Int']['input']>;
   airingAt_lesser?: InputMaybe<Scalars['Int']['input']>;
@@ -4618,13 +4665,17 @@ export type UpcomingNextSeasonQuery = {
   } | null;
 };
 
-export type WatchCardFragment = {
+export type WatchCardFragment = ({
   __typename?: 'Media';
   id: number;
   bannerImage?: string | null;
   title?: { __typename?: 'MediaTitle'; userPreferred?: string | null } | null;
   coverImage?: { __typename?: 'MediaCoverImage'; large?: string | null } | null;
-} & { ' $fragmentName'?: 'WatchCardFragment' };
+} & {
+  ' $fragmentRefs'?: {
+    MediaUnitStatsMediaFragment: MediaUnitStatsMediaFragment;
+  };
+}) & { ' $fragmentName'?: 'WatchCardFragment' };
 
 export type WatchedListQueryVariables = Exact<{
   id_in?: InputMaybe<
@@ -4643,6 +4694,34 @@ export type WatchedListQuery = {
         })
       | null
     > | null;
+  } | null;
+};
+
+export type AuthWatchedListQueryVariables = Exact<{
+  userId?: InputMaybe<Scalars['Int']['input']>;
+  userName?: InputMaybe<Scalars['String']['input']>;
+  status_in?: InputMaybe<
+    Array<InputMaybe<MediaListStatus>> | InputMaybe<MediaListStatus>
+  >;
+  type?: InputMaybe<MediaType>;
+  sort?: InputMaybe<
+    Array<InputMaybe<MediaListSort>> | InputMaybe<MediaListSort>
+  >;
+}>;
+
+export type AuthWatchedListQuery = {
+  __typename?: 'Query';
+  Page?: {
+    __typename?: 'Page';
+    mediaList?: Array<{
+      __typename?: 'MediaList';
+      progress?: number | null;
+      media?:
+        | ({ __typename?: 'Media'; id: number } & {
+            ' $fragmentRefs'?: { WatchCardFragment: WatchCardFragment };
+          })
+        | null;
+    } | null> | null;
   } | null;
 };
 
@@ -5133,6 +5212,47 @@ export type StaffCardFragment = {
   } | null;
 } & { ' $fragmentName'?: 'StaffCardFragment' };
 
+export const MediaUnitStatsMediaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MediaUnitStatsMediaFragment, unknown>;
 export const WatchCardFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -5171,6 +5291,46 @@ export const WatchCardFragmentDoc = {
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -5513,47 +5673,6 @@ export const SpecialRelationListMediaFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<SpecialRelationListMediaFragment, unknown>;
-export const MediaUnitStatsMediaFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Media' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'mediaListEntry' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'nextAiringEpisode' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<MediaUnitStatsMediaFragment, unknown>;
 export const CardMediaFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -7066,6 +7185,360 @@ export const BannerCardMediaFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<BannerCardMediaFragment, unknown>;
+export const ViewerDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Viewer' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'Viewer' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'avatar' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'medium' },
+                      },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ViewerQuery, ViewerQueryVariables>;
+export const SaveMediaListEntryDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'SaveMediaListEntry' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'mediaId' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'status' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'MediaListStatus' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'score' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'scoreRaw' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'progress' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'progressVolumes' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'repeat' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'priority' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'private' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'notes' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'hiddenFromStatusLists' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'customLists' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'advancedScores' },
+          },
+          type: {
+            kind: 'ListType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Float' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'startedAt' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'FuzzyDateInput' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'completedAt' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'FuzzyDateInput' },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'SaveMediaListEntry' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'id' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'mediaId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'mediaId' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'status' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'status' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'score' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'score' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'scoreRaw' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'scoreRaw' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'progress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'progress' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'progressVolumes' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'progressVolumes' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'repeat' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'repeat' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'priority' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'priority' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'private' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'private' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'notes' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'notes' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'hiddenFromStatusLists' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'hiddenFromStatusLists' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'customLists' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'customLists' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'advancedScores' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'advancedScores' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'startedAt' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'startedAt' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'completedAt' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'completedAt' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'score' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'format' },
+                      value: { kind: 'EnumValue', value: 'POINT_10_DECIMAL' },
+                    },
+                  ],
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  SaveMediaListEntryMutation,
+  SaveMediaListEntryMutationVariables
+>;
 export const AiringScheduleDocument = {
   kind: 'Document',
   definitions: [
@@ -7684,6 +8157,42 @@ export const WatchedListDocument = {
     },
     {
       kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'WatchCard' },
       typeCondition: {
         kind: 'NamedType',
@@ -7717,11 +8226,255 @@ export const WatchedListDocument = {
             },
           },
           { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
         ],
       },
     },
   ],
 } as unknown as DocumentNode<WatchedListQuery, WatchedListQueryVariables>;
+export const AuthWatchedListDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'AuthWatchedList' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'userId' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'userName' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'status_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'MediaListStatus' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'type' } },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'MediaType' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'MediaListSort' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'Page' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'page' },
+                value: { kind: 'IntValue', value: '1' },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: { kind: 'IntValue', value: '10' },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'mediaList' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'userId' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'userId' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'userName' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'userName' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'status_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'status_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'type' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'type' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'sort' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'sort' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'progress' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'media' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'WatchCard' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'WatchCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  AuthWatchedListQuery,
+  AuthWatchedListQueryVariables
+>;
 export const InfoDetailsScreenDocument = {
   kind: 'Document',
   definitions: [

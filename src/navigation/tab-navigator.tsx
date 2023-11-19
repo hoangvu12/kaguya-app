@@ -16,6 +16,7 @@ import type {
 import ModuleScreen from '@/screens/module/screen';
 import SearchScreen from '@/screens/search/screen';
 import type { MediaCountry } from '@/screens/search/store';
+import SettingsScreen from '@/screens/settings/screen';
 import { Anime as AnimeIcon, colors, Settings as SettingsIcon } from '@/ui';
 import { BoxIcon } from '@/ui/icons/box';
 import { Search } from '@/ui/icons/search';
@@ -25,7 +26,6 @@ import { AnimeNavigator } from './anime-navigator';
 export type TabParamList = {
   Anime: undefined;
   Settings: undefined;
-  Module: undefined;
   Search: {
     keyword?: string;
     mediaType?: MediaType;
@@ -39,6 +39,7 @@ export type TabParamList = {
     status?: MediaStatus;
     source?: MediaSource;
   };
+  Module: undefined;
 };
 
 type TabType = {
@@ -82,6 +83,11 @@ const tabs: TabType[] = [
     component: SearchScreen,
     label: 'Search',
   },
+  {
+    name: 'Settings',
+    component: SettingsScreen,
+    label: 'Settings',
+  },
 ];
 
 type BarIconType = {
@@ -118,7 +124,6 @@ export const TabNavigator = () => {
     >
       <Tab.Group
         screenOptions={{
-          // header,
           headerShown: false,
         }}
       >

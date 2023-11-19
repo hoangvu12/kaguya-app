@@ -156,3 +156,15 @@ export const removeArrayOfObjectDup = <T extends object, K extends keyof T>(
       index === self.findIndex((t) => t[property] === obj[property])
   );
 };
+
+export function paramsToObject(params: string): Record<string, string> {
+  const pairs = params.split('&');
+  const result: Record<string, string> = {};
+
+  pairs.forEach((pair) => {
+    const [key, value] = pair.split('=');
+    result[key] = decodeURIComponent(value);
+  });
+
+  return result;
+}

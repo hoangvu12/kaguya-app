@@ -13,16 +13,22 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+  '\n  query Viewer {\n    Viewer {\n      name\n      avatar {\n        medium\n      }\n      id\n    }\n  }\n':
+    types.ViewerDocument,
+  '\n  mutation SaveMediaListEntry(\n    $id: Int\n    $mediaId: Int\n    $status: MediaListStatus\n    $score: Float\n    $scoreRaw: Int\n    $progress: Int\n    $progressVolumes: Int\n    $repeat: Int\n    $priority: Int\n    $private: Boolean\n    $notes: String\n    $hiddenFromStatusLists: Boolean\n    $customLists: [String]\n    $advancedScores: [Float]\n    $startedAt: FuzzyDateInput\n    $completedAt: FuzzyDateInput\n  ) {\n    SaveMediaListEntry(\n      id: $id\n      mediaId: $mediaId\n      status: $status\n      score: $score\n      scoreRaw: $scoreRaw\n      progress: $progress\n      progressVolumes: $progressVolumes\n      repeat: $repeat\n      priority: $priority\n      private: $private\n      notes: $notes\n      hiddenFromStatusLists: $hiddenFromStatusLists\n      customLists: $customLists\n      advancedScores: $advancedScores\n      startedAt: $startedAt\n      completedAt: $completedAt\n    ) {\n      progress\n      score(format: POINT_10_DECIMAL)\n      status\n    }\n  }\n':
+    types.SaveMediaListEntryDocument,
   '\n  query AiringSchedule($airingAt_greater: Int, $airingAt_lesser: Int) {\n    Page(page: 1, perPage: 20) {\n      airingSchedules(\n        airingAt_greater: $airingAt_greater\n        airingAt_lesser: $airingAt_lesser\n        sort: [TIME_DESC]\n      ) {\n        media {\n          ...CardMedia\n        }\n      }\n    }\n  }\n':
     types.AiringScheduleDocument,
   '\n  query PopularThisSeason($season: MediaSeason, $seasonYear: Int) {\n    Page(page: 1, perPage: 10) {\n      media(\n        type: ANIME\n        sort: [POPULARITY_DESC]\n        season: $season\n        seasonYear: $seasonYear\n      ) {\n        ...CardMedia\n      }\n    }\n  }\n':
     types.PopularThisSeasonDocument,
   '\n  query UpcomingNextSeason($season: MediaSeason, $seasonYear: Int) {\n    Page(page: 1, perPage: 10) {\n      media(\n        type: ANIME\n        sort: [POPULARITY_DESC]\n        season: $season\n        seasonYear: $seasonYear\n      ) {\n        ...CardMedia\n      }\n    }\n  }\n':
     types.UpcomingNextSeasonDocument,
-  '\n  fragment WatchCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    bannerImage\n  }\n':
+  '\n  fragment WatchCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    bannerImage\n    ...MediaUnitStatsMedia\n  }\n':
     types.WatchCardFragmentDoc,
   '\n  query WatchedList($id_in: [Int]) {\n    Page(page: 1, perPage: 10) {\n      media(id_in: $id_in) {\n        id\n        ...WatchCard\n      }\n    }\n  }\n':
     types.WatchedListDocument,
+  '\n  query AuthWatchedList(\n    $userId: Int\n    $userName: String\n    $status_in: [MediaListStatus]\n    $type: MediaType\n    $sort: [MediaListSort]\n  ) {\n    Page(page: 1, perPage: 10) {\n      mediaList(\n        userId: $userId\n        userName: $userName\n        status_in: $status_in\n        type: $type\n        sort: $sort\n      ) {\n        progress\n        media {\n          id\n          ...WatchCard\n        }\n      }\n    }\n  }\n':
+    types.AuthWatchedListDocument,
   '\n  fragment DetailsHeaderMedia on Media {\n    title {\n      userPreferred\n    }\n    bannerImage\n    genres\n    favourites\n    averageScore\n    seasonYear\n    nextAiringEpisode {\n      airingAt\n      episode\n    }\n    coverImage {\n      large\n    }\n  }\n':
     types.DetailsHeaderMediaFragmentDoc,
   '\n  query InfoDetailsScreen($id: Int) {\n    Media(id: $id) {\n      title {\n        userPreferred\n      }\n      ...DetailsHeaderMedia\n      ...InfoScreenMedia\n      ...EpisodeContainer\n    }\n  }\n':
@@ -91,6 +97,18 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
+  source: '\n  query Viewer {\n    Viewer {\n      name\n      avatar {\n        medium\n      }\n      id\n    }\n  }\n'
+): (typeof documents)['\n  query Viewer {\n    Viewer {\n      name\n      avatar {\n        medium\n      }\n      id\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation SaveMediaListEntry(\n    $id: Int\n    $mediaId: Int\n    $status: MediaListStatus\n    $score: Float\n    $scoreRaw: Int\n    $progress: Int\n    $progressVolumes: Int\n    $repeat: Int\n    $priority: Int\n    $private: Boolean\n    $notes: String\n    $hiddenFromStatusLists: Boolean\n    $customLists: [String]\n    $advancedScores: [Float]\n    $startedAt: FuzzyDateInput\n    $completedAt: FuzzyDateInput\n  ) {\n    SaveMediaListEntry(\n      id: $id\n      mediaId: $mediaId\n      status: $status\n      score: $score\n      scoreRaw: $scoreRaw\n      progress: $progress\n      progressVolumes: $progressVolumes\n      repeat: $repeat\n      priority: $priority\n      private: $private\n      notes: $notes\n      hiddenFromStatusLists: $hiddenFromStatusLists\n      customLists: $customLists\n      advancedScores: $advancedScores\n      startedAt: $startedAt\n      completedAt: $completedAt\n    ) {\n      progress\n      score(format: POINT_10_DECIMAL)\n      status\n    }\n  }\n'
+): (typeof documents)['\n  mutation SaveMediaListEntry(\n    $id: Int\n    $mediaId: Int\n    $status: MediaListStatus\n    $score: Float\n    $scoreRaw: Int\n    $progress: Int\n    $progressVolumes: Int\n    $repeat: Int\n    $priority: Int\n    $private: Boolean\n    $notes: String\n    $hiddenFromStatusLists: Boolean\n    $customLists: [String]\n    $advancedScores: [Float]\n    $startedAt: FuzzyDateInput\n    $completedAt: FuzzyDateInput\n  ) {\n    SaveMediaListEntry(\n      id: $id\n      mediaId: $mediaId\n      status: $status\n      score: $score\n      scoreRaw: $scoreRaw\n      progress: $progress\n      progressVolumes: $progressVolumes\n      repeat: $repeat\n      priority: $priority\n      private: $private\n      notes: $notes\n      hiddenFromStatusLists: $hiddenFromStatusLists\n      customLists: $customLists\n      advancedScores: $advancedScores\n      startedAt: $startedAt\n      completedAt: $completedAt\n    ) {\n      progress\n      score(format: POINT_10_DECIMAL)\n      status\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
   source: '\n  query AiringSchedule($airingAt_greater: Int, $airingAt_lesser: Int) {\n    Page(page: 1, perPage: 20) {\n      airingSchedules(\n        airingAt_greater: $airingAt_greater\n        airingAt_lesser: $airingAt_lesser\n        sort: [TIME_DESC]\n      ) {\n        media {\n          ...CardMedia\n        }\n      }\n    }\n  }\n'
 ): (typeof documents)['\n  query AiringSchedule($airingAt_greater: Int, $airingAt_lesser: Int) {\n    Page(page: 1, perPage: 20) {\n      airingSchedules(\n        airingAt_greater: $airingAt_greater\n        airingAt_lesser: $airingAt_lesser\n        sort: [TIME_DESC]\n      ) {\n        media {\n          ...CardMedia\n        }\n      }\n    }\n  }\n'];
 /**
@@ -109,14 +127,20 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment WatchCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    bannerImage\n  }\n'
-): (typeof documents)['\n  fragment WatchCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    bannerImage\n  }\n'];
+  source: '\n  fragment WatchCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    bannerImage\n    ...MediaUnitStatsMedia\n  }\n'
+): (typeof documents)['\n  fragment WatchCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    bannerImage\n    ...MediaUnitStatsMedia\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
   source: '\n  query WatchedList($id_in: [Int]) {\n    Page(page: 1, perPage: 10) {\n      media(id_in: $id_in) {\n        id\n        ...WatchCard\n      }\n    }\n  }\n'
 ): (typeof documents)['\n  query WatchedList($id_in: [Int]) {\n    Page(page: 1, perPage: 10) {\n      media(id_in: $id_in) {\n        id\n        ...WatchCard\n      }\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query AuthWatchedList(\n    $userId: Int\n    $userName: String\n    $status_in: [MediaListStatus]\n    $type: MediaType\n    $sort: [MediaListSort]\n  ) {\n    Page(page: 1, perPage: 10) {\n      mediaList(\n        userId: $userId\n        userName: $userName\n        status_in: $status_in\n        type: $type\n        sort: $sort\n      ) {\n        progress\n        media {\n          id\n          ...WatchCard\n        }\n      }\n    }\n  }\n'
+): (typeof documents)['\n  query AuthWatchedList(\n    $userId: Int\n    $userName: String\n    $status_in: [MediaListStatus]\n    $type: MediaType\n    $sort: [MediaListSort]\n  ) {\n    Page(page: 1, perPage: 10) {\n      mediaList(\n        userId: $userId\n        userName: $userName\n        status_in: $status_in\n        type: $type\n        sort: $sort\n      ) {\n        progress\n        media {\n          id\n          ...WatchCard\n        }\n      }\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

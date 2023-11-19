@@ -17,7 +17,10 @@ import type {
 import RNVideo from 'react-native-video';
 
 import { VideoFormat } from '@/core/video';
+import providers from '@/providers';
 import { getWatchedEpisode, markEpisodeAsWatched } from '@/storage/episode';
+import type { ProviderType } from '@/storage/provider';
+import { getProviders } from '@/storage/provider';
 import type { Video } from '@/types';
 
 import {
@@ -56,7 +59,7 @@ type VideoSource = {
 };
 
 const EMPTY_VIDEO: VideoSource = {
-  uri: 'https://cdn.plyr.io/static/blank.mp4',
+  uri: undefined,
 };
 
 const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
@@ -65,7 +68,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
 
   const setPlayableDuration = useSetAtom(playableDurationAtom);
   const [currentTime, setCurrentTime] = useAtom(currentTimeAtom);
-  const setDuration = useSetAtom(durationAtom);
+  const [duration, setDuration] = useAtom(durationAtom);
   const setSourceList = useSetAtom(sourceListAtom);
   const setQualityList = useSetAtom(qualityListAtom);
   const setVideoSize = useSetAtom(videoSizeAtom);
@@ -92,6 +95,8 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
   const hasResumeTime = useRef(false);
   const shouldStartResumeTime = useRef(false);
 
+  const hasSyncProviders = useRef(false);
+
   const refCurrentTime = useRef(currentTime);
 
   useEffect(() => {
@@ -103,16 +108,58 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setPlayer, playerRef.current]);
 
+  const handleSync = useCallback(
+    (currentTime: number) => {
+      if (hasSyncProviders.current) return;
+
+      if (
+        currentEpisode?.number === null ||
+        currentEpisode?.number === undefined
+      )
+        return;
+
+      if (!mediaId?.anilistId) return;
+
+      if (duration < 10) return;
+
+      if (currentTime >= duration * 0.75) {
+        hasSyncProviders.current = true;
+
+        const storageProviders = getProviders();
+
+        const signedInProviders = Object.keys(providers).filter((provider) => {
+          return storageProviders.find(
+            (storageProvider) => storageProvider.type === provider
+          );
+        });
+
+        const progress = parseInt(currentEpisode?.number, 10);
+
+        signedInProviders.forEach((provider) => {
+          if (isNaN(progress)) return;
+
+          providers[provider as ProviderType].updateEntry(mediaId, {
+            progress,
+          });
+        });
+      }
+    },
+    [currentEpisode?.number, duration, mediaId]
+  );
+
   const handleProgress = useCallback(
     (progress: OnProgressData) => {
+      if (!videos?.length) return;
+
       if (progress.currentTime > 0) {
         shouldStartResumeTime.current = true;
       }
 
+      handleSync(progress.currentTime);
       setCurrentTime(progress.currentTime);
       setPlayableDuration(progress.playableDuration);
     },
-    [setCurrentTime, setPlayableDuration]
+    [handleSync, setCurrentTime, setPlayableDuration, videos?.length]
   );
 
   const handleLoad = useCallback(
@@ -121,6 +168,8 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
 
       setDuration(duration);
       setVideoSize(data.naturalSize);
+
+      if (!videos?.length) return;
 
       if (videos.length > 1) {
         return;
@@ -146,7 +195,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
     [
       setDuration,
       setVideoSize,
-      videos.length,
+      videos?.length,
       setQualityList,
       setCurrentQuality,
     ]
@@ -169,6 +218,8 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
   );
 
   useEffect(() => {
+    if (!videos?.length) return;
+
     setSourceList(videos);
 
     if (videos.length > 1) {
@@ -234,6 +285,8 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
       if (!currentQuality) {
         return;
       }
+
+      if (!videos?.length) return;
 
       if (videos.length > 1) {
         shouldMaintainTime.current = true;
@@ -315,6 +368,11 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
     };
   }, [currentEpisode, mediaId]);
 
+  // Reset duration and current time when change episode
+  useEffect(() => {
+    hasSyncProviders.current = false;
+  }, [currentEpisode?.number, mediaId.anilistId]);
+
   const composedCurrentSource: VideoSource = useMemo(() => {
     let type: 'mpd' | 'm3u8' | undefined;
 
@@ -347,7 +405,9 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
       paused={paused}
       rate={playBackRate}
       volume={volume}
-      source={currentSource ? composedCurrentSource : EMPTY_VIDEO}
+      source={
+        currentSource && videos?.length ? composedCurrentSource : EMPTY_VIDEO
+      }
       selectedVideoTrack={
         currentVideoTrack?.height
           ? { type: 'resolution', value: currentVideoTrack.height }
@@ -358,7 +418,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
         Toast.show({
           type: 'error',
           text1: 'Media player error',
-          text2: JSON.stringify(error).slice(0, 10),
+          text2: error.error.errorString,
         });
       }}
       {...props}
