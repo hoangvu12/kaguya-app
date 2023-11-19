@@ -78,6 +78,7 @@ const client = z.object({
 const buildTime = z.object({
   EXPO_ACCOUNT_OWNER: z.string(),
   EAS_PROJECT_ID: z.string(),
+  SENTRY_AUTH_TOKEN: z.string(),
   // ADD YOUR BUILD TIME ENV VARS HERE
 });
 
@@ -98,6 +99,7 @@ const _clientEnv = {
 const _buildTimeEnv = {
   EXPO_ACCOUNT_OWNER,
   EAS_PROJECT_ID: process.env.EAS_PROJECT_ID,
+  SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
   // ADD YOUR ENV VARS HERE TOO
 };
 
