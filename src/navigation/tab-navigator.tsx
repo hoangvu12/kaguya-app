@@ -15,8 +15,10 @@ import type {
 } from '@/gql/graphql';
 import ModuleScreen from '@/screens/module/screen';
 import SearchScreen from '@/screens/search/screen';
-import type { MediaCountry } from '@/screens/search/store';
 import SettingsScreen from '@/screens/settings/screen';
+
+import type { MediaCountry } from '@/screens/search/store';
+
 import { Anime as AnimeIcon, colors, Settings as SettingsIcon } from '@/ui';
 import { BoxIcon } from '@/ui/icons/box';
 import { Search } from '@/ui/icons/search';
