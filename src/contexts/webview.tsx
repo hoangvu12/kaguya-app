@@ -4,6 +4,8 @@ import React, { useEffect, useRef } from 'react';
 import type { WebViewMessageEvent } from 'react-native-webview';
 import WebView from 'react-native-webview';
 
+import { reportErrorToDiscord } from '@/services/discord';
+
 const createMessage = <T,>(event: string, data: T) => {
   return {
     event,
@@ -150,6 +152,11 @@ const WebViewProvider: React.FC<React.PropsWithChildren<{}>> = ({
         onMessage={observer.current.notify.bind(observer.current)}
         onLoadEnd={() => {
           setWebView(webViewRef.current);
+        }}
+        onError={(error) => {
+          reportErrorToDiscord(
+            `Domain: ${error.nativeEvent.domain}\nCode: ${error.nativeEvent.code}\nDescription: ${error.nativeEvent.description}\nURL: ${error.nativeEvent.url}`
+          );
         }}
         source={{ html: '<html><body><h1>Hello world</h1></body></html>' }}
         containerStyle={{ position: 'absolute', width: 0, height: 0 }}

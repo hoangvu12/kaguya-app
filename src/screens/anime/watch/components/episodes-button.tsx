@@ -67,7 +67,7 @@ const EpisodesButton = () => {
   }, [sections?.length, episodes, currentSection]);
 
   const chunks = useMemo(() => {
-    return chunk(sectionEpisodes, 16);
+    return chunk(sectionEpisodes, 16).filter(Boolean);
   }, [sectionEpisodes]);
 
   const [currentChunk, setCurrentChunk] = useState(chunks[0]);
@@ -164,7 +164,7 @@ const EpisodesButton = () => {
             extraData={{ currentChunk }}
           />
 
-          {chunks?.length > 10 ? (
+          {chunks?.length > 10 && currentChunk ? (
             <Select
               trigger={Trigger}
               onSelect={(option) => {

@@ -2,6 +2,7 @@ import { parse } from '@plussub/srt-vtt-parser';
 import type { Entry } from '@plussub/srt-vtt-parser/dist/src/types';
 import { useAtomValue } from 'jotai/react';
 import React, { useEffect, useMemo, useState } from 'react';
+import Toast from 'react-native-toast-message';
 
 import { stripHTML } from '@/core';
 import { Text, View } from '@/ui';
@@ -47,9 +48,17 @@ const MediaTextSubtitle: React.FC<MediaTextSubtitleProps> = ({
   useEffect(() => {
     if (!subContent) return;
 
-    const { entries } = parse(subContent);
+    try {
+      const { entries } = parse(subContent);
 
-    setSubtitleItems(entries);
+      setSubtitleItems(entries);
+    } catch (err) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Failed to parse subtitle',
+      });
+    }
   }, [subContent]);
 
   useEffect(() => {
