@@ -6,6 +6,7 @@ import { Else, If, Then } from 'react-if';
 
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
+import { saveMapping } from '@/storage/media-id';
 import { currentModuleIdAtom } from '@/store';
 import type { SearchResult } from '@/types';
 import { ActivityIndicator, colors, Text, View } from '@/ui';
@@ -59,6 +60,15 @@ const WrongTitle: React.FC<WrongTitleProps> = ({ media: mediaFragment }) => {
   }, [searchQuery]);
 
   const handleSearchResultPress = (item: SearchResult) => {
+    if (!currentModuleId) return;
+
+    saveMapping({
+      anilistId: media.id,
+      mediaId: item.id,
+      moduleId: currentModuleId,
+      extra: item.extra || undefined,
+    });
+
     queryClient.setQueryData(['animeId', media.id, currentModuleId], {
       data: item.id,
       extraData: item.extra,
