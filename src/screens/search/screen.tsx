@@ -1,7 +1,10 @@
-import React, { useMemo } from 'react';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useSetAtom } from 'jotai/react';
+import React, { useEffect, useMemo } from 'react';
 import { Else, If, Then } from 'react-if';
 import Toast from 'react-native-toast-message';
 
+import type { RootStackParamList } from '@/navigation/types';
 import {
   ActivityIndicator,
   colors,
@@ -18,8 +21,96 @@ import SettingsSheet from './components/settings-sheet';
 import SortSelector from './components/sort-selector';
 import ValueList from './components/value-list';
 import useSearchMedia from './hooks/use-search-media';
+import {
+  countryAtom,
+  formatAtom,
+  genresAtom,
+  keywordAtom,
+  mediaTypeAtom,
+  seasonAtom,
+  sortAtom,
+  sourceAtom,
+  statusAtom,
+  tagsAtom,
+  yearAtom,
+} from './store';
 
-const SearchScreen = () => {
+type Props = NativeStackScreenProps<RootStackParamList, 'Search'>;
+
+const SearchScreen: React.FC<Props> = ({ route: { params } }) => {
+  const setKeyword = useSetAtom(keywordAtom);
+  const setYear = useSetAtom(yearAtom);
+  const setSeason = useSetAtom(seasonAtom);
+  const setFormat = useSetAtom(formatAtom);
+  const setCountry = useSetAtom(countryAtom);
+  const setGenres = useSetAtom(genresAtom);
+  const setTags = useSetAtom(tagsAtom);
+  const setSort = useSetAtom(sortAtom);
+  const setMediaType = useSetAtom(mediaTypeAtom);
+  const setStatus = useSetAtom(statusAtom);
+  const setSource = useSetAtom(sourceAtom);
+
+  useEffect(() => {
+    if (!params) return;
+
+    if (params.keyword) {
+      setKeyword(params.keyword);
+    }
+
+    if (params.year) {
+      setYear(params.year);
+    }
+
+    if (params.season) {
+      setSeason(params.season);
+    }
+
+    if (params.format) {
+      setFormat(params.format);
+    }
+
+    if (params.country) {
+      setCountry(params.country);
+    }
+
+    if (params.genres) {
+      setGenres(params.genres);
+    }
+
+    if (params.tags) {
+      setTags(params.tags);
+    }
+
+    if (params.sort) {
+      setSort(params.sort);
+    }
+
+    if (params.mediaType) {
+      setMediaType(params.mediaType);
+    }
+
+    if (params.status) {
+      setStatus(params.status);
+    }
+
+    if (params.source) {
+      setSource(params.source);
+    }
+  }, [
+    params,
+    setCountry,
+    setFormat,
+    setGenres,
+    setKeyword,
+    setMediaType,
+    setSeason,
+    setSort,
+    setSource,
+    setStatus,
+    setTags,
+    setYear,
+  ]);
+
   const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useSearchMedia();
 

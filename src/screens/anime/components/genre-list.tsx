@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -32,8 +33,14 @@ const Spacer = () => <View className="w-2" />;
 
 const GenreCard: React.FC<{ genre: Genre }> = React.memo(
   ({ genre: { label, thumbnail } }) => {
+    const navigation = useNavigation();
+
+    const handlePress = () => {
+      navigation.navigate('Search', { genres: [label] });
+    };
+
     return (
-      <Pressable>
+      <Pressable onPress={handlePress}>
         <View className="relative aspect-video w-28">
           <Image
             source={{
