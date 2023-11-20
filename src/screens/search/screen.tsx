@@ -1,5 +1,7 @@
+import { useNavigation } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useSetAtom } from 'jotai/react';
+import { ArrowLeft } from 'lucide-react-native';
 import React, { useEffect, useMemo } from 'react';
 import { Else, If, Then } from 'react-if';
 import Toast from 'react-native-toast-message';
@@ -7,6 +9,7 @@ import Toast from 'react-native-toast-message';
 import type { RootStackParamList } from '@/navigation/types';
 import {
   ActivityIndicator,
+  Button,
   colors,
   FocusAwareStatusBar,
   Text,
@@ -138,12 +141,29 @@ const SearchScreen: React.FC<Props> = ({ route: { params } }) => {
     [data?.pages]
   );
 
+  const navigation = useNavigation();
+
   return (
     <React.Fragment>
       <FocusAwareStatusBar />
 
       <View className="p-4">
-        <MediaTypeSelector />
+        <View className="flex flex-row items-center">
+          <Button
+            onPress={() => {
+              if (navigation.canGoBack()) {
+                navigation.goBack();
+              } else {
+                navigation.navigate('AnimeHome');
+              }
+            }}
+            className="mr-2 h-7 w-7 bg-transparent p-0"
+          >
+            <ArrowLeft size={28} color="white" />
+          </Button>
+
+          <MediaTypeSelector />
+        </View>
 
         <View className="mt-4 flex flex-row items-center">
           <SearchInput />

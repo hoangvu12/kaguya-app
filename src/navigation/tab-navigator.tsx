@@ -1,3 +1,4 @@
+import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -15,10 +16,8 @@ import type {
 } from '@/gql/graphql';
 import ModuleScreen from '@/screens/module/screen';
 import SearchScreen from '@/screens/search/screen';
-import SettingsScreen from '@/screens/settings/screen';
-
 import type { MediaCountry } from '@/screens/search/store';
-
+import SettingsScreen from '@/screens/settings/screen';
 import { Anime as AnimeIcon, colors, Settings as SettingsIcon } from '@/ui';
 import { BoxIcon } from '@/ui/icons/box';
 import { Search } from '@/ui/icons/search';
@@ -48,6 +47,13 @@ type TabType = {
   name: keyof TabParamList;
   component: ComponentType<any>;
   label: string;
+  options?:
+    | BottomTabNavigationOptions
+    | ((props: {
+        route: RouteProp<TabParamList, keyof TabParamList>;
+        navigation: any;
+      }) => BottomTabNavigationOptions)
+    | undefined;
 };
 
 type TabIconsType = {
@@ -84,6 +90,11 @@ const tabs: TabType[] = [
     name: 'Search',
     component: SearchScreen,
     label: 'Search',
+    options: {
+      tabBarStyle: {
+        display: 'none',
+      },
+    },
   },
   {
     name: 'Settings',
@@ -129,7 +140,7 @@ export const TabNavigator = () => {
           headerShown: false,
         }}
       >
-        {tabs.map(({ name, component, label }) => {
+        {tabs.map(({ name, component, label, options }) => {
           return (
             <Tab.Screen
               key={name}
@@ -138,6 +149,7 @@ export const TabNavigator = () => {
               options={{
                 title: label,
                 tabBarTestID: `${name}-tab`,
+                ...options,
               }}
             />
           );
