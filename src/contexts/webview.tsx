@@ -230,7 +230,7 @@ export const useWebView = () => {
       return new Promise<T>((resolve, reject) => {
         const timeout = setTimeout(() => {
           reject(new Error('Timeout'));
-        }, 60000);
+        }, 20000);
 
         const handleResponse = (e: WebViewMessageEvent) => {
           const message = parseWebViewMessage<T>(e);
