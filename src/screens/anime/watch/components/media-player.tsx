@@ -46,6 +46,7 @@ const StyledVideo = styled(RNVideo);
 
 interface MediaPlayerProps extends Omit<VideoProperties, 'source'> {
   videos: Video[];
+  shouldSync: boolean;
 }
 
 type VideoSource = {
@@ -62,7 +63,11 @@ const EMPTY_VIDEO: VideoSource = {
   uri: undefined,
 };
 
-const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
+const MediaPlayer: React.FC<MediaPlayerProps> = ({
+  videos,
+  shouldSync,
+  ...props
+}) => {
   const playerRef = useRef<RNVideo>(null);
   const setPlayer = useSetAtom(playerAtom);
 
@@ -110,6 +115,8 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
 
   const handleSync = useCallback(
     (currentTime: number) => {
+      if (!shouldSync) return;
+
       if (hasSyncProviders.current) return;
 
       if (
@@ -144,7 +151,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ videos, ...props }) => {
         });
       }
     },
-    [currentEpisode?.number, duration, mediaId]
+    [currentEpisode?.number, duration, mediaId, shouldSync]
   );
 
   const handleProgress = useCallback(

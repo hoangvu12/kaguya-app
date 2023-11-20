@@ -131,3 +131,9 @@ export const mediaIdAtom = atom<{
 });
 
 export const timestampsAtom = atom<Timestamp[]>([]);
+
+export const shouldSyncListAtom = atomWithMMKV<number[]>('sync_list', []);
+export const shouldNotSyncListAtom = atomWithMMKV<number[]>(
+  'not_sync_list',
+  []
+);
