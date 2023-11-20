@@ -1,6 +1,6 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useAtomValue } from 'jotai/react';
-import { Settings } from 'lucide-react-native';
+import { Filter } from 'lucide-react-native';
 import React, { useRef } from 'react';
 
 import { MediaType } from '@/gql/graphql';
@@ -30,7 +30,7 @@ const SettingsSheet = () => {
         }}
         className="bg-thunder-800"
       >
-        <Settings size={24} color="white" />
+        <Filter size={24} color="white" />
       </Button>
 
       <BottomSheet snapPoints={['80%']} ref={bottomSheetRef}>
