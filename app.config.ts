@@ -48,7 +48,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
 
   android: {
-    permissions: ['READ_EXTERNAL_STORAGE'],
+    permissions: ['READ_EXTERNAL_STORAGE', 'REQUEST_INSTALL_PACKAGES'],
     adaptiveIcon: {
       foregroundImage: adaptiveIcon,
       backgroundColor: '#1c1414',

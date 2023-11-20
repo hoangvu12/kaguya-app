@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 
 import WebViewProvider from '@/contexts/webview';
+import Updater from '@/ui/updater';
 
 import { NavigationContainer } from './navigation-container';
 import { TabNavigator } from './tab-navigator';
@@ -48,6 +49,7 @@ export const RootNavigator = () => {
         <BottomSheetModalProvider>
           <NavigationContainer>
             <Root />
+            <Updater />
           </NavigationContainer>
         </BottomSheetModalProvider>
       </WebViewProvider>
