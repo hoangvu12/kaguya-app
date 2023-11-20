@@ -77,6 +77,9 @@ dependencies:
   expo-image:
     specifier: ~1.3.2
     version: 1.3.2(expo@49.0.6)
+  expo-intent-launcher:
+    specifier: ~10.7.0
+    version: 10.7.0(expo@49.0.6)
   expo-linear-gradient:
     specifier: ~12.3.0
     version: 12.3.0(expo@49.0.6)
@@ -171,11 +174,11 @@ dependencies:
     specifier: ~0.19.7
     version: 0.19.7(react-dom@18.2.0)(react@18.2.0)
   react-native-webview:
-    specifier: 13.2.2
-    version: 13.2.2(react-native@0.72.5)(react@18.2.0)
+    specifier: 13.6.2
+    version: 13.6.2(react-native@0.72.5)(react@18.2.0)
   react-native-youtube-iframe:
     specifier: ^2.3.0
-    version: 2.3.0(react-native-webview@13.2.2)(react-native@0.72.5)(react@18.2.0)
+    version: 2.3.0(react-native-webview@13.6.2)(react-native@0.72.5)(react@18.2.0)
   react-native-zip-archive:
     specifier: ^6.1.0
     version: 6.1.0(react-native@0.72.5)(react@18.2.0)
@@ -8910,6 +8913,14 @@ packages:
       expo: 49.0.6(@babel/core@7.21.0)
     dev: false
 
+  /expo-intent-launcher@10.7.0(expo@49.0.6):
+    resolution: {integrity: sha512-vzZQMpfwa+CtiStkppcvV8lcMgVj13Hej6ENcaSFM7ZHluCA3vjjhpoDMP6I/FAF2SwsEscxhkT2CWVP0VNdTw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.6(@babel/core@7.21.0)
+    dev: false
+
   /expo-json-utils@0.7.1:
     resolution: {integrity: sha512-L0lyH8diXQtV0q5BLbFlcoxTqPF5im79xDHPhybB0j36xYdm65hjwRJ4yMrPIN5lR18hj48FUZeONiDHRyEvIg==}
     dev: false
@@ -13932,8 +13943,8 @@ packages:
       - encoding
     dev: false
 
-  /react-native-webview@13.2.2(react-native@0.72.5)(react@18.2.0):
-    resolution: {integrity: sha512-uT70y2GUqQzaj2RwRb/QuKRdXeDjXM6oN3DdPqYQlOOMFTCT8r62fybyjVVRoik8io+KLa5KnmuSoS5B2O1BmA==}
+  /react-native-webview@13.6.2(react-native@0.72.5)(react@18.2.0):
+    resolution: {integrity: sha512-QzhQ5JCU+Nf2W285DtvCZOVQy/MkJXMwNDYPZvOWQbAOgxJMSSO+BtqXTMA1UPugDsko6PxJ0TxSlUwIwJijDg==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -14003,7 +14014,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /react-native-youtube-iframe@2.3.0(react-native-webview@13.2.2)(react-native@0.72.5)(react@18.2.0):
+  /react-native-youtube-iframe@2.3.0(react-native-webview@13.6.2)(react-native@0.72.5)(react@18.2.0):
     resolution: {integrity: sha512-M+z63xwXVtS4dX3k8PbtHUUcWN+gRZt6J1EtPE7Y60BMOB979KjpkdrHqeR96or9pNR2W8K5tQhIkMXW2jwo7Q==}
     peerDependencies:
       react: '>=16.8.6'
@@ -14019,7 +14030,7 @@ packages:
       events: 3.3.0
       react: 18.2.0
       react-native: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
-      react-native-webview: 13.2.2(react-native@0.72.5)(react@18.2.0)
+      react-native-webview: 13.6.2(react-native@0.72.5)(react@18.2.0)
     dev: false
 
   /react-native-zip-archive@6.1.0(react-native@0.72.5)(react@18.2.0):
