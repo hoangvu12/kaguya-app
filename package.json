@@ -87,7 +87,7 @@
     "react-native-toast-message": "^2.1.7",
     "react-native-video": "6.0.0-alpha.8",
     "react-native-web": "~0.19.7",
-    "react-native-webview": "13.2.2",
+    "react-native-webview": "13.6.2",
     "react-native-youtube-iframe": "^2.3.0",
     "react-native-zip-archive": "^6.1.0",
     "react-query-kit": "^1.4.6",
