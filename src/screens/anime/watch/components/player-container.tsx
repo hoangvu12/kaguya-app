@@ -1,11 +1,17 @@
-import { useSetAtom } from 'jotai/react';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai/react';
 import React, { useEffect } from 'react';
+import Modal from 'react-native-modal';
 
 import type { VideoServer } from '@/types';
-import { ActivityIndicator, colors, View } from '@/ui';
+import { ActivityIndicator, Button, colors, Text, View } from '@/ui';
 
 import useLoadVideoContainer from '../hooks/use-load-video-container';
-import { timestampsAtom } from '../store';
+import {
+  mediaIdAtom,
+  shouldNotSyncListAtom,
+  shouldSyncListAtom,
+  timestampsAtom,
+} from '../store';
 import MediaOverlay from './media-overlay';
 import MediaPlayer from './media-player';
 import MediaSubtitle from './media-subtitle';
@@ -20,6 +26,18 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
   isServerLoading,
 }) => {
   const { data: container, isLoading } = useLoadVideoContainer(videoServer);
+  const [shouldSyncList, setShouldSyncList] = useAtom(shouldSyncListAtom);
+  const [shouldNotSyncList, setShouldNotSyncList] = useAtom(
+    shouldNotSyncListAtom
+  );
+
+  const mediaId = useAtomValue(mediaIdAtom);
+  const [shouldAskForSyncing, setShouldAskForSyncing] = React.useState(() => {
+    return (
+      !shouldSyncList.includes(mediaId.anilistId) &&
+      !shouldNotSyncList.includes(mediaId.anilistId)
+    );
+  });
 
   const setTimestamps = useSetAtom(timestampsAtom);
 
@@ -33,6 +51,52 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
     setTimestamps(container.timestamps);
   }, [container, setTimestamps]);
 
+  useEffect(() => {
+    const shouldAsk =
+      !shouldSyncList.includes(mediaId.anilistId) &&
+      !shouldNotSyncList.includes(mediaId.anilistId);
+
+    setShouldAskForSyncing(shouldAsk);
+  }, [mediaId.anilistId, shouldNotSyncList, shouldSyncList]);
+
+  if (shouldAskForSyncing) {
+    return (
+      <Modal isVisible={true}>
+        <View className="absolute inset-0 flex items-center justify-center">
+          <View className="w-96 rounded-md bg-thunder-800 p-4">
+            <Text weight="semibold" variant="xl" className="mb-8 text-center">
+              Do you want to sync your progress?
+            </Text>
+
+            <View className="flex flex-row items-center justify-end gap-2">
+              <Button
+                variant="primary"
+                className="flex-1"
+                onPress={async () => {
+                  setShouldSyncList((prev) => [...prev, mediaId.anilistId]);
+                  setShouldAskForSyncing(false);
+                }}
+              >
+                <Text numberOfLines={1} weight="semibold">
+                  Yes
+                </Text>
+              </Button>
+              <Button
+                className="flex-1 bg-gray-500"
+                onPress={() => {
+                  setShouldNotSyncList((prev) => [...prev, mediaId.anilistId]);
+                  setShouldAskForSyncing(false);
+                }}
+              >
+                <Text numberOfLines={1}>No</Text>
+              </Button>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    );
+  }
+
   return (
     <React.Fragment>
       {isLoading || isServerLoading ? (
@@ -44,7 +108,10 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
       <MediaOverlay />
 
       {container?.videos?.length && !isLoading ? (
-        <MediaPlayer videos={container.videos} />
+        <MediaPlayer
+          shouldSync={shouldSyncList.includes(mediaId.anilistId)}
+          videos={container.videos}
+        />
       ) : null}
 
       {container?.subtitles?.length ? (
