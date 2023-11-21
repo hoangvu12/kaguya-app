@@ -101,9 +101,9 @@ const App = () => {
       style={styles.container}
     >
       <BottomSheetModalProvider>
-        <Toast config={toastConfig} />
-
         <RootNavigator />
+
+        <Toast config={toastConfig} />
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
