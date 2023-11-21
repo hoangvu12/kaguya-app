@@ -1,4 +1,4 @@
-import { StackActions, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { styled } from 'nativewind';
 import React, { useCallback, useMemo } from 'react';
@@ -105,11 +105,9 @@ const BannerItem = React.memo(
     const handlePress = () => {
       if (!media?.id) return console.warn('No media id');
 
-      navigation.dispatch(
-        StackActions.replace('AnimeDetails', {
-          mediaId: media.id,
-        })
-      );
+      navigation.navigate('AnimeDetails', {
+        mediaId: media.id,
+      });
     };
 
     return (
