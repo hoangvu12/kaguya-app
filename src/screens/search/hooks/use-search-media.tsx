@@ -1,9 +1,9 @@
 import type { VariablesOf } from '@graphql-typed-document-node/core';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import request from 'graphql-request';
 import { useAtomValue } from 'jotai/react';
 
 import { graphql } from '@/gql';
+import anilistClient from '@/services/anilist';
 
 import {
   countryAtom,
@@ -210,7 +210,7 @@ const useSearchMedia = () => {
   return useInfiniteQuery(
     [variables],
     ({ pageParam = 1 }) => {
-      return request('https://graphql.anilist.co', document, {
+      return anilistClient.request(document, {
         ...variables,
         page: pageParam,
       });
