@@ -41,7 +41,20 @@ export const AnimeHomeScreen = () => {
           </View>
 
           <View className="w-full space-y-2">
-            <Text variant="lg">Airing today</Text>
+            <View className="flex flex-row items-center justify-between">
+              <Text variant="lg">Airing today</Text>
+
+              <Button
+                onPress={() => {
+                  navigation.navigate('AiringSchedule');
+                }}
+                className="bg-transparent p-0"
+              >
+                <Text className="text-gray-300" variant="sm">
+                  See more
+                </Text>
+              </Button>
+            </View>
 
             <AiringTodayList />
           </View>
