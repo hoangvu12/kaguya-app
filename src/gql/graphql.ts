@@ -4562,6 +4562,80 @@ export type YearStats = {
   year?: Maybe<Scalars['Int']['output']>;
 };
 
+export type WatchedListQueryVariables = Exact<{
+  id_in?: InputMaybe<
+    | Array<InputMaybe<Scalars['Int']['input']>>
+    | InputMaybe<Scalars['Int']['input']>
+  >;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type WatchedListQuery = {
+  __typename?: 'Query';
+  Page?: {
+    __typename?: 'Page';
+    pageInfo?: {
+      __typename?: 'PageInfo';
+      total?: number | null;
+      perPage?: number | null;
+      currentPage?: number | null;
+      lastPage?: number | null;
+      hasNextPage?: boolean | null;
+    } | null;
+    media?: Array<
+      | ({ __typename?: 'Media'; id: number } & {
+          ' $fragmentRefs'?: {
+            WatchCardFragment: WatchCardFragment;
+            CardMediaFragment: CardMediaFragment;
+          };
+        })
+      | null
+    > | null;
+  } | null;
+};
+
+export type AuthWatchedListQueryVariables = Exact<{
+  userId?: InputMaybe<Scalars['Int']['input']>;
+  userName?: InputMaybe<Scalars['String']['input']>;
+  status_in?: InputMaybe<
+    Array<InputMaybe<MediaListStatus>> | InputMaybe<MediaListStatus>
+  >;
+  type?: InputMaybe<MediaType>;
+  sort?: InputMaybe<
+    Array<InputMaybe<MediaListSort>> | InputMaybe<MediaListSort>
+  >;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type AuthWatchedListQuery = {
+  __typename?: 'Query';
+  Page?: {
+    __typename?: 'Page';
+    pageInfo?: {
+      __typename?: 'PageInfo';
+      total?: number | null;
+      perPage?: number | null;
+      currentPage?: number | null;
+      lastPage?: number | null;
+      hasNextPage?: boolean | null;
+    } | null;
+    mediaList?: Array<{
+      __typename?: 'MediaList';
+      progress?: number | null;
+      media?:
+        | ({ __typename?: 'Media'; id: number } & {
+            ' $fragmentRefs'?: {
+              WatchCardFragment: WatchCardFragment;
+              CardMediaFragment: CardMediaFragment;
+            };
+          })
+        | null;
+    } | null> | null;
+  } | null;
+};
+
 export type ViewerQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ViewerQuery = {
@@ -4697,54 +4771,6 @@ export type WatchCardFragment = ({
     MediaUnitStatsMediaFragment: MediaUnitStatsMediaFragment;
   };
 }) & { ' $fragmentName'?: 'WatchCardFragment' };
-
-export type WatchedListQueryVariables = Exact<{
-  id_in?: InputMaybe<
-    | Array<InputMaybe<Scalars['Int']['input']>>
-    | InputMaybe<Scalars['Int']['input']>
-  >;
-}>;
-
-export type WatchedListQuery = {
-  __typename?: 'Query';
-  Page?: {
-    __typename?: 'Page';
-    media?: Array<
-      | ({ __typename?: 'Media'; id: number } & {
-          ' $fragmentRefs'?: { WatchCardFragment: WatchCardFragment };
-        })
-      | null
-    > | null;
-  } | null;
-};
-
-export type AuthWatchedListQueryVariables = Exact<{
-  userId?: InputMaybe<Scalars['Int']['input']>;
-  userName?: InputMaybe<Scalars['String']['input']>;
-  status_in?: InputMaybe<
-    Array<InputMaybe<MediaListStatus>> | InputMaybe<MediaListStatus>
-  >;
-  type?: InputMaybe<MediaType>;
-  sort?: InputMaybe<
-    Array<InputMaybe<MediaListSort>> | InputMaybe<MediaListSort>
-  >;
-}>;
-
-export type AuthWatchedListQuery = {
-  __typename?: 'Query';
-  Page?: {
-    __typename?: 'Page';
-    mediaList?: Array<{
-      __typename?: 'MediaList';
-      progress?: number | null;
-      media?:
-        | ({ __typename?: 'Media'; id: number } & {
-            ' $fragmentRefs'?: { WatchCardFragment: WatchCardFragment };
-          })
-        | null;
-    } | null> | null;
-  } | null;
-};
 
 export type DetailsHeaderMediaFragment = {
   __typename?: 'Media';
@@ -7223,6 +7249,581 @@ export const BannerCardMediaFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<BannerCardMediaFragment, unknown>;
+export const WatchedListDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'WatchedList' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'id_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'perPage' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          defaultValue: { kind: 'IntValue', value: '10' },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'page' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          defaultValue: { kind: 'IntValue', value: '1' },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'Page' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'page' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'page' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'perPage' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'perPage' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'currentPage' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'lastPage' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'hasNextPage' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'media' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'id_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'id_in' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'WatchCard' },
+                      },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'CardMedia' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'WatchCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CardMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<WatchedListQuery, WatchedListQueryVariables>;
+export const AuthWatchedListDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'AuthWatchedList' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'userId' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'userName' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'status_in' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'MediaListStatus' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'type' } },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'MediaType' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'MediaListSort' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'perPage' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          defaultValue: { kind: 'IntValue', value: '10' },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'page' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          defaultValue: { kind: 'IntValue', value: '1' },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'Page' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'page' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'page' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'perPage' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'perPage' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'currentPage' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'lastPage' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'hasNextPage' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'mediaList' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'userId' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'userId' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'userName' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'userName' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'status_in' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'status_in' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'type' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'type' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'sort' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'sort' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'progress' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'media' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'WatchCard' },
+                            },
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'CardMedia' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mediaListEntry' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nextAiringEpisode' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'WatchCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CardMedia' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  AuthWatchedListQuery,
+  AuthWatchedListQueryVariables
+>;
 export const ViewerDocument = {
   kind: 'Document',
   definitions: [
@@ -8274,397 +8875,6 @@ export const UpcomingNextSeasonDocument = {
 } as unknown as DocumentNode<
   UpcomingNextSeasonQuery,
   UpcomingNextSeasonQueryVariables
->;
-export const WatchedListDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'WatchedList' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'id_in' },
-          },
-          type: {
-            kind: 'ListType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'Page' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'page' },
-                value: { kind: 'IntValue', value: '1' },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'perPage' },
-                value: { kind: 'IntValue', value: '10' },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'media' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'id_in' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'id_in' },
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'WatchCard' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Media' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'mediaListEntry' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'nextAiringEpisode' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'WatchCard' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Media' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'title' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'userPreferred' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'coverImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<WatchedListQuery, WatchedListQueryVariables>;
-export const AuthWatchedListDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'AuthWatchedList' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'userId' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'userName' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'status_in' },
-          },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'MediaListStatus' },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'type' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'MediaType' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'MediaListSort' },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'Page' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'page' },
-                value: { kind: 'IntValue', value: '1' },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'perPage' },
-                value: { kind: 'IntValue', value: '10' },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'mediaList' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'userId' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'userId' },
-                      },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'userName' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'userName' },
-                      },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'status_in' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'status_in' },
-                      },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'type' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'type' },
-                      },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'sort' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'sort' },
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'progress' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'media' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'WatchCard' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Media' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'chapters' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'mediaListEntry' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'nextAiringEpisode' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'episode' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'WatchCard' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Media' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'title' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'userPreferred' },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'coverImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'bannerImage' } },
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  AuthWatchedListQuery,
-  AuthWatchedListQueryVariables
 >;
 export const InfoDetailsScreenDocument = {
   kind: 'Document',

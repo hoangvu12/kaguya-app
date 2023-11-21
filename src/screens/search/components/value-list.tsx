@@ -37,6 +37,22 @@ const ValueList = () => {
     });
   };
 
+  const addValue = (type: string, value: string | number) => {
+    setValues((prev) => {
+      if (prev.some((el) => el.type === type)) {
+        return prev.map((el) => {
+          if (el.type === type) {
+            return { type, value };
+          }
+
+          return el;
+        });
+      }
+
+      return [...prev, { type, value }];
+    });
+  };
+
   const handleRemove = (value: { type: string; value: string | number }) => {
     setValues((prev) =>
       prev.filter((el) => el.value !== value.value && el.type !== value.type)
@@ -91,37 +107,37 @@ const ValueList = () => {
   useEffect(() => {
     if (!year) return;
 
-    addValues([{ type: 'year', value: year }]);
+    addValue('year', year);
   }, [year]);
 
   useEffect(() => {
     if (!season) return;
 
-    addValues([{ type: 'season', value: season }]);
+    addValue('season', season);
   }, [season]);
 
   useEffect(() => {
     if (!format) return;
 
-    addValues([{ type: 'format', value: format }]);
+    addValue('format', format);
   }, [format]);
 
   useEffect(() => {
     if (!country) return;
 
-    addValues([{ type: 'country', value: country }]);
+    addValue('country', country);
   }, [country]);
 
   useEffect(() => {
     if (!status) return;
 
-    addValues([{ type: 'status', value: status }]);
+    addValue('status', status);
   }, [status]);
 
   useEffect(() => {
     if (!source) return;
 
-    addValues([{ type: 'source', value: source }]);
+    addValue('source', source);
   }, [source]);
 
   if (!values.length) return null;
