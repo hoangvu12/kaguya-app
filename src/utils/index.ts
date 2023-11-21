@@ -168,3 +168,17 @@ export function paramsToObject(params: string): Record<string, string> {
 
   return result;
 }
+
+export const groupBy = <T, K extends string>(
+  list: T[],
+  getKey: (data: T) => K
+) =>
+  list.reduce((previous, currentItem) => {
+    const key = getKey(currentItem);
+
+    if (!previous[key]) previous[key] = [];
+
+    previous[key].push(currentItem);
+
+    return previous;
+  }, {} as Record<string, T[]>);

@@ -1,8 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { ScrollView } from 'react-native';
 
 import useModuleLinking from '@/hooks/use-module-linking';
-import { FocusAwareStatusBar, Text, View } from '@/ui';
+import { Button, FocusAwareStatusBar, Text, View } from '@/ui';
 import { BannerList } from '@/ui/banner-card';
 
 import AiringTodayList from './components/airing-today-list';
@@ -13,6 +14,8 @@ import WatchedList from './components/watched-list';
 
 export const AnimeHomeScreen = () => {
   useModuleLinking();
+
+  const navigation = useNavigation();
 
   return (
     <>
@@ -31,7 +34,20 @@ export const AnimeHomeScreen = () => {
           </View>
 
           <View className="w-full space-y-2">
-            <Text variant="lg">Airing today</Text>
+            <View className="flex flex-row items-center justify-between">
+              <Text variant="lg">Airing today</Text>
+
+              <Button
+                onPress={() => {
+                  navigation.navigate('AiringSchedule');
+                }}
+                className="bg-transparent p-0"
+              >
+                <Text className="text-gray-300" variant="sm">
+                  See more
+                </Text>
+              </Button>
+            </View>
 
             <AiringTodayList />
           </View>

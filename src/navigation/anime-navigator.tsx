@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
 import { AnimeHomeScreen } from '@/screens';
+import AiringScheduleScreen from '@/screens/anime/airing-schedule/screen';
 import { AnimeDetailsScreen } from '@/screens/anime/details/screen';
 import { AnimeWatchScreen } from '@/screens/anime/watch/screen';
 
@@ -15,6 +16,7 @@ export type AnimeParamsList = {
     mediaId: number;
     episodeId: string;
   };
+  AiringSchedule: undefined;
 };
 
 const Stack = createNativeStackNavigator<AnimeParamsList>();
@@ -38,6 +40,12 @@ export const AnimeNavigator = () => (
         options={{ headerShown: false, orientation: 'landscape' }}
         name="AnimeWatch"
         component={AnimeWatchScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="AiringSchedule"
+        component={AiringScheduleScreen}
       />
     </Stack.Group>
   </Stack.Navigator>

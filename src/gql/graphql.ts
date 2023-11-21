@@ -4609,6 +4609,27 @@ export type SaveMediaListEntryMutation = {
   } | null;
 };
 
+export type AiringScheduleScreenQueryVariables = Exact<{
+  airingAt_greater?: InputMaybe<Scalars['Int']['input']>;
+  airingAt_lesser?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type AiringScheduleScreenQuery = {
+  __typename?: 'Query';
+  Page?: {
+    __typename?: 'Page';
+    airingSchedules?: Array<{
+      __typename?: 'AiringSchedule';
+      airingAt: number;
+      media?:
+        | ({ __typename?: 'Media'; id: number } & {
+            ' $fragmentRefs'?: { DetailsCardFragment: DetailsCardFragment };
+          })
+        | null;
+    } | null> | null;
+  } | null;
+};
+
 export type AiringScheduleQueryVariables = Exact<{
   airingAt_greater?: InputMaybe<Scalars['Int']['input']>;
   airingAt_lesser?: InputMaybe<Scalars['Int']['input']>;
@@ -7555,6 +7576,159 @@ export const SaveMediaListEntryDocument = {
 } as unknown as DocumentNode<
   SaveMediaListEntryMutation,
   SaveMediaListEntryMutationVariables
+>;
+export const AiringScheduleScreenDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'AiringScheduleScreen' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'airingAt_greater' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'airingAt_lesser' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'Page' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'page' },
+                value: { kind: 'IntValue', value: '1' },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: { kind: 'IntValue', value: '50' },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'airingSchedules' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'airingAt_greater' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'airingAt_greater' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'airingAt_lesser' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'airingAt_lesser' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'sort' },
+                      value: {
+                        kind: 'ListValue',
+                        values: [{ kind: 'EnumValue', value: 'TIME_DESC' }],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'airingAt' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'media' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'DetailsCard' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'DetailsCard' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Media' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'genres' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'favourites' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  AiringScheduleScreenQuery,
+  AiringScheduleScreenQueryVariables
 >;
 export const AiringScheduleDocument = {
   kind: 'Document',
