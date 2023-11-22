@@ -61,7 +61,7 @@ const MediaUnitStats: React.FC<
 
       <Text variant="sm" weight="normal" className="text-gray-300">
         {media.mediaListEntry?.progress && ' | '}
-        {releasedEpisode || totalMediaUnit} {'| '}
+        {releasedEpisode ?? totalMediaUnit} {'| '}
       </Text>
 
       {totalMediaUnit ? (
