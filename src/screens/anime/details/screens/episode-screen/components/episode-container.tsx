@@ -21,6 +21,7 @@ export const EpisodeContainerFragment = graphql(`
     mediaListEntry {
       progress
     }
+    duration
     ...WrongTitle
     ...UseAnimeEpisode
   }
@@ -110,6 +111,7 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
                 <EpisodeSectionSelector episodes={data!} />
                 <EpisodeChunkSelector />
                 <EpisodeLayoutContainer
+                  duration={media.duration || undefined}
                   mediaId={media.id}
                   progress={progress}
                 />

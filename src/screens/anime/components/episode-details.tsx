@@ -10,6 +10,7 @@ import colors from '@/ui/theme/colors';
 
 interface EpisodeDetailsProps extends Omit<ButtonProps, 'children'> {
   episode: Episode;
+  progressPercentage?: number;
 }
 
 const rippleColor = addAlpha(colors.thunder[900], 0.26);
@@ -19,6 +20,7 @@ const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
   className,
   onLongPress,
   onPress,
+  progressPercentage,
   ...props
 }) => {
   const [shouldExpandDescription, setShouldExpandDescription] = useState(false);
@@ -27,7 +29,7 @@ const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
     <Button
       android_ripple={null}
       className={twMerge(
-        'flex flex-col items-start rounded-md bg-thunder-900 p-0',
+        'relative flex flex-col items-start rounded-md bg-thunder-900 p-0',
         className
       )}
       onLongPress={(e) => {
@@ -84,6 +86,15 @@ const EpisodeDetails: React.FC<EpisodeDetailsProps> = ({
             {episode.description}
           </Text>
         </View>
+      ) : null}
+
+      {progressPercentage && progressPercentage > 0 ? (
+        <View
+          style={{
+            width: `${progressPercentage * 100}%`,
+          }}
+          className="absolute bottom-0 h-0.5 rounded-md bg-primary-500"
+        />
       ) : null}
     </Button>
   );
