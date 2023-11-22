@@ -3,6 +3,7 @@ import React from 'react';
 import { Text, View } from '@/ui';
 
 import AccountSettings from './components/account-settings';
+import PlayerSettings from './components/player-settings';
 
 const SettingsScreen = () => {
   return (
@@ -11,8 +12,14 @@ const SettingsScreen = () => {
         Settings
       </Text>
 
-      <View className="mt-4">
-        <AccountSettings />
+      <View className="mt-4 space-y-8">
+        <View>
+          <AccountSettings />
+        </View>
+
+        <View>
+          <PlayerSettings />
+        </View>
       </View>
     </View>
   );

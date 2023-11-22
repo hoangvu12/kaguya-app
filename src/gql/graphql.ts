@@ -5019,6 +5019,7 @@ export type AnimeWatchScreenQueryQuery = {
   Media?:
     | ({
         __typename?: 'Media';
+        isAdult?: boolean | null;
         idMal?: number | null;
         title?: {
           __typename?: 'MediaTitle';
@@ -9751,6 +9752,7 @@ export const AnimeWatchScreenQueryDocument = {
                     ],
                   },
                 },
+                { kind: 'Field', name: { kind: 'Name', value: 'isAdult' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'idMal' } },
                 {
                   kind: 'FragmentSpread',

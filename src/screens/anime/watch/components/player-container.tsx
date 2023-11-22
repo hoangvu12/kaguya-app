@@ -2,6 +2,7 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai/react';
 import React, { useEffect } from 'react';
 import Modal from 'react-native-modal';
 
+import { shouldAskForSyncingAtom } from '@/screens/settings/store';
 import type { VideoServer } from '@/types';
 import { ActivityIndicator, Button, colors, Text, View } from '@/ui';
 
@@ -39,6 +40,8 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
     );
   });
 
+  const shouldAskForSyncingSetting = useAtomValue(shouldAskForSyncingAtom);
+
   const setTimestamps = useSetAtom(timestampsAtom);
 
   useEffect(() => {
@@ -59,7 +62,7 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
     setShouldAskForSyncing(shouldAsk);
   }, [mediaId.anilistId, shouldNotSyncList, shouldSyncList]);
 
-  if (shouldAskForSyncing) {
+  if (shouldAskForSyncing && shouldAskForSyncingSetting) {
     return (
       <Modal isVisible={true}>
         <View className="absolute inset-0 flex items-center justify-center">
@@ -109,7 +112,11 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
 
       {container?.videos?.length && !isLoading ? (
         <MediaPlayer
-          shouldSync={shouldSyncList.includes(mediaId.anilistId)}
+          shouldSync={
+            shouldAskForSyncingSetting
+              ? shouldSyncList.includes(mediaId.anilistId)
+              : true
+          }
           videos={container.videos}
         />
       ) : null}

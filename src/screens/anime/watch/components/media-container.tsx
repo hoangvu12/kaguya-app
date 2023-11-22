@@ -7,7 +7,7 @@ import colors from '@/ui/theme/colors';
 
 import type { useAnimeEpisodeFragment } from '../../details/screens/episode-screen/hooks/use-episodes';
 import useEpisodes from '../../details/screens/episode-screen/hooks/use-episodes';
-import { mediaIdAtom } from '../store';
+import { isAdultAtom, mediaIdAtom } from '../store';
 import EpisodesContainer from './episodes-container';
 import ErrorMessage from './error-message';
 
@@ -16,6 +16,7 @@ interface MediaContainerProps {
   currentEpisodeId: string;
   anilistId: number;
   malId: number | undefined;
+  isAdult: boolean;
 }
 
 const MediaContainer: React.FC<MediaContainerProps> = ({
@@ -23,8 +24,10 @@ const MediaContainer: React.FC<MediaContainerProps> = ({
   currentEpisodeId,
   anilistId,
   malId,
+  isAdult,
 }) => {
   const setMediaId = useSetAtom(mediaIdAtom);
+  const setIsAdult = useSetAtom(isAdultAtom);
 
   useEffect(() => {
     setMediaId({
@@ -32,6 +35,10 @@ const MediaContainer: React.FC<MediaContainerProps> = ({
       malId,
     });
   }, [setMediaId, anilistId, malId]);
+
+  useEffect(() => {
+    setIsAdult(isAdult);
+  }, [setIsAdult, isAdult]);
 
   const { data, isLoading } = useEpisodes(mediaFragment);
 

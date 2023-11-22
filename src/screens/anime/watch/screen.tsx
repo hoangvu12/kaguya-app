@@ -20,6 +20,7 @@ const document = graphql(`
       title {
         userPreferred
       }
+      isAdult
       idMal
       ...UseAnimeEpisode
     }
@@ -85,6 +86,7 @@ export const AnimeWatchScreen: React.FC<Props> = ({ route }) => {
       currentEpisodeId={episodeId}
       mediaFragment={media.Media}
       anilistId={mediaId}
+      isAdult={media.Media.isAdult || false}
     />
   );
 };
