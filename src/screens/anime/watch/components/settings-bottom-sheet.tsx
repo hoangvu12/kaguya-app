@@ -4,6 +4,7 @@ import {
   type BottomSheetModal,
   useBottomSheetModal,
 } from '@gorhom/bottom-sheet';
+import { useSetAtom } from 'jotai/react';
 import { ChevronLeft } from 'lucide-react-native';
 import React, { useCallback } from 'react';
 
@@ -12,6 +13,7 @@ import type { BottomSheetProps } from '@/ui/core/bottom-sheet';
 import BottomSheet from '@/ui/core/bottom-sheet';
 
 import useScreenSize from '../hooks/use-screen-size';
+import { pausedAtom } from '../store';
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
@@ -34,6 +36,8 @@ const SettingsBottomSheet = React.forwardRef<
     },
     ref
   ) => {
+    const setPaused = useSetAtom(pausedAtom);
+
     const screenSize = useScreenSize();
     const { dismiss, dismissAll } = useBottomSheetModal();
 
@@ -45,10 +49,13 @@ const SettingsBottomSheet = React.forwardRef<
           pressBehavior="collapse"
           opacity={0.6}
           disappearsOnIndex={-1}
-          onPress={dismissAll}
+          onPress={() => {
+            dismissAll();
+            setPaused(false);
+          }}
         />
       ),
-      [dismissAll]
+      [dismissAll, setPaused]
     );
 
     return (

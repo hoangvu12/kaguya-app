@@ -1,10 +1,12 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { useSetAtom } from 'jotai/react';
 import { SettingsIcon } from 'lucide-react-native';
 import React, { useRef } from 'react';
 
 import { View } from '@/ui';
 import colors from '@/ui/theme/colors';
 
+import { pausedAtom } from '../store';
 import MediaPlayBackSettings from './media-playback-settings';
 import MediaQualitySettings from './media-quality-settings';
 import MediaSubtitleSettings from './media-subtitle-settings';
@@ -13,12 +15,15 @@ import Tappable from './tappable';
 
 const MediaSettings = () => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
+  const setPaused = useSetAtom(pausedAtom);
 
   return (
     <View>
       <Tappable
         onPress={() => {
           bottomSheetRef.current?.present();
+
+          setPaused(true);
         }}
       >
         <View className="ml-auto bg-transparent p-0">
