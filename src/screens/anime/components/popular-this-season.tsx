@@ -13,6 +13,8 @@ const document = graphql(`
         sort: [POPULARITY_DESC]
         season: $season
         seasonYear: $seasonYear
+        isAdult: false
+        countryOfOrigin: "JP"
       ) {
         ...CardMedia
       }

@@ -4696,7 +4696,7 @@ export type AiringScheduleScreenQuery = {
       __typename?: 'AiringSchedule';
       airingAt: number;
       media?:
-        | ({ __typename?: 'Media'; id: number } & {
+        | ({ __typename?: 'Media'; id: number; isAdult?: boolean | null } & {
             ' $fragmentRefs'?: { DetailsCardFragment: DetailsCardFragment };
           })
         | null;
@@ -4716,7 +4716,7 @@ export type AiringScheduleQuery = {
     airingSchedules?: Array<{
       __typename?: 'AiringSchedule';
       media?:
-        | ({ __typename?: 'Media' } & {
+        | ({ __typename?: 'Media'; isAdult?: boolean | null } & {
             ' $fragmentRefs'?: { CardMediaFragment: CardMediaFragment };
           })
         | null;
@@ -8271,6 +8271,10 @@ export const AiringScheduleScreenDocument = {
                               name: { kind: 'Name', value: 'id' },
                             },
                             {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'isAdult' },
+                            },
+                            {
                               kind: 'FragmentSpread',
                               name: { kind: 'Name', value: 'DetailsCard' },
                             },
@@ -8415,6 +8419,10 @@ export const AiringScheduleDocument = {
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'isAdult' },
+                            },
                             {
                               kind: 'FragmentSpread',
                               name: { kind: 'Name', value: 'CardMedia' },
@@ -8593,6 +8601,16 @@ export const PopularThisSeasonDocument = {
                         kind: 'Variable',
                         name: { kind: 'Name', value: 'seasonYear' },
                       },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'isAdult' },
+                      value: { kind: 'BooleanValue', value: false },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'countryOfOrigin' },
+                      value: { kind: 'StringValue', value: 'JP', block: false },
                     },
                   ],
                   selectionSet: {
@@ -8776,6 +8794,16 @@ export const UpcomingNextSeasonDocument = {
                         kind: 'Variable',
                         name: { kind: 'Name', value: 'seasonYear' },
                       },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'isAdult' },
+                      value: { kind: 'BooleanValue', value: false },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'countryOfOrigin' },
+                      value: { kind: 'StringValue', value: 'JP', block: false },
                     },
                   ],
                   selectionSet: {
