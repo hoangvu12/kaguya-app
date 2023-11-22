@@ -30,6 +30,7 @@ const document = graphql(`
         airingAt
         media {
           id
+          isAdult
           ...DetailsCard
         }
       }
@@ -223,6 +224,10 @@ const AiringScheduleScreen = () => {
 
               const isReleased = day.isBefore(dayjs());
 
+              const nonAdultList = list.filter(
+                (schedule) => !schedule.media?.isAdult
+              );
+
               return (
                 <View className="relative" key={time}>
                   <View className="my-2 ml-4 flex flex-row items-center">
@@ -240,7 +245,7 @@ const AiringScheduleScreen = () => {
 
                   <View className="relative">
                     <View className="ml-4 space-y-2">
-                      {list.map((schedule) => (
+                      {nonAdultList.map((schedule) => (
                         <View className="flex" key={schedule.media!.id}>
                           <DetailsCard media={schedule.media!} />
                         </View>

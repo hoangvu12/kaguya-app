@@ -15,6 +15,7 @@ const document = graphql(`
         sort: [TIME_DESC]
       ) {
         media {
+          isAdult
           ...CardMedia
         }
       }
@@ -34,8 +35,8 @@ const AiringTodayList = () => {
   });
 
   const mediaList = data?.Page?.airingSchedules
-    ?.filter(Boolean)
-    ?.map((schedule) => schedule.media)
+    ?.map((schedule) => schedule?.media)
+    ?.filter((media) => !media?.isAdult)
     ?.filter(Boolean);
 
   if (isLoading) {
