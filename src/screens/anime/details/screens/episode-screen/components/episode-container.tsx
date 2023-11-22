@@ -67,7 +67,7 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
     }
 
     if (!hasLocalProgress) {
-      return media.mediaListEntry?.progress || undefined;
+      return media.mediaListEntry?.progress! + 1;
     }
 
     const localProgress = parseInt(watchedEp?.episode.number ?? '0', 10);
