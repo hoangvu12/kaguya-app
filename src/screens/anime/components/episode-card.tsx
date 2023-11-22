@@ -10,6 +10,7 @@ import colors from '@/ui/theme/colors';
 interface EpisodeCardProps extends Omit<ButtonProps, 'children'> {
   episode: Episode;
   shouldHighlight?: boolean;
+  progressPercentage?: number;
 }
 
 const rippleColor = addAlpha(colors.thunder[900], 0.26);
@@ -19,6 +20,7 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({
   className,
   shouldHighlight = false,
   onPress,
+  progressPercentage,
   ...buttonProps
 }) => {
   return (
@@ -34,6 +36,7 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({
       <Pressable
         onPress={onPress}
         android_ripple={{ color: rippleColor, foreground: true }}
+        className="relative"
       >
         <Image
           className="aspect-video w-full rounded-md"
@@ -42,6 +45,15 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({
           }}
           key={episode.thumbnail}
         />
+
+        {progressPercentage && progressPercentage > 0 ? (
+          <View
+            style={{
+              width: `${progressPercentage * 100}%`,
+            }}
+            className="absolute bottom-0 h-0.5 rounded-md bg-primary-500"
+          />
+        ) : null}
       </Pressable>
 
       <View className="mt-1">

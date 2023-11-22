@@ -4814,6 +4814,7 @@ export type InfoDetailsScreenQuery = {
 export type EpisodeContainerFragment = ({
   __typename?: 'Media';
   id: number;
+  duration?: number | null;
   mediaListEntry?: {
     __typename?: 'MediaList';
     progress?: number | null;
@@ -5600,6 +5601,7 @@ export const EpisodeContainerFragmentDoc = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'duration' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'WrongTitle' },
@@ -9680,6 +9682,7 @@ export const InfoDetailsScreenDocument = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'duration' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'WrongTitle' },
