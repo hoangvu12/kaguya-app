@@ -129,6 +129,7 @@ export const mediaIdAtom = atom<{
   anilistId: 0,
   malId: 0,
 });
+export const isAdultAtom = atom(false);
 
 export const timestampsAtom = atom<Timestamp[]>([]);
 

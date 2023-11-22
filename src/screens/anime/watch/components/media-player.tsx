@@ -18,6 +18,10 @@ import RNVideo from 'react-native-video';
 
 import { VideoFormat } from '@/core/video';
 import providers from '@/providers';
+import {
+  shouldSyncAdultAtom,
+  syncPercentageAtom,
+} from '@/screens/settings/store';
 import { getWatchedEpisode, markEpisodeAsWatched } from '@/storage/episode';
 import type { ProviderType } from '@/storage/provider';
 import { getProviders } from '@/storage/provider';
@@ -29,6 +33,7 @@ import {
   currentSourceAtom,
   currentTimeAtom,
   durationAtom,
+  isAdultAtom,
   isBufferingAtom,
   mediaIdAtom,
   pausedAtom,
@@ -78,6 +83,8 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
   const setQualityList = useSetAtom(qualityListAtom);
   const setVideoSize = useSetAtom(videoSizeAtom);
 
+  const shouldSyncAdult = useAtomValue(shouldSyncAdultAtom);
+
   const currentEpisode = useAtomValue(currentEpisodeAtom);
   const mediaId = useAtomValue(mediaIdAtom);
 
@@ -93,6 +100,8 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
   const setIsBuffering = useSetAtom(isBufferingAtom);
   const playBackRate = useAtomValue(playBackRateAtom);
   const volume = useAtomValue(volumeAtom);
+  const isAdult = useAtomValue(isAdultAtom);
+  const syncPercentage = useAtomValue(syncPercentageAtom);
 
   const showBufferingTimeout = useRef<NodeJS.Timeout | null>(null);
   const shouldMaintainTime = useRef(false);
@@ -116,6 +125,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
   const handleSync = useCallback(
     (currentTime: number) => {
       if (!shouldSync) return;
+      if (isAdult && !shouldSyncAdult) return;
 
       if (hasSyncProviders.current) return;
 
@@ -129,7 +139,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
 
       if (duration < 10) return;
 
-      if (currentTime >= duration * 0.75) {
+      if (currentTime >= duration * syncPercentage ?? 0.75) {
         hasSyncProviders.current = true;
 
         const storageProviders = getProviders();
@@ -151,7 +161,15 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
         });
       }
     },
-    [currentEpisode?.number, duration, mediaId, shouldSync]
+    [
+      currentEpisode?.number,
+      duration,
+      isAdult,
+      mediaId,
+      shouldSync,
+      shouldSyncAdult,
+      syncPercentage,
+    ]
   );
 
   const handleProgress = useCallback(
