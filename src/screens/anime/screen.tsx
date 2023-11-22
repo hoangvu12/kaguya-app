@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { ScrollView } from 'react-native';
 
+import useDoubleExit from '@/hooks/use-double-exit';
 import useModuleLinking from '@/hooks/use-module-linking';
 import {
   Button,
@@ -21,6 +22,7 @@ import WatchedList from './components/watched-list';
 
 export const AnimeHomeScreen = () => {
   useModuleLinking();
+  useDoubleExit();
 
   const navigation = useNavigation();
 
