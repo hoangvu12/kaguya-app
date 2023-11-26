@@ -4695,6 +4695,7 @@ export type AiringScheduleScreenQuery = {
     airingSchedules?: Array<{
       __typename?: 'AiringSchedule';
       airingAt: number;
+      episode: number;
       media?:
         | ({ __typename?: 'Media'; id: number; isAdult?: boolean | null } & {
             ' $fragmentRefs'?: { DetailsCardFragment: DetailsCardFragment };
@@ -8283,6 +8284,10 @@ export const AiringScheduleScreenDocument = {
                             },
                           ],
                         },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'episode' },
                       },
                     ],
                   },

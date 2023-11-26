@@ -27,9 +27,13 @@ export const DetailsCardFragment = graphql(`
 
 interface DetailsCardProps {
   media: FragmentType<typeof DetailsCardFragment>;
+  endSlot?: React.ReactNode;
 }
 
-const DetailsCard: React.FC<DetailsCardProps> = ({ media: mediaProps }) => {
+const DetailsCard: React.FC<DetailsCardProps> = ({
+  media: mediaProps,
+  endSlot,
+}) => {
   const media = useFragment(DetailsCardFragment, mediaProps);
 
   const navigation = useNavigation();
@@ -82,6 +86,8 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ media: mediaProps }) => {
               )}
             />
           </View>
+
+          {endSlot}
         </View>
       </View>
     </Pressable>

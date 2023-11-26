@@ -33,6 +33,7 @@ const document = graphql(`
           isAdult
           ...DetailsCard
         }
+        episode
       }
     }
   }
@@ -214,7 +215,9 @@ const AiringScheduleScreen = () => {
         <View className="mt-4 flex-1">
           <FlashList
             estimatedItemSize={266}
-            data={Object.entries(schedulesWithTime)}
+            data={Object.entries(schedulesWithTime)?.filter(([, list]) => {
+              return list.length > 0;
+            })}
             renderItem={({ item }) => {
               const [time, list] = item;
 
@@ -247,7 +250,14 @@ const AiringScheduleScreen = () => {
                     <View className="ml-4 space-y-2">
                       {nonAdultList.map((schedule) => (
                         <View className="flex" key={schedule.media!.id}>
-                          <DetailsCard media={schedule.media!} />
+                          <DetailsCard
+                            media={schedule.media!}
+                            endSlot={
+                              <Text className="mt-1 text-sm text-gray-300">
+                                Episode {schedule.episode}
+                              </Text>
+                            }
+                          />
                         </View>
                       ))}
                     </View>
