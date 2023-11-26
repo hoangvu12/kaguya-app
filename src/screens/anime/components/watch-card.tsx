@@ -75,20 +75,6 @@ const WatchCard: React.FC<WatchCardProps> = ({
           colors={linearGradientColors}
           className="absolute inset-0"
         />
-
-        {watchedData?.title && (
-          <View className="absolute bottom-1.5 left-1.5 flex flex-row items-center gap-1.5">
-            <Text variant="sm" numberOfLines={1}>
-              {watchedData?.number}
-            </Text>
-
-            <View className="h-1.5 w-1.5 rounded-full bg-thunder-400" />
-
-            <Text variant="sm" numberOfLines={1}>
-              {watchedData.title}
-            </Text>
-          </View>
-        )}
       </Pressable>
 
       <Pressable onPress={handleNavigate} android_ripple={null}>
