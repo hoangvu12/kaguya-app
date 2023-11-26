@@ -70,6 +70,23 @@ window.sendRequest = (request) => {
     window.addEventListener('message', handleMessage);
   })
 }
+
+window.loadScript = (url) => {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(\`script[src="\${url}"]\`)) {
+      resolve("");
+      return;
+    }
+
+    const script = document.createElement("script");
+
+    script.src = url;
+    script.onload = resolve;
+    script.onerror = reject;
+
+    document.head.appendChild(script);
+  });
+}
 `;
 
 class Observer {
@@ -184,6 +201,14 @@ export const useWebView = () => {
 
       webView.injectJavaScript(`
         window.anime = {};
+      `);
+
+      webView.injectJavaScript(`
+        for (let i = 0; i < document.querySelectorAll('script').length; i++) {
+          const script = document.querySelectorAll('script')[i];
+
+          script.remove();
+        }
       `);
 
       webView.injectJavaScript(jsCode);
