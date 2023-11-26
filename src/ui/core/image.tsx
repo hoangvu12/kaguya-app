@@ -12,8 +12,11 @@ export const Image = ({
   style,
   className,
   placeholder = 'L0Eyb[xufQxu-;fQfQfQfQfQfQfQ',
+  source,
   ...props
 }: ImgProps) => {
+  const [isError, setIsError] = React.useState(false);
+
   return (
     <SImage
       className={className}
@@ -23,6 +26,9 @@ export const Image = ({
         effect: 'cross-dissolve',
         duration: 200,
       }}
+      onError={() => setIsError(true)}
+      onLoad={() => setIsError(false)}
+      source={isError ? require('../../../assets/image-fallback.png') : source}
       {...props}
     />
   );
