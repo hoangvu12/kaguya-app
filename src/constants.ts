@@ -118,3 +118,7 @@ export const GENRE_LIST = [
       'https://s4.anilist.co/file/anilistcdn/media/anime/banner/100388-CR4PUEz1Nzsl.jpg',
   },
 ];
+
+export const GITHUB_URL = 'https://github.com/hoangvu12/kaguya-app';
+export const DISCORD_URL = 'https://discord.com/invite/382BEFfER6';
+export const KOFI_URL = 'https://ko-fi.com/kaguyaanime';
