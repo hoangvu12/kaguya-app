@@ -71,7 +71,7 @@ const documents = {
     types.BannerCardMediaFragmentDoc,
   '\n  query BannerCard {\n    Page(page: 1, perPage: 10) {\n      media(type: ANIME, sort: [TRENDING_DESC, POPULARITY_DESC]) {\n        ...BannerCardMedia\n      }\n    }\n  }\n':
     types.BannerCardDocument,
-  '\n  fragment CardMedia on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    ...MediaUnitStatsMedia\n  }\n':
+  '\n  fragment CardMedia on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    averageScore\n    ...MediaUnitStatsMedia\n  }\n':
     types.CardMediaFragmentDoc,
   '\n  fragment CharacterCard on CharacterEdge {\n    node {\n      id\n      name {\n        userPreferred\n      }\n      image {\n        large\n      }\n    }\n    role\n  }\n':
     types.CharacterCardFragmentDoc,
@@ -273,8 +273,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment CardMedia on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    ...MediaUnitStatsMedia\n  }\n'
-): (typeof documents)['\n  fragment CardMedia on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    ...MediaUnitStatsMedia\n  }\n'];
+  source: '\n  fragment CardMedia on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    averageScore\n    ...MediaUnitStatsMedia\n  }\n'
+): (typeof documents)['\n  fragment CardMedia on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    averageScore\n    ...MediaUnitStatsMedia\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -1,4 +1,5 @@
 import { StackActions, useNavigation } from '@react-navigation/native';
+import { StarIcon } from 'lucide-react-native';
 import React from 'react';
 
 import type { FragmentType } from '@/gql';
@@ -18,6 +19,7 @@ export const CardFragment = graphql(`
     coverImage {
       large
     }
+    averageScore
     ...MediaUnitStatsMedia
   }
 `);
@@ -57,7 +59,7 @@ export const Card = ({
   };
 
   return (
-    <View className="w-28" {...containerProps}>
+    <View className="relative w-28" {...containerProps}>
       <Pressable
         onPress={handlePress}
         className="mb-1.5 aspect-[2/3] w-full rounded-md"
@@ -82,6 +84,16 @@ export const Card = ({
 
         {endSlot}
       </Pressable>
+
+      {media?.averageScore && (
+        <View className="absolute right-1 top-1 flex flex-row items-center rounded-full bg-thunder-600 px-3 py-1">
+          <StarIcon size={14} color="#eab308" fill="#eab308" />
+
+          <Text variant="sm" weight="medium" className="ml-1 text-white">
+            {media?.averageScore / 10}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
