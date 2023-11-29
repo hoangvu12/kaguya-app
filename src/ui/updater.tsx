@@ -1,10 +1,10 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet';
+import Markdown from '@jonasmerlin/react-native-markdown-display';
 import axios from 'axios';
 import * as FileSystem from 'expo-file-system';
 import * as IntentLauncher from 'expo-intent-launcher';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Platform } from 'react-native';
-import Markdown from 'react-native-markdown-display';
 
 import { Env } from '@/core/env';
 
