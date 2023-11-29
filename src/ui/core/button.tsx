@@ -81,6 +81,7 @@ export const Button = ({
             buttonVariants[variant].indicator,
             indicatorClassName
           )}
+          color="white"
           {...loadingProps}
         />
       ) : (
