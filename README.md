@@ -15,6 +15,16 @@ Kaguya do not host any of the media content. Please be aware of the copyright la
 
 If you encounter any issues, have suggestions for improvement, or wish to contribute to the development of the application, feel free to create an issue or submit a pull request on our GitHub repository.
 
+## Screenshots
+### Home screen
+![Screenshot_2023-11-29-10-37-34-05_fc71841f6b0ad17e8381170bdcaf7883](https://github.com/hoangvu12/kaguya-app/assets/68330291/dec6ddc6-d04c-463a-ac8e-fdb50f38379f)
+### Details screen
+![Screenshot_2023-11-29-10-37-58-63_fc71841f6b0ad17e8381170bdcaf7883](https://github.com/hoangvu12/kaguya-app/assets/68330291/82e99624-a7e3-4c19-b80b-0095373ff067)
+![Screenshot_2023-11-29-10-38-45-14_fc71841f6b0ad17e8381170bdcaf7883](https://github.com/hoangvu12/kaguya-app/assets/68330291/a52cc6a6-012f-4029-ba16-d3a4fa5f8b33)
+### Watch screen
+![Screenshot_2023-11-29-10-40-25-53_fc71841f6b0ad17e8381170bdcaf7883](https://github.com/hoangvu12/kaguya-app/assets/68330291/dc8c5cff-9061-42b8-ae2d-bd256d08f187)
+
+
 ## Discord
 
 <img src="https://invidget.switchblade.xyz/382BEFfER6" align="center"/>
