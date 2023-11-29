@@ -2,12 +2,13 @@ import type { BottomSheetModal } from '@gorhom/bottom-sheet';
 import axios from 'axios';
 import * as FileSystem from 'expo-file-system';
 import * as IntentLauncher from 'expo-intent-launcher';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Platform } from 'react-native';
+import Markdown from 'react-native-markdown-display';
 
 import { Env } from '@/core/env';
 
-import { Button, Text } from './core';
+import { Button, Text, View } from './core';
 import BottomSheet from './core/bottom-sheet';
 
 export interface Release {
@@ -170,28 +171,225 @@ const Updater = () => {
 
   return (
     <BottomSheet ref={bottomSheetRef} snapPoints={['80%']}>
-      <Text className="mb-2 text-xl" weight="bold">
-        New update available:{' '}
-        <Text className="text-xl text-primary-300" weight="bold">
-          {release.name}
+      <View className="pb-12">
+        <Text className="mb-4 text-xl" weight="bold">
+          New update available:{' '}
+          <Text className="text-xl text-primary-300" weight="bold">
+            {release.name}
+          </Text>
         </Text>
-      </Text>
 
-      <Text className="mb-4 text-lg">Changelog:</Text>
+        {/* @ts-expect-error  */}
+        <Markdown style={markdownStyles}>{release.body}</Markdown>
 
-      <Text className="mb-8 bg-thunder-800 p-4">{release.body}</Text>
+        <Button loading={isLoading} onPress={handleUpdate}>
+          <Text>Update now</Text>
+        </Button>
 
-      <Button loading={isLoading} onPress={handleUpdate}>
-        <Text>Update now</Text>
-      </Button>
-
-      {errorMessage ? (
-        <Text className="mt-4 text-red-300" weight="semibold">
-          Error: {errorMessage}
-        </Text>
-      ) : null}
+        {errorMessage ? (
+          <Text className="mt-4 text-red-300" weight="semibold">
+            Error: {errorMessage}
+          </Text>
+        ) : null}
+      </View>
     </BottomSheet>
   );
+};
+
+const markdownStyles = {
+  // The main container
+  body: {},
+
+  // Headings
+  heading1: {
+    flexDirection: 'row',
+    fontSize: 32,
+    fontFamily: 'Outfit-Bold',
+  },
+  heading2: {
+    flexDirection: 'row',
+    fontSize: 24,
+  },
+  heading3: {
+    flexDirection: 'row',
+    fontSize: 18,
+  },
+  heading4: {
+    flexDirection: 'row',
+    fontSize: 16,
+  },
+  heading5: {
+    flexDirection: 'row',
+    fontSize: 13,
+  },
+  heading6: {
+    flexDirection: 'row',
+    fontSize: 11,
+  },
+
+  // Horizontal Rule
+  hr: {
+    backgroundColor: '#000000',
+    height: 1,
+  },
+
+  // Emphasis
+  strong: {
+    fontWeight: 'bold',
+  },
+  em: {
+    fontStyle: 'italic',
+  },
+  s: {
+    textDecorationLine: 'line-through',
+  },
+
+  // Blockquotes
+  blockquote: {
+    backgroundColor: '#F5F5F5',
+    borderColor: '#CCC',
+    borderLeftWidth: 4,
+    marginLeft: 5,
+    paddingHorizontal: 5,
+  },
+
+  // Lists
+  bullet_list: {},
+  ordered_list: {},
+  list_item: {
+    marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  // @pseudo class, does not have a unique render rule
+  bullet_list_icon: {
+    marginLeft: 10,
+    marginRight: 10,
+    color: 'white',
+  },
+  // @pseudo class, does not have a unique render rule
+  bullet_list_content: {
+    flex: 1,
+  },
+  // @pseudo class, does not have a unique render rule
+  ordered_list_icon: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  // @pseudo class, does not have a unique render rule
+  ordered_list_content: {
+    flex: 1,
+  },
+
+  // Code
+  code_inline: {
+    borderWidth: 1,
+    borderColor: '#CCCCCC',
+    backgroundColor: '#f5f5f5',
+    padding: 10,
+    borderRadius: 4,
+    ...Platform.select({
+      ['ios']: {
+        fontFamily: 'Courier',
+      },
+      ['android']: {
+        fontFamily: 'monospace',
+      },
+    }),
+  },
+  code_block: {
+    borderWidth: 1,
+    borderColor: '#CCCCCC',
+    backgroundColor: '#f5f5f5',
+    padding: 10,
+    borderRadius: 4,
+    ...Platform.select({
+      ['ios']: {
+        fontFamily: 'Courier',
+      },
+      ['android']: {
+        fontFamily: 'monospace',
+      },
+    }),
+  },
+  fence: {
+    borderWidth: 1,
+    borderColor: '#CCCCCC',
+    backgroundColor: '#f5f5f5',
+    padding: 10,
+    borderRadius: 4,
+    ...Platform.select({
+      ['ios']: {
+        fontFamily: 'Courier',
+      },
+      ['android']: {
+        fontFamily: 'monospace',
+      },
+    }),
+  },
+
+  // Tables
+  table: {
+    borderWidth: 1,
+    borderColor: '#000000',
+    borderRadius: 3,
+  },
+  thead: {},
+  tbody: {},
+  th: {
+    flex: 1,
+    padding: 5,
+  },
+  tr: {
+    borderBottomWidth: 1,
+    borderColor: '#000000',
+    flexDirection: 'row',
+  },
+  td: {
+    flex: 1,
+    padding: 5,
+  },
+
+  // Links
+  link: {
+    textDecorationLine: 'underline',
+  },
+  blocklink: {
+    flex: 1,
+    borderColor: '#000000',
+    borderBottomWidth: 1,
+  },
+
+  // Images
+  image: {
+    flex: 1,
+  },
+
+  // Text Output
+  text: {
+    color: 'white',
+    fontFamily: 'Outfit-Medium',
+  },
+  textgroup: {},
+  paragraph: {
+    marginTop: 24,
+    marginBottom: 24,
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    width: '100%',
+  },
+  hardbreak: {
+    width: '100%',
+    height: 1,
+  },
+  softbreak: {},
+
+  // Believe these are never used but retained for completeness
+  pre: {},
+  inline: {},
+  span: {},
 };
 
 export default Updater;
