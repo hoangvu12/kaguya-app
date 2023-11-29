@@ -23,6 +23,7 @@ const useVolumeGesture = () => {
     sliderHeight: 0,
     baseValue: 0,
     initialVolume: 0,
+    actualInitialVolume: 0,
     moveTouchY: 0,
     finalValue: 1,
     isShown: false,
@@ -30,13 +31,17 @@ const useVolumeGesture = () => {
 
   const volumePan = Gesture.Pan()
     .onStart((event) => {
+      const initialVolume = volumeSlider.getVolume() ?? 1;
+
+      refs.value.actualInitialVolume = initialVolume;
+
       if (event.x < screenSize.width * WIDTH_PERCENT) return;
       if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
       if (event.y > screenSize.height * HEIGHT_PERCENT) return;
 
       refs.value.sliderHeight = volumeSlider.getHeight();
       refs.value.baseValue = event.y;
-      refs.value.initialVolume = volumeSlider.getVolume() ?? 1;
+      refs.value.initialVolume = initialVolume;
       refs.value.moveTouchY = 0;
     })
     .onUpdate((event) => {
@@ -44,11 +49,9 @@ const useVolumeGesture = () => {
       if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
       if (event.y > screenSize.height * HEIGHT_PERCENT) return;
 
-      if (Math.abs(event.translationY) > 10) {
-        if (!refs.value.isShown) {
-          volumeSlider.show();
-          refs.value.isShown = true;
-        }
+      if (!refs.value.isShown) {
+        volumeSlider.show();
+        refs.value.isShown = true;
       }
 
       const draggedHeight = event.y - refs.value.baseValue;
@@ -73,15 +76,16 @@ const useVolumeGesture = () => {
 
       volumeSlider.setAnimationValue(refs.value.finalValue);
     })
-    .onFinalize((event) => {
-      if (Math.abs(event.translationY) > 10) {
+    .onFinalize(() => {
+      if (refs.value.finalValue !== refs.value.actualInitialVolume) {
         runOnJS(volumeSlider.setVolume)(refs.value.finalValue);
       }
 
       volumeSlider.hide();
 
       refs.value.isShown = false;
-    });
+    })
+    .minDistance(20);
 
   return volumePan;
 };
