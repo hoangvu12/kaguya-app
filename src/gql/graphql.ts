@@ -5224,6 +5224,7 @@ export type BannerCardQuery = {
 export type CardMediaFragment = ({
   __typename?: 'Media';
   id: number;
+  averageScore?: number | null;
   title?: { __typename?: 'MediaTitle'; userPreferred?: string | null } | null;
   coverImage?: { __typename?: 'MediaCoverImage'; large?: string | null } | null;
 } & {
@@ -5778,6 +5779,7 @@ export const CardMediaFragmentDoc = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
@@ -5923,6 +5925,7 @@ export const RelationListMediaFragmentDoc = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
@@ -6040,6 +6043,7 @@ export const RecommendationListMediaFragmentDoc = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
@@ -6627,6 +6631,7 @@ export const InfoScreenMediaFragmentDoc = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
@@ -7130,6 +7135,7 @@ export const SearchLayoutContainerFragmentDoc = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
@@ -7487,6 +7493,7 @@ export const WatchedListDocument = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
@@ -7816,6 +7823,7 @@ export const AuthWatchedListDocument = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
@@ -8517,6 +8525,7 @@ export const AiringScheduleDocument = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
@@ -8707,6 +8716,7 @@ export const PopularThisSeasonDocument = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
@@ -8900,6 +8910,7 @@ export const UpcomingNextSeasonDocument = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
@@ -9081,6 +9092,7 @@ export const InfoDetailsScreenDocument = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
@@ -11229,6 +11241,7 @@ export const MediaDocument = {
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'averageScore' } },
           {
             kind: 'FragmentSpread',
             name: { kind: 'Name', value: 'MediaUnitStatsMedia' },
