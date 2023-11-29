@@ -27,7 +27,6 @@ export const Image = ({
         duration: 200,
       }}
       onError={() => setIsError(true)}
-      onLoad={() => setIsError(false)}
       source={isError ? require('../../../assets/image-fallback.png') : source}
       {...props}
     />
