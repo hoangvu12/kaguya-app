@@ -82,6 +82,8 @@ const MediaTop = () => {
                 <ResizeButton />
               </View>
 
+              <MediaToggleSubtitle />
+
               <View>
                 <CastButton />
               </View>
