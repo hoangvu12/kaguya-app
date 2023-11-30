@@ -138,3 +138,8 @@ export const shouldNotSyncListAtom = atomWithMMKV<number[]>(
   'not_sync_list',
   []
 );
+
+export const playerResizeMode = atomWithMMKV<'stretch' | 'contain' | 'cover'>(
+  'player__resize_mode',
+  'contain'
+);

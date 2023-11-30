@@ -40,6 +40,7 @@ import {
   playableDurationAtom,
   playBackRateAtom,
   playerAtom,
+  playerResizeMode,
   qualityListAtom,
   sourceListAtom,
   videoSizeAtom,
@@ -65,7 +66,7 @@ type VideoSource = {
 };
 
 const EMPTY_VIDEO: VideoSource = {
-  uri: undefined,
+  uri: 'https://cdn.plyr.io/static/blank.mp4',
 };
 
 const MediaPlayer: React.FC<MediaPlayerProps> = ({
@@ -76,6 +77,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
   const playerRef = useRef<RNVideo>(null);
   const setPlayer = useSetAtom(playerAtom);
 
+  const resizeMode = useAtomValue(playerResizeMode);
   const setPlayableDuration = useSetAtom(playableDurationAtom);
   const [currentTime, setCurrentTime] = useAtom(currentTimeAtom);
   const [duration, setDuration] = useAtom(durationAtom);
@@ -438,7 +440,8 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
           ? { type: 'resolution', value: currentVideoTrack.height }
           : undefined
       }
-      className="fixed inset-0 z-0 h-full w-full bg-black object-contain"
+      className="fixed inset-0 z-0 h-full w-full bg-black"
+      resizeMode={resizeMode}
       onError={(error) => {
         Toast.show({
           type: 'error',

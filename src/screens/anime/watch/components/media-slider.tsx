@@ -177,11 +177,9 @@ const MediaSlider = () => {
         <Text> / </Text>
 
         <Text className="text-gray-300">{formatTime(duration)}</Text>
-
         {timestamp ? (
           <React.Fragment>
             <Text> • </Text>
-
             <Text>{timestamp.type}</Text>
           </React.Fragment>
         ) : null}

@@ -8,6 +8,9 @@ dependencies:
   '@bacons/link-assets':
     specifier: ^1.1.0
     version: 1.1.0
+  '@config-plugins/react-native-google-cast':
+    specifier: ^6.0.0
+    version: 6.0.0(expo@49.0.6)
   '@gorhom/bottom-sheet':
     specifier: ^4.4.5
     version: 4.4.5(react-native-gesture-handler@2.12.0)(react-native-reanimated@3.3.0)(react-native@0.72.5)(react@18.2.0)
@@ -137,6 +140,9 @@ dependencies:
   react-native-gesture-handler:
     specifier: ~2.12.0
     version: 2.12.0(react-native@0.72.5)(react@18.2.0)
+  react-native-google-cast:
+    specifier: ^4.6.2
+    version: 4.6.2(react-native@0.72.5)(react@18.2.0)
   react-native-mmkv:
     specifier: 2.6.3
     version: 2.6.3(react-native@0.72.5)(react@18.2.0)
@@ -3353,6 +3359,14 @@ packages:
     dependencies:
       chalk: 4.1.2
     dev: true
+
+  /@config-plugins/react-native-google-cast@6.0.0(expo@49.0.6):
+    resolution: {integrity: sha512-KRtkvijtX1FRDhR7WkgvNpzrVh+5aauM14Y77Mf37+/4ekg1yU6gzx4C0TiCm+YqSEojd35iEH3rCfScWL8jPQ==}
+    peerDependencies:
+      expo: ^49
+    dependencies:
+      expo: 49.0.6(@babel/core@7.21.0)
+    dev: false
 
   /@cspotcode/source-map-support@0.8.1:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -13798,6 +13812,16 @@ packages:
       invariant: 2.2.4
       lodash: 4.17.21
       prop-types: 15.8.1
+      react: 18.2.0
+      react-native: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
+    dev: false
+
+  /react-native-google-cast@4.6.2(react-native@0.72.5)(react@18.2.0):
+    resolution: {integrity: sha512-sYXFX8U9rMCGhvJ7ayV9hAjR0JghJTzAHsnAbCZhbTNI8Nx6kvSwAifS6MBf+A8bIqBFXZJb2LzMtE/vmyOzPQ==}
+    peerDependencies:
+      react: '>=15.1 || >=16.0.0'
+      react-native: '>=0.40'
+    dependencies:
       react: 18.2.0
       react-native: 0.72.5(@babel/core@7.21.0)(@babel/preset-env@7.22.10)(react@18.2.0)
     dev: false

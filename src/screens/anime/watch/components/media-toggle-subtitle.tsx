@@ -9,7 +9,9 @@ import SubtitleDisabledIcon from '@/ui/icons/subtitle-disabled';
 import { currentSubtitleAtom, subtitleListAtom } from '../store';
 import Tappable from './tappable';
 
-const MediaToggleSubtitle = () => {
+interface MediaToggleSubtitleProps extends React.ComponentProps<typeof View> {}
+
+const MediaToggleSubtitle: React.FC<MediaToggleSubtitleProps> = (props) => {
   const [currentSubtitle, setCurrentSubtitle] = useAtom(currentSubtitleAtom);
   const lastSubtitleRef = useRef<Subtitle | null>(null);
   const subtitleList = useAtomValue(subtitleListAtom);
@@ -35,7 +37,7 @@ const MediaToggleSubtitle = () => {
   if (!subtitleList.length) return null;
 
   return (
-    <View>
+    <View {...props}>
       <Tappable onPress={handleToggle}>
         <View className="ml-auto bg-transparent p-0">
           {currentSubtitle ? (
