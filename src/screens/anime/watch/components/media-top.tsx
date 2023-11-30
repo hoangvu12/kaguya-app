@@ -18,6 +18,7 @@ import EpisodesButton from './episodes-button';
 import MediaSettings from './media-settings';
 import MediaSlidingIndicator from './media-sliding-indicator';
 import MediaToggleSubtitle from './media-toggle-subtitle';
+import ResizeButton from './resize-button';
 import ServerSelector from './server-selector';
 
 const MediaTop = () => {
@@ -77,8 +78,10 @@ const MediaTop = () => {
               </View>
 
               <View>
-                <MediaToggleSubtitle />
+                <ResizeButton />
               </View>
+
+              <MediaToggleSubtitle />
 
               <View>
                 <MediaSettings />
