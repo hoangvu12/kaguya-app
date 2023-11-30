@@ -114,8 +114,15 @@ const SearchScreen: React.FC<Props> = ({ route: { params } }) => {
     setYear,
   ]);
 
-  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    useSearchMedia();
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+    refetch,
+    isRefetching,
+  } = useSearchMedia();
 
   const handleLoadMore = () => {
     if (isFetchingNextPage) {
@@ -181,10 +188,12 @@ const SearchScreen: React.FC<Props> = ({ route: { params } }) => {
         </View>
 
         <View className="my-4 w-full">
-          <If condition={!isLoading && totalData?.length}>
+          <If condition={!isLoading && totalData?.length && !isRefetching}>
             <Then>
               <View className="min-h-screen">
                 <LayoutContainer
+                  isRefetching={isRefetching}
+                  refetch={refetch}
                   onLoadMore={handleLoadMore}
                   mediaList={totalData!}
                 />
@@ -192,7 +201,7 @@ const SearchScreen: React.FC<Props> = ({ route: { params } }) => {
             </Then>
 
             <Else>
-              <If condition={isLoading}>
+              <If condition={isLoading || isRefetching}>
                 <Then>
                   <ActivityIndicator color={colors.primary[500]} size={48} />
                 </Then>

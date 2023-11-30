@@ -14,6 +14,7 @@ import { useGraphQL } from '@/hooks/use-graphql';
 import DetailsCard from '@/screens/search/components/details-card';
 import { ActivityIndicator, Button, groupBy, Text, View } from '@/ui';
 import Pressable from '@/ui/core/pressable';
+import RefreshControl from '@/ui/core/refresh-control';
 import colors from '@/ui/theme/colors';
 
 dayjs.extend(duration);
@@ -80,7 +81,12 @@ const AiringScheduleScreen = () => {
     return days;
   }, []);
 
-  const { data: schedules, isLoading } = useGraphQL(document, {
+  const {
+    data: schedules,
+    isLoading,
+    isRefetching,
+    refetch,
+  } = useGraphQL(document, {
     airingAt_greater,
     airingAt_lesser,
   });
@@ -205,7 +211,7 @@ const AiringScheduleScreen = () => {
         ItemSeparatorComponent={() => <View className="w-4" />}
       />
 
-      {isLoading ? (
+      {isLoading || isRefetching ? (
         <ActivityIndicator
           size={48}
           color={colors.primary[500]}
@@ -218,6 +224,9 @@ const AiringScheduleScreen = () => {
             data={Object.entries(schedulesWithTime)?.filter(([, list]) => {
               return list.length > 0;
             })}
+            refreshControl={
+              <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
+            }
             renderItem={({ item }) => {
               const [time, list] = item;
 
