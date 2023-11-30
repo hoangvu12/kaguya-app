@@ -131,6 +131,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     'sentry-expo',
+    '@config-plugins/react-native-google-cast',
   ],
   extra: {
     ...ClientEnv,

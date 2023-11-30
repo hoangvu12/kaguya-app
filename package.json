@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@bacons/link-assets": "^1.1.0",
+    "@config-plugins/react-native-google-cast": "^6.0.0",
     "@gorhom/bottom-sheet": "^4.4.5",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@jonasmerlin/react-native-markdown-display": "github:jonasmerlin/react-native-markdown-display",
@@ -76,6 +77,7 @@
     "react-native": "0.72.5",
     "react-native-device-info": "^10.11.0",
     "react-native-gesture-handler": "~2.12.0",
+    "react-native-google-cast": "^4.6.2",
     "react-native-mmkv": "2.6.3",
     "react-native-modal": "^13.0.1",
     "react-native-orientation-locker": "^1.5.0",
