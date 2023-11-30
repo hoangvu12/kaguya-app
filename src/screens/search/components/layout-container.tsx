@@ -18,11 +18,15 @@ export const SearchLayoutContainerFragment = graphql(`
 interface LayoutContainerProps {
   mediaList: FragmentType<typeof SearchLayoutContainerFragment>[];
   onLoadMore: () => void;
+  refetch: () => void;
+  isRefetching: boolean;
 }
 
 const LayoutContainer: React.FC<LayoutContainerProps> = ({
   mediaList: mediaListProps,
   onLoadMore,
+  isRefetching,
+  refetch,
 }) => {
   const layout = useAtomValue(layoutAtom);
 
@@ -32,10 +36,24 @@ const LayoutContainer: React.FC<LayoutContainerProps> = ({
   );
 
   if (layout === 'grid') {
-    return <GridList onLoadMore={onLoadMore} mediaList={mediaListFragment} />;
+    return (
+      <GridList
+        isRefetching={isRefetching}
+        refetch={refetch}
+        onLoadMore={onLoadMore}
+        mediaList={mediaListFragment}
+      />
+    );
   }
 
-  return <DetailsList onLoadMore={onLoadMore} mediaList={mediaListFragment} />;
+  return (
+    <DetailsList
+      isRefetching={isRefetching}
+      refetch={refetch}
+      onLoadMore={onLoadMore}
+      mediaList={mediaListFragment}
+    />
+  );
 };
 
 export default LayoutContainer;

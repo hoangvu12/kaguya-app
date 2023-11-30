@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { FlashList } from '@shopify/flash-list';
 import { useAtomValue } from 'jotai/react';
 import React, { useMemo } from 'react';
 
@@ -71,8 +72,10 @@ const EpisodeLayoutContainer: React.FC<{
       ) : null}
 
       {layoutMode === 'details' ? (
-        <View className="space-y-4">
-          {episodes.map((episode) => {
+        <FlashList
+          data={episodes}
+          estimatedItemSize={161}
+          renderItem={({ item: episode }) => {
             const episodeNumber = parseInt(episode.number, 10);
 
             return (
@@ -91,23 +94,25 @@ const EpisodeLayoutContainer: React.FC<{
                 }
               />
             );
-          })}
-        </View>
+          }}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={() => <View className="my-3" />}
+        />
       ) : null}
 
       {layoutMode === 'card' ? (
-        <View className="flex flex-row flex-wrap justify-between">
-          {episodes.map((episode, index) => {
+        <FlashList
+          data={episodes}
+          numColumns={2}
+          renderItem={({ item: episode, index }) => {
             const episodeNumber = parseInt(episode.number, 10);
 
             return (
               <View
                 style={{
-                  width: width / 2 - PADDING - SPACE_BETWEEN,
-                  marginBottom:
-                    index < episodes.length - 2 ? SPACE_BETWEEN * 2 : 0,
+                  width: width / 2 - SPACE_BETWEEN - PADDING,
+                  marginLeft: index % 2 !== 0 ? SPACE_BETWEEN : 0,
                 }}
-                key={episode.id}
               >
                 <EpisodeCard
                   onPress={() => {
@@ -124,8 +129,17 @@ const EpisodeLayoutContainer: React.FC<{
                 />
               </View>
             );
-          })}
-        </View>
+          }}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={() => (
+            <View
+              style={{
+                margin: SPACE_BETWEEN,
+              }}
+            />
+          )}
+          estimatedItemSize={130}
+        />
       ) : null}
     </React.Fragment>
   );

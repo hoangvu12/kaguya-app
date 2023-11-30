@@ -1,4 +1,5 @@
 import { useAtomValue, useSetAtom } from 'jotai/react';
+import { RotateCwIcon } from 'lucide-react-native';
 import React, { useEffect, useMemo } from 'react';
 import { Else, If, Then } from 'react-if';
 
@@ -6,6 +7,7 @@ import { type FragmentType, graphql, useFragment } from '@/gql';
 import { getWatchedEpisode } from '@/storage/episode';
 import { currentModuleIdAtom } from '@/store';
 import { ActivityIndicator, colors, Text, View } from '@/ui';
+import Pressable from '@/ui/core/pressable';
 
 import useEpisodes from '../hooks/use-episodes';
 import { episodeChunkAtom, sectionEpisodesAtom } from '../store';
@@ -37,7 +39,7 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
   const media = useFragment(EpisodeContainerFragment, mediaFragment);
   const currentModuleId = useAtomValue(currentModuleIdAtom);
 
-  const { data, isLoading } = useEpisodes(media);
+  const { data, isLoading, isRefetching, refetch } = useEpisodes(media);
   const setSectionEpisodes = useSetAtom(sectionEpisodesAtom);
   const setEpisodeChunk = useSetAtom(episodeChunkAtom);
 
@@ -89,12 +91,20 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
         <View>
           <EpisodeLayoutSelector />
         </View>
+
+        <Pressable
+          onPress={() => {
+            refetch();
+          }}
+        >
+          <RotateCwIcon size={24} color="white" />
+        </Pressable>
       </View>
 
       {currentModuleId ? (
-        <If condition={isLoading}>
+        <If condition={isLoading || isRefetching}>
           <Then>
-            <View>
+            <View className="mt-8">
               <ActivityIndicator color={colors.primary[500]} size={48} />
             </View>
           </Then>
