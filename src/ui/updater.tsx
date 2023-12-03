@@ -92,6 +92,7 @@ const Updater = () => {
   const [release, setRelease] = useState<Release | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [downloadPercentage, setDownloadPercentage] = useState(0);
 
   const bottomSheetRef = useRef<BottomSheetModal | null>(null);
 
@@ -127,14 +128,26 @@ const Updater = () => {
 
       const downloadedApkUrl = `${FileSystem.cacheDirectory}${apkUrl.name}`;
 
-      const result = await FileSystem.downloadAsync(
+      const download = FileSystem.createDownloadResumable(
         apkUrl.browser_download_url,
-        downloadedApkUrl
+        downloadedApkUrl,
+        {},
+        (downloadProgress) => {
+          setDownloadPercentage(
+            downloadProgress.totalBytesWritten /
+              downloadProgress.totalBytesExpectedToWrite
+          );
+        }
       );
+
+      const result = await download.downloadAsync();
+
+      if (!result)
+        throw new Error('Failed to download the apk (Task was cancelled)');
 
       if (result.status !== 200) throw new Error('Failed to download the apk');
 
-      const contentUri = await FileSystem.getContentUriAsync(downloadedApkUrl);
+      const contentUri = await FileSystem.getContentUriAsync(result.uri);
 
       const startActivityAsync = await IntentLauncher.startActivityAsync(
         'android.intent.action.INSTALL_PACKAGE',
@@ -185,6 +198,25 @@ const Updater = () => {
         <Button loading={isLoading} onPress={handleUpdate}>
           <Text>Update now</Text>
         </Button>
+
+        {isLoading ? (
+          <View className="mt-8">
+            <Text>Downloading progress:</Text>
+
+            <View className="relative flex h-8 w-full rounded-md bg-thunder-600">
+              <View
+                className="absolute top-0 left-0 h-full rounded-md bg-primary-500"
+                style={{ width: `${downloadPercentage * 100}%` }}
+              />
+
+              <View className="absolute top-1/2 right-4 flex -translate-y-3 flex-row space-x-2">
+                <Text className="">
+                  {Math.round(downloadPercentage * 100).toFixed(0)}%
+                </Text>
+              </View>
+            </View>
+          </View>
+        ) : null}
 
         {errorMessage ? (
           <Text className="mt-4 text-red-300" weight="semibold">
