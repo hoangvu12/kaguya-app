@@ -1,16 +1,22 @@
+import { useAtomValue } from 'jotai/react';
 import React from 'react';
 
-import { Text, View } from '@/ui';
-import Sticker from '@/ui/sticker';
+import { View } from '@/ui';
+
+import AddIndex from './components/add-index';
+import IndexItem from './components/index-item';
+import { indexListAtom } from './store';
 
 const RemoteModuleScreen = () => {
-  return (
-    <View className="flex w-full items-center">
-      <Sticker name="persevere" className="h-24 w-24" />
+  const indexList = useAtomValue(indexListAtom);
 
-      <Text variant="lg" className="mt-4">
-        Coming soon...
-      </Text>
+  return (
+    <View className="flex w-full items-center space-y-2">
+      {indexList.map((repo) => (
+        <IndexItem index={repo} key={repo.author + repo.name} />
+      ))}
+
+      <AddIndex />
     </View>
   );
 };
