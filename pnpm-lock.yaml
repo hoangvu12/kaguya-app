@@ -42,8 +42,8 @@ dependencies:
     specifier: ^5.5.0
     version: 5.5.0(react-native@0.72.5)(react@18.2.0)
   '@shopify/flash-list':
-    specifier: 1.4.3
-    version: 1.4.3(@babel/runtime@7.22.10)(react-native@0.72.5)(react@18.2.0)
+    specifier: 1.6.3
+    version: 1.6.3(@babel/runtime@7.22.10)(react-native@0.72.5)(react@18.2.0)
   '@tanstack/react-query':
     specifier: ^4.26.1
     version: 4.26.1(react-dom@18.2.0)(react-native@0.72.5)(react@18.2.0)
@@ -5672,8 +5672,8 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@shopify/flash-list@1.4.3(@babel/runtime@7.22.10)(react-native@0.72.5)(react@18.2.0):
-    resolution: {integrity: sha512-jtIReAbwWzYBV0dQ6Io9wBX+pD0C4qQFMrb5/fkEvX8PYDgBl5KRYvpfr9WLLj8CV2Jsn1X0mYOsB+ysWrI/8g==}
+  /@shopify/flash-list@1.6.3(@babel/runtime@7.22.10)(react-native@0.72.5)(react@18.2.0):
+    resolution: {integrity: sha512-XM2iu4CeD9SOEUxaGG3UkxfUxGPWG9yacga1yQSgskAjUsRDFTsD3y4Dyon9n8MfDwgrRpEwuijd+7NeQQoWaQ==}
     peerDependencies:
       '@babel/runtime': '*'
       react: '*'
