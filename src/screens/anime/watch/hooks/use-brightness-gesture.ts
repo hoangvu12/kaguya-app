@@ -13,6 +13,7 @@ const clamp = (value: number, min: number, max: number) => {
 
 const WIDTH_PERCENT = 0.6;
 const HEIGHT_PERCENT = 0.85;
+const MIN_DISTANCE = 20;
 
 const useBrightnessGesture = () => {
   const brightnessSlider = useAtomValue(brightnessSliderAtom);
@@ -27,6 +28,7 @@ const useBrightnessGesture = () => {
     moveTouchY: 0,
     finalValue: 1,
     isShown: false,
+    initialY: NaN,
   });
 
   const brightnessPan = Gesture.Pan()
@@ -34,11 +36,13 @@ const useBrightnessGesture = () => {
       const initialBrightness = brightnessSlider.getBrightness();
 
       refs.value.actualInitialBrightness = initialBrightness;
+      refs.value.initialY = NaN;
 
       if (event.x > screenSize.width - screenSize.width * WIDTH_PERCENT) return;
       if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
       if (event.y > screenSize.height * HEIGHT_PERCENT) return;
 
+      refs.value.initialY = event.y;
       refs.value.sliderHeight = brightnessSlider.getHeight();
       refs.value.baseValue = event.y;
       refs.value.initialBrightness = initialBrightness;
@@ -49,6 +53,11 @@ const useBrightnessGesture = () => {
       if (event.x > screenSize.width - screenSize.width * WIDTH_PERCENT) return;
       if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
       if (event.y > screenSize.height * HEIGHT_PERCENT) return;
+      if (
+        isNaN(refs.value.initialY) ||
+        Math.abs(event.y - refs.value.initialY) < MIN_DISTANCE
+      )
+        return;
 
       if (!refs.value.isShown) {
         brightnessSlider.show();
@@ -83,16 +92,22 @@ const useBrightnessGesture = () => {
 
       brightnessSlider.setAnimationValue(refs.value.finalValue);
     })
-    .onFinalize(() => {
-      if (refs.value.finalValue !== refs.value.actualInitialBrightness) {
-        runOnJS(brightnessSlider.setBrightness)(refs.value.finalValue);
-      }
-
+    .onFinalize((event) => {
       brightnessSlider.hide();
 
       refs.value.isShown = false;
+
+      if (
+        isNaN(refs.value.initialY) ||
+        Math.abs(event.y - refs.value.initialY) < MIN_DISTANCE
+      )
+        return;
+
+      if (refs.value.finalValue !== refs.value.actualInitialBrightness) {
+        runOnJS(brightnessSlider.setBrightness)(refs.value.finalValue);
+      }
     })
-    .minDistance(20);
+    .minDistance(MIN_DISTANCE);
 
   return brightnessPan;
 };
