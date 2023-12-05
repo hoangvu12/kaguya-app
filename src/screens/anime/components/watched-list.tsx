@@ -1,10 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import useScreenSize from '@/hooks/use-screen-size';
 import { useWatched } from '@/hooks/use-watched';
-import { getWatchedEpisodes } from '@/storage/episode';
 import { Button, Text, View } from '@/ui';
 import Skeleton, { SkeletonItem } from '@/ui/core/skeleton';
 
@@ -13,13 +12,9 @@ import WatchCard, { WATCH_CARD_WIDTH } from './watch-card';
 const SPACE_BETWEEN = 8;
 
 const WatchedList = () => {
-  const watchedEpisodes = useMemo(getWatchedEpisodes, []);
-
   const { data, isLoading } = useWatched(15);
 
   const navigation = useNavigation();
-
-  if (!watchedEpisodes.length) return null;
 
   return (
     <View className="w-full">
@@ -56,7 +51,9 @@ const WatchedList = () => {
           ItemSeparatorComponent={() => <View className="w-2" />}
         />
       ) : (
-        <Text className="text-center">You haven't watched anything yet?</Text>
+        <Text className="py-6 text-center">
+          You haven't watched anything yet?
+        </Text>
       )}
     </View>
   );
