@@ -29,6 +29,7 @@ const useVolumeGesture = () => {
     finalValue: 1,
     isShown: false,
     initialY: NaN,
+    shouldMoveFreely: false,
   });
 
   const volumePan = Gesture.Pan()
@@ -37,6 +38,7 @@ const useVolumeGesture = () => {
 
       refs.value.actualInitialVolume = initialVolume;
       refs.value.initialY = NaN;
+      refs.value.shouldMoveFreely = false;
 
       if (event.x < screenSize.width * WIDTH_PERCENT) return;
       if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
@@ -52,11 +54,16 @@ const useVolumeGesture = () => {
       if (event.x < screenSize.width * WIDTH_PERCENT) return;
       if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
       if (event.y > screenSize.height * HEIGHT_PERCENT) return;
-      if (
-        isNaN(refs.value.initialY) ||
-        Math.abs(event.y - refs.value.initialY) < MIN_DISTANCE
-      )
-        return;
+
+      if (!refs.value.shouldMoveFreely) {
+        if (
+          isNaN(refs.value.initialY) ||
+          Math.abs(event.y - refs.value.initialY) < MIN_DISTANCE
+        )
+          return;
+      }
+
+      refs.value.shouldMoveFreely = true;
 
       if (!refs.value.isShown) {
         volumeSlider.show();
@@ -90,11 +97,13 @@ const useVolumeGesture = () => {
 
       refs.value.isShown = false;
 
-      if (
-        isNaN(refs.value.initialY) ||
-        Math.abs(event.y - refs.value.initialY) < MIN_DISTANCE
-      )
-        return;
+      if (!refs.value.shouldMoveFreely) {
+        if (
+          isNaN(refs.value.initialY) ||
+          Math.abs(event.y - refs.value.initialY) < MIN_DISTANCE
+        )
+          return;
+      }
 
       if (refs.value.finalValue !== refs.value.actualInitialVolume) {
         runOnJS(volumeSlider.setVolume)(refs.value.finalValue);

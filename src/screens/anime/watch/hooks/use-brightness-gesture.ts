@@ -29,6 +29,7 @@ const useBrightnessGesture = () => {
     finalValue: 1,
     isShown: false,
     initialY: NaN,
+    shouldMoveFreely: false,
   });
 
   const brightnessPan = Gesture.Pan()
@@ -37,6 +38,7 @@ const useBrightnessGesture = () => {
 
       refs.value.actualInitialBrightness = initialBrightness;
       refs.value.initialY = NaN;
+      refs.value.shouldMoveFreely = false;
 
       if (event.x > screenSize.width - screenSize.width * WIDTH_PERCENT) return;
       if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
@@ -53,11 +55,16 @@ const useBrightnessGesture = () => {
       if (event.x > screenSize.width - screenSize.width * WIDTH_PERCENT) return;
       if (event.y < screenSize.height * (1 - HEIGHT_PERCENT)) return;
       if (event.y > screenSize.height * HEIGHT_PERCENT) return;
-      if (
-        isNaN(refs.value.initialY) ||
-        Math.abs(event.y - refs.value.initialY) < MIN_DISTANCE
-      )
-        return;
+
+      if (!refs.value.shouldMoveFreely) {
+        if (
+          isNaN(refs.value.initialY) ||
+          Math.abs(event.y - refs.value.initialY) < MIN_DISTANCE
+        )
+          return;
+      }
+
+      refs.value.shouldMoveFreely = true;
 
       if (!refs.value.isShown) {
         brightnessSlider.show();
@@ -97,11 +104,13 @@ const useBrightnessGesture = () => {
 
       refs.value.isShown = false;
 
-      if (
-        isNaN(refs.value.initialY) ||
-        Math.abs(event.y - refs.value.initialY) < MIN_DISTANCE
-      )
-        return;
+      if (!refs.value.shouldMoveFreely) {
+        if (
+          isNaN(refs.value.initialY) ||
+          Math.abs(event.y - refs.value.initialY) < MIN_DISTANCE
+        )
+          return;
+      }
 
       if (refs.value.finalValue !== refs.value.actualInitialBrightness) {
         runOnJS(brightnessSlider.setBrightness)(refs.value.finalValue);
