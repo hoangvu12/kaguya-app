@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 
 import type { FragmentType } from '@/gql';
@@ -32,9 +33,20 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
 
   const node = characterEdge?.node;
 
+  const navigation = useNavigation();
+
+  const navigate = () => {
+    navigation.navigate('CharacterDetails', {
+      characterId: node!.id!,
+    });
+  };
+
   return (
     <View className="w-28">
-      <Pressable className="mb-1.5 aspect-[2/3] w-full rounded-md">
+      <Pressable
+        onPress={navigate}
+        className="mb-1.5 aspect-[2/3] w-full rounded-md"
+      >
         <Image
           source={{ uri: node!.image!.large! }}
           className="h-full w-full rounded-md"
@@ -43,7 +55,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
         />
       </Pressable>
 
-      <Pressable>
+      <Pressable onPress={navigate}>
         <Text numberOfLines={1} variant="md" weight="semibold">
           {node!.name!.userPreferred}
         </Text>

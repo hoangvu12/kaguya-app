@@ -8,6 +8,7 @@ import AiringScheduleScreen from '@/screens/anime/airing-schedule/screen';
 import { AnimeDetailsScreen } from '@/screens/anime/details/screen';
 import RecentlyWatchedScreen from '@/screens/anime/recently-watched/screen';
 import { AnimeWatchScreen } from '@/screens/anime/watch/screen';
+import CharacterDetailsScreen from '@/screens/character-details/screen';
 import Updater from '@/ui/updater';
 
 import { NavigationContainer } from './navigation-container';
@@ -38,6 +39,10 @@ export type RootParamList = {
 
   AiringSchedule: undefined;
   RecentlyWatched: undefined;
+
+  CharacterDetails: {
+    characterId: number;
+  };
 };
 
 const Stack = createNativeStackNavigator<RootParamList>();
@@ -66,6 +71,11 @@ export const Root = () => {
         <Stack.Screen
           name="RecentlyWatched"
           component={RecentlyWatchedScreen}
+        />
+
+        <Stack.Screen
+          name="CharacterDetails"
+          component={CharacterDetailsScreen}
         />
       </Stack.Group>
     </Stack.Navigator>
