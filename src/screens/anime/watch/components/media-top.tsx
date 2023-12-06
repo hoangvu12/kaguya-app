@@ -14,7 +14,6 @@ import {
   mediaTitleAtom,
   videoSizeAtom,
 } from '../store';
-import CastButton from './cast-button';
 import EpisodesButton from './episodes-button';
 import MediaSettings from './media-settings';
 import MediaSlidingIndicator from './media-sliding-indicator';
@@ -80,12 +79,6 @@ const MediaTop = () => {
 
               <View>
                 <ResizeButton />
-              </View>
-
-              <MediaToggleSubtitle />
-
-              <View>
-                <CastButton />
               </View>
 
               <MediaToggleSubtitle />

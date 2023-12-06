@@ -120,8 +120,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       'expo-build-properties',
       {
         android: {
-          kotlinVersion: '1.9.0', // this is for softinput package,
-          compileSdkVersion: 34,
+          compileSdkVersion: 33,
         },
       },
     ],
@@ -132,7 +131,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     'sentry-expo',
-    '@config-plugins/react-native-google-cast',
   ],
   extra: {
     ...ClientEnv,
