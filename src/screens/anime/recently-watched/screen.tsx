@@ -1,11 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
+import { ArrowLeft } from 'lucide-react-native';
 import React from 'react';
 import { Else, If, Then } from 'react-if';
 
 import { useFragment } from '@/gql';
 import useScreenSize from '@/hooks/use-screen-size';
 import { useWatched } from '@/hooks/use-watched';
-import { ActivityIndicator, Text, View } from '@/ui';
+import { ActivityIndicator, Button, Text, View } from '@/ui';
 import { Card, CardFragment } from '@/ui/card';
 import RefreshControl from '@/ui/core/refresh-control';
 import colors from '@/ui/theme/colors';
@@ -19,11 +21,28 @@ const RecentlyWatchedScreen = () => {
 
   const { data, isLoading, refetch, isRefetching } = useWatched(0);
 
+  const navigation = useNavigation();
+
   return (
     <View className="h-full w-full flex-1 p-4" style={{ flex: 1 }}>
-      <Text className="mb-4 text-2xl" weight="semibold">
-        Recently watched
-      </Text>
+      <View className="mb-4 flex flex-row items-center">
+        <Button
+          onPress={() => {
+            if (navigation.canGoBack()) {
+              navigation.goBack();
+            } else {
+              navigation.navigate('AnimeHome');
+            }
+          }}
+          className="mr-2 h-7 w-7 bg-transparent p-0"
+        >
+          <ArrowLeft size={28} color="white" />
+        </Button>
+
+        <Text className="text-2xl" weight="semibold">
+          Airing schedule
+        </Text>
+      </View>
 
       <If condition={isLoading || isRefetching}>
         <Then>

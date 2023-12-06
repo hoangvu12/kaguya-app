@@ -41,14 +41,6 @@ const document = graphql(`
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AnimeDetails'>;
 
-const tabBarStyle = {
-  backgroundColor: colors.thunder[900],
-  borderTopWidth: 0,
-  borderTopLeftRadius: 20,
-  borderTopRightRadius: 20,
-  height: 64,
-};
-
 const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
@@ -63,22 +55,6 @@ export const AnimeDetailsScreen: React.FC<Props> = ({ route }) => {
   const handleChangeTab = (tab: 'details' | 'episodes') => () => {
     setActiveTab(tab);
   };
-
-  React.useEffect(() => {
-    const parent = navigation.getParent();
-
-    parent?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    });
-
-    return () => {
-      parent?.setOptions({
-        tabBarStyle: tabBarStyle,
-      });
-    };
-  }, [navigation]);
 
   const mediaId = route.params?.mediaId ?? 0;
 
