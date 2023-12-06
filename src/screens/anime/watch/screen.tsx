@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useSetAtom } from 'jotai/react';
 import React, { useEffect } from 'react';
@@ -27,16 +26,7 @@ const document = graphql(`
   }
 `);
 
-const tabBarStyle = {
-  backgroundColor: colors.thunder[900],
-  borderTopWidth: 0,
-  borderTopLeftRadius: 20,
-  borderTopRightRadius: 20,
-  height: 64,
-};
-
 export const AnimeWatchScreen: React.FC<Props> = ({ route }) => {
-  const navigation = useNavigation();
   const params = route.params;
   const setMediaTitle = useSetAtom(mediaTitleAtom);
 
@@ -51,22 +41,6 @@ export const AnimeWatchScreen: React.FC<Props> = ({ route }) => {
       setMediaTitle(media.Media.title.userPreferred);
     }
   }, [media?.Media?.title?.userPreferred, setMediaTitle]);
-
-  useEffect(() => {
-    const parent = navigation.getParent();
-
-    parent?.setOptions({
-      tabBarStyle: {
-        display: 'none',
-      },
-    });
-
-    return () => {
-      parent?.setOptions({
-        tabBarStyle,
-      });
-    };
-  }, [navigation]);
 
   if (mediaIsLoading) {
     return (

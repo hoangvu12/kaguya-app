@@ -11,13 +11,10 @@ const linking = {
   prefixes: [appPrefix, 'https://anilist.co/'],
   config: {
     screens: {
-      App: {
+      Tab: {
         screens: {
           Anime: {
             screens: {
-              AnimeDetails: {
-                path: 'anime/:mediaId/:slug',
-              },
               AnimeHome: '*',
             },
           },
@@ -25,6 +22,9 @@ const linking = {
             path: 'settings',
           },
         },
+      },
+      AnimeDetails: {
+        path: 'anime/:mediaId/:slug',
       },
     },
   },
