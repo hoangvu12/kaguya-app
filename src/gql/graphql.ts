@@ -5032,6 +5032,96 @@ export type AnimeWatchScreenQueryQuery = {
     | null;
 };
 
+export type CharacterAnimeFragment = {
+  __typename?: 'Character';
+  media?: {
+    __typename?: 'MediaConnection';
+    edges?: Array<{
+      __typename?: 'MediaEdge';
+      node?: {
+        __typename?: 'Media';
+        id: number;
+        type?: MediaType | null;
+        coverImage?: {
+          __typename?: 'MediaCoverImage';
+          large?: string | null;
+        } | null;
+        title?: {
+          __typename?: 'MediaTitle';
+          userPreferred?: string | null;
+        } | null;
+      } | null;
+      voiceActors?: Array<{
+        __typename?: 'Staff';
+        id: number;
+        age?: number | null;
+        name?: {
+          __typename?: 'StaffName';
+          userPreferred?: string | null;
+        } | null;
+        image?: { __typename?: 'StaffImage'; large?: string | null } | null;
+      } | null> | null;
+    } | null> | null;
+  } | null;
+} & { ' $fragmentName'?: 'CharacterAnimeFragment' };
+
+export type CharacterInfoFragment = {
+  __typename?: 'Character';
+  id: number;
+  gender?: string | null;
+  age?: string | null;
+  bloodType?: string | null;
+  favourites?: number | null;
+  name?: { __typename?: 'CharacterName'; userPreferred?: string | null } | null;
+  image?: { __typename?: 'CharacterImage'; large?: string | null } | null;
+  dateOfBirth?: {
+    __typename?: 'FuzzyDate';
+    year?: number | null;
+    month?: number | null;
+    day?: number | null;
+  } | null;
+} & { ' $fragmentName'?: 'CharacterInfoFragment' };
+
+export type CharacterMangaFragment = {
+  __typename?: 'Character';
+  media?: {
+    __typename?: 'MediaConnection';
+    edges?: Array<{
+      __typename?: 'MediaEdge';
+      node?: {
+        __typename?: 'Media';
+        id: number;
+        type?: MediaType | null;
+        coverImage?: {
+          __typename?: 'MediaCoverImage';
+          large?: string | null;
+        } | null;
+        title?: {
+          __typename?: 'MediaTitle';
+          userPreferred?: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+  } | null;
+} & { ' $fragmentName'?: 'CharacterMangaFragment' };
+
+export type CharacterDetailsQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type CharacterDetailsQuery = {
+  __typename?: 'Query';
+  Character?:
+    | ({ __typename?: 'Character' } & {
+        ' $fragmentRefs'?: {
+          CharacterInfoFragment: CharacterInfoFragment;
+          CharacterAnimeFragment: CharacterAnimeFragment;
+          CharacterMangaFragment: CharacterMangaFragment;
+        };
+      })
+    | null;
+};
+
 export type DetailsCardFragment = {
   __typename?: 'Media';
   id: number;
@@ -6996,6 +7086,316 @@ export const InfoScreenMediaFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<InfoScreenMediaFragment, unknown>;
+export const CharacterAnimeFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterAnime' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Character' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'media' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: { kind: 'IntValue', value: '12' },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sort' },
+                value: {
+                  kind: 'ListValue',
+                  values: [{ kind: 'EnumValue', value: 'FAVOURITES_DESC' }],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'node' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'type' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'coverImage' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'large' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'title' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'userPreferred',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'voiceActors' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'language' },
+                            value: { kind: 'EnumValue', value: 'JAPANESE' },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'sort' },
+                            value: { kind: 'EnumValue', value: 'ROLE' },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'name' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'userPreferred',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'age' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'image' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'large' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CharacterAnimeFragment, unknown>;
+export const CharacterInfoFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Character' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'name' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'image' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'gender' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'dateOfBirth' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'age' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'bloodType' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'favourites' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CharacterInfoFragment, unknown>;
+export const CharacterMangaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterManga' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Character' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'media' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: { kind: 'IntValue', value: '12' },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sort' },
+                value: {
+                  kind: 'ListValue',
+                  values: [{ kind: 'EnumValue', value: 'FAVOURITES_DESC' }],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'node' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'type' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'coverImage' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'large' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'title' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'userPreferred',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CharacterMangaFragment, unknown>;
 export const DetailsCardFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -9845,6 +10245,357 @@ export const AnimeWatchScreenQueryDocument = {
 } as unknown as DocumentNode<
   AnimeWatchScreenQueryQuery,
   AnimeWatchScreenQueryQueryVariables
+>;
+export const CharacterDetailsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'CharacterDetails' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'Character' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'id' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CharacterInfo' },
+                },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CharacterAnime' },
+                },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CharacterManga' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Character' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'name' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'image' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'large' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'gender' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'dateOfBirth' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'age' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'bloodType' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'favourites' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterAnime' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Character' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'media' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: { kind: 'IntValue', value: '12' },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sort' },
+                value: {
+                  kind: 'ListValue',
+                  values: [{ kind: 'EnumValue', value: 'FAVOURITES_DESC' }],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'node' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'type' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'coverImage' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'large' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'title' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'userPreferred',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'voiceActors' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'language' },
+                            value: { kind: 'EnumValue', value: 'JAPANESE' },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'sort' },
+                            value: { kind: 'EnumValue', value: 'ROLE' },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'name' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'userPreferred',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'age' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'image' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'large' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CharacterManga' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Character' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'media' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: { kind: 'IntValue', value: '12' },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sort' },
+                value: {
+                  kind: 'ListValue',
+                  values: [{ kind: 'EnumValue', value: 'FAVOURITES_DESC' }],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'node' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'type' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'coverImage' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'large' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'title' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'userPreferred',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CharacterDetailsQuery,
+  CharacterDetailsQueryVariables
 >;
 export const MediaDocument = {
   kind: 'Document',

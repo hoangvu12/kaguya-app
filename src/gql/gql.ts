@@ -61,6 +61,14 @@ const documents = {
     types.InfoScreenMediaFragmentDoc,
   '\n  query AnimeWatchScreenQuery($mediaId: Int!) {\n    Media(id: $mediaId) {\n      title {\n        userPreferred\n      }\n      isAdult\n      idMal\n      ...UseAnimeEpisode\n    }\n  }\n':
     types.AnimeWatchScreenQueryDocument,
+  '\n  fragment CharacterAnime on Character {\n    media(perPage: 12, sort: [FAVOURITES_DESC]) {\n      edges {\n        node {\n          id\n          type\n          coverImage {\n            large\n          }\n          title {\n            userPreferred\n          }\n        }\n        voiceActors(language: JAPANESE, sort: ROLE) {\n          id\n          name {\n            userPreferred\n          }\n          age\n          image {\n            large\n          }\n        }\n      }\n    }\n  }\n':
+    types.CharacterAnimeFragmentDoc,
+  '\n  fragment CharacterInfo on Character {\n    id\n    name {\n      userPreferred\n    }\n    image {\n      large\n    }\n    gender\n    dateOfBirth {\n      year\n      month\n      day\n    }\n    age\n    bloodType\n    favourites\n  }\n':
+    types.CharacterInfoFragmentDoc,
+  '\n  fragment CharacterManga on Character {\n    media(perPage: 12, sort: [FAVOURITES_DESC]) {\n      edges {\n        node {\n          id\n          type\n          coverImage {\n            large\n          }\n          title {\n            userPreferred\n          }\n        }\n      }\n    }\n  }\n':
+    types.CharacterMangaFragmentDoc,
+  '\n  query CharacterDetails($id: Int) {\n    Character(id: $id) {\n      ...CharacterInfo\n      ...CharacterAnime\n      ...CharacterManga\n    }\n  }\n':
+    types.CharacterDetailsDocument,
   '\n  fragment DetailsCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    genres\n    averageScore\n    favourites\n    coverImage {\n      large\n    }\n  }\n':
     types.DetailsCardFragmentDoc,
   '\n  fragment SearchLayoutContainer on Media {\n    ...CardMedia\n    ...DetailsCard\n  }\n':
@@ -239,6 +247,30 @@ export function graphql(
 export function graphql(
   source: '\n  query AnimeWatchScreenQuery($mediaId: Int!) {\n    Media(id: $mediaId) {\n      title {\n        userPreferred\n      }\n      isAdult\n      idMal\n      ...UseAnimeEpisode\n    }\n  }\n'
 ): (typeof documents)['\n  query AnimeWatchScreenQuery($mediaId: Int!) {\n    Media(id: $mediaId) {\n      title {\n        userPreferred\n      }\n      isAdult\n      idMal\n      ...UseAnimeEpisode\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment CharacterAnime on Character {\n    media(perPage: 12, sort: [FAVOURITES_DESC]) {\n      edges {\n        node {\n          id\n          type\n          coverImage {\n            large\n          }\n          title {\n            userPreferred\n          }\n        }\n        voiceActors(language: JAPANESE, sort: ROLE) {\n          id\n          name {\n            userPreferred\n          }\n          age\n          image {\n            large\n          }\n        }\n      }\n    }\n  }\n'
+): (typeof documents)['\n  fragment CharacterAnime on Character {\n    media(perPage: 12, sort: [FAVOURITES_DESC]) {\n      edges {\n        node {\n          id\n          type\n          coverImage {\n            large\n          }\n          title {\n            userPreferred\n          }\n        }\n        voiceActors(language: JAPANESE, sort: ROLE) {\n          id\n          name {\n            userPreferred\n          }\n          age\n          image {\n            large\n          }\n        }\n      }\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment CharacterInfo on Character {\n    id\n    name {\n      userPreferred\n    }\n    image {\n      large\n    }\n    gender\n    dateOfBirth {\n      year\n      month\n      day\n    }\n    age\n    bloodType\n    favourites\n  }\n'
+): (typeof documents)['\n  fragment CharacterInfo on Character {\n    id\n    name {\n      userPreferred\n    }\n    image {\n      large\n    }\n    gender\n    dateOfBirth {\n      year\n      month\n      day\n    }\n    age\n    bloodType\n    favourites\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment CharacterManga on Character {\n    media(perPage: 12, sort: [FAVOURITES_DESC]) {\n      edges {\n        node {\n          id\n          type\n          coverImage {\n            large\n          }\n          title {\n            userPreferred\n          }\n        }\n      }\n    }\n  }\n'
+): (typeof documents)['\n  fragment CharacterManga on Character {\n    media(perPage: 12, sort: [FAVOURITES_DESC]) {\n      edges {\n        node {\n          id\n          type\n          coverImage {\n            large\n          }\n          title {\n            userPreferred\n          }\n        }\n      }\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query CharacterDetails($id: Int) {\n    Character(id: $id) {\n      ...CharacterInfo\n      ...CharacterAnime\n      ...CharacterManga\n    }\n  }\n'
+): (typeof documents)['\n  query CharacterDetails($id: Int) {\n    Character(id: $id) {\n      ...CharacterInfo\n      ...CharacterAnime\n      ...CharacterManga\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
