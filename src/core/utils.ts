@@ -1,3 +1,6 @@
+import * as Clipboard from 'expo-clipboard';
+import { ToastAndroid } from 'react-native';
+
 export const formatNumberToAbbreviated = (n: number) => {
   if (n < 1e3) return n;
   if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + 'K';
@@ -8,4 +11,10 @@ export const formatNumberToAbbreviated = (n: number) => {
 
 export const stripHTML = (str: string) => {
   return str.replace(/(<([^>]+)>)/gi, '');
+};
+
+export const copyToClipboard = async (str: string) => {
+  await Clipboard.setStringAsync(str);
+
+  ToastAndroid.show('Copied to clipboard', ToastAndroid.SHORT);
 };

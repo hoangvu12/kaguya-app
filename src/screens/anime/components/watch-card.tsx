@@ -3,6 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { styled } from 'nativewind';
 import React from 'react';
 
+import { copyToClipboard } from '@/core';
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
 import { addAlpha, colors, Image, Text, View } from '@/ui';
@@ -78,7 +79,14 @@ const WatchCard: React.FC<WatchCardProps> = ({
       </Pressable>
 
       <Pressable onPress={handleNavigate} android_ripple={null}>
-        <Text variant="sm" className="mt-1" numberOfLines={1}>
+        <Text
+          onLongPress={() => {
+            copyToClipboard(media!.title!.userPreferred!);
+          }}
+          variant="sm"
+          className="mt-1"
+          numberOfLines={1}
+        >
           {media?.title?.userPreferred}
         </Text>
 

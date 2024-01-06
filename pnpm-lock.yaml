@@ -62,6 +62,9 @@ dependencies:
   expo-build-properties:
     specifier: ~0.8.3
     version: 0.8.3(expo@49.0.6)
+  expo-clipboard:
+    specifier: ~4.3.1
+    version: 4.3.1(expo@49.0.6)
   expo-constants:
     specifier: ~14.4.2
     version: 14.4.2(expo@49.0.6)
@@ -9012,6 +9015,14 @@ packages:
       ajv: 8.11.0
       expo: 49.0.6(@babel/core@7.21.0)
       semver: 7.5.4
+    dev: false
+
+  /expo-clipboard@4.3.1(expo@49.0.6):
+    resolution: {integrity: sha512-WIsjvAsr2+/NZRa84mKxjui1EdPpdKbQIC2LN/KMBNuT7g4GQYL3oo9WO9G/C7doKQ7f7pnfdvO3N6fUnoRoJw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.6(@babel/core@7.21.0)
     dev: false
 
   /expo-constants@14.4.2(expo@49.0.6):

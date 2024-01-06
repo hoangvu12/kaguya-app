@@ -3,6 +3,7 @@ import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import { ToastAndroid } from 'react-native';
 
+import { copyToClipboard } from '@/core';
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
 import { MediaType } from '@/gql/graphql';
@@ -105,7 +106,14 @@ const AnimeSection: React.FC<AnimeSectionProps> = ({ fragmentData }) => {
                 navigateMedia(media.id!);
               }}
             >
-              <Text numberOfLines={1} variant="md" weight="semibold">
+              <Text
+                onLongPress={() => {
+                  copyToClipboard(media!.title!.userPreferred!);
+                }}
+                numberOfLines={1}
+                variant="md"
+                weight="semibold"
+              >
                 {media!.title!.userPreferred}
               </Text>
             </Pressable>
