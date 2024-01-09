@@ -54,4 +54,14 @@ export default class Provider {
   ): Promise<any> {
     throw new Error('Method not implemented.');
   }
+
+  deleteEntry(
+    ids: {
+      malId: number;
+      anilistId: number;
+    },
+    entryId: number
+  ): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
 }

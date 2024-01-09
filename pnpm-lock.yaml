@@ -20,6 +20,9 @@ dependencies:
   '@plussub/srt-vtt-parser':
     specifier: ^1.1.0
     version: 1.1.0
+  '@react-native-community/datetimepicker':
+    specifier: 7.2.0
+    version: 7.2.0
   '@react-native-community/viewpager':
     specifier: ^5.0.11
     version: 5.0.11(react-native@0.72.6)(react@18.2.0)
@@ -5393,6 +5396,12 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
+
+  /@react-native-community/datetimepicker@7.2.0:
+    resolution: {integrity: sha512-dO1sQy83M/EvnHE2egto05iwXZX7EYn5f/VDMp6afZFRFXRiRo7CzB3VFg4B55gJRJMNBv06NYMLPM3SlpnEGQ==}
+    dependencies:
+      invariant: 2.2.4
+    dev: false
 
   /@react-native-community/eslint-config@3.2.0(eslint@8.35.0)(jest@29.5.0)(prettier@2.8.4)(typescript@5.1.6):
     resolution: {integrity: sha512-ZjGvoeiBtCbd506hQqwjKmkWPgynGUoJspG8/MuV/EfKnkjCtBmeJvq2n+sWbWEvL9LWXDp2GJmPzmvU5RSvKQ==}

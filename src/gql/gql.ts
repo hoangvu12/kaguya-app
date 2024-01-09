@@ -21,6 +21,8 @@ const documents = {
     types.ViewerDocument,
   '\n  mutation SaveMediaListEntry(\n    $id: Int\n    $mediaId: Int\n    $status: MediaListStatus\n    $score: Float\n    $scoreRaw: Int\n    $progress: Int\n    $progressVolumes: Int\n    $repeat: Int\n    $priority: Int\n    $private: Boolean\n    $notes: String\n    $hiddenFromStatusLists: Boolean\n    $customLists: [String]\n    $advancedScores: [Float]\n    $startedAt: FuzzyDateInput\n    $completedAt: FuzzyDateInput\n  ) {\n    SaveMediaListEntry(\n      id: $id\n      mediaId: $mediaId\n      status: $status\n      score: $score\n      scoreRaw: $scoreRaw\n      progress: $progress\n      progressVolumes: $progressVolumes\n      repeat: $repeat\n      priority: $priority\n      private: $private\n      notes: $notes\n      hiddenFromStatusLists: $hiddenFromStatusLists\n      customLists: $customLists\n      advancedScores: $advancedScores\n      startedAt: $startedAt\n      completedAt: $completedAt\n    ) {\n      progress\n      score(format: POINT_10_DECIMAL)\n      status\n    }\n  }\n':
     types.SaveMediaListEntryDocument,
+  '\n  mutation DeleteMediaListEntry($id: Int) {\n    DeleteMediaListEntry(id: $id) {\n      deleted\n    }\n  }\n':
+    types.DeleteMediaListEntryDocument,
   '\n  query AiringScheduleScreen($airingAt_greater: Int, $airingAt_lesser: Int) {\n    Page(page: 1, perPage: 50) {\n      airingSchedules(\n        airingAt_greater: $airingAt_greater\n        airingAt_lesser: $airingAt_lesser\n        sort: [TIME_DESC]\n      ) {\n        airingAt\n        media {\n          id\n          isAdult\n          ...DetailsCard\n        }\n        episode\n      }\n    }\n  }\n':
     types.AiringScheduleScreenDocument,
   '\n  query AiringSchedule($airingAt_greater: Int, $airingAt_lesser: Int) {\n    Page(page: 1, perPage: 20) {\n      airingSchedules(\n        airingAt_greater: $airingAt_greater\n        airingAt_lesser: $airingAt_lesser\n        sort: [TIME_DESC]\n      ) {\n        media {\n          isAdult\n          ...CardMedia\n        }\n      }\n    }\n  }\n':
@@ -31,7 +33,9 @@ const documents = {
     types.UpcomingNextSeasonDocument,
   '\n  fragment WatchCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    bannerImage\n    ...MediaUnitStatsMedia\n  }\n':
     types.WatchCardFragmentDoc,
-  '\n  fragment DetailsHeaderMedia on Media {\n    title {\n      userPreferred\n    }\n    bannerImage\n    genres\n    favourites\n    averageScore\n    seasonYear\n    nextAiringEpisode {\n      airingAt\n      episode\n    }\n    coverImage {\n      large\n    }\n  }\n':
+  '\n  query AddToListQuery($mediaId: Int) {\n    Media(id: $mediaId) {\n      mediaListEntry {\n        id\n        status\n        score(format: POINT_10)\n        progress\n        repeat\n        notes\n        startedAt {\n          year\n          month\n          day\n        }\n        completedAt {\n          year\n          month\n          day\n        }\n        private\n      }\n      episodes\n    }\n  }\n':
+    types.AddToListQueryDocument,
+  '\n  fragment DetailsHeaderMedia on Media {\n    id\n    title {\n      userPreferred\n    }\n    bannerImage\n    genres\n    favourites\n    averageScore\n    seasonYear\n    nextAiringEpisode {\n      airingAt\n      episode\n    }\n    coverImage {\n      large\n    }\n  }\n':
     types.DetailsHeaderMediaFragmentDoc,
   '\n  query InfoDetailsScreen($id: Int) {\n    Media(id: $id) {\n      title {\n        userPreferred\n      }\n      ...DetailsHeaderMedia\n      ...InfoScreenMedia\n      ...EpisodeContainer\n    }\n  }\n':
     types.InfoDetailsScreenDocument,
@@ -131,6 +135,12 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
+  source: '\n  mutation DeleteMediaListEntry($id: Int) {\n    DeleteMediaListEntry(id: $id) {\n      deleted\n    }\n  }\n'
+): (typeof documents)['\n  mutation DeleteMediaListEntry($id: Int) {\n    DeleteMediaListEntry(id: $id) {\n      deleted\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
   source: '\n  query AiringScheduleScreen($airingAt_greater: Int, $airingAt_lesser: Int) {\n    Page(page: 1, perPage: 50) {\n      airingSchedules(\n        airingAt_greater: $airingAt_greater\n        airingAt_lesser: $airingAt_lesser\n        sort: [TIME_DESC]\n      ) {\n        airingAt\n        media {\n          id\n          isAdult\n          ...DetailsCard\n        }\n        episode\n      }\n    }\n  }\n'
 ): (typeof documents)['\n  query AiringScheduleScreen($airingAt_greater: Int, $airingAt_lesser: Int) {\n    Page(page: 1, perPage: 50) {\n      airingSchedules(\n        airingAt_greater: $airingAt_greater\n        airingAt_lesser: $airingAt_lesser\n        sort: [TIME_DESC]\n      ) {\n        airingAt\n        media {\n          id\n          isAdult\n          ...DetailsCard\n        }\n        episode\n      }\n    }\n  }\n'];
 /**
@@ -161,8 +171,14 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment DetailsHeaderMedia on Media {\n    title {\n      userPreferred\n    }\n    bannerImage\n    genres\n    favourites\n    averageScore\n    seasonYear\n    nextAiringEpisode {\n      airingAt\n      episode\n    }\n    coverImage {\n      large\n    }\n  }\n'
-): (typeof documents)['\n  fragment DetailsHeaderMedia on Media {\n    title {\n      userPreferred\n    }\n    bannerImage\n    genres\n    favourites\n    averageScore\n    seasonYear\n    nextAiringEpisode {\n      airingAt\n      episode\n    }\n    coverImage {\n      large\n    }\n  }\n'];
+  source: '\n  query AddToListQuery($mediaId: Int) {\n    Media(id: $mediaId) {\n      mediaListEntry {\n        id\n        status\n        score(format: POINT_10)\n        progress\n        repeat\n        notes\n        startedAt {\n          year\n          month\n          day\n        }\n        completedAt {\n          year\n          month\n          day\n        }\n        private\n      }\n      episodes\n    }\n  }\n'
+): (typeof documents)['\n  query AddToListQuery($mediaId: Int) {\n    Media(id: $mediaId) {\n      mediaListEntry {\n        id\n        status\n        score(format: POINT_10)\n        progress\n        repeat\n        notes\n        startedAt {\n          year\n          month\n          day\n        }\n        completedAt {\n          year\n          month\n          day\n        }\n        private\n      }\n      episodes\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment DetailsHeaderMedia on Media {\n    id\n    title {\n      userPreferred\n    }\n    bannerImage\n    genres\n    favourites\n    averageScore\n    seasonYear\n    nextAiringEpisode {\n      airingAt\n      episode\n    }\n    coverImage {\n      large\n    }\n  }\n'
+): (typeof documents)['\n  fragment DetailsHeaderMedia on Media {\n    id\n    title {\n      userPreferred\n    }\n    bannerImage\n    genres\n    favourites\n    averageScore\n    seasonYear\n    nextAiringEpisode {\n      airingAt\n      episode\n    }\n    coverImage {\n      large\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -4683,6 +4683,18 @@ export type SaveMediaListEntryMutation = {
   } | null;
 };
 
+export type DeleteMediaListEntryMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type DeleteMediaListEntryMutation = {
+  __typename?: 'Mutation';
+  DeleteMediaListEntry?: {
+    __typename?: 'Deleted';
+    deleted?: boolean | null;
+  } | null;
+};
+
 export type AiringScheduleScreenQueryVariables = Exact<{
   airingAt_greater?: InputMaybe<Scalars['Int']['input']>;
   airingAt_lesser?: InputMaybe<Scalars['Int']['input']>;
@@ -4773,8 +4785,43 @@ export type WatchCardFragment = ({
   };
 }) & { ' $fragmentName'?: 'WatchCardFragment' };
 
+export type AddToListQueryQueryVariables = Exact<{
+  mediaId?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type AddToListQueryQuery = {
+  __typename?: 'Query';
+  Media?: {
+    __typename?: 'Media';
+    episodes?: number | null;
+    mediaListEntry?: {
+      __typename?: 'MediaList';
+      id: number;
+      status?: MediaListStatus | null;
+      score?: number | null;
+      progress?: number | null;
+      repeat?: number | null;
+      notes?: string | null;
+      private?: boolean | null;
+      startedAt?: {
+        __typename?: 'FuzzyDate';
+        year?: number | null;
+        month?: number | null;
+        day?: number | null;
+      } | null;
+      completedAt?: {
+        __typename?: 'FuzzyDate';
+        year?: number | null;
+        month?: number | null;
+        day?: number | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
 export type DetailsHeaderMediaFragment = {
   __typename?: 'Media';
+  id: number;
   bannerImage?: string | null;
   genres?: Array<string | null> | null;
   favourites?: number | null;
@@ -5497,6 +5544,7 @@ export const DetailsHeaderMediaFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'title' },
@@ -8590,6 +8638,51 @@ export const SaveMediaListEntryDocument = {
   SaveMediaListEntryMutation,
   SaveMediaListEntryMutationVariables
 >;
+export const DeleteMediaListEntryDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'DeleteMediaListEntry' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'DeleteMediaListEntry' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'id' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'deleted' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  DeleteMediaListEntryMutation,
+  DeleteMediaListEntryMutationVariables
+>;
 export const AiringScheduleScreenDocument = {
   kind: 'Document',
   definitions: [
@@ -9323,6 +9416,131 @@ export const UpcomingNextSeasonDocument = {
   UpcomingNextSeasonQuery,
   UpcomingNextSeasonQueryVariables
 >;
+export const AddToListQueryDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'AddToListQuery' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'mediaId' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'Media' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'mediaId' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'mediaListEntry' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'status' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'score' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'format' },
+                            value: { kind: 'EnumValue', value: 'POINT_10' },
+                          },
+                        ],
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'progress' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'repeat' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'notes' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'startedAt' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'year' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'month' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'day' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'completedAt' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'year' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'month' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'day' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'private' },
+                      },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<AddToListQueryQuery, AddToListQueryQueryVariables>;
 export const InfoDetailsScreenDocument = {
   kind: 'Document',
   definitions: [
@@ -9914,6 +10132,7 @@ export const InfoDetailsScreenDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'title' },
