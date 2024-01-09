@@ -18,22 +18,26 @@ export type Metadata = {
 };
 
 export const getContentMetadata = async (anilistId: number) => {
-  const { data } = await axios.get<ContentMetadata[]>(
-    `https://api.anify.tv/content-metadata/${anilistId}`
-  );
+  try {
+    const { data } = await axios.get<ContentMetadata[]>(
+      `https://api.anify.tv/content-metadata/${anilistId}`
+    );
 
-  if (!data.length) {
+    if (!data.length) {
+      return [];
+    }
+
+    const metadata = data.find(
+      (metadata) =>
+        metadata.providerId === 'tmdb' || metadata.providerId === 'tvdb'
+    );
+
+    if (!metadata) {
+      return data[0]?.data;
+    }
+
+    return metadata.data;
+  } catch (err) {
     return [];
   }
-
-  const metadata = data.find(
-    (metadata) =>
-      metadata.providerId === 'tmdb' || metadata.providerId === 'tvdb'
-  );
-
-  if (!metadata) {
-    return data[0]?.data;
-  }
-
-  return metadata.data;
 };
