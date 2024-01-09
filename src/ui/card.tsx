@@ -2,6 +2,7 @@ import { StackActions, useNavigation } from '@react-navigation/native';
 import { StarIcon } from 'lucide-react-native';
 import React from 'react';
 
+import { copyToClipboard } from '@/core';
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
 
@@ -76,7 +77,14 @@ export const Card = ({
       </Pressable>
 
       <Pressable android_ripple={null} onPress={handlePress}>
-        <Text numberOfLines={2} variant="md" weight="medium">
+        <Text
+          onLongPress={() => {
+            copyToClipboard(media!.title!.userPreferred!);
+          }}
+          numberOfLines={2}
+          variant="md"
+          weight="medium"
+        >
           {media?.title?.userPreferred}
         </Text>
 

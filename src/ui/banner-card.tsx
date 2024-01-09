@@ -5,6 +5,7 @@ import React, { useCallback, useMemo } from 'react';
 import Carousel from 'react-native-reanimated-carousel';
 import { twMerge } from 'tailwind-merge';
 
+import { copyToClipboard } from '@/core';
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
 import { useGraphQL } from '@/hooks/use-graphql';
@@ -142,6 +143,9 @@ const BannerItem = React.memo(
               variant="xl"
               numberOfLines={1}
               className="mb-1"
+              onLongPress={() => {
+                copyToClipboard(media!.title!.userPreferred!);
+              }}
             >
               {media?.title?.userPreferred}
             </Text>

@@ -5,7 +5,7 @@ import { styled } from 'nativewind';
 import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 
-import { formatNumberToAbbreviated } from '@/core';
+import { copyToClipboard, formatNumberToAbbreviated } from '@/core';
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
 import { Banner } from '@/screens/search/components/banner';
@@ -93,7 +93,14 @@ const Header: React.FC<HeaderProps> = ({ media: mediaProps }) => {
         />
 
         <View className="flex-1">
-          <Text variant="lg" weight="semibold" className="mb-1">
+          <Text
+            onLongPress={() => {
+              copyToClipboard(media!.title!.userPreferred!);
+            }}
+            variant="lg"
+            weight="semibold"
+            className="mb-1"
+          >
             {media!.title!.userPreferred}
           </Text>
 

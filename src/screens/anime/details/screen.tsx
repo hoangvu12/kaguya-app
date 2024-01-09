@@ -9,6 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { twMerge } from 'tailwind-merge';
 
+import { copyToClipboard } from '@/core';
 import { graphql } from '@/gql';
 import { useGraphQL } from '@/hooks/use-graphql';
 import type { RootStackParamList } from '@/navigation/types';
@@ -122,7 +123,13 @@ export const AnimeDetailsScreen: React.FC<Props> = ({ route }) => {
             <ArrowLeft size={28} color="white" />
           </Button>
 
-          <AnimatedText numberOfLines={1} style={titleStyles}>
+          <AnimatedText
+            onLongPress={() => {
+              copyToClipboard(anime!.title!.userPreferred!);
+            }}
+            numberOfLines={1}
+            style={titleStyles}
+          >
             {anime?.title?.userPreferred}
           </AnimatedText>
         </AnimatedView>
