@@ -1,7 +1,7 @@
 import { MMKV } from 'react-native-mmkv';
 import { z } from 'zod';
 
-import type providers from '@/providers';
+import providers from '@/providers';
 import { BasicInfoSchema } from '@/providers/core';
 import { createParseJSONSchema } from '@/utils/zod';
 
@@ -92,4 +92,18 @@ export function deleteProvider(type: ProviderType) {
   const newProviders = providers.filter((provider) => provider.type !== type);
 
   storage.set(NAMESPACE, JSON.stringify(newProviders));
+}
+
+export function getSignedInProviders() {
+  const storageProviders = getProviders();
+
+  const signedInProviders = Object.keys(providers)
+    .filter((provider) => {
+      return storageProviders.find(
+        (storageProvider) => storageProvider.type === provider
+      );
+    })
+    .map((providerName) => providers[providerName as ProviderType]);
+
+  return signedInProviders;
 }

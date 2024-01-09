@@ -67,6 +67,14 @@ const saveMediaListEntry = graphql(`
   }
 `);
 
+const deleteMediaListEntry = graphql(`
+  mutation DeleteMediaListEntry($id: Int) {
+    DeleteMediaListEntry(id: $id) {
+      deleted
+    }
+  }
+`);
+
 export default class AnilistProvider extends Provider {
   constructor() {
     super({
@@ -125,6 +133,15 @@ export default class AnilistProvider extends Provider {
     return anilistClient.request(saveMediaListEntry, {
       mediaId: ids.anilistId,
       ...entry,
+    });
+  }
+
+  deleteEntry(
+    _: { malId: number | undefined; anilistId: number },
+    entryId: number
+  ): Promise<any> {
+    return anilistClient.request(deleteMediaListEntry, {
+      id: entryId,
     });
   }
 }

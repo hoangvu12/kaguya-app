@@ -37,6 +37,7 @@
     "@graphql-typed-document-node/core": "^3.2.0",
     "@jonasmerlin/react-native-markdown-display": "github:jonasmerlin/react-native-markdown-display",
     "@plussub/srt-vtt-parser": "^1.1.0",
+    "@react-native-community/datetimepicker": "7.2.0",
     "@react-native-community/viewpager": "^5.0.11",
     "@react-native-picker/picker": "2.4.10",
     "@react-navigation/bottom-tabs": "^6.5.7",

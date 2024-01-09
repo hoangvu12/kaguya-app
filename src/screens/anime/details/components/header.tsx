@@ -15,6 +15,7 @@ import { PlainCard } from '@/ui/plain-card';
 import colors from '@/ui/theme/colors';
 import { addAlpha } from '@/utils';
 
+import AddToList from './add-to-list';
 import NextEpisodeCountdown from './next-episode-countdown';
 
 const SLinearGradient = styled(LinearGradient);
@@ -30,6 +31,7 @@ const SSmileIcon = styled(SmileIcon);
 
 export const DetailsHeaderFragment = graphql(`
   fragment DetailsHeaderMedia on Media {
+    id
     title {
       userPreferred
     }
@@ -113,6 +115,7 @@ const Header: React.FC<HeaderProps> = ({ media: mediaProps }) => {
               ItemSeparatorComponent={Spacer}
             />
           </View>
+
           <View className="flex flex-row items-center space-x-2">
             <View className="flex flex-row items-center space-x-1">
               <SHeartIcon className="inline-block h-4 w-4 text-red-400" />
@@ -144,6 +147,10 @@ const Header: React.FC<HeaderProps> = ({ media: mediaProps }) => {
             </View>
           ) : null}
         </View>
+      </View>
+
+      <View className="px-4">
+        <AddToList mediaId={media.id} />
       </View>
     </View>
   );
