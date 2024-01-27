@@ -177,20 +177,18 @@ const IndexItem: React.FC<IndexItemProps> = ({
               data={index.modules}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => {
-                const hasInstalled = modules?.some(
+                const module = modules?.find(
                   (module) =>
                     module.id === item.id &&
                     module.info.author === item.info.author
                 );
 
-                const hasNewVersion = modules?.some(
-                  (module) => hasInstalled && module.version !== item.version
-                );
+                const hasNewVersion = module?.version !== item.version;
 
                 return (
                   <RemoteModuleItem
                     hasNewVersion={hasNewVersion}
-                    hasInstalled={hasInstalled}
+                    hasInstalled={!!module}
                     module={item}
                   />
                 );
