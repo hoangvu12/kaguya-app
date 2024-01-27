@@ -54,6 +54,8 @@ const IndexItem: React.FC<IndexItemProps> = ({
   };
 
   const handlePress = (event: any) => {
+    refreshIndex();
+
     bottomSheetRef.current?.present();
 
     onPress?.(event);
@@ -178,12 +180,19 @@ const IndexItem: React.FC<IndexItemProps> = ({
                 const hasInstalled = modules?.some(
                   (module) =>
                     module.id === item.id &&
-                    module.info.author === item.info.author &&
-                    module.version === item.version
+                    module.info.author === item.info.author
+                );
+
+                const hasNewVersion = modules?.some(
+                  (module) => hasInstalled && module.version !== item.version
                 );
 
                 return (
-                  <RemoteModuleItem hasInstalled={hasInstalled} module={item} />
+                  <RemoteModuleItem
+                    hasNewVersion={hasNewVersion}
+                    hasInstalled={hasInstalled}
+                    module={item}
+                  />
                 );
               }}
               ItemSeparatorComponent={() => <View className="h-2" />}

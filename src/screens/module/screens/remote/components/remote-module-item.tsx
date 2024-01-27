@@ -13,11 +13,13 @@ import { parseKModule, processKModule } from '@/utils/module';
 interface RemoteModuleItemProps {
   hasInstalled?: boolean;
   module: Module & { url: string };
+  hasNewVersion?: boolean;
 }
 
 const RemoteModuleItem: React.FC<RemoteModuleItemProps> = ({
   hasInstalled,
   module,
+  hasNewVersion,
 }) => {
   const [isInstalling, setInstalling] = React.useState(false);
 
@@ -53,11 +55,11 @@ const RemoteModuleItem: React.FC<RemoteModuleItemProps> = ({
   };
 
   return (
-    <View className="flex flex-row items-center gap-4 bg-thunder-700">
+    <View className="relative flex flex-row items-center gap-4 bg-thunder-700">
       <ModuleItem className="grow bg-thunder-700" module={module} />
 
       <Button onPress={install} className="shrink-0 bg-transparent p-3">
-        {hasInstalled ? (
+        {hasInstalled && !hasNewVersion ? (
           <Check size={24} color="white" />
         ) : isInstalling ? (
           <ActivityIndicator size={24} color="white" />
@@ -65,6 +67,10 @@ const RemoteModuleItem: React.FC<RemoteModuleItemProps> = ({
           <ArrowDownToLine size={24} color="white" />
         )}
       </Button>
+
+      {hasNewVersion && (
+        <View className="absolute right-2 top-2 h-3 w-3 rounded-full bg-red-500" />
+      )}
     </View>
   );
 };
