@@ -27,7 +27,7 @@ const RemoteModuleItem: React.FC<RemoteModuleItemProps> = ({
 
   const install = async () => {
     try {
-      if (hasInstalled) return;
+      if (hasInstalled && !hasNewVersion) return;
 
       setInstalling(true);
 
@@ -68,7 +68,7 @@ const RemoteModuleItem: React.FC<RemoteModuleItemProps> = ({
         )}
       </Button>
 
-      {hasNewVersion && (
+      {hasNewVersion && hasInstalled && (
         <View className="absolute right-2 top-2 h-3 w-3 rounded-full bg-red-500" />
       )}
     </View>
