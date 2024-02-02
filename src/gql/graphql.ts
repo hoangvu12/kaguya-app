@@ -4896,10 +4896,23 @@ export type UseAnimeEpisodeFragment = ({
   __typename?: 'Media';
   id: number;
   bannerImage?: string | null;
+  episodes?: number | null;
+  format?: MediaFormat | null;
   coverImage?: {
     __typename?: 'MediaCoverImage';
     large?: string | null;
     extraLarge?: string | null;
+  } | null;
+  startDate?: {
+    __typename?: 'FuzzyDate';
+    year?: number | null;
+    month?: number | null;
+    day?: number | null;
+  } | null;
+  title?: {
+    __typename?: 'MediaTitle';
+    english?: string | null;
+    userPreferred?: string | null;
   } | null;
 } & { ' $fragmentRefs'?: { UseAnimeIdFragment: UseAnimeIdFragment } }) & {
   ' $fragmentName'?: 'UseAnimeEpisodeFragment';
@@ -5683,6 +5696,34 @@ export const UseAnimeEpisodeFragmentDoc = {
               ],
             },
           },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'startDate' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'format' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
         ],
       },
     },
@@ -5832,6 +5873,34 @@ export const EpisodeContainerFragmentDoc = {
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'large' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'extraLarge' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'startDate' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'format' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
               ],
             },
           },
@@ -10119,6 +10188,34 @@ export const InfoDetailsScreenDocument = {
               ],
             },
           },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'startDate' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'format' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
+              ],
+            },
+          },
         ],
       },
     },
@@ -10454,6 +10551,34 @@ export const AnimeWatchScreenQueryDocument = {
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'large' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'extraLarge' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'startDate' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'episodes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'format' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'title' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'userPreferred' },
+                },
               ],
             },
           },
