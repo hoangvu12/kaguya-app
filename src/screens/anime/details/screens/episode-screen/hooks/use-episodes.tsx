@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { EpisodeSchema } from '@/core/episode';
 import { type FragmentType, graphql, useFragment } from '@/gql';
 import useWebViewData from '@/hooks/use-webview-data';
-import { getContentMetadata } from '@/metadata/anify';
+import { getEpisodeInfo } from '@/metadata/tmdb';
 
 import useAnimeId from './use-anime-id';
 
@@ -18,6 +18,17 @@ export const useAnimeEpisodeFragment = graphql(`
     coverImage {
       large
       extraLarge
+    }
+    startDate {
+      year
+      month
+      day
+    }
+    episodes
+    format
+    title {
+      english
+      userPreferred
     }
   }
 `);
@@ -42,7 +53,7 @@ const useEpisodes = (
         return [];
       }
 
-      const nonValidatedEpisodes = await webview.sendMessage<Episode[]>(
+      const nonValidatedEpisodesPromise = webview.sendMessage<Episode[]>(
         'anime.getEpisodes',
         {
           animeId: data?.data,
@@ -50,7 +61,21 @@ const useEpisodes = (
         }
       );
 
-      const validation = z.array(EpisodeSchema).safeParse(nonValidatedEpisodes);
+      const metadataEpisodesPromise = getEpisodeInfo(media);
+
+      const [nonValidatedEpisodesResult, metadataEpisodesResult] =
+        await Promise.allSettled([
+          nonValidatedEpisodesPromise,
+          metadataEpisodesPromise,
+        ]);
+
+      if (nonValidatedEpisodesResult.status === 'rejected') {
+        return [];
+      }
+
+      const validation = z
+        .array(EpisodeSchema)
+        .safeParse(nonValidatedEpisodesResult.value);
 
       if (!validation.success) {
         Toast.show({
@@ -62,30 +87,37 @@ const useEpisodes = (
         return [];
       }
 
+      const metadataEpisodes =
+        metadataEpisodesResult.status === 'fulfilled'
+          ? metadataEpisodesResult.value
+          : [];
       const sourceEpisodes = validation.data;
 
-      const metadataEpisodes = await getContentMetadata(media.id);
-
       const episodes = sourceEpisodes.map((sourceEpisode) => {
-        const metadataEpisode = metadataEpisodes.find(
-          (metadataEpisode) =>
-            metadataEpisode.number === parseInt(sourceEpisode.number, 10)
-        );
+        const metadataEpisode = !metadataEpisodes?.length
+          ? null
+          : metadataEpisodes.find(
+              (metadataEpisode) =>
+                metadataEpisode.episodeNumber ===
+                parseInt(sourceEpisode.number, 10)
+            );
 
         return {
           ...sourceEpisode,
           thumbnail:
             sourceEpisode.thumbnail ||
-            metadataEpisode?.img ||
+            metadataEpisode?.image ||
             media.bannerImage ||
             media.coverImage?.large ||
             undefined,
           title: sourceEpisode.title || metadataEpisode?.title,
           description:
             sourceEpisode.description || metadataEpisode?.description,
-          isFiller: sourceEpisode.isFiller || metadataEpisode?.isFiller,
+          isFiller: sourceEpisode.isFiller,
         };
       });
+
+      console.log('episodes', episodes);
 
       return episodes;
     },

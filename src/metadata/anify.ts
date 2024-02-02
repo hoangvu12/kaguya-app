@@ -20,7 +20,10 @@ export type Metadata = {
 export const getContentMetadata = async (anilistId: number) => {
   try {
     const { data } = await axios.get<ContentMetadata[]>(
-      `https://api.anify.tv/content-metadata/${anilistId}`
+      `https://api.anify.tv/content-metadata/${anilistId}`,
+      {
+        timeout: 2000,
+      }
     );
 
     if (!data.length) {

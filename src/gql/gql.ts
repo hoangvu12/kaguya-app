@@ -45,7 +45,7 @@ const documents = {
     types.WrongTitleFragmentDoc,
   '\n  fragment UseAnimeId on Media {\n    id\n    title {\n      english\n      native\n      romaji\n      userPreferred\n    }\n  }\n':
     types.UseAnimeIdFragmentDoc,
-  '\n  fragment UseAnimeEpisode on Media {\n    ...UseAnimeId\n    id\n    bannerImage\n    coverImage {\n      large\n      extraLarge\n    }\n  }\n':
+  '\n  fragment UseAnimeEpisode on Media {\n    ...UseAnimeId\n    id\n    bannerImage\n    coverImage {\n      large\n      extraLarge\n    }\n    startDate {\n      year\n      month\n      day\n    }\n    episodes\n    format\n    title {\n      english\n      userPreferred\n    }\n  }\n':
     types.UseAnimeEpisodeFragmentDoc,
   '\n  fragment CharacterListMedia on CharacterConnection {\n    edges {\n      ...CharacterCard\n      node {\n        id\n      }\n      role\n    }\n  }\n':
     types.CharacterListMediaFragmentDoc,
@@ -207,8 +207,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment UseAnimeEpisode on Media {\n    ...UseAnimeId\n    id\n    bannerImage\n    coverImage {\n      large\n      extraLarge\n    }\n  }\n'
-): (typeof documents)['\n  fragment UseAnimeEpisode on Media {\n    ...UseAnimeId\n    id\n    bannerImage\n    coverImage {\n      large\n      extraLarge\n    }\n  }\n'];
+  source: '\n  fragment UseAnimeEpisode on Media {\n    ...UseAnimeId\n    id\n    bannerImage\n    coverImage {\n      large\n      extraLarge\n    }\n    startDate {\n      year\n      month\n      day\n    }\n    episodes\n    format\n    title {\n      english\n      userPreferred\n    }\n  }\n'
+): (typeof documents)['\n  fragment UseAnimeEpisode on Media {\n    ...UseAnimeId\n    id\n    bannerImage\n    coverImage {\n      large\n      extraLarge\n    }\n    startDate {\n      year\n      month\n      day\n    }\n    episodes\n    format\n    title {\n      english\n      userPreferred\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
