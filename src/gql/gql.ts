@@ -87,7 +87,7 @@ const documents = {
     types.CardMediaFragmentDoc,
   '\n  fragment CharacterCard on CharacterEdge {\n    node {\n      id\n      name {\n        userPreferred\n      }\n      image {\n        large\n      }\n    }\n    role\n  }\n':
     types.CharacterCardFragmentDoc,
-  '\n  fragment MediaUnitStatsMedia on Media {\n    type\n    episodes\n    chapters\n    mediaListEntry {\n      progress\n    }\n    nextAiringEpisode {\n      episode\n    }\n  }\n':
+  '\n  fragment MediaUnitStatsMedia on Media {\n    type\n    episodes\n    chapters\n    mediaListEntry {\n      progress\n    }\n    nextAiringEpisode {\n      episode\n    }\n    status\n  }\n':
     types.MediaUnitStatsMediaFragmentDoc,
   '\n  fragment StaffCard on StaffEdge {\n    node {\n      id\n      name {\n        userPreferred\n      }\n      image {\n        large\n      }\n    }\n    role\n  }\n':
     types.StaffCardFragmentDoc,
@@ -333,8 +333,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment MediaUnitStatsMedia on Media {\n    type\n    episodes\n    chapters\n    mediaListEntry {\n      progress\n    }\n    nextAiringEpisode {\n      episode\n    }\n  }\n'
-): (typeof documents)['\n  fragment MediaUnitStatsMedia on Media {\n    type\n    episodes\n    chapters\n    mediaListEntry {\n      progress\n    }\n    nextAiringEpisode {\n      episode\n    }\n  }\n'];
+  source: '\n  fragment MediaUnitStatsMedia on Media {\n    type\n    episodes\n    chapters\n    mediaListEntry {\n      progress\n    }\n    nextAiringEpisode {\n      episode\n    }\n    status\n  }\n'
+): (typeof documents)['\n  fragment MediaUnitStatsMedia on Media {\n    type\n    episodes\n    chapters\n    mediaListEntry {\n      progress\n    }\n    nextAiringEpisode {\n      episode\n    }\n    status\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
