@@ -18,8 +18,11 @@ const ServersContainer: React.FC<ServersContainerProps> = ({
   const setServers = useSetAtom(serversAtom);
   const [currentServer, setCurrentServer] = useAtom(currentServerAtom);
 
-  const { data: videoServers, isLoading: videoServersLoading } =
-    useLoadVideoServers(currentEpisode.id, currentEpisode.extra || undefined);
+  const {
+    data: videoServers,
+    isLoading: videoServersLoading,
+    refetch,
+  } = useLoadVideoServers(currentEpisode.id, currentEpisode.extra || undefined);
 
   useEffect(() => {
     if (!videoServers?.length) {
@@ -35,7 +38,10 @@ const ServersContainer: React.FC<ServersContainerProps> = ({
 
   if (!videoServers?.length && !videoServersLoading)
     return (
-      <ErrorMessage message="Cannot find video servers. Please try again" />
+      <ErrorMessage
+        onRetry={refetch}
+        message="Cannot find video servers. Please try again"
+      />
     );
 
   return (

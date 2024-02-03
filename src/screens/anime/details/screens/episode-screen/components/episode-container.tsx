@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from 'jotai/react';
 import { RotateCwIcon } from 'lucide-react-native';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Else, If, Then } from 'react-if';
 
 import { type FragmentType, graphql, useFragment } from '@/gql';
@@ -38,8 +38,15 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
 }) => {
   const media = useFragment(EpisodeContainerFragment, mediaFragment);
   const currentModuleId = useAtomValue(currentModuleIdAtom);
+  const [episodeFetchingStatus, setEpisodeFetchingStatus] = useState<{
+    isError: boolean;
+    status: string;
+  }>({ isError: false, status: '' });
 
-  const { data, isLoading, isRefetching, refetch } = useEpisodes(media);
+  const { data, isLoading, isRefetching, refetch } = useEpisodes(
+    media,
+    setEpisodeFetchingStatus
+  );
   const setSectionEpisodes = useSetAtom(sectionEpisodesAtom);
   const setEpisodeChunk = useSetAtom(episodeChunkAtom);
 
@@ -106,15 +113,23 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
           <Then>
             <View className="mt-8">
               <ActivityIndicator color={colors.primary[500]} size={48} />
+
+              {!episodeFetchingStatus.isError && (
+                <Text className="mt-2 text-center font-semibold text-gray-300">
+                  {episodeFetchingStatus.status}
+                </Text>
+              )}
             </View>
           </Then>
 
           <Else>
             <If condition={!data?.length}>
               <Then>
-                <Text className="text-center">
-                  There are no episodes for this anime
-                </Text>
+                {episodeFetchingStatus.isError && (
+                  <Text className="text-center">
+                    {episodeFetchingStatus.status}
+                  </Text>
+                )}
               </Then>
 
               <Else>

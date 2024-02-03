@@ -34,32 +34,46 @@ export const useAnimeEpisodeFragment = graphql(`
 `);
 
 const useEpisodes = (
-  mediaFragment: FragmentType<typeof useAnimeEpisodeFragment>
+  mediaFragment: FragmentType<typeof useAnimeEpisodeFragment>,
+  onStatusChange?: (change: { isError: boolean; status: string }) => void
 ) => {
   const media = useFragment(useAnimeEpisodeFragment, mediaFragment);
 
-  const { data, isLoading: isAnimeIdLoading } = useAnimeId(media);
+  const { data: animeId, isLoading: isAnimeIdLoading } = useAnimeId(media);
 
   const queryKey = ['episodes', media.id];
 
-  if (data?.data) {
-    queryKey.push(data.data);
+  if (animeId?.data) {
+    queryKey.push(animeId.data);
   }
 
   const episodes = useWebViewData(
     queryKey,
     async (webview) => {
-      if (!data?.data) {
+      onStatusChange?.({ isError: false, status: 'Loading anime id' });
+
+      if (!animeId?.data) {
+        if (isAnimeIdLoading) {
+          onStatusChange?.({ isError: false, status: 'Loading anime id' });
+        } else {
+          onStatusChange?.({ isError: true, status: 'Cannot find anime id' });
+        }
+
         return [];
       }
 
       const nonValidatedEpisodesPromise = webview.sendMessage<Episode[]>(
         'anime.getEpisodes',
         {
-          animeId: data?.data,
-          extraData: data?.extraData,
+          animeId: animeId?.data,
+          extraData: animeId?.extraData,
         }
       );
+
+      onStatusChange?.({
+        isError: false,
+        status: 'Loading episodes',
+      });
 
       const metadataEpisodesPromise = getEpisodeInfo(media);
 
@@ -70,6 +84,11 @@ const useEpisodes = (
         ]);
 
       if (nonValidatedEpisodesResult.status === 'rejected') {
+        onStatusChange?.({
+          isError: true,
+          status: 'Cannot find episodes',
+        });
+
         return [];
       }
 
@@ -78,10 +97,9 @@ const useEpisodes = (
         .safeParse(nonValidatedEpisodesResult.value);
 
       if (!validation.success) {
-        Toast.show({
-          type: 'error',
-          text1: 'Cannot find episodes',
-          text2: validation.error.message,
+        onStatusChange?.({
+          isError: true,
+          status: 'Cannot find episodes',
         });
 
         return [];
@@ -117,8 +135,6 @@ const useEpisodes = (
         };
       });
 
-      console.log('episodes', episodes);
-
       return episodes;
     },
 
@@ -130,7 +146,6 @@ const useEpisodes = (
           text2: err,
         });
       },
-      enabled: !isAnimeIdLoading,
       retry: 0,
 
       // For some reason, when calling useEpisodes in watch screen, it will return empty episodes

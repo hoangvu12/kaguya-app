@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
-import { MediaType } from '@/gql/graphql';
+import { MediaStatus, MediaType } from '@/gql/graphql';
 
 import type { TextProps } from './core';
 import { Text } from './core';
@@ -19,6 +19,7 @@ export const MediaUnitStatsFragment = graphql(`
     nextAiringEpisode {
       episode
     }
+    status
   }
 `);
 
@@ -61,7 +62,12 @@ const MediaUnitStats: React.FC<
 
       <Text variant="sm" weight="normal" className="text-gray-300">
         {media.mediaListEntry?.progress && ' | '}
-        {releasedEpisode ?? totalMediaUnit} {'| '}
+
+        {media.status === MediaStatus.Finished
+          ? totalMediaUnit
+          : releasedEpisode ?? '??'}
+
+        {' | '}
       </Text>
 
       {totalMediaUnit ? (
