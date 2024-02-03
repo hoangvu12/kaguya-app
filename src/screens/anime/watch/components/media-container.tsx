@@ -1,8 +1,8 @@
 import { useSetAtom } from 'jotai/react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import type { FragmentType } from '@/gql';
-import { ActivityIndicator, View } from '@/ui';
+import { ActivityIndicator, Text, View } from '@/ui';
 import colors from '@/ui/theme/colors';
 
 import type { useAnimeEpisodeFragment } from '../../details/screens/episode-screen/hooks/use-episodes';
@@ -29,6 +29,11 @@ const MediaContainer: React.FC<MediaContainerProps> = ({
   const setMediaId = useSetAtom(mediaIdAtom);
   const setIsAdult = useSetAtom(isAdultAtom);
 
+  const [episodeFetchingStatus, setEpisodeFetchingStatus] = useState<{
+    isError: boolean;
+    status: string;
+  }>({ isError: false, status: '' });
+
   useEffect(() => {
     setMediaId({
       anilistId,
@@ -40,18 +45,32 @@ const MediaContainer: React.FC<MediaContainerProps> = ({
     setIsAdult(isAdult);
   }, [setIsAdult, isAdult]);
 
-  const { data, isLoading } = useEpisodes(mediaFragment);
+  const { data, isLoading, refetch } = useEpisodes(
+    mediaFragment,
+    setEpisodeFetchingStatus
+  );
 
   if (isLoading) {
     return (
       <View className="flex h-full w-full flex-1 items-center justify-center">
         <ActivityIndicator color={colors.primary[500]} size={48} />
+
+        {!episodeFetchingStatus.isError && (
+          <Text className="mt-2 text-center font-semibold text-gray-300">
+            {episodeFetchingStatus.status}
+          </Text>
+        )}
       </View>
     );
   }
 
   if (!data?.length) {
-    return <ErrorMessage message="Cannot find episodes. Please try again" />;
+    return (
+      <ErrorMessage
+        onRetry={refetch}
+        message="Cannot find episodes. Please try again"
+      />
+    );
   }
 
   return (

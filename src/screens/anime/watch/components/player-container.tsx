@@ -105,6 +105,10 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
       {isLoading || isServerLoading ? (
         <View className="absolute z-10 flex h-full w-full items-center justify-center whitespace-pre-wrap">
           <ActivityIndicator size={48} color={colors.primary[500]} />
+
+          <Text className="mt-2 text-center font-semibold text-gray-300">
+            {isLoading ? 'Loading video...' : 'Loading server...'}
+          </Text>
         </View>
       ) : null}
 
