@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai/react';
 import { styled } from 'nativewind';
 import React, {
@@ -42,6 +43,7 @@ import {
   playerAtom,
   playerResizeMode,
   qualityListAtom,
+  sectionEpisodesAtom,
   sourceListAtom,
   videoSizeAtom,
   volumeAtom,
@@ -75,6 +77,9 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
   ...props
 }) => {
   const playerRef = useRef<RNVideo>(null);
+
+  const navigation = useNavigation();
+
   const setPlayer = useSetAtom(playerAtom);
 
   const resizeMode = useAtomValue(playerResizeMode);
@@ -88,6 +93,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
   const shouldSyncAdult = useAtomValue(shouldSyncAdultAtom);
 
   const currentEpisode = useAtomValue(currentEpisodeAtom);
+  const sectionEpisodes = useAtomValue(sectionEpisodesAtom);
   const mediaId = useAtomValue(mediaIdAtom);
 
   const [currentSource, setCurrentSource] = useAtom(currentSourceAtom);
@@ -243,6 +249,20 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
     },
     [setIsBuffering]
   );
+
+  const handleVideoEnded = useCallback(() => {
+    if (!currentEpisode) return;
+
+    const currentEpisodeIndex = sectionEpisodes.findIndex(
+      (episode) => episode.id === currentEpisode.id
+    );
+
+    const nextEpisode = sectionEpisodes[currentEpisodeIndex + 1];
+
+    if (!nextEpisode) return;
+
+    navigation.setParams({ episodeId: nextEpisode.id });
+  }, [currentEpisode, navigation, sectionEpisodes]);
 
   useEffect(() => {
     if (!videos?.length) return;
@@ -424,6 +444,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
 
   return (
     <StyledVideo
+      onEnd={handleVideoEnded}
       currentTime={currentTime}
       onProgress={handleProgress}
       onLoad={handleLoad}
