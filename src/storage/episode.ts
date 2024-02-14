@@ -116,3 +116,7 @@ export function getWatchedEpisode(mediaId: number): WatchedEpisode | undefined {
     (watchedEpisode) => watchedEpisode.mediaId === mediaId
   );
 }
+
+export const clearWatchedEpisodes = () => {
+  storage.delete(episodeKey);
+};
