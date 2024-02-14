@@ -5,6 +5,7 @@ import { ScrollView, Text, View } from '@/ui';
 import AccountSettings from './components/account-settings';
 import AppSettings from './components/app-settings';
 import PlayerSettings from './components/player-settings';
+import StorageSettings from './components/storage-settings';
 
 const SettingsScreen = () => {
   return (
@@ -22,8 +23,12 @@ const SettingsScreen = () => {
           <AccountSettings />
         </View>
 
-        <View>
+        <View className="mb-8">
           <PlayerSettings />
+        </View>
+
+        <View>
+          <StorageSettings />
         </View>
       </View>
     </ScrollView>

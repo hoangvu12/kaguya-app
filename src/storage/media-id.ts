@@ -88,3 +88,7 @@ export function getMappings(): Mapping[] {
     return [];
   }
 }
+
+export const clearMappings = () => {
+  storage.delete(MAPPING_NAMESPACE);
+};
