@@ -7,6 +7,7 @@ import { View } from '@/ui';
 import colors from '@/ui/theme/colors';
 
 import { pausedAtom } from '../store';
+import AutoNextSettings from './auto-next-settings';
 import MediaPlayBackSettings from './media-playback-settings';
 import MediaQualitySettings from './media-quality-settings';
 import MediaSubtitleSettings from './media-subtitle-settings';
@@ -35,6 +36,7 @@ const MediaSettings = () => {
         <MediaQualitySettings />
         <MediaPlayBackSettings />
         <MediaSubtitleSettings />
+        <AutoNextSettings />
       </SettingsBottomSheet>
     </View>
   );

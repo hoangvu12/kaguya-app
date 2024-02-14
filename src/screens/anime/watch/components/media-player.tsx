@@ -20,6 +20,7 @@ import RNVideo from 'react-native-video';
 import { VideoFormat } from '@/core/video';
 import providers from '@/providers';
 import {
+  shouldAutoNextEpisodeAtom,
   shouldSyncAdultAtom,
   syncPercentageAtom,
 } from '@/screens/settings/store';
@@ -91,6 +92,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
   const setVideoSize = useSetAtom(videoSizeAtom);
 
   const shouldSyncAdult = useAtomValue(shouldSyncAdultAtom);
+  const shouldAutoNextEpisode = useAtomValue(shouldAutoNextEpisodeAtom);
 
   const currentEpisode = useAtomValue(currentEpisodeAtom);
   const sectionEpisodes = useAtomValue(sectionEpisodesAtom);
@@ -251,6 +253,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
   );
 
   const handleVideoEnded = useCallback(() => {
+    if (!shouldAutoNextEpisode) return;
     if (!currentEpisode) return;
 
     const currentEpisodeIndex = sectionEpisodes.findIndex(
@@ -262,7 +265,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
     if (!nextEpisode) return;
 
     navigation.setParams({ episodeId: nextEpisode.id });
-  }, [currentEpisode, navigation, sectionEpisodes]);
+  }, [currentEpisode, navigation, sectionEpisodes, shouldAutoNextEpisode]);
 
   useEffect(() => {
     if (!videos?.length) return;

@@ -13,6 +13,7 @@ import Switch from '@/ui/core/switch';
 
 import {
   shouldAskForSyncingAtom,
+  shouldAutoNextEpisodeAtom,
   shouldSyncAdultAtom,
   syncPercentageAtom,
 } from '../store';
@@ -22,6 +23,9 @@ const PlayerSettings = () => {
     shouldAskForSyncingAtom
   );
   const [shouldSyncAdult, setShouldSyncAdult] = useAtom(shouldSyncAdultAtom);
+  const [shouldAutoNextEpisode, setShouldAutoNextEpisode] = useAtom(
+    shouldAutoNextEpisodeAtom
+  );
   const syncPercentage = useAtomValue(syncPercentageAtom);
 
   return (
@@ -55,6 +59,19 @@ const PlayerSettings = () => {
           </View>
 
           <Switch value={shouldSyncAdult} onValueChange={setShouldSyncAdult} />
+        </View>
+        <View className="flex flex-row items-center justify-between">
+          <View className="w-5/6">
+            <Text weight="normal">Should auto next episode</Text>
+            <Text weight="light" className="text-gray-200">
+              Automatically play the next episode once the video ends
+            </Text>
+          </View>
+
+          <Switch
+            value={shouldAutoNextEpisode}
+            onValueChange={setShouldAutoNextEpisode}
+          />
         </View>
         <View>
           <View className="mb-2 w-full">
