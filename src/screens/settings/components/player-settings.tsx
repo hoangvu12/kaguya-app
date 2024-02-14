@@ -30,24 +30,41 @@ const PlayerSettings = () => {
         Player
       </Text>
 
-      <View className="space-y-1">
-        <View className="flex flex-row items-center justify-between">
-          <Text weight="normal">Should ask for syncing</Text>
+      <View className="w-full space-y-4">
+        <View className="flex w-full flex-row items-center justify-between">
+          <View className="w-5/6">
+            <Text weight="normal">Should ask for syncing</Text>
+            <Text weight="light" className="text-gray-200">
+              Ask for syncing before playing any media
+            </Text>
+          </View>
 
-          <Switch
-            value={shouldAskForSyncing}
-            onValueChange={setShouldAskForSyncing}
-          />
+          <View>
+            <Switch
+              value={shouldAskForSyncing}
+              onValueChange={setShouldAskForSyncing}
+            />
+          </View>
         </View>
         <View className="flex flex-row items-center justify-between">
-          <Text weight="normal">Should sync adult</Text>
+          <View className="w-5/6">
+            <Text weight="normal">Should sync adult</Text>
+            <Text weight="light" className="text-gray-200">
+              Allow syncing adult content
+            </Text>
+          </View>
 
           <Switch value={shouldSyncAdult} onValueChange={setShouldSyncAdult} />
         </View>
         <View>
-          <Text weight="normal" className="mb-1">
-            Sync percentage ({Math.floor(syncPercentage * 100)}%)
-          </Text>
+          <View className="mb-2 w-full">
+            <Text weight="normal">
+              Sync percentage ({Math.floor(syncPercentage * 100)}%)
+            </Text>
+            <Text weight="light" className="text-gray-300">
+              Sync once the player progress reaches this percentage
+            </Text>
+          </View>
 
           <SyncPercentageSlider />
         </View>
