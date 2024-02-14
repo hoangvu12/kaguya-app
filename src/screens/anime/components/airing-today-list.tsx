@@ -1,5 +1,6 @@
+import { useFocusEffect } from '@react-navigation/native';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { graphql } from '@/gql';
 import { useGraphQL } from '@/hooks/use-graphql';
@@ -29,10 +30,16 @@ const AiringTodayList = () => {
   const airingAt_greater = today.startOf('day').unix();
   const airingAt_lesser = today.endOf('day').unix();
 
-  const { data, isLoading } = useGraphQL(document, {
+  const { data, isLoading, refetch } = useGraphQL(document, {
     airingAt_greater,
     airingAt_lesser,
   });
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [refetch])
+  );
 
   const mediaList = data?.Page?.airingSchedules
     ?.map((schedule) => schedule?.media)

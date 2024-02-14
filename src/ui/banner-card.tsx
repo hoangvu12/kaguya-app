@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { styled } from 'nativewind';
 import React, { useCallback, useMemo } from 'react';
@@ -53,7 +53,7 @@ const linearGradientColors = [
 const CAROUSEL_HEIGHT = 208;
 
 export const BannerList = () => {
-  const { data, isLoading } = useGraphQL(document);
+  const { data, isLoading, refetch } = useGraphQL(document);
 
   const { width } = useScreenSize();
 
@@ -66,6 +66,12 @@ export const BannerList = () => {
 
     return data.Page.media.filter(Boolean);
   }, [data?.Page?.media]);
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [refetch])
+  );
 
   if (isLoading) {
     return (
