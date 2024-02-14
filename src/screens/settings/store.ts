@@ -12,3 +12,8 @@ export const syncPercentageAtom = atomWithMMKV(
   'player_settings__sync-percentage',
   0.75
 );
+
+export const shouldAutoNextEpisodeAtom = atomWithMMKV(
+  'player_settings__should-auto-next-episode',
+  true
+);

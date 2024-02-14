@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text, View } from '@/ui';
+import { ScrollView, Text, View } from '@/ui';
 
 import AccountSettings from './components/account-settings';
 import AppSettings from './components/app-settings';
@@ -8,17 +8,17 @@ import PlayerSettings from './components/player-settings';
 
 const SettingsScreen = () => {
   return (
-    <View className="p-4">
+    <ScrollView className="px-4 pt-4">
       <Text weight="semibold" className="mt-4 text-3xl">
         Settings
       </Text>
 
-      <View className="mt-8 space-y-8">
-        <View>
+      <View className="mt-8 mb-16">
+        <View className="mb-8">
           <AppSettings />
         </View>
 
-        <View>
+        <View className="mb-8">
           <AccountSettings />
         </View>
 
@@ -26,7 +26,7 @@ const SettingsScreen = () => {
           <PlayerSettings />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
