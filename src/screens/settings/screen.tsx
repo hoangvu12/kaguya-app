@@ -8,12 +8,12 @@ import PlayerSettings from './components/player-settings';
 
 const SettingsScreen = () => {
   return (
-    <View className="p-8">
-      <Text weight="semibold" className="mt-8 text-3xl">
+    <View className="p-4">
+      <Text weight="semibold" className="mt-4 text-3xl">
         Settings
       </Text>
 
-      <View className="mt-4 space-y-8">
+      <View className="mt-8 space-y-8">
         <View>
           <AppSettings />
         </View>
