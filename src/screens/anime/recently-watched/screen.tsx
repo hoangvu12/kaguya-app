@@ -40,7 +40,7 @@ const RecentlyWatchedScreen = () => {
         </Button>
 
         <Text className="text-2xl" weight="semibold">
-          Airing schedule
+          Recently watched
         </Text>
       </View>
 

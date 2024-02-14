@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import useScreenSize from '@/hooks/use-screen-size';
 import { useWatched } from '@/hooks/use-watched';
@@ -12,9 +12,15 @@ import WatchCard, { WATCH_CARD_WIDTH } from './watch-card';
 const SPACE_BETWEEN = 8;
 
 const WatchedList = () => {
-  const { data, isLoading } = useWatched(15);
+  const { data, isLoading, refetch } = useWatched(15);
 
   const navigation = useNavigation();
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [refetch])
+  );
 
   return (
     <View className="w-full">
