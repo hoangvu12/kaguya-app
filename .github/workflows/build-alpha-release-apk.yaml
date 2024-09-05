@@ -41,6 +41,12 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
+      - name: Generate changelog
+        id: changelog
+        uses: metcalfc/changelog-generator@v4.1.0
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
         with:
@@ -49,3 +55,4 @@ jobs:
           files: 'kaguya-${{github.ref_name}}.apk'
           fail_on_unmatched_files: true
           body: ${{ steps.changelog.outputs.changelog }}
+          prerelease: true
