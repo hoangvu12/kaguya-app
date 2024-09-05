@@ -1,7 +1,7 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAtomValue } from 'jotai/react';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Else, If, Then } from 'react-if';
 
 import type { FragmentType } from '@/gql';
@@ -22,6 +22,8 @@ export const WrongTitleFragment = graphql(`
     id
     title {
       english
+      romaji
+      native
     }
   }
 `);
@@ -37,9 +39,8 @@ const WrongTitle: React.FC<WrongTitleProps> = ({ media: mediaFragment }) => {
   const currentModuleId = useAtomValue(currentModuleIdAtom);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const [searchQuery, setSearchQuery] = React.useState(
-    media.title?.english || ''
+    media.title?.romaji || media.title?.english || media.title?.native || ''
   );
-  const [tempSearchQuery, setTempSearchQuery] = React.useState('');
 
   const searchQueryTimeout = React.useRef<NodeJS.Timeout | null>(null);
 
@@ -54,10 +55,6 @@ const WrongTitle: React.FC<WrongTitleProps> = ({ media: mediaFragment }) => {
 
     setShouldFetch(true);
   };
-
-  useEffect(() => {
-    setTempSearchQuery(searchQuery);
-  }, [searchQuery]);
 
   const handleSearchResultPress = (item: SearchResult) => {
     if (!currentModuleId) return;
@@ -97,10 +94,7 @@ const WrongTitle: React.FC<WrongTitleProps> = ({ media: mediaFragment }) => {
           <Input
             className="text-white"
             placeholder="Search title..."
-            value={tempSearchQuery}
             onChangeText={(text) => {
-              setTempSearchQuery(text);
-
               if (searchQueryTimeout.current) {
                 clearTimeout(searchQueryTimeout.current);
               }
@@ -108,20 +102,6 @@ const WrongTitle: React.FC<WrongTitleProps> = ({ media: mediaFragment }) => {
               searchQueryTimeout.current = setTimeout(() => {
                 setSearchQuery(text);
               }, 500);
-            }}
-            onSubmitEditing={() => {
-              setSearchQuery(tempSearchQuery);
-
-              if (searchQueryTimeout.current) {
-                clearTimeout(searchQueryTimeout.current);
-              }
-            }}
-            onBlur={() => {
-              setSearchQuery(tempSearchQuery);
-
-              if (searchQueryTimeout.current) {
-                clearTimeout(searchQueryTimeout.current);
-              }
             }}
           />
 

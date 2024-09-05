@@ -4877,7 +4877,12 @@ export type EpisodeContainerFragment = ({
 export type WrongTitleFragment = {
   __typename?: 'Media';
   id: number;
-  title?: { __typename?: 'MediaTitle'; english?: string | null } | null;
+  title?: {
+    __typename?: 'MediaTitle';
+    english?: string | null;
+    romaji?: string | null;
+    native?: string | null;
+  } | null;
 } & { ' $fragmentName'?: 'WrongTitleFragment' };
 
 export type UseAnimeIdFragment = {
@@ -5626,6 +5631,8 @@ export const WrongTitleFragmentDoc = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'romaji' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'native' } },
               ],
             },
           },
@@ -5846,6 +5853,8 @@ export const EpisodeContainerFragmentDoc = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'romaji' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'native' } },
               ],
             },
           },
@@ -10140,6 +10149,8 @@ export const InfoDetailsScreenDocument = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'english' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'romaji' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'native' } },
               ],
             },
           },

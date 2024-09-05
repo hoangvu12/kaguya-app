@@ -41,7 +41,7 @@ const documents = {
     types.InfoDetailsScreenDocument,
   '\n  fragment EpisodeContainer on Media {\n    id\n    mediaListEntry {\n      progress\n    }\n    duration\n    ...WrongTitle\n    ...UseAnimeEpisode\n  }\n':
     types.EpisodeContainerFragmentDoc,
-  '\n  fragment WrongTitle on Media {\n    id\n    title {\n      english\n    }\n  }\n':
+  '\n  fragment WrongTitle on Media {\n    id\n    title {\n      english\n      romaji\n      native\n    }\n  }\n':
     types.WrongTitleFragmentDoc,
   '\n  fragment UseAnimeId on Media {\n    id\n    title {\n      english\n      native\n      romaji\n      userPreferred\n    }\n  }\n':
     types.UseAnimeIdFragmentDoc,
@@ -195,8 +195,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment WrongTitle on Media {\n    id\n    title {\n      english\n    }\n  }\n'
-): (typeof documents)['\n  fragment WrongTitle on Media {\n    id\n    title {\n      english\n    }\n  }\n'];
+  source: '\n  fragment WrongTitle on Media {\n    id\n    title {\n      english\n      romaji\n      native\n    }\n  }\n'
+): (typeof documents)['\n  fragment WrongTitle on Media {\n    id\n    title {\n      english\n      romaji\n      native\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
