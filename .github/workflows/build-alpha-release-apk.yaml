@@ -36,15 +36,16 @@ jobs:
         shell: bash
 
       - name: 📱 Run Android Build
-        run: pnpm build:alpha --non-interactive --output=alpha-${{github.ref_name}}.apk --no-wait --message "Build alpha ${{ github.ref_name }}"
+        run: pnpm build:alpha --non-interactive --output=kaguya-${{github.ref_name}}.apk --no-wait --message "Build alpha ${{ github.ref_name }}"
         shell: bash
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
       - name: Create Github Release
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@v1
         with:
-          prerelease: true
-          artifacts: 'alpha-${{github.ref_name}}.apk'
-          generateReleaseNotes: true
-          draft: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: ${{ github.ref_name }}
+          files: 'kaguya-${{github.ref_name}}.apk'
+          fail_on_unmatched_files: true
+          body: ${{ steps.changelog.outputs.changelog }}
