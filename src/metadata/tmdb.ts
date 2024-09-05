@@ -380,8 +380,6 @@ export const getEpisodes = async (
         }
       );
 
-      console.log(episodes);
-
       return episodes;
     })();
 
