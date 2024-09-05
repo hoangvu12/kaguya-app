@@ -1,24 +1,35 @@
 import { useAtom } from 'jotai/react';
 import React from 'react';
-import { FlatList } from 'react-native-gesture-handler';
 import { twMerge } from 'tailwind-merge';
 
 import { GENRE_LIST } from '@/constants';
-import { Text, View } from '@/ui';
+import { Text, View, WIDTH } from '@/ui';
 import Chip from '@/ui/core/chip';
 import Pressable from '@/ui/core/pressable';
 
 import { genresAtom } from '../store';
 
+const SHEET_PADDING = 16;
+
+const MARGIN = 2;
+const CARD_WIDTH = (WIDTH - SHEET_PADDING * 2) / 2 - MARGIN;
+
 const GenresSelector = () => {
   const [genres, setGenres] = useAtom(genresAtom);
 
   return (
-    <FlatList
-      horizontal
-      data={GENRE_LIST}
-      renderItem={({ item }) => (
+    <View className="flex flex-row flex-wrap justify-between">
+      {GENRE_LIST.map((item) => (
         <Pressable
+          className={twMerge(
+            'rounded-md',
+            genres.includes(item.value) ? 'bg-primary-500' : 'bg-thunder-700'
+          )}
+          style={{
+            width: CARD_WIDTH,
+            marginBottom: MARGIN * 2,
+          }}
+          key={item.value}
           onPress={() => {
             if (genres.includes(item.value)) {
               setGenres(genres.filter((genre) => genre !== item.value));
@@ -35,12 +46,9 @@ const GenresSelector = () => {
             <Text>{item.label}</Text>
           </Chip>
         </Pressable>
-      )}
-      keyExtractor={(item) => item.value}
-      ItemSeparatorComponent={() => <View className="mx-0.5" />}
-      extraData={genres}
-    />
+      ))}
+    </View>
   );
 };
 
-export default GenresSelector;
+export default React.memo(GenresSelector);
