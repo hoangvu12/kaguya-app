@@ -27,7 +27,9 @@ const isUrl = (url: string) => {
 const AddIndex: React.FC<AddIndexProps> = ({ className, ...props }) => {
   const setIndex = useSetAtom(indexListAtom);
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
-  const [url, setUrl] = React.useState('');
+  const [url, setUrl] = React.useState(
+    'https://raw.githubusercontent.com/hoangvu12/kaguya-modules/modules/index.json'
+  );
   const [loading, setLoading] = React.useState(false);
 
   const handlePress = () => {
