@@ -15,8 +15,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 📦 Setup Node + PNPM + install deps
-        uses: ./.github/actions/setup-node-pnpm-install
+      - name: 📦 Setup Node + Bun + install deps
+        uses: ./.github/actions/setup-node-bun-install
 
       - name: Create .env with Github Secrets
         run: |
@@ -32,11 +32,11 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: ⚙️ Run Prebuild
-        run: pnpm prebuild:alpha
+        run: bun prebuild:alpha
         shell: bash
 
       - name: 📱 Run Android Build
-        run: pnpm build:alpha --non-interactive --output=kaguya-${{github.ref_name}}.apk --no-wait --message "Build alpha ${{ github.ref_name }}"
+        run: bun build:alpha --non-interactive --output=kaguya-${{github.ref_name}}.apk --no-wait --message "Build alpha ${{ github.ref_name }}"
         shell: bash
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}

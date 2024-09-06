@@ -1,0 +1,17 @@
+name: 'Setup  Node + PNPM + Install Dependencies'
+description: 'Setup  Node + PNPM + Install Dependencies'
+runs:
+  using: 'composite'
+  steps:
+    - uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'bun'
+
+    - name: 📦 Install Project Dependencies
+      run: bun install --frozen-lockfile
+      shell: bash
