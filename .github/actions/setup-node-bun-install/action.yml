@@ -9,8 +9,7 @@ runs:
 
     - uses: actions/setup-node@v3
       with:
-        node-version: 18
-        cache: 'bun'
+        node-version: 20
 
     - name: 📦 Install Project Dependencies
       run: bun install --frozen-lockfile
