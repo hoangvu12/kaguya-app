@@ -9,9 +9,11 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { Button, Text, View } from '@/ui';
+import Input from '@/ui/core/input';
 import Switch from '@/ui/core/switch';
 
 import {
+  resumePlaybackOffsetAtom,
   shouldAskForSyncingAtom,
   shouldAutoNextEpisodeAtom,
   shouldSyncAdultAtom,
@@ -27,6 +29,9 @@ const PlayerSettings = () => {
     shouldAutoNextEpisodeAtom
   );
   const syncPercentage = useAtomValue(syncPercentageAtom);
+  const [resumePlaybackOffset, setResumePlaybackOffset] = useAtom(
+    resumePlaybackOffsetAtom
+  );
 
   return (
     <View>
@@ -71,6 +76,29 @@ const PlayerSettings = () => {
           <Switch
             value={shouldAutoNextEpisode}
             onValueChange={setShouldAutoNextEpisode}
+          />
+        </View>
+        <View className="flex flex-row items-center justify-between">
+          <View className="w-5/6">
+            <Text weight="normal">Resume playback offset</Text>
+            <Text weight="light" className="text-gray-200">
+              Offset in seconds to resume playback (eg. -10 to resume 10 seconds
+              earlier)
+            </Text>
+          </View>
+
+          <Input
+            keyboardType="numeric"
+            value={resumePlaybackOffset.toString()}
+            onChangeText={(text) => {
+              const value = parseInt(text, 10);
+
+              if (!isNaN(value)) {
+                setResumePlaybackOffset(value);
+              } else {
+                setResumePlaybackOffset(0);
+              }
+            }}
           />
         </View>
         <View>

@@ -13,6 +13,11 @@ export const syncPercentageAtom = atomWithMMKV(
   0.75
 );
 
+export const resumePlaybackOffsetAtom = atomWithMMKV(
+  'player_settings__resume-playback-offset',
+  0
+);
+
 export const shouldAutoNextEpisodeAtom = atomWithMMKV(
   'player_settings__should-auto-next-episode',
   true
