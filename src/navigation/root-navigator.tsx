@@ -5,6 +5,7 @@ import React from 'react';
 
 import WebViewProvider from '@/contexts/webview';
 import AiringScheduleScreen from '@/screens/anime/airing-schedule/screen';
+import AnimeListScreen from '@/screens/anime/anime-list/screen';
 import { AnimeDetailsScreen } from '@/screens/anime/details/screen';
 import RecentlyWatchedScreen from '@/screens/anime/recently-watched/screen';
 import { AnimeWatchScreen } from '@/screens/anime/watch/screen';
@@ -40,6 +41,8 @@ export type RootParamList = {
   AiringSchedule: undefined;
   RecentlyWatched: undefined;
 
+  AnimeList: undefined;
+
   CharacterDetails: {
     characterId: number;
   };
@@ -66,6 +69,8 @@ export const Root = () => {
           name="AnimeWatch"
           component={AnimeWatchScreen}
         />
+
+        <Stack.Screen name="AnimeList" component={AnimeListScreen} />
 
         <Stack.Screen name="AiringSchedule" component={AiringScheduleScreen} />
         <Stack.Screen

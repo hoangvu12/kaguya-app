@@ -3,7 +3,7 @@
   "version": "0.10.0-alpha",
   "private": true,
   "scripts": {
-    "start": "expo start --dev-client --tunnel",
+    "start": "expo start --dev-client",
     "prebuild": "cross-env EXPO_NO_DOTENV=1 bun expo prebuild",
     "android": "expo run:android",
     "ios": "expo run:ios",

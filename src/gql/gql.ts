@@ -25,6 +25,8 @@ const documents = {
     types.DeleteMediaListEntryDocument,
   '\n  query AiringScheduleScreen($airingAt_greater: Int, $airingAt_lesser: Int) {\n    Page(page: 1, perPage: 50) {\n      airingSchedules(\n        airingAt_greater: $airingAt_greater\n        airingAt_lesser: $airingAt_lesser\n        sort: [TIME_DESC]\n      ) {\n        airingAt\n        media {\n          id\n          isAdult\n          ...DetailsCard\n        }\n        episode\n      }\n    }\n  }\n':
     types.AiringScheduleScreenDocument,
+  '\n  query AnimeList(\n    $userId: Int\n    $userName: String\n    $type: MediaType\n    $status: MediaListStatus\n    $sort: [MediaListSort]\n  ) {\n    MediaListCollection(\n      userId: $userId\n      userName: $userName\n      type: $type\n      status: $status\n      sort: $sort\n    ) {\n      lists {\n        entries {\n          progress\n          media {\n            id\n            ...WatchCard\n            ...CardMedia\n          }\n        }\n      }\n    }\n  }\n':
+    types.AnimeListDocument,
   '\n  query AiringSchedule($airingAt_greater: Int, $airingAt_lesser: Int) {\n    Page(page: 1, perPage: 20) {\n      airingSchedules(\n        airingAt_greater: $airingAt_greater\n        airingAt_lesser: $airingAt_lesser\n        sort: [TIME_DESC]\n      ) {\n        media {\n          isAdult\n          ...CardMedia\n        }\n      }\n    }\n  }\n':
     types.AiringScheduleDocument,
   '\n  query PopularThisSeason($season: MediaSeason, $seasonYear: Int) {\n    Page(page: 1, perPage: 10) {\n      media(\n        type: ANIME\n        sort: [POPULARITY_DESC]\n        season: $season\n        seasonYear: $seasonYear\n        isAdult: false\n        countryOfOrigin: "JP"\n      ) {\n        ...CardMedia\n      }\n    }\n  }\n':
@@ -143,6 +145,12 @@ export function graphql(
 export function graphql(
   source: '\n  query AiringScheduleScreen($airingAt_greater: Int, $airingAt_lesser: Int) {\n    Page(page: 1, perPage: 50) {\n      airingSchedules(\n        airingAt_greater: $airingAt_greater\n        airingAt_lesser: $airingAt_lesser\n        sort: [TIME_DESC]\n      ) {\n        airingAt\n        media {\n          id\n          isAdult\n          ...DetailsCard\n        }\n        episode\n      }\n    }\n  }\n'
 ): (typeof documents)['\n  query AiringScheduleScreen($airingAt_greater: Int, $airingAt_lesser: Int) {\n    Page(page: 1, perPage: 50) {\n      airingSchedules(\n        airingAt_greater: $airingAt_greater\n        airingAt_lesser: $airingAt_lesser\n        sort: [TIME_DESC]\n      ) {\n        airingAt\n        media {\n          id\n          isAdult\n          ...DetailsCard\n        }\n        episode\n      }\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query AnimeList(\n    $userId: Int\n    $userName: String\n    $type: MediaType\n    $status: MediaListStatus\n    $sort: [MediaListSort]\n  ) {\n    MediaListCollection(\n      userId: $userId\n      userName: $userName\n      type: $type\n      status: $status\n      sort: $sort\n    ) {\n      lists {\n        entries {\n          progress\n          media {\n            id\n            ...WatchCard\n            ...CardMedia\n          }\n        }\n      }\n    }\n  }\n'
+): (typeof documents)['\n  query AnimeList(\n    $userId: Int\n    $userName: String\n    $type: MediaType\n    $status: MediaListStatus\n    $sort: [MediaListSort]\n  ) {\n    MediaListCollection(\n      userId: $userId\n      userName: $userName\n      type: $type\n      status: $status\n      sort: $sort\n    ) {\n      lists {\n        entries {\n          progress\n          media {\n            id\n            ...WatchCard\n            ...CardMedia\n          }\n        }\n      }\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
