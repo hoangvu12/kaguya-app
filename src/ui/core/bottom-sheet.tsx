@@ -71,6 +71,7 @@ const BottomSheet = React.forwardRef<BottomSheetModal, BottomSheetProps>(
         {...props}
       >
         {useScrollView ? (
+          // @ts-ignore
           <SBottomSheetScrollView
             className={twMerge('p-4 rounded-xl', containerViewClassName)}
             {...containerViewProps}

@@ -19,6 +19,7 @@ export const isBufferingAtom = atom(false);
 export const playableDurationAtom = atom(0);
 export const localCurrentTimeAtom = atom(0);
 export const isSlidingAtom = atom(false);
+export const isFastForwardingAtom = atom(false);
 
 export const seekingIndicatorAtom = atom({
   showLeft: () => {},
