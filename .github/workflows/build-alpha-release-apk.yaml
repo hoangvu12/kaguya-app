@@ -31,12 +31,8 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: ⚙️ Run Prebuild
-        run: bun prebuild:alpha
-        shell: bash
-
       - name: 📱 Run Android Build
-        run: bun build:alpha --non-interactive --output=kaguya-${{github.ref_name}}.apk --no-wait --message "Build alpha ${{ github.ref_name }}"
+        run: bun run build:alpha --non-interactive --output=kaguya-${{github.ref_name}}.apk --no-wait --message "Build alpha ${{ github.ref_name }}"
         shell: bash
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
