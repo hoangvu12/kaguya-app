@@ -1,6 +1,6 @@
 {
   "name": "kaguya-app",
-  "version": "0.10.3-alpha",
+  "version": "0.11.3-alpha",
   "private": true,
   "scripts": {
     "start": "expo start --dev-client",
