@@ -1,2 +1,1 @@
-- Fixed episodes being sorted in descending order on the watch screen
-- Added module updater
+- Attempted to fix the app freezing on Samsung and Pixel devices
