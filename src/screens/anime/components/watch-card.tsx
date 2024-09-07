@@ -1,12 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { styled } from 'nativewind';
 import React from 'react';
 
 import { copyToClipboard } from '@/core';
 import type { FragmentType } from '@/gql';
 import { graphql, useFragment } from '@/gql';
-import { addAlpha, colors, Image, Text, View } from '@/ui';
+import { Image, Text, View } from '@/ui';
 import Pressable from '@/ui/core/pressable';
 import MediaUnitStats from '@/ui/media-unit-stats';
 
@@ -32,14 +30,6 @@ interface WatchCardProps {
     title?: string;
   };
 }
-
-const linearGradientColors = [
-  '#00000000',
-  addAlpha(colors.thunder[950], 0.4),
-  addAlpha(colors.thunder[950], 0.8),
-];
-
-const SLinearGradient = styled(LinearGradient);
 
 export const WATCH_CARD_WIDTH = 160;
 
@@ -70,11 +60,6 @@ const WatchCard: React.FC<WatchCardProps> = ({
           }}
           contentFit="cover"
           className="aspect-video w-full rounded-md"
-        />
-
-        <SLinearGradient
-          colors={linearGradientColors}
-          className="absolute top-0 left-0 right-0 bottom-0"
         />
       </Pressable>
 
