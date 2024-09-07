@@ -134,9 +134,9 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
 
               <Else>
                 <EpisodeSectionSelector
-                  episodes={data!.sort(
-                    (a, b) => Number(b.number) - Number(a.number)
-                  )}
+                  episodes={
+                    data?.sort((a, b) => Number(b.number) - Number(a.number))!
+                  }
                 />
                 <EpisodeChunkSelector />
                 <EpisodeLayoutContainer
