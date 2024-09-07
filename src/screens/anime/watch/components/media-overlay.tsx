@@ -15,6 +15,7 @@ import BrightnessSlider from './brightness-slider';
 import BufferingIndicator from './buffering-indicator';
 import GestureHandler from './gesture-handler';
 import MediaControls from './media-controls';
+import MediaFastForwardIndicator from './media-fast-forward-indicator';
 import MediaSeekingGesture from './media-seeking-gesture';
 import MediaSlider from './media-slider';
 import MediaTop from './media-top';
@@ -56,6 +57,7 @@ const MediaOverlay = () => {
         </View>
       </GestureHandler>
 
+      <MediaFastForwardIndicator />
       <SkipTimestampButton />
       <MediaSeekingGesture />
       <VolumeSlider />
