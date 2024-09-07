@@ -135,9 +135,7 @@ const useEpisodes = (
         };
       });
 
-      return episodes.sort((episodeA, episodeB) => {
-        return parseInt(episodeB.number, 10) - parseInt(episodeA.number, 10);
-      });
+      return episodes;
     },
 
     {

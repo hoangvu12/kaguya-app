@@ -133,7 +133,11 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
               </Then>
 
               <Else>
-                <EpisodeSectionSelector episodes={data!} />
+                <EpisodeSectionSelector
+                  episodes={data!.sort(
+                    (a, b) => Number(b.number) - Number(a.number)
+                  )}
+                />
                 <EpisodeChunkSelector />
                 <EpisodeLayoutContainer
                   duration={media.duration || undefined}

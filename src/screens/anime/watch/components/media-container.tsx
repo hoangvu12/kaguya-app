@@ -74,7 +74,10 @@ const MediaContainer: React.FC<MediaContainerProps> = ({
   }
 
   return (
-    <EpisodesContainer currentEpisodeId={currentEpisodeId} episodes={data} />
+    <EpisodesContainer
+      currentEpisodeId={currentEpisodeId}
+      episodes={data.sort((a, b) => Number(a.number) - Number(b.number))}
+    />
   );
 };
 
