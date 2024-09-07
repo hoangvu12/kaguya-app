@@ -1,3 +1,2 @@
-- Added Anime List
-- Added resume playback offset setting (for example, -10 would resume 10 seconds earlier than the last watched time)
-- Added fast forward indicator in Player (when you hold down the player, it will play 2x fast)
+- Fixed episodes being sorted in descending order on the watch screen
+- Added module updater
