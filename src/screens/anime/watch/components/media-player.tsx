@@ -20,6 +20,7 @@ import RNVideo from 'react-native-video';
 import { VideoFormat } from '@/core/video';
 import providers from '@/providers';
 import {
+  resumePlaybackOffsetAtom,
   shouldAutoNextEpisodeAtom,
   shouldSyncAdultAtom,
   syncPercentageAtom,
@@ -112,6 +113,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
   const volume = useAtomValue(volumeAtom);
   const isAdult = useAtomValue(isAdultAtom);
   const syncPercentage = useAtomValue(syncPercentageAtom);
+  const resumePlaybackOffset = useAtomValue(resumePlaybackOffsetAtom);
 
   const showBufferingTimeout = useRef<NodeJS.Timeout | null>(null);
   const shouldMaintainTime = useRef(false);
@@ -398,8 +400,16 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
 
     if (watchedEpisode?.episode?.id !== currentEpisode?.id) return;
 
-    playerRef.current?.seek(watchedEpisode.time);
-  }, [currentEpisode?.id, currentTime, mediaId, setCurrentTime]);
+    const seekTime = watchedEpisode.time + resumePlaybackOffset || 0;
+
+    playerRef.current?.seek(seekTime);
+  }, [
+    currentEpisode?.id,
+    currentTime,
+    mediaId,
+    resumePlaybackOffset,
+    setCurrentTime,
+  ]);
 
   useEffect(() => {
     const interval = setInterval(() => {

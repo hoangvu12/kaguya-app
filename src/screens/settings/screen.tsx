@@ -14,7 +14,7 @@ const SettingsScreen = () => {
         Settings
       </Text>
 
-      <View className="mt-8 mb-16">
+      <View className="mb-16 mt-8">
         <View className="mb-8">
           <AppSettings />
         </View>
