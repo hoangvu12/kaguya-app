@@ -39,6 +39,7 @@ module.exports = {
         project: './tsconfig.json',
       },
       rules: {
+        'tailwindcss/enforces-shorthand': [0],
         'prettier/prettier': [
           'error',
           {

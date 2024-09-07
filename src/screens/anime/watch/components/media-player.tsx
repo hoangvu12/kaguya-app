@@ -474,7 +474,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({
           ? { type: 'resolution', value: currentVideoTrack.height }
           : undefined
       }
-      className="fixed inset-0 z-0 h-full w-full bg-black"
+      className="fixed top-0 left-0 right-0 bottom-0 z-0 h-full w-full bg-black"
       resizeMode={resizeMode}
       onError={(error) => {
         Toast.show({

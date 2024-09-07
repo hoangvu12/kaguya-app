@@ -50,7 +50,7 @@ const GenreCard: React.FC<{ genre: Genre }> = React.memo(
             contentFit="cover"
           />
 
-          <View className="absolute inset-0 flex items-center justify-center bg-thunder-900/70">
+          <View className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-thunder-900/70">
             <Text variant="md">{label}</Text>
           </View>
         </View>

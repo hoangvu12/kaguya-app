@@ -35,7 +35,7 @@ export const Banner = ({ bannerImage }: BannerProps) => {
 
       <SLinearGradient
         colors={linearGradientColors}
-        className="absolute inset-0 flex flex-row items-end rounded-md"
+        className="absolute top-0 left-0 right-0 bottom-0 flex flex-row items-end rounded-md"
       />
     </View>
   );

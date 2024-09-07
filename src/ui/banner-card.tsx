@@ -139,7 +139,7 @@ const BannerItem = React.memo(
 
         <SLinearGradient
           colors={linearGradientColors}
-          className="absolute inset-0 flex flex-row items-end rounded-md"
+          className="absolute top-0 left-0 right-0 bottom-0 flex flex-row items-end rounded-md"
         >
           <View className="w-full p-4">
             <MediaUnitStats media={media} className="mt-1" />

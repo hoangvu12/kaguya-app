@@ -65,7 +65,7 @@ const PlayerContainer: React.FC<PlayerContainerProps> = ({
   if (shouldAskForSyncing && shouldAskForSyncingSetting) {
     return (
       <Modal isVisible={true}>
-        <View className="absolute inset-0 flex items-center justify-center">
+        <View className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
           <View className="w-96 rounded-md bg-thunder-800 p-4">
             <Text weight="semibold" variant="xl" className="mb-8 text-center">
               Do you want to sync your progress?
