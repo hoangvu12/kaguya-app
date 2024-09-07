@@ -10,6 +10,7 @@ import { AnimeDetailsScreen } from '@/screens/anime/details/screen';
 import RecentlyWatchedScreen from '@/screens/anime/recently-watched/screen';
 import { AnimeWatchScreen } from '@/screens/anime/watch/screen';
 import CharacterDetailsScreen from '@/screens/character-details/screen';
+import ModuleUpdater from '@/ui/module-updater';
 import Updater from '@/ui/updater';
 
 import { NavigationContainer } from './navigation-container';
@@ -93,6 +94,7 @@ export const RootNavigator = () => {
           <NavigationContainer>
             <Root />
             <Updater />
+            <ModuleUpdater />
           </NavigationContainer>
         </BottomSheetModalProvider>
       </WebViewProvider>
