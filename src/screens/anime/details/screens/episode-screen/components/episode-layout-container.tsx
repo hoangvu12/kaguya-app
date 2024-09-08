@@ -9,7 +9,7 @@ import EpisodeDetails from '@/screens/anime/components/episode-details';
 import { getWatchedEpisode } from '@/storage/episode';
 import { Text, View } from '@/ui';
 
-import { episodeChunkAtom, layoutModeAtom } from '../store';
+import { episodeChunkAtom, isAscendingAtom, layoutModeAtom } from '../store';
 
 const PADDING = 16;
 const SPACE_BETWEEN = 4;
@@ -21,6 +21,8 @@ const EpisodeLayoutContainer: React.FC<{
 }> = ({ mediaId, progress, duration }) => {
   const layoutMode = useAtomValue(layoutModeAtom);
   const episodes = useAtomValue(episodeChunkAtom);
+  const isAscending = useAtomValue(isAscendingAtom);
+
   const { width } = useScreenSize();
 
   const navigation = useNavigation();
@@ -50,6 +52,14 @@ const EpisodeLayoutContainer: React.FC<{
 
     return watchedEp.time / durationInSeconds;
   }, [duration, progress, watchedEp?.episode?.number, watchedEp?.time]);
+
+  const sortedEpisodes = useMemo(() => {
+    if (isAscending) {
+      return episodes.sort((a, b) => Number(a.number) - Number(b.number));
+    }
+
+    return episodes.sort((a, b) => Number(b.number) - Number(a.number));
+  }, [episodes, isAscending]);
 
   return (
     <React.Fragment>
@@ -102,7 +112,7 @@ const EpisodeLayoutContainer: React.FC<{
 
       {layoutMode === 'card' ? (
         <FlashList
-          data={episodes}
+          data={sortedEpisodes}
           numColumns={2}
           renderItem={({ item: episode, index }) => {
             const episodeNumber = parseInt(episode.number, 10);

@@ -16,3 +16,5 @@ export const episodeChunksAtom = selectAtom(sectionEpisodesAtom, (episodes) => {
 export const episodeChunkAtom = atom<Episode[]>([]);
 
 export const layoutModeAtom = atom<'details' | 'card'>('details');
+
+export const isAscendingAtom = atom(true);

@@ -1,5 +1,9 @@
-import { useAtomValue, useSetAtom } from 'jotai/react';
-import { RotateCwIcon } from 'lucide-react-native';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai/react';
+import {
+  ArrowDownAZIcon,
+  ArrowUpAZIcon,
+  RotateCwIcon,
+} from 'lucide-react-native';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Else, If, Then } from 'react-if';
 
@@ -10,7 +14,11 @@ import { ActivityIndicator, colors, Text, View } from '@/ui';
 import Pressable from '@/ui/core/pressable';
 
 import useEpisodes from '../hooks/use-episodes';
-import { episodeChunkAtom, sectionEpisodesAtom } from '../store';
+import {
+  episodeChunkAtom,
+  isAscendingAtom,
+  sectionEpisodesAtom,
+} from '../store';
 import EpisodeChunkSelector from './episode-chunk-selector';
 import EpisodeLayoutContainer from './episode-layout-container';
 import EpisodeLayoutSelector from './episode-layout-selector';
@@ -38,6 +46,7 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
 }) => {
   const media = useFragment(EpisodeContainerFragment, mediaFragment);
   const currentModuleId = useAtomValue(currentModuleIdAtom);
+  const [isAscending, setIsAscending] = useAtom(isAscendingAtom);
   const [episodeFetchingStatus, setEpisodeFetchingStatus] = useState<{
     isError: boolean;
     status: string;
@@ -101,6 +110,18 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
 
         <Pressable
           onPress={() => {
+            setIsAscending(!isAscending);
+          }}
+        >
+          {isAscending ? (
+            <ArrowDownAZIcon size={24} color="white" />
+          ) : (
+            <ArrowUpAZIcon size={24} color="white" />
+          )}
+        </Pressable>
+
+        <Pressable
+          onPress={() => {
             refetch();
           }}
         >
@@ -133,11 +154,7 @@ const EpisodeContainer: React.FC<EpisodeContainerProps> = ({
               </Then>
 
               <Else>
-                <EpisodeSectionSelector
-                  episodes={
-                    data?.sort((a, b) => Number(b.number) - Number(a.number))!
-                  }
-                />
+                <EpisodeSectionSelector episodes={data!} />
                 <EpisodeChunkSelector />
                 <EpisodeLayoutContainer
                   duration={media.duration || undefined}
