@@ -1,1 +1,6 @@
-- Attempted to fix the app freezing on Samsung and Pixel devices
+- Added a player lock button.
+- Added a random anime button.
+- Fixed issue where the video doesn't resume when closing the settings.
+- Added restoration of the previous playback rate when fast forwarding.
+- Fixed issue where "continue watching" doesn't show until selecting the correct episode chunk.
+- Added an episode sorting button.
