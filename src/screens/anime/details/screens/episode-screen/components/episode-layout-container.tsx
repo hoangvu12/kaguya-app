@@ -9,7 +9,12 @@ import EpisodeDetails from '@/screens/anime/components/episode-details';
 import { getWatchedEpisode } from '@/storage/episode';
 import { Text, View } from '@/ui';
 
-import { episodeChunkAtom, isAscendingAtom, layoutModeAtom } from '../store';
+import {
+  episodeChunkAtom,
+  isAscendingAtom,
+  layoutModeAtom,
+  sectionEpisodesAtom,
+} from '../store';
 
 const PADDING = 16;
 const SPACE_BETWEEN = 4;
@@ -20,7 +25,8 @@ const EpisodeLayoutContainer: React.FC<{
   duration: number | undefined;
 }> = ({ mediaId, progress, duration }) => {
   const layoutMode = useAtomValue(layoutModeAtom);
-  const episodes = useAtomValue(episodeChunkAtom);
+  const episodesChunk = useAtomValue(episodeChunkAtom);
+  const sectionEpisodes = useAtomValue(sectionEpisodesAtom);
   const isAscending = useAtomValue(isAscendingAtom);
 
   const { width } = useScreenSize();
@@ -38,7 +44,7 @@ const EpisodeLayoutContainer: React.FC<{
     return getWatchedEpisode(mediaId);
   }, [mediaId]);
 
-  const progressEpisode = episodes.find(
+  const progressEpisode = sectionEpisodes.find(
     (ep) => parseInt(ep.number, 10) === progress
   );
 
@@ -55,11 +61,11 @@ const EpisodeLayoutContainer: React.FC<{
 
   const sortedEpisodes = useMemo(() => {
     if (isAscending) {
-      return episodes.sort((a, b) => Number(a.number) - Number(b.number));
+      return episodesChunk.sort((a, b) => Number(a.number) - Number(b.number));
     }
 
-    return episodes.sort((a, b) => Number(b.number) - Number(a.number));
-  }, [episodes, isAscending]);
+    return episodesChunk.sort((a, b) => Number(b.number) - Number(a.number));
+  }, [episodesChunk, isAscending]);
 
   return (
     <React.Fragment>
@@ -83,7 +89,7 @@ const EpisodeLayoutContainer: React.FC<{
 
       {layoutMode === 'details' ? (
         <FlashList
-          data={episodes}
+          data={episodesChunk}
           estimatedItemSize={161}
           renderItem={({ item: episode }) => {
             const episodeNumber = parseInt(episode.number, 10);
