@@ -15,6 +15,7 @@ import {
   videoSizeAtom,
 } from '../store';
 import EpisodesButton from './episodes-button';
+import LockButton from './lock-button';
 import MediaSettings from './media-settings';
 import MediaSlidingIndicator from './media-sliding-indicator';
 import MediaToggleSubtitle from './media-toggle-subtitle';
@@ -75,6 +76,10 @@ const MediaTop = () => {
 
               <View>
                 <EpisodesButton />
+              </View>
+
+              <View>
+                <LockButton />
               </View>
 
               <View>

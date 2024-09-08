@@ -27,8 +27,6 @@ const SkipTimestampButton = () => {
     <View className="absolute right-4 bottom-12 z-50">
       <Tappable
         onPress={() => {
-          ('skip press');
-
           player?.seek(timestamp.endTime);
         }}
       >

@@ -145,3 +145,5 @@ export const playerResizeMode = atomWithMMKV<'stretch' | 'contain' | 'cover'>(
   'player__resize_mode',
   'contain'
 );
+
+export const isLockedAtom = atom(false);
