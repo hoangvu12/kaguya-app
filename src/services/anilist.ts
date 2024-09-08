@@ -1,5 +1,6 @@
-import type { RequestMiddleware } from 'graphql-request';
+import type { RequestMiddleware, ResponseMiddleware } from 'graphql-request';
 import { GraphQLClient } from 'graphql-request';
+import { ToastAndroid } from 'react-native';
 
 import { getProvider } from '@/storage/provider';
 
@@ -21,6 +22,20 @@ const requestMiddleware: RequestMiddleware = async (request) => {
   };
 };
 
-const anilistClient = new GraphQLClient(endpoint, { requestMiddleware });
+const responseMiddleware: ResponseMiddleware = async (response) => {
+  if (response instanceof Error) {
+    ToastAndroid.show(
+      `[Error AniList Request] (${response.message})`,
+      ToastAndroid.LONG
+    );
+  }
+
+  return response;
+};
+
+const anilistClient = new GraphQLClient(endpoint, {
+  requestMiddleware,
+  responseMiddleware,
+});
 
 export default anilistClient;
