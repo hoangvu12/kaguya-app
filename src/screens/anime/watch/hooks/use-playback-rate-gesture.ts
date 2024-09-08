@@ -1,22 +1,39 @@
-import { useSetAtom } from 'jotai/react';
+import { useAtom, useSetAtom } from 'jotai/react';
 import { Gesture } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
 
-import { isFastForwardingAtom, playBackRateAtom } from '../store';
+import {
+  isFastForwardingAtom,
+  playBackRateAtom,
+  previousPlayBackRateAtom,
+} from '../store';
 
 const usePlaybackRateGesture = () => {
-  const setPlayBackRate = useSetAtom(playBackRateAtom);
+  const [playBackRate, setPlayBackRate] = useAtom(playBackRateAtom);
+  const [previousPlayBackRate, setPreviousPlayBackRate] = useAtom(
+    previousPlayBackRateAtom
+  );
+
   const setIsFastForwarding = useSetAtom(isFastForwardingAtom);
+
+  const onStart = () => {
+    setPreviousPlayBackRate(playBackRate);
+    setIsFastForwarding(true);
+    setPlayBackRate(2);
+  };
+
+  const onEnd = () => {
+    setPlayBackRate(previousPlayBackRate);
+    setIsFastForwarding(false);
+  };
 
   const playBackLongPress = Gesture.LongPress()
     .minDuration(500)
-    .onStart((_event) => {
-      runOnJS(setPlayBackRate)(2);
-      runOnJS(setIsFastForwarding)(true);
+    .onStart(() => {
+      runOnJS(onStart)();
     })
-    .onEnd((_event) => {
-      runOnJS(setPlayBackRate)(1);
-      runOnJS(setIsFastForwarding)(false);
+    .onEnd(() => {
+      runOnJS(onEnd)();
     });
 
   return playBackLongPress;

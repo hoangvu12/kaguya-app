@@ -27,6 +27,7 @@ export const seekingIndicatorAtom = atom({
 });
 
 export const playBackRateAtom = atom(1);
+export const previousPlayBackRateAtom = atom(1);
 export const volumeAtom = atom(1);
 
 export const volumeSliderAtom = atom<{
