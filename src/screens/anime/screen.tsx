@@ -17,6 +17,7 @@ import { BannerList } from '@/ui/banner-card';
 import AiringTodayList from './components/airing-today-list';
 import GenreList from './components/genre-list';
 import PopularThisSeason from './components/popular-this-season';
+import RandomAnime from './components/random-anime';
 import UpcomingNextSeason from './components/upcoming-next-season';
 import WatchedList from './components/watched-list';
 import YourList from './components/your-list';
@@ -37,7 +38,11 @@ export const AnimeHomeScreen = () => {
         <View className="flex-1 space-y-4 p-4">
           <WatchedList />
 
-          <YourList />
+          <View className="mt-4 flex flex-row">
+            <YourList />
+
+            <RandomAnime />
+          </View>
 
           <View className="w-full space-y-2">
             <Text variant="lg">Genres</Text>

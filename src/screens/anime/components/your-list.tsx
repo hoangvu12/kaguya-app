@@ -12,7 +12,7 @@ const YourList = () => {
         navigation.navigate('AnimeList');
       }}
       variant="defaults"
-      className="mt-4 bg-thunder-800"
+      className="mr-2 grow bg-thunder-800"
     >
       <Text>Your Anime List</Text>
     </Button>

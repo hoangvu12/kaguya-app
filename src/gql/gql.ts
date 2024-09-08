@@ -31,6 +31,8 @@ const documents = {
     types.AiringScheduleDocument,
   '\n  query PopularThisSeason($season: MediaSeason, $seasonYear: Int) {\n    Page(page: 1, perPage: 10) {\n      media(\n        type: ANIME\n        sort: [POPULARITY_DESC]\n        season: $season\n        seasonYear: $seasonYear\n        isAdult: false\n        countryOfOrigin: "JP"\n      ) {\n        ...CardMedia\n      }\n    }\n  }\n':
     types.PopularThisSeasonDocument,
+  '\n  query GetMedia($page: Int!) {\n    Page(page: $page, perPage: 1) {\n      media(type: ANIME, isAdult: false) {\n        id\n      }\n    }\n  }\n':
+    types.GetMediaDocument,
   '\n  query UpcomingNextSeason($season: MediaSeason, $seasonYear: Int) {\n    Page(page: 1, perPage: 10) {\n      media(\n        type: ANIME\n        sort: [POPULARITY_DESC]\n        season: $season\n        seasonYear: $seasonYear\n        isAdult: false\n        countryOfOrigin: "JP"\n      ) {\n        ...CardMedia\n      }\n    }\n  }\n':
     types.UpcomingNextSeasonDocument,
   '\n  fragment WatchCard on Media {\n    id\n    title {\n      userPreferred\n    }\n    coverImage {\n      large\n    }\n    bannerImage\n    ...MediaUnitStatsMedia\n  }\n':
@@ -163,6 +165,12 @@ export function graphql(
 export function graphql(
   source: '\n  query PopularThisSeason($season: MediaSeason, $seasonYear: Int) {\n    Page(page: 1, perPage: 10) {\n      media(\n        type: ANIME\n        sort: [POPULARITY_DESC]\n        season: $season\n        seasonYear: $seasonYear\n        isAdult: false\n        countryOfOrigin: "JP"\n      ) {\n        ...CardMedia\n      }\n    }\n  }\n'
 ): (typeof documents)['\n  query PopularThisSeason($season: MediaSeason, $seasonYear: Int) {\n    Page(page: 1, perPage: 10) {\n      media(\n        type: ANIME\n        sort: [POPULARITY_DESC]\n        season: $season\n        seasonYear: $seasonYear\n        isAdult: false\n        countryOfOrigin: "JP"\n      ) {\n        ...CardMedia\n      }\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query GetMedia($page: Int!) {\n    Page(page: $page, perPage: 1) {\n      media(type: ANIME, isAdult: false) {\n        id\n      }\n    }\n  }\n'
+): (typeof documents)['\n  query GetMedia($page: Int!) {\n    Page(page: $page, perPage: 1) {\n      media(type: ANIME, isAdult: false) {\n        id\n      }\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

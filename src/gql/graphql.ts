@@ -4787,6 +4787,18 @@ export type PopularThisSeasonQuery = {
   } | null;
 };
 
+export type GetMediaQueryVariables = Exact<{
+  page: Scalars['Int']['input'];
+}>;
+
+export type GetMediaQuery = {
+  __typename?: 'Query';
+  Page?: {
+    __typename?: 'Page';
+    media?: Array<{ __typename?: 'Media'; id: number } | null> | null;
+  } | null;
+};
+
 export type UpcomingNextSeasonQueryVariables = Exact<{
   season?: InputMaybe<MediaSeason>;
   seasonYear?: InputMaybe<Scalars['Int']['input']>;
@@ -9623,6 +9635,77 @@ export const PopularThisSeasonDocument = {
   PopularThisSeasonQuery,
   PopularThisSeasonQueryVariables
 >;
+export const GetMediaDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetMedia' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'page' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'Page' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'page' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'page' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'perPage' },
+                value: { kind: 'IntValue', value: '1' },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'media' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'type' },
+                      value: { kind: 'EnumValue', value: 'ANIME' },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'isAdult' },
+                      value: { kind: 'BooleanValue', value: false },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetMediaQuery, GetMediaQueryVariables>;
 export const UpcomingNextSeasonDocument = {
   kind: 'Document',
   definitions: [
