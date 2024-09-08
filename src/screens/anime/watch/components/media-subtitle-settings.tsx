@@ -1,7 +1,4 @@
-import {
-  type BottomSheetModal,
-  useBottomSheetModal,
-} from '@gorhom/bottom-sheet';
+import { type BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useAtom, useAtomValue } from 'jotai/react';
 import { CheckIcon } from 'lucide-react-native';
 import React, { useRef } from 'react';
@@ -12,14 +9,16 @@ import SubtitleIcon from '@/ui/icons/subtitle';
 
 import { currentSubtitleAtom, subtitleListAtom } from '../store';
 import MediaSubtitleAdvancedSettings from './media-subtitle-advanced-settings';
-import SettingsBottomSheet from './settings-bottom-sheet';
+import SettingsBottomSheet, {
+  useSettingsBottomSheet,
+} from './settings-bottom-sheet';
 import Tappable from './tappable';
 
 const MediaSubtitleSettings = () => {
   const [currentSubtitle, setCurrentSubtitle] = useAtom(currentSubtitleAtom);
   const subtitles = useAtomValue(subtitleListAtom);
 
-  const { dismissAll } = useBottomSheetModal();
+  const { dismissAll } = useSettingsBottomSheet();
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 

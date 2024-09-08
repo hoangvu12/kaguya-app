@@ -1,7 +1,4 @@
-import {
-  type BottomSheetModal,
-  useBottomSheetModal,
-} from '@gorhom/bottom-sheet';
+import { type BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useAtom } from 'jotai/react';
 import { CheckIcon, GaugeIcon } from 'lucide-react-native';
 import React, { useRef } from 'react';
@@ -10,7 +7,9 @@ import { Text, View } from '@/ui';
 import Pressable from '@/ui/core/pressable';
 
 import { playBackRateAtom } from '../store';
-import SettingsBottomSheet from './settings-bottom-sheet';
+import SettingsBottomSheet, {
+  useSettingsBottomSheet,
+} from './settings-bottom-sheet';
 import Tappable from './tappable';
 
 const playbackRates = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
@@ -19,7 +18,7 @@ const MediaPlayBackSettings = () => {
   const [playbackRate, setPlayBackRate] = useAtom(playBackRateAtom);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-  const { dismissAll } = useBottomSheetModal();
+  const { dismissAll } = useSettingsBottomSheet();
 
   return (
     <React.Fragment>

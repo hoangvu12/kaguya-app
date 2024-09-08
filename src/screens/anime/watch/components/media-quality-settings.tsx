@@ -1,7 +1,4 @@
-import {
-  type BottomSheetModal,
-  useBottomSheetModal,
-} from '@gorhom/bottom-sheet';
+import { type BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useAtom, useAtomValue } from 'jotai/react';
 import { CheckIcon } from 'lucide-react-native';
 import React, { useRef } from 'react';
@@ -11,7 +8,9 @@ import Pressable from '@/ui/core/pressable';
 import QualityIcon from '@/ui/icons/quality';
 
 import { currentQualityAtom, qualityListAtom } from '../store';
-import SettingsBottomSheet from './settings-bottom-sheet';
+import SettingsBottomSheet, {
+  useSettingsBottomSheet,
+} from './settings-bottom-sheet';
 import Tappable from './tappable';
 
 const MediaQualitySettings = () => {
@@ -20,7 +19,7 @@ const MediaQualitySettings = () => {
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-  const { dismissAll } = useBottomSheetModal();
+  const { dismissAll } = useSettingsBottomSheet();
 
   if (!qualityList.length) return null;
 

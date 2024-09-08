@@ -23,6 +23,25 @@ interface SettingsBottomSheetProps
   goBackTitle?: string;
 }
 
+export const useSettingsBottomSheet = () => {
+  const bottomSheetModal = useBottomSheetModal();
+  const setPaused = useSetAtom(pausedAtom);
+
+  const dismiss = useCallback(() => {
+    setPaused(false);
+
+    bottomSheetModal.dismiss();
+  }, [bottomSheetModal, setPaused]);
+
+  const dismissAll = useCallback(() => {
+    setPaused(false);
+
+    bottomSheetModal.dismissAll();
+  }, [bottomSheetModal, setPaused]);
+
+  return { ...bottomSheetModal, dismiss, dismissAll };
+};
+
 const SettingsBottomSheet = React.forwardRef<
   BottomSheetModal,
   React.PropsWithChildren<SettingsBottomSheetProps>
@@ -36,10 +55,8 @@ const SettingsBottomSheet = React.forwardRef<
     },
     ref
   ) => {
-    const setPaused = useSetAtom(pausedAtom);
-
     const screenSize = useScreenSize();
-    const { dismiss, dismissAll } = useBottomSheetModal();
+    const { dismiss, dismissAll } = useSettingsBottomSheet();
 
     const renderBackdrop = useCallback(
       (backdropProps: BottomSheetBackdropProps) => (
@@ -51,11 +68,10 @@ const SettingsBottomSheet = React.forwardRef<
           disappearsOnIndex={-1}
           onPress={() => {
             dismissAll();
-            setPaused(false);
           }}
         />
       ),
-      [dismissAll, setPaused]
+      [dismissAll]
     );
 
     return (
